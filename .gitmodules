@@ -1,3 +1,6 @@
 [submodule "original/specification"]
 	path = original/specification
 	url = git@github.com:open-telemetry/opentelemetry-specification.git
+[submodule "original/community"]
+	path = original/community
+	url = git@github.com:open-telemetry/community.git
