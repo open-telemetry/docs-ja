@@ -1,1 +1,1 @@
-# docs-ja
+# OpenTelemetry
