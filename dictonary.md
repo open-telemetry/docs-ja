@@ -22,11 +22,11 @@
 - Metrics
   - メトリック
 - CorrelationContext
-  - ??? とりあえずCorrelationContext
+  - CorrelationContext
 - Tracer
-  - ??? とりあえずTracer
+  - Tracer
 - Span
-  - ??? とりあえずSpan
+  - Span
 - mutable
   - 改変可能
 - Option
@@ -46,10 +46,12 @@
 - Technical Committee
   - 技術委員会
 - Telemetry exporter
-  - Telemetry exporter???
+  - テレメトリー Exporter
 - Expoter
-  - expoter
+  - Expoter
 - telemetry data
-  - テレメトリデータ
-- Minimal Implementation (API packageの中の)
+  - テレメトリーデータ
+- Minimal Implementation (API packageの中の用語)
   - 最小実装
+- instrument
+  - 計装: (生産工場において、工程を計測し制御する装置を設置・運用すること)

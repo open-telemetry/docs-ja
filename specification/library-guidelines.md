@@ -1,4 +1,4 @@
-# OpenTelemetryにおける、言語ライブラリのデザイン原則
+# OpenTelemetryにおける、言語ライブラリの設計原則
 
 <!--
 This document defines common principles that will help designers create language libraries that are easy to use, are uniform across all supported languages, yet allow enough flexibility for language-specific expressiveness.
@@ -30,25 +30,25 @@ _言語ライブラリの作者への注釈:_ OpenTelemetryのAPIおよびSDK実
 1. The OpenTelemetry API must be well-defined and clearly decoupled from the implementation. This allows end users to consume API only without also consuming the implementation (see points 2 and 3 for why it is important).
 -->
 
-1. OpenTelemetry APIは厳密に定義され、実装と明確に別れていなければいけません。これによりエンドユーザーは実装を気にせずAPIのみ使用できます(なぜこれが重要なのかは、下記の2および3を参照してください)。
+1. OpenTelemetry APIは厳密に定義され、実装と明確に分ける必要があります(MUST)。これによりエンドユーザーは実装を気にせずAPIのみ使用できます(なぜこれが重要なのかは、下記の2および3を参照してください)。
 
 <!--
 2. Third party libraries and frameworks that add instrumentation to their code will have a dependency only on the API of OpenTelemetry language library. The developers of third party libraries and frameworks do not care (and cannot know) what specific implementation of OpenTelemetry is used in the final application.
 -->
 
-2. 機能を提供するサードパーティのライブラリとフレームワークは、OpenTelemetryの言語ライブラリAPIのみに依存します。サードパーティライブラリとフレームワークの開発者は、最終的なアプリケーションでOpentelemetryのどの実装が使われているかを気にしません(そして知ることもできません)。
+2. 機能を提供するサードパーティのライブラリとフレームワークは、OpenTelemetryの言語ライブラリAPIのみに依存します。サードパーティライブラリとフレームワークの開発者は、最終的なアプリケーションでOpenTelemetryのどの実装が使われているかを気にしません(そして知ることもできません)。
 
 <!--
 3. The developers of the final application normally decide how to configure OpenTelemetry SDK and what extensions to use. They should be also free to choose to not use any OpenTelemetry implementation at all, even though the application and/or its libraries are already instrumented.  The rationale is that third-party libraries and frameworks which are instrumented with OpenTelemetry must still be fully usable in the applications which do not want to use OpenTelemetry (so this removes the need for framework developers to have "instrumented" and "non-instrumented" versions of their framework).
 -->
 
-3. 通常、最終的なアプリケーションの開発者がOpenTelemetry SDK をどのように設定し、どのような拡張機能を使用するかを決めます。彼らはそのアプリケーションやライブラリがすでにOpenTelemetryを実装しているにも関わらずその実装を全く使わないこともできます(???)。これは、OpenTelemetryが実装されたサードパーティのライブラリやフレームワークは、OpenTelemetryを使用したくないアプリケーションでも完全に使用可能でなければならないということです(これにより、フレームワークの開発者は、フレームワークの「計測済み」と「未計測」の２つのバージョンを持つ必要がなくなります)。
+3. 通常、最終的なアプリケーションの開発者がOpenTelemetry SDK をどのように設定し、どのような拡張機能を使用するかを決めます。彼らはそのアプリケーションやライブラリがすでにOpenTelemetryを計装していたとしても、その実装を全く使わないこともできます。これは、OpenTelemetryが実装されたサードパーティのライブラリやフレームワークは、OpenTelemetryを使用したくないアプリケーションでも完全に使用可能でなければならない(MUST)ということです(これにより、フレームワークの開発者は、フレームワークの「計装済み」と「未計装」の２つのバージョンを持つ必要がなくなります)。
 
 <!--
 4. The SDK must be clearly separated into wire protocol-independent parts that implement common logic (e.g. batching, tag enrichment by process information, etc.) and protocol-dependent telemetry exporters. Telemetry exporters must contain minimal functionality, thus enabling vendors to easily add support for their specific protocol.
 -->
 
-4. SDK は、(バッチ、タグへのプロセス情報の追加など)共通のロジックを実装するワイヤプロトコルに依存しない部分と、プロトコルに依存したテレメトリーのエクスポートを行う部分とに明確に分離されていなければなりません。Telemetry exporterは最低限の機能のみを持たなければならず、これによりベンダーが特定のプロトコルのサポートを簡単に追加できるようになっています。
+4. SDK は、(バッチ、タグへのプロセス情報の追加など)共通のロジックを実装するワイヤプロトコルに依存しない部分と、プロトコルに依存したテレメトリーのエクスポートを行う部分とに明確に分離されている必要があります(MUST)。Telemetry exporterは最低限の機能のみを持たなければならず(MUST)、これによりベンダーが特定のプロトコルのサポートを簡単に追加できるようになっています。
 
 <!--
 5. The SDK implementation should include the following exporters:
@@ -65,18 +65,18 @@ _言語ライブラリの作者への注釈:_ OpenTelemetryのAPIおよびSDK実
     Other vendor-specific exporters (exporters that implement vendor protocols) should not be included in language libraries and should be placed elsewhere (the exact approach for storing and maintaining vendor-specific exporters will be defined in the future).
 -->
 
-5. SDK実装は以下のexporterを含まなければいけません:
+5. SDK実装は以下のExporterを含むべきです(SHOULD):
     - Jaeger
     - Zipkin
     - OpenCensus
     - Prometheus
     - OpenTelemetry プロトコル (プロトコルが指定され、承認された時)
     - Standard output (あるいは logging)。これはデバッグおよびテストに加えて、様々なログプロキシのツールに使われます
-    - メモリexporter (mock)。これはローカルメモリにテレメトリデータを蓄えます(ユニットテストなどに便利です)
+    - メモリExporter (mock)。これはローカルメモリにテレメトリーデータを蓄えます(ユニットテストなどに便利です)
 
     注意: これらのうちいくつかは複数のプロトコルをサポートします(例: gRPC, Thriftなど)。Exporterの正確な実装リストは今後執筆予定です。
 
-    他のベンダー依存のexporeter(ベンダー独自のプロトコルを実装しているexporter)は言語ライブラリに含まれるべきではありませんし、他の場所に置かれるべきです(ベンダー依存のexporterを置く正確な場所は将来定義される予定です)
+    他のベンダー依存のExporter(ベンダー独自のプロトコルを実装しているExporter)は言語ライブラリに含まれるべきではありません(SHOULD NOT)し、他の場所に置かれるべき(SHOULD)です(ベンダー依存のExporterを置く正確な場所は将来定義される予定です)
 
 <!--
 ## Language Library Generic Design
@@ -88,7 +88,7 @@ _言語ライブラリの作者への注釈:_ OpenTelemetryのAPIおよびSDK実
 Here is a generic design for a language library (arrows indicate calls):
 -->
 
-以下は言語ライブラリの一般的な設計の図です(矢印は呼び出しを含みます):
+以下は言語ライブラリの一般的な設計の図です(矢印は呼び出しを示します):
 
 ![Language Library Design Diagram](../internal/img/library-design.png)
 
@@ -108,19 +108,19 @@ OpenTelemetry 言語ライブラリは2種類のパッケージで構成され�
 Third-party libraries and frameworks that want to be instrumented in OpenTelemetry-compatible way will have a dependency on the API package. The developers of these third-party libraries will add calls to telemetry API to produce telemetry data.
 -->
 
-OpenTelemetryと互換性がある方法で計測したいサードパーティのライブラリとフレームワークはAPIパッケージに依存します。これらサードパーティのライブラリの開発者はテレメトリデータを作成するためにテレメトリAPIの呼び出しを追加します。
+OpenTelemetryと互換性がある方法で計装したいサードパーティのライブラリとフレームワークはAPIパッケージに依存します。これらサードパーティのライブラリの開発者はテレメトリーデータを作成するためにテレメトリーAPIの呼び出しを追加します。
 
 <!--
 Applications that use third-party libraries that are instrumented with OpenTelemetry API will have a choice to enable or not enable the actual delivery of telemetry data. The application can also call telemetry API directly to produce additional telemetry data.
 -->
 
-OpenTelemetry APIで計測されるサードパーティライブラリを使うアプリケーションはテレメトリデータを実際に送信するかしないかを決めることができます。アプリケーションは追加のテレメトリデータを作成するためにテレメトリAPIを直接呼ぶこともできます。
+OpenTelemetry APIで計装されるサードパーティライブラリを使うアプリケーションはテレメトリーデータを実際に送信するかしないかを決めることができます。アプリケーションは追加のテレメトリーデータを作成するためにテレメトリーAPIを直接呼ぶこともできます。
 
 <!--
 In order to enable telemetry the application must take a dependency on the OpenTelemetry SDK, which implements the delivery of the telemetry. The application must also configure exporters so that the SDK knows where and how to deliver the telemetry. The details of how exporters are enabled and configured are language specific.
 -->
 
-テレメトリを有効にするためにアプリケーションはテレメトリを配信する機能を実装したOpenTelemetry SDKへの依存が必要です。また、アプリケーションはテレメトリをどこにどうやって送信するかをexporterに設定する必要があります。どのようにexporterを有効化し、設定するかは言語によって異なります。
+テレメトリーを有効にするためにアプリケーションはテレメトリーを配信する機能を実装したOpenTelemetry SDKへの依存が必要です(MUST)。また、アプリケーションはテレメトリーをどこにどうやって送信するかをExporterに設定する必要があります(MUST)。どのようにExporterを有効化し、設定するかは言語によって異なります。
 
 <!--
 ### API and Minimal Implementation
@@ -132,19 +132,19 @@ In order to enable telemetry the application must take a dependency on the OpenT
 The API package is a self-sufficient dependency, in the sense that if the end-user application or a third-party library depends only on it and does not plug a full SDK implementation then the application will still build and run without failing, although no telemetry data will be actually delivered to a telemetry backend.
 -->
 
-APIパッケージは自己完結型の依存関係にあり、エンドユーザーアプリケーションやサードパーティーライブラリがAPIパッケージだけに依存し、完全なSDK実装に依存しない場合でも、アプリケーションはビルドも実行も失敗しませんが、テレメトリデータは実際にテレメトリバックエンドに配信されません。(???)
+APIパッケージは自己完結性の依存関係にあります。エンドユーザーアプリケーションやサードパーティーライブラリがAPIパッケージだけに依存し、完全なSDK実装に依存しない場合、アプリケーションはビルドも実行もできますが、テレメトリーデータはテレメトリーバックエンドに配信されません。
 
 <!--
 This self-sufficiency is achieved the following way.
 -->
 
-自己完結型は以下の方法によって実現されます。
+自己完結性は以下の方法によって実現されます。
 
 <!--
 The API dependency contains a minimal implementation of the API. When no other implementation is explicitly included in the application no telemetry data will be collected. Here is what active components look like in this case:
 -->
 
-API 依存関係には、API の最小実装が含まれています。他の実装がアプリケーションに明示的に含まれていない場合、テレメトリデータは収集されません。この場合のアクティブなコンポーネントは以下のようになります。
+API 依存関係には、API の最小実装が含まれています。他の実装がアプリケーションに明示的に含まれていない場合、テレメトリーデータは収集されません。この場合のアクティブなコンポーネントは以下のようになります。
 
 ![Minimal Operation Diagram](../internal/img/library-minimal.png)
 
@@ -152,13 +152,13 @@ API 依存関係には、API の最小実装が含まれています。他の実
 It is important that values returned from this minimal implementation of API are valid and do not require the caller to perform extra checks (e.g. createSpan() method should not fail and should return a valid non-null Span object). The caller should not need to know and worry about the fact that minimal implementation is in effect. This minimizes the boilerplate and error handling in the instrumented code.
 -->
 
-APIのこの最小実装から返される値は正しく、呼び出し元が追加のチェックをする必要がないことが重要です(例: createSpan() メソッドは失敗してはならず、必ず正しいnullではないSpanオブジェクトを返す必要があります)。呼び出し元は最小実装が有効かどうかを知ったり心配したりする必要はありません。これにより実装する必要があるコードの量とエラー処理を最小限に抑えられます。
+APIのこの最小実装から返される値は正しく、呼び出し元が追加のチェックをする必要がないことが重要です(例: createSpan() メソッドは失敗してはならず(SHOULD NOT)、正しいnullではないSpanオブジェクトを返すべきです(SHOULD))。呼び出し元は最小実装が有効かどうかを知ったり心配したりする必要はありません。これにより実装する必要があるコードの量とエラー処理を最小限に抑えられます。
 
 <!--
 It is also important that minimal implementation incurs as little performance penalty as possible, so that third-party frameworks and libraries that are instrumented with OpenTelemetry impose negligible overheads to users of such libraries that do not want to use OpenTelemetry too.
 -->
 
-また、OpenTelemetryで計測されたサードパーティのフレームワークやライブラリが、OpenTelemetryを使用したくないライブラリのユーザに無視できるほどのオーバーヘッドを課すことがないように、最小限の実装で可能な限りパフォーマンスのペナルティが発生しないようにすることも重要です。
+また、OpenTelemetryで計装されたサードパーティのフレームワークやライブラリが、OpenTelemetryを使用したくないライブラリのユーザに無視できるほどのオーバーヘッドを課すことがないように、最小実装で可能な限りパフォーマンスのペナルティが発生しないようにすることも重要です。
 
 <!--
 ### SDK Implementation
@@ -208,13 +208,25 @@ Because API and SDK package version numbers are not coupled, every API and SDK p
 
 _TODO: How should third party library authors who use OpenTelemetry for instrumentation guide their end users to find the correct SDK package?_
 
+<!--
 ### Performance and Blocking
+-->
+
+### 性能とブロック
 
 See the [Performance and Blocking](performance.md) specification for
 guidelines on the performance expectations that API implementations should meet, strategies for meeting these expectations, and a description of how implementations should document their behavior under load.
 
+<!--
 ### Concurrency and Thread-Safety
+-->
 
+### 並行性とスレッドセーフ
+
+<!--
 See the [Concurrency and Thread-Safety](concurrency.md) specification for
 guidelines on what concurrency safeties should API implementations provide
 and how they should be documented.
+-->
+
+[並行処理とスレッドセーフティー](concurrency.md) の仕様を参照してください。API 実装が提供すべき並行性に関するガイドラインとどのように文書化されるべきかを説明します。

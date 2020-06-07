@@ -90,7 +90,7 @@ This API consist of a few main classes:
 Private application and library code.
 -->
 
-このディレクトリはアプリケーションとライブラリのコードを提供します。
+非公開のアプリケーションとライブラリのコードです。
 
 ### `/logs` (_将来実装_)
 
@@ -156,7 +156,7 @@ by a Kubernetes container can be linked to a resource that specifies the cluster
 and container name.
 -->
 
-このリソースディレクトリはあるエンティティについて状態あるいはトレースの情報を取得するかを示す [Resource](overview.md#resources) 型を定義します。
+このリソースディレクトリはどのStatsあるいはTraceが記録されたかに関するエンティティに関する情報を記録する [Resource](overview.md#resources) 型を定義します。
 例えばKubernetesクラスターで提供されているmetricはそのクラスター、namespace、pod、あるいはコンテナ名などで使われているリソースと関連があります。
 
 
@@ -176,7 +176,7 @@ This directory describes the SDK implementation for api/trace.
 Private application and library code.
 -->
 
-非公開のアプリケーションあるいはライブラリのコードです。
+非公開のアプリケーションとライブラリのコードです。
 
 ### `/sdk/logs` (_将来実装_)
 
