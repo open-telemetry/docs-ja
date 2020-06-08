@@ -166,56 +166,141 @@ It is also important that minimal implementation incurs as little performance pe
 
 ### SDK 実装
 
+<!--
 SDK implementation is a separate (optional) dependency. When it is plugged in it substitutes the minimal implementation that is included in the API package (exact substitution mechanism is language dependent).
+-->
 
+SDKの実装は、別の(任意の)依存関係にあります。SDK実装が差し込まれると、APIパッケージに含まれる最小実装を代替します(正確な手法は言語に依存します)。
+
+<!--
 SDK implements core functionality that is required for translating API calls into telemetry data that is ready for exporting. Here is how OpenTelemetry components look like when SDK is enabled:
+-->
+
+SDKは、API呼び出しをエクスポート可能なテレメトリーデータに変換するために必要な基本機能を実装しています。以下は、SDKを有効にした場合のOpenTelemetryコンポーネントの図です。
 
 ![Full Operation Diagram](../internal/img/library-full.png)
 
+<!--
 SDK defines an [Exporter interface](trace/sdk.md#span-exporter). Protocol-specific exporters that are responsible for sending telemetry data to backends must implement this interface.
+-->
 
+SDKは、[Exporter インターフェース]（trace/sdk.md#span-exporter）を定義しています。バックエンドへのテレメトリーデータの送信を担当するプロトコル依存のExporterは、このインターフェイスを実装する必要があります(MUST)。
+
+<!--
 SDK also includes optional helper exporters that can be composed for additional functionality if needed.
+-->
 
+SDKには必要に応じて機能を追加するためのヘルパーExporterも含まれています。
+
+<!--
 Library designers need to define the language-specific `Exporter` interface based on [this generic specification](trace/sdk.md#span-exporter).
+-->
 
+ライブラリの設計者は言語独自の `Exporter` インターフェースを [この一般仕様](trace/sdk.md#span-exporter) に基づいて定義する必要があります。
+
+<!--
 #### Protocol Exporters
+-->
 
+#### プロトコルExporter
+
+<!--
 Telemetry backend vendors are expected to implement [Exporter interface](trace/sdk.md#span-exporter). Data received via Export() function should be serialized and sent to the backend in a vendor-specific way.
+-->
 
+テレメトリーバックエンドベンダーは、[Exporter インターフェース](trace/sdk.md#span-exporter)を実装することが期待されています。Export() 関数を介して受信したデータはシリアライズされ、ベンダー固有の方法でバックエンドに送信されるべき(SHOULD)です。
+
+<!--
 Vendors are encouraged to keep protocol-specific exporters as simple as possible and achieve desirable additional functionality such as queuing and retrying using helpers provided by SDK.
+-->
 
+ベンダーは、プロトコル固有のエクスポート機能を可能な限りシンプルに保ち、SDKによって提供されるヘルパーを使用してキューイングやリトライなどの望ましい追加機能を実現することが推奨されます。
+
+<!--
 End users should be given the flexibility of making many of the decisions regarding the queuing, retrying, tagging, batching functionality that make the most sense for their application. For example, if an application's telemetry data must be delivered to a remote backend that has no guaranteed availability the end user may choose to use a persistent local queue and an `Exporter` to retry sending on failures. As opposed to that for an application that sends telemetry to a locally running Agent daemon, the end user may prefer to have a simpler exporting configuration without retrying or queueing.
+-->
 
+エンドユーザは、彼らが作成するアプリケーションにとって最も意味のあるキューイング、リトライ、タグ付け、バッチなどの機能に関する多くの決定を行う柔軟性を与えられるべきです。例えば、アプリケーションのテレメトリーデータが、保証された可用性を持たないリモートバックエンドに配信されなければならない場合、エンドユーザは、永続的なローカルキューと `Exporter` を使用して、障害が発生した場合に送信を再試行することを選択するかもしれません。あるいは、ローカルで動作するAgentデーモンにテレメトリーデータを送信するアプリケーションの場合とは対照的に、エンドユーザは、リトライやキューイングを行わずに、よりシンプルなエクスポート設定を持つことを好むかもしれません。
+
+<!--
 ### Alternative Implementations
+-->
 
+### 代替実装
+
+<!--
 The end-user application may decide to take a dependency on alternative implementation.
+-->
 
+エンドユーザーアプリケーションは、代替実装を使うことができます。
+
+<!--
 SDK provides flexibility and extensibility that may be used by many implementations. Before developing an alternative implementation, please, review extensibility points provided by OpenTelemetry.
+-->
 
+SDKは、多くの実装で使用可能な柔軟性と拡張性を提供します。代替実装を開発する前に、OpenTelemetryが提供する拡張性のポイントを確認してください。
+
+<!--
 An example use case for alternate implementations is automated testing. A mock implementation can be plugged in during automated tests. For example it can store all generated telemetry data in memory and provide a capability to inspect this stored data. This will allow the tests to verify that the telemetry is generated correctly. Language Library authors are encouraged to provide such mock implementation.
+-->
 
+代替実装のユースケースの例としては、自動テストがあります。モック実装は、自動テスト中に差し込むことができます。例えば、生成されたすべてのテレメトリーデータをメモリに保存し、この保存されたデータを検査する機能を提供することができます。これにより、テレメトリーが正しく生成されているかどうかをテストできるようになります。言語ライブラリの作者は、そのようなモック実装を提供することが推奨されます。
+
+<!--
 Note that mocking is also possible by using SDK and a Mock `Exporter` without needed to swap out the entire SDK.
+-->
 
+SDK とモック `Exporter` を使用することで、SDK 全体を交換しなくてもモック化できることに注意してください。
+
+<!--
 The mocking approach chosen will depend on the testing goals and at which point exactly it is desirable to intercept the telemetry data path during the test.
+-->
 
+テストの目標と、テスト中におけるテレメトリーデータの生成経路のどの部分に差し込むことが望ましいかによって、モックを使用するかどうかで決まります。
+
+<!--
 ### Version Labeling
+-->
 
+### バージョンラベル付け
+
+<!--
 API and SDK packages must use semantic version numbering. API package version number and SDK package version number are decoupled and can be different (and they both can be also different from the Specification version number that they implement). API and SDK packages MUST be labeled with their own version number.
+-->
 
+API と SDK パッケージは、セマンティックバージョン番号を使用しなければなりません。API パッケージのバージョン番号と SDK パッケージのバージョン番号は分離されており、異なるものである可能性があります (また、両方ともバージョン番号が異なる仕様で実装されたものである可能性があります)。API パッケージと SDK パッケージには、それぞれのバージョン番号を付けなければなりません(MUST)。
+
+<!--
 This decoupling of version numbers allows language library authors to make API and SDK package releases independently without the need to coordinate and match version numbers with the Specification.
+-->
 
+このバージョン番号の分離により、言語ライブラリの作者は、仕様書とバージョン番号を調整したり一致させたりする必要なく、APIやSDKパッケージのリリースを独立して行うことができるようになりました。
+
+<!--
 Because API and SDK package version numbers are not coupled, every API and SDK package release MUST clearly mention the Specification version number that they implement. In addition, if a particular version of SDK package is only compatible with a specific version of API package, then this compatibility information must be also published by language library authors. Language library authors MUST include this information in the release notes. For example, the SDK package release notes may say: "SDK 0.3.4, use with API 0.1.0, implements OpenTelemetry Specification 0.1.0".
+-->
 
+APIとSDKパッケージのバージョン番号は結合されていないため、すべてのAPIとSDKパッケージのリリースは、それらが実装している仕様のバージョン番号を明確に記載しなければなりません(MUST)。加えて、特定のバージョンのSDKパッケージが特定のバージョンのAPIパッケージとのみ互換性がある場合、この互換性情報は言語ライブラリの作者によっても公開されなければなりません(MUST)。言語ライブラリの作者は、この情報をリリースノートに含めなければなりません(MUST)。例えば、SDKパッケージのリリースノートには次のように記載されています。"SDK 0.3.4, use with API 0.1.0, implements OpenTelemetry Specification 0.1.0".
+
+<!--
 _TODO: How should third party library authors who use OpenTelemetry for instrumentation guide their end users to find the correct SDK package?_
+-->
+
+_TODO: 計装にOpenTelemetryを使用しているサードパーティライブラリの作者は、エンドユーザーが正しいSDKパッケージを見つけるためにどのようにガイドすべきでしょうか?_
+
 
 <!--
 ### Performance and Blocking
 -->
 
-### 性能とブロック
+### パフォーマンスとブロッキング
 
+<!--
 See the [Performance and Blocking](performance.md) specification for
 guidelines on the performance expectations that API implementations should meet, strategies for meeting these expectations, and a description of how implementations should document their behavior under load.
+-->
+
+API実装が満たすべきパフォーマンスの期待値、その期待値を満たすための戦略、および負荷がかかった状態の動作を文書化する方法の説明については、[パフォーマンスとブロッキング](performance.md)仕様を参照してください。
 
 <!--
 ### Concurrency and Thread-Safety
