@@ -55,3 +55,17 @@
   - 最小実装
 - instrument
   - 計装: (生産工場において、工程を計測し制御する装置を設置・運用すること)
+- distributed trace
+  - 分散トレーシング
+- Causal relationships
+  - 因果関係
+- encapsulate
+  - カプセル化
+- Attributes
+  - Attributes
+- identifier
+  - 識別子
+- Link
+  - Link
+- SpanContext
+  - SpanContext

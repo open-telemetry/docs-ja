@@ -10,7 +10,7 @@ This document defines common principles that will help designers create language
 The language libraries are expected to provide full features out of the box and allow for innovation and experimentation through extensibility points.
 -->
 
-言語ライブラリには、すぐに使える完全な機能と、拡張性の点での技術革新や実験を可能にする機能が期待されています。
+言語ライブラリには、すぐに使える完全な機能と、拡張ポイントを通じて技術革新や実験を可能にすることが期待されています。
 
 <!--
 The document does not attempt to describe a language library API. For API specs see [specification](../README.md).
@@ -22,7 +22,7 @@ The document does not attempt to describe a language library API. For API specs 
 _Note to Language Library Authors:_ OpenTelemetry specification, API and SDK implementation guidelines are work in progress. If you notice incomplete or missing information, contradictions, inconsistent styling and other defects please let specification writers know by creating an issue in this repository or posting in [Gitter](https://gitter.im/open-telemetry/opentelemetry-specification). As implementors of the specification you will often have valuable insights into how the specification can be improved. The Specification SIG and members of Technical Committee highly value your opinion and welcome your feedback.
 -->
 
-_言語ライブラリの作者への注釈:_ OpenTelemetryのAPIおよびSDK実装ガイドラインの仕様は策定途中です。もし不完全あるいはまだ書かれていない情報があった場合や、矛盾した形式を見つけた場合は、このリポジトリにIssueを作成するか、 [Gitter](https://gitter.im/open-telemetry/opentelemetry-specification) に投稿して仕様策定者に連絡していただけるようお願いします。あなたは仕様の実装者は仕様をどのように改善するかに関する貴重な洞察をお持ちです。仕様策定SIGと技術委員会はあなたの意見とフィードバックをお待ちしています。
+_言語ライブラリの作者への注釈:_ OpenTelemetryのAPIおよびSDK実装ガイドラインの仕様は策定途中です。もし不完全あるいはまだ書かれていない情報がある場合や、矛盾した表現を見つけた場合は、このリポジトリにIssueを作成するか、 [Gitter](https://gitter.im/open-telemetry/opentelemetry-specification) に投稿して仕様策定者に連絡していただけるようお願いします。あなたは仕様の実装者は仕様をどのように改善するかに関する貴重な洞察をお持ちです。仕様策定SIGと技術委員会はあなたの意見とフィードバックをお待ちしています。
 
 ## 要求
 
@@ -42,13 +42,13 @@ _言語ライブラリの作者への注釈:_ OpenTelemetryのAPIおよびSDK実
 3. The developers of the final application normally decide how to configure OpenTelemetry SDK and what extensions to use. They should be also free to choose to not use any OpenTelemetry implementation at all, even though the application and/or its libraries are already instrumented.  The rationale is that third-party libraries and frameworks which are instrumented with OpenTelemetry must still be fully usable in the applications which do not want to use OpenTelemetry (so this removes the need for framework developers to have "instrumented" and "non-instrumented" versions of their framework).
 -->
 
-3. 通常、最終的なアプリケーションの開発者がOpenTelemetry SDK をどのように設定し、どのような拡張機能を使用するかを決めます。彼らはそのアプリケーションやライブラリがすでにOpenTelemetryを計装していたとしても、その実装を全く使わないこともできます。これは、OpenTelemetryが実装されたサードパーティのライブラリやフレームワークは、OpenTelemetryを使用したくないアプリケーションでも完全に使用可能でなければならない(MUST)ということです(これにより、フレームワークの開発者は、フレームワークの「計装済み」と「未計装」の２つのバージョンを持つ必要がなくなります)。
+3. 通常、最終的なアプリケーションの開発者がOpenTelemetry SDK をどのように設定し、どのような拡張機能を使用するかを決めます。彼らはそのアプリケーションやライブラリがすでにOpenTelemetryを計装していたとしても、その実装を全く使わないこともできます。これはつまり、OpenTelemetryが実装されたサードパーティのライブラリやフレームワークは、OpenTelemetryを使用したくないアプリケーションからでも完全に使用可能でなければならない(MUST)ということです(これにより、フレームワークの開発者は、フレームワークの「計装済み」と「未計装」の２つのバージョンを持つ必要がなくなります)。
 
 <!--
 4. The SDK must be clearly separated into wire protocol-independent parts that implement common logic (e.g. batching, tag enrichment by process information, etc.) and protocol-dependent telemetry exporters. Telemetry exporters must contain minimal functionality, thus enabling vendors to easily add support for their specific protocol.
 -->
 
-4. SDK は、(バッチ、タグへのプロセス情報の追加など)共通のロジックを実装するワイヤプロトコルに依存しない部分と、プロトコルに依存したテレメトリーのエクスポートを行う部分とに明確に分離されている必要があります(MUST)。Telemetry exporterは最低限の機能のみを持たなければならず(MUST)、これによりベンダーが特定のプロトコルのサポートを簡単に追加できるようになっています。
+4. SDK は、(バッチ、タグへのプロセス情報の追加など)共通のロジックを実装するワイヤプロトコルに依存しない部分と、プロトコルに依存したテレメトリーのエクスポートを行う部分とに明確に分離されている必要があります(MUST)。テレメトリー exporterは最低限の機能のみを持たなければならず(MUST)、これによりベンダーが特定のプロトコルのサポートを簡単に追加できるようになっています。
 
 <!--
 5. The SDK implementation should include the following exporters:
@@ -71,7 +71,7 @@ _言語ライブラリの作者への注釈:_ OpenTelemetryのAPIおよびSDK実
     - OpenCensus
     - Prometheus
     - OpenTelemetry プロトコル (プロトコルが指定され、承認された時)
-    - Standard output (あるいは logging)。これはデバッグおよびテストに加えて、様々なログプロキシのツールに使われます
+    - 標準出力 (あるいは logging)。これはデバッグおよびテストに加えて、様々なログプロキシのツールに使われます
     - メモリExporter (mock)。これはローカルメモリにテレメトリーデータを蓄えます(ユニットテストなどに便利です)
 
     注意: これらのうちいくつかは複数のプロトコルをサポートします(例: gRPC, Thriftなど)。Exporterの正確な実装リストは今後執筆予定です。
@@ -152,13 +152,13 @@ API 依存関係には、API の最小実装が含まれています。他の実
 It is important that values returned from this minimal implementation of API are valid and do not require the caller to perform extra checks (e.g. createSpan() method should not fail and should return a valid non-null Span object). The caller should not need to know and worry about the fact that minimal implementation is in effect. This minimizes the boilerplate and error handling in the instrumented code.
 -->
 
-APIのこの最小実装から返される値は正しく、呼び出し元が追加のチェックをする必要がないことが重要です(例: createSpan() メソッドは失敗してはならず(SHOULD NOT)、正しいnullではないSpanオブジェクトを返すべきです(SHOULD))。呼び出し元は最小実装が有効かどうかを知ったり心配したりする必要はありません。これにより実装する必要があるコードの量とエラー処理を最小限に抑えられます。
+APIのこの最小実装から返される値は正しく、呼び出し元が追加のチェックをする必要がないことが重要です(例: createSpan() メソッドは失敗してはならず(SHOULD NOT)、正しいnullではないSpanオブジェクトを返すべきです(SHOULD))。呼び出し元は最小実装が有効かどうかを調べたり心配したりする必要はありません。これにより実装する必要があるコードの量とエラー処理を最小限に抑えられます。
 
 <!--
 It is also important that minimal implementation incurs as little performance penalty as possible, so that third-party frameworks and libraries that are instrumented with OpenTelemetry impose negligible overheads to users of such libraries that do not want to use OpenTelemetry too.
 -->
 
-また、OpenTelemetryで計装されたサードパーティのフレームワークやライブラリが、OpenTelemetryを使用したくないライブラリのユーザに無視できるほどのオーバーヘッドを課すことがないように、最小実装で可能な限りパフォーマンスのペナルティが発生しないようにすることも重要です。
+また、OpenTelemetryで計装されたサードパーティのフレームワークやライブラリが、OpenTelemetryを使用したくないライブラリのユーザに無視できるほどのオーバーヘッドを課すことがないように、最小実装で可能な限りパフォーマンスへのペナルティが発生しないようにすることも重要です。
 
 <!--
 ### SDK Implementation
@@ -184,7 +184,7 @@ SDKは、API呼び出しをエクスポート可能なテレメトリーデー�
 SDK defines an [Exporter interface](trace/sdk.md#span-exporter). Protocol-specific exporters that are responsible for sending telemetry data to backends must implement this interface.
 -->
 
-SDKは、[Exporter インターフェース]（trace/sdk.md#span-exporter）を定義しています。バックエンドへのテレメトリーデータの送信を担当するプロトコル依存のExporterは、このインターフェイスを実装する必要があります(MUST)。
+SDKは、 [Exporter インターフェース](trace/sdk.md#span-exporter) を定義しています。バックエンドへのテレメトリーデータの送信を担当するプロトコル依存のExporterは、このインターフェイスを実装する必要があります(MUST)。
 
 <!--
 SDK also includes optional helper exporters that can be composed for additional functionality if needed.
@@ -220,7 +220,7 @@ Vendors are encouraged to keep protocol-specific exporters as simple as possible
 End users should be given the flexibility of making many of the decisions regarding the queuing, retrying, tagging, batching functionality that make the most sense for their application. For example, if an application's telemetry data must be delivered to a remote backend that has no guaranteed availability the end user may choose to use a persistent local queue and an `Exporter` to retry sending on failures. As opposed to that for an application that sends telemetry to a locally running Agent daemon, the end user may prefer to have a simpler exporting configuration without retrying or queueing.
 -->
 
-エンドユーザは、彼らが作成するアプリケーションにとって最も意味のあるキューイング、リトライ、タグ付け、バッチなどの機能に関する多くの決定を行う柔軟性を与えられるべきです。例えば、アプリケーションのテレメトリーデータが、保証された可用性を持たないリモートバックエンドに配信されなければならない場合、エンドユーザは、永続的なローカルキューと `Exporter` を使用して、障害が発生した場合に送信を再試行することを選択するかもしれません。あるいは、ローカルで動作するAgentデーモンにテレメトリーデータを送信するアプリケーションの場合とは対照的に、エンドユーザは、リトライやキューイングを行わずに、よりシンプルなエクスポート設定を持つことを好むかもしれません。
+エンドユーザは、彼らが作成するアプリケーションにとって最も意味のあるキューイング、リトライ、タグ付け、バッチなどの機能に関する多くの決定を行う柔軟性を与えられるべきです。例えば、アプリケーションのテレメトリーデータが、保証された可用性を持たないリモートバックエンドに配信されなければならない場合、エンドユーザは、永続的なローカルキューと `Exporter` を使用して、障害が発生した場合に送信を再試行することを選択するかもしれません。あるいは、ローカルで動作するAgentデーモンにテレメトリーデータを送信するアプリケーションの場合とは逆に、エンドユーザはリトライやキューイングを行わずに、よりシンプルなエクスポート設定を持つことを好むかもしれません。
 
 <!--
 ### Alternative Implementations
@@ -238,7 +238,7 @@ The end-user application may decide to take a dependency on alternative implemen
 SDK provides flexibility and extensibility that may be used by many implementations. Before developing an alternative implementation, please, review extensibility points provided by OpenTelemetry.
 -->
 
-SDKは、多くの実装で使用可能な柔軟性と拡張性を提供します。代替実装を開発する前に、OpenTelemetryが提供する拡張性のポイントを確認してください。
+SDKは、多くの実装で使用可能な柔軟性と拡張性を提供します。代替実装を開発する前に、OpenTelemetryが提供する拡張ポイントを確認してください。
 
 <!--
 An example use case for alternate implementations is automated testing. A mock implementation can be plugged in during automated tests. For example it can store all generated telemetry data in memory and provide a capability to inspect this stored data. This will allow the tests to verify that the telemetry is generated correctly. Language Library authors are encouraged to provide such mock implementation.
@@ -256,7 +256,7 @@ SDK とモック `Exporter` を使用することで、SDK 全体を交換しな
 The mocking approach chosen will depend on the testing goals and at which point exactly it is desirable to intercept the telemetry data path during the test.
 -->
 
-テストの目標と、テスト中におけるテレメトリーデータの生成経路のどの部分に差し込むことが望ましいかによって、モックを使用するかどうかで決まります。
+テストの目標と、テスト中におけるテレメトリーデータの生成経路のどの部分に差し込むことが望ましいかによって、モックを使用するかどうかが決まります。
 
 <!--
 ### Version Labeling
@@ -300,7 +300,7 @@ See the [Performance and Blocking](performance.md) specification for
 guidelines on the performance expectations that API implementations should meet, strategies for meeting these expectations, and a description of how implementations should document their behavior under load.
 -->
 
-API実装が満たすべきパフォーマンスの期待値、その期待値を満たすための戦略、および負荷がかかった状態の動作を文書化する方法の説明については、[パフォーマンスとブロッキング](performance.md)仕様を参照してください。
+API実装が満たすべきパフォーマンスの期待値、その期待値を満たすための戦略、および負荷がかかった状態の動作を文書化する方法については、[パフォーマンスとブロッキング](performance.md)仕様を参照してください。
 
 <!--
 ### Concurrency and Thread-Safety
@@ -314,4 +314,4 @@ guidelines on what concurrency safeties should API implementations provide
 and how they should be documented.
 -->
 
-[並行処理とスレッドセーフティー](concurrency.md) の仕様を参照してください。API 実装が提供すべき並行性に関するガイドラインとどのように文書化されるべきかを説明します。
+[並行処理とスレッドセーフ](concurrency.md) の仕様を参照してください。API 実装が提供すべき並行性に関するガイドラインとどのように文書化されるべきかを説明します。
