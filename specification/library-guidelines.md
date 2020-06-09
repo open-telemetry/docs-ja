@@ -48,7 +48,7 @@ _言語ライブラリの作者への注釈:_ OpenTelemetryのAPIおよびSDK実
 4. The SDK must be clearly separated into wire protocol-independent parts that implement common logic (e.g. batching, tag enrichment by process information, etc.) and protocol-dependent telemetry exporters. Telemetry exporters must contain minimal functionality, thus enabling vendors to easily add support for their specific protocol.
 -->
 
-4. SDK は、(バッチ、タグへのプロセス情報の追加など)共通のロジックを実装するワイヤプロトコルに依存しない部分と、プロトコルに依存したテレメトリーのエクスポートを行う部分とに明確に分離されている必要があります(MUST)。テレメトリー exporterは最低限の機能のみを持たなければならず(MUST)、これによりベンダーが特定のプロトコルのサポートを簡単に追加できるようになっています。
+4. SDK は、(バッチ、タグへのプロセス情報の追加など)共通のロジックを実装するワイヤプロトコルに依存しない部分と、プロトコルに依存したテレメトリーのエクスポートを行う部分とに明確に分離されている必要があります(MUST)。テレメトリーExporterは最低限の機能のみを持たなければならず(MUST)、これによりベンダーが特定のプロトコルのサポートを簡単に追加できるようになっています。
 
 <!--
 5. The SDK implementation should include the following exporters:
