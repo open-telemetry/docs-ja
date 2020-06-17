@@ -155,7 +155,7 @@ initiated by multiple initiating **Spans**, each representing a single incoming
 item being processed in the batch.
 -->
 
-1つの**Span**は、因果関係のある0個以上の他の**Span** (**SpanContext**によって定義されます) にLinkすることができます。**Link**は、単一の**Trace**内の**SpanContext**、または異なる**Trace**間の**SpanContext**を指すことができます。**Link**は、**Span**が複数の**Span**によって開始され、それぞれがバッチで処理されている1つのアイテムを表している場合に、バッチ処理を表すために使用できます。(???incoming itemがなにを示しているか分からない)
+1つの**Span**は、因果関係のある0個以上の他の**Span** (**SpanContext**によって定義されます) にLinkできます。**Link**は、単一の**Trace**内の**SpanContext**、または異なる**Trace**間の**SpanContext**を指せます。**Link**は、複数の**Span**によって**Span**が開始され、それぞれのSpanがバッチで処理されている受信したアイテムを表している場合に、バッチ処理を表すために使用できます。
 
 <!--
 Another example of using a **Link** is to declare the relationship between
@@ -166,7 +166,7 @@ also represent a long running asynchronous data processing operation that was
 initiated by one of many fast incoming requests.
 -->
 
-**Link**を使用するもう一つの例は、開始元のTraceと後続のTraceの関係を宣言することです。これは、**Trace**がサービスの信頼された境界に入り、サービスポリシーが受信トレースコンテキストを信頼するのではなく、新しいTraceの生成を必要とする場合に使用できます。新しくLinkされたTraceは、多くの高速なリクエストのうちの1つによって開始された、長い間実行されている非同期データ処理操作を表すこともできます。
+**Link**を使用するもう一つの例は、開始元のTraceと後続のTraceの関係を宣言することです。Linkは、**Trace**がサービスの信頼された境界に入り、サービスの方針として受信したTraceのコンテキストをそのまま使うのではなく新しいTraceの生成が必要だと判断した場合に使用できます。新しくLinkされたTraceは、多くの高速なリクエストのうちの1つによって開始された、長い間実行されている非同期データ処理操作を表すこともできます。
 
 <!--
 When using the scatter/gather (also called fork/join) pattern, the root
@@ -180,7 +180,7 @@ encloses the child **Span**. This is not the case in scatter/gather and batch
 scenarios.
 -->
 
-scatter/gather(fork/joinとも呼ばれます)パターンを使用する場合、大本の操作から複数の下流の処理操作が開始され、それらの操作はすべて1つの**Span**に集約されます。この最後の**Span**は、集約する多くの操作にLinkされています。これらはすべて、同じTraceからの**span**です。また、**Span**の親フィールドと似ています。しかし、このシナリオでは親フィールドは一つの親を意味的に表すシナリオのため、**Span** の親を設定しないことをお勧めします。多くの場合親の **Span** は子の **Span** を完全に含んでいるおり、scatter/gatherやバッチのシナリオではこのようなことはありません。(???ちょっと文章構造が難解)
+scatter/gather(fork/joinとも呼ばれます)パターンを使用する場合、大本の操作から複数の下流の処理操作が開始され、それらの操作はすべて1つの**Span**に集約されます。この最後の**Span**は、集約する多くの操作にLinkされています。これらはすべて、同じTraceからの**Span**です。また、**Span**の親フィールドと似ています。しかし、親フィールドは意味的に一つの親を持つシナリオを表すため、このシナリオでは**Span**の親を設定しないことをお勧めします。多くの場合親の **Span** は子の **Span** を完全に含んでいます。しかし、scatter/gatherやバッチのシナリオではこのようなことはありません。
 
 <!--
 ## Metrics
@@ -218,7 +218,7 @@ OpenTelemetry APIを使用してあらかじめ定義された集計でメトリ
 ### Recording raw measurements
 -->
 
-### 生の測定値を記録
+### 生の測定値を記録する
 
 <!--
 The main classes used to record raw measurements are `Measure` and
@@ -249,7 +249,7 @@ application that will aggregate those individual measurements into a `Metric`.
 SDK.
 -->
 
-`Measurement` は `Measure` のために収集する単一の値を表します。 `Measurement` はAPIに対する空のインターフェイスです(???ここでのSurfaceとはどういう意味か)。このインタフェースはSDKで定義されています。
+`Measurement` は `Measure` のために収集する単一の値を表します。 `Measurement` はAPI定義です。このインタフェースはSDKで定義されています。
 
 <!--
 ### Recording metrics with predefined aggregation
@@ -321,7 +321,7 @@ backend, rely on the backend to perform validation, and pass back any errors
 from the backend.
 -->
 
-このため、メトリックはデータにキーで許可される文字などの最小限の制約を課すだけにし、Metrics を扱うコードは Metrics データのバリデーションとサニタイズを避けるべきです(SHOULD)。その代わりに、バックエンドにデータを渡し、バックエンドによる検証を信頼し、バックエンドからのエラーはすべて送り返してください。(??? pass backの訳が不明)
+このため、メトリックはデータに対しての最小限の制約を課すだけ(キーで許可される文字など)にし、Metrics を扱うコードは Metrics データのバリデーションとサニタイズを避けるべきです(SHOULD)。その代わりに、バックエンドにデータを渡し、バックエンドによる検証を信頼し、バックエンドからのエラーはすべて送り返してください。
 
 ## CorrelationContext
 
@@ -332,7 +332,7 @@ indexing observability events in one service with attributes provided by a prior
 the same transaction. This helps to establish a causal relationship between these events.
 -->
 
-Traceの伝播に加えて、OpenTelemetryは名前と値のペアを伝播するための `CorrelationContext` と呼ばれるシンプルなメカニズムを提供します。`CorrelationContext` は、あるサービスの観測可能イベントを、同じトランザクション内で先行するサービスが提供する属性を含めてインデックス化することを目的としています。これにより、イベントの間に相関関係を構築できます。
+Traceの伝播に加えて、OpenTelemetryは名前と値のペアを伝播するための `CorrelationContext` と呼ばれるシンプルなメカニズムを提供します。`CorrelationContext` は、あるサービスの可観測性に関するイベントを、同じトランザクション内で先行するサービスが提供する属性を含めてインデックス化することを目的としています。これにより、イベントの間に相関関係を構築できます。
 
 <!--
 The `CorrelationContext` implements the editor's draft of the [W3C Correlation-Context specification](https://w3c.github.io/correlation-context/).
@@ -340,7 +340,7 @@ While `CorrelationContext` can be used to prototype other cross-cutting concerns
 to convey values for the OpenTelemetry observability systems.
 -->
 
-`CorrelationContext` はドラフト状態の [W3C Correlation-Context 仕様](https://w3c.github.io/correlation-context/)を実装しています。`CorrelationContext` は他の横断的な関心事をプロトタイプ化するために使うことができますが、このメカニズムは主にOpenTelemetryの観測システムのために値を伝えることを意図しています。(???プロトタイプの意味、observability systemsの訳語)
+`CorrelationContext` はドラフト状態の [W3C Correlation-Context 仕様](https://w3c.github.io/correlation-context/)を実装しています。`CorrelationContext`は他の関連するコンポーネントをプロトタイプとして使えますが、このメカニズムは主にOpenTelemetryの可観測性システムのために値を伝えることを意図しています。
 
 <!--
 These values can be consumed from `CorrelationContext` and used as additional dimensions for metrics,
