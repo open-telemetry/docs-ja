@@ -47,8 +47,8 @@
   - 技術委員会
 - Telemetry exporter
   - テレメトリー Exporter
-- Expoter
-  - Expoter
+- Exporter
+  - Exporter
 - telemetry data
   - テレメトリーデータ
 - Minimal Implementation (API packageの中の用語)
