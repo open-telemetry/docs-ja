@@ -29,7 +29,7 @@ Cross-cutting concerns access their data in-process using the same shared
 `Context` object.
 -->
 
-`Context` は、論理的に関連がある実行ユニット間でAPIの境界を越えて、実行時の値を伝達する伝搬メカニズムです。関連するコンポーネント(???Cross-cutting concerns)は、同じ共有されている `Context` オブジェクトを使ってプロセス中のデータにアクセスします。
+`Context` は、論理的に関連がある実行ユニット間でAPIの境界を越えて、実行時の値を伝達する伝搬メカニズムです。関連するコンポーネントは、同じ共有されている `Context` オブジェクトを使ってプロセス中のデータにアクセスします。
 
 <!--
 A `Context` MUST be immutable, and its write operations MUST
@@ -57,7 +57,7 @@ perform operations such as setting trace or correlation context values for
 a specified `Context`.
 -->
 
-暗黙的に `Context` を使用する言語では、`Context` API を直接使用しないようにしてください。このような場合、指定された `Context` に対してTraceやCorrelation Contextを設定するなどの操作を行うために、関連するコンポーネント(???Cross-cutting concerns)がAPIを介して `Context` を操作することになります。
+暗黙的に `Context` を使用する言語では、`Context` API を直接使用しないようにしてください。このような場合、指定された `Context` に対してTraceやCorrelation Contextを設定するなどの操作を行うために、関連するコンポーネントがAPIを介して `Context` を操作することになります。
 
 <!--
 A `Context` is expected to have the following operations, with their
@@ -79,7 +79,7 @@ cannot accidentally use the same key. It is recommended that concerns mediate
 data access via an API, rather than provide direct public access to their keys.
 -->
 
-キーは、関連するコンポーネント(???Cross-cutting concerns)がそのローカルに持つ状態へのアクセスを制御できるようにするために使用します。同じContextを使用する可能性のある他のライブラリが誤って同じキーを使用することができないように、キーは一意です。関連するコンポーネント(???Cross-cutting concerns)は、鍵への直接的なパブリックアクセスを提供するのではなく、APIを介したデータアクセスを推奨します。
+キーは、関連するコンポーネントがそのローカルに持つ状態へのアクセスを制御できるようにするために使用します。同じContextを使用する可能性のある他のライブラリが誤って同じキーを使用することができないように、キーは一意です。関連するコンポーネントは、鍵への直接的なパブリックアクセスを提供するのではなく、APIを介したデータアクセスを推奨します。
 
 <!--
 The API MUST accept the following parameters:
@@ -111,7 +111,7 @@ Concerns can access their local state in the current execution state
 represented by a `Context`.
 -->
 
-関連するコンポーネント(???Concern)がローカルの状態を、`Context`で表される現在実行中の状態から取得します。
+関連するコンポーネントがローカルの状態を、`Context`で表される現在実行中の状態から取得します。
 
 <!--
 The API MUST accept the following parameters:
@@ -145,7 +145,7 @@ Concerns can record their local state in the current execution state
 represented by a `Context`.
 -->
 
-関連するコンポーネント(???Concern)はローカルの状態を、`Context`で表される現在実行中の状態に設定します。
+関連するコンポーネントはローカルの状態を、`Context`で表される現在実行中の状態に設定します。
 
 
 
@@ -185,7 +185,7 @@ SHOULD only be used to implement automatic scope switching and define
 higher level APIs by SDK components and OpenTelemetry instrumentation libraries.
 -->
 
-これらの操作は、暗黙的に `Context` を使用している言語でのみ実装されることが期待され、従って、任意の操作です。これらの操作は、自動スコープ切り替えの実装と、SDKコンポーネントやOpenTelemetry計装ライブラリによる高位APIの定義にのみ使用されるべきです(SHOULD)。
+これらの操作は、暗黙的に `Context` を使用している言語でのみ実装されることが期待され、したがって、任意の操作です。これらの操作は、自動スコープ切り替えの実装と、SDKコンポーネントやOpenTelemetry計装ライブラリによる高位APIの定義にのみ使用されるべきです(SHOULD)。
 
 <!--
 ### Get current Context
