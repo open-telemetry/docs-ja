@@ -69,3 +69,5 @@
   - Link
 - SpanContext
   - SpanContext
+- observability
+  - オブザーバビリティ
