@@ -14,7 +14,7 @@ We want to design a telemetry data exchange protocol that has the following char
 - Be suitable for use between all of the following node types: instrumented applications, telemetry backends, local agents, stand-alone collectors/forwarders.
 -->
 
-- 以下のすべてのノードの種類に適していること: アプリケーションへの計装、テレメトリーバックエンド、ローカルエージェント、スタンドアローン collector/forwarder。
+- 以下のすべてのノードの種類に適していること: アプリケーションへの計装、テレメトリーバックエンド、ローカルエージェント、スタンドアローン Collector/Forwarder。
 
 <!--
 - Have high reliability of data delivery and clear visibility when the data cannot be delivered.
@@ -38,7 +38,7 @@ We want to design a telemetry data exchange protocol that has the following char
 - Support ability to efficiently modify deserialized data and serialize again to pass further. This is related but slightly different from the previous requirement.
 -->
 
-- デシリアライズされたデータを効率的に修正し、さらに別なところに渡すために再度シリアライズする機能をサポートすること。関連はありますが、上記の要件とは少し異なります。
+- デシリアライズされたデータを修正し、さらに別なところに渡すために再度シリアライズする効率的な機能をサポートすること。関連はありますが、上記の要件とは少し異なります。
 
 <!--
 - Ensure high throughput (within the available bandwidth) in high latency networks (e.g. scenarios where telemetry source and the backend are separated by high latency network).

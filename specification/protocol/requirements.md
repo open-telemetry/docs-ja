@@ -94,7 +94,7 @@ The following are OpenTelemetry protocol requirements.
 The protocol must be suitable for use between all of the following node types: instrumented applications, telemetry backends, telemetry agents running as local daemons, stand-alone collector/forwarder services.
 -->
 
-以下のすべてのノードの種類をサポートすること(MUST): アプリケーションへの計装、テレメトリーバックエンド、ローカルエージェント、スタンドアローン collector/forwarder。
+以下のすべてのノードの種類をサポートすること(MUST): アプリケーションへの計装、テレメトリーバックエンド、ローカルエージェント、スタンドアローン Collector/Forwarder。
 
 <!--
 ### Supported Data Types
@@ -148,7 +148,7 @@ For this reason we have slightly relaxed requirements and consider duplicate dat
 Note: this protocol is concerned with reliability of delivery between one pair of client/server nodes and aims to ensure that no data is lost in-transit between the client and the server. Many telemetry collection systems have multiple nodes that the data must travel across until reaching the final destination (e.g. application -> agent -> collector -> backend). End-to-end delivery guarantees in such systems is outside of the scope for this document. The acknowledgements described in this protocol happen between a single client/server pair and do not span multiple nodes in multi-hop delivery paths.
 -->
 
-注意: このプロトコルは、一対のクライアント/サーバ間の送信の信頼性に着目しており、クライアントとサーバ間の転送中にデータが失われることがないことを目的としています。多くのテレメトリー収集システムには、最終目的地に到達するまでには複数のノードをデータが移動しなければないけません(例: アプリケーション -> エージェント -> collector -> バックエンド)。このようなシステムにおけるエンドツーエンドのデータ配信の保証はこの文書の範囲外です。このプロトコルで説明されている確認応答は、一対のクライアントとサーバの間で行われ、マルチホップで配信されたとしても、複数のノードにまたがることはありません。
+注意: このプロトコルは、一対のクライアント/サーバ間の送信の信頼性に着目しており、クライアントとサーバ間の転送中にデータが失われることがないことを目的としています。多くのテレメトリー収集システムには、最終目的地に到達するまでには複数のノードをデータが移動しなければないけません(例: アプリケーション -> エージェント -> Collector -> バックエンド)。このようなシステムにおけるエンドツーエンドのデータ配信の保証はこの文書の範囲外です。このプロトコルで説明されている確認応答は、一対のクライアントとサーバの間で行われ、マルチホップで配信されたとしても、複数のノードにまたがることはありません。
 
 <!--
 ### Throughput
