@@ -128,6 +128,7 @@ OpenTelemetryライブラリは`Tracer`を用いて、`Span`のプロセス内�
 `Tracer`は現在アクティブな`Span`を追跡する責任を持ち、新しい`Span`を作成したりアクティブにしたりするための関数を公開します。
 `Tracer`は`Propagator`で構成されており、プロセスの境界を越えてSpanのContextを転送することをサポートしています。
 
+<!--
 ### Obtaining a Tracer
 
 New `Tracer` instances can be created via a `TracerProvider` and its `getTracer`
@@ -157,7 +158,31 @@ in further consequence - to the `Tracer` instances created by them.
 Implementations might require the user to specify configuration properties at
 `TracerProvider` creation time, or rely on external configuration, e.g. when using the
 provider pattern.
+-->
 
+### Tracerの取得
+
+新しい`Tracer`インスタンスは`TracerProvider`とその関数`getTracer`を介して作成することができます。
+この関数は2つの文字列の引数を取ります:
+
+`TracerProvider`は一般的にシングルトンとして使用されることが期待されます。
+実装は、単一でグローバルなデフォルトの `TracerProvider` を提供すべきです(SHOULD)。
+
+アプリケーションによっては、複数の `TracerProvider` インスタンスを使用することがあります。
+例えば、それぞれのインスタンスに異なる設定(例えば`SpanProcessor`)を提供したり、
+その結果として、それらのインスタンスによって生成された`Tracer`インスタンスを提供したりするためです。
+
+- `name` (必須): nameは、計装されるライブラリではなく、計装するライブラリ (インテグレーションとも呼ばれます。 `io.opentelemetry.contrib.mongodb` など) を識別しなければなりません。
+  無効な名前 (nullまたは空文字列) が指定された場合は、nullを返したり例外をスローせず、フォールバックとして作業用であるデフォルトのTracerの実装を返します。
+  OpenTelemetry APIを実装しているライブラリが「名前付き」機能をサポートしていない場合（例えば、オブザーバビリティに関係のない実装など）、
+  この名前を無視して、すべての呼び出しに対してデフォルトのインスタンスを返すかもしれません。
+  アプリケーションの所有者がこのライブラリによって生成されたテレメトリーを抑制するようにSDKを設定している場合、TracerProviderは何もしないTracerを返すこともできます。
+- `version` (オプション): 計装ライブラリのバージョンを指定します（例: `semver:1.0.0`）。
+
+実装では、`TracerProvider`の作成時にユーザが設定プロパティを指定することを要求したり、
+プロバイダパターンを使用する場合など、外部設定に依存したりすることがあります。
+
+<!--
 #### Runtimes with multiple deployments/applications
 
 Runtimes that support multiple deployments or applications might need to
@@ -169,7 +194,19 @@ each deployment.
 
 `Provider` instances are registered with the API via some language-specific
 mechanism, for instance the `ServiceLoader` class in Java.
+-->
 
+#### 複数のデプロイメント/アプリケーションを持つランタイム
+
+複数のデプロイメントやアプリケーションをサポートするランタイムは、
+各デプロイメントに異なる`TracerProvider`インスタンスを提供する必要があるかもしれません。
+これをサポートするために、グローバルの`TracerProvider`レジストリは、
+呼び出しを`TracerProvider`の新しいインスタンスを作成する委譲し、`Provider`コンポーネントを分離することもでき、
+ランタイムは各デプロイメントごとに異なる`TracerProvider`を返す独自の`Provider`実装を含めることができます。
+
+`Provider`インスタンスは、Javaの`ServiceLoader`クラスなど、言語固有のメカニズムを介してAPIに登録されます。
+
+<!--
 ### Tracer operations
 
 The `Tracer` MUST provide functions to:
@@ -199,6 +236,32 @@ convenience functions to manage a `Span`'s lifetime and the scope in which a
 `Span` SHOULD be made active. A `Span` maybe finished (i.e. have a non-null end
 time) but still active. A `Span` may be active on one thread after it has been
 made inactive on another.
+-->
+
+### Tracerの操作
+
+`Tracer` は以下の関数を提供しなければなりません(MUST):
+
+- 新しい `Span` を作成する
+
+`Tracer` は以下のメソッドを提供する必要があります(SHOULD):
+
+- 現在アクティブな `Span` を取得する
+- 与えられた `Span` をアクティブにする
+
+Tracerは内部的に`Context`を利用して、現在の`Span`の状態と、どのように`Span`がプロセスの境界を超えるるかについて、取得および設定しなければなりません(MUST)。
+
+現在のSpanを取得する際、現在アクティブな `Span` が存在しない場合は、`Tracer`は無効な`SpanContext`とともに、一時的な`Span`を返さなければなりません(MUST)。
+
+新しい`Span`を作成する際、`Tracer`は、呼び出し元が新しい`Span`の親を`Span`または`SpanContext`の形式で指定できるようにしなければなりません(MUST)。
+`Tracer`は、明示的な親が与えられていたり、親を指定せずにSpanを作成するオプションが選択されたり、現在アクティブな`Span`が無効である以外の場合には、
+新しい`Span`または`SpanContext`をそれぞれアクティブな`Span`の子として作成する必要があります(SHOULD)。
+
+`Tracer`はアクティブな`Span`を更新する方法を提供する必要があり(SHOULD)、
+`Span`をアクティブにして、`Span`のライフタイムとスコープを管理するための便利な関数を提供することもできます(MAY)。
+アクティブな`Span`が非アクティブになる際、それまでアクティブだった`Span`はアクティブになる必要があります(SHOULD)。
+ある`Span`は終了している（つまり、nullではない終了時刻を持つ）が、まだアクティブかもしれません。
+ある`Span`は、別のスレッドで非アクティブになったあとで、一つのスレッドでアクティブになることもできます。
 
 ## SpanContext
 
