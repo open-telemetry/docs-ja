@@ -432,7 +432,7 @@ OpenTelmetryは、`SpanContext` と `CorrelationContext` といった横断的�
   in-band across process boundaries.
 -->
 
-- `HTTPTextFormat` は、プロセスを越えてインバンドで移動するキャリアに文字列として値を注入したり抽出したりするために使用されます (??? carrierとは？in-bandとは？)
+- `HTTPTextFormat` は、プロセスを越えて帯域内で移動するキャリアに文字列として値を注入したり抽出したりするために使用されます。
 
 ## Collector
 
@@ -478,7 +478,7 @@ wrapping library APIs, subscribing to the library-specific callbacks or
 translating telemetry exposed in other formats into OpenTelemetry model.
 -->
 
-このプロジェクトの創造性(???inspirationの訳は？)は、OpenTelemetryを使って計測することで、すべてのライブラリやアプリケーションをすぐに管理可能な状態にすることです。しかし、この目標を実現するには選んだライブラリに計装用アダプターを接続して計装を可能にする必要があります。計装用アダプターはライブラリAPIをラップしたり、ライブラリ固有のコールバックを購読したり、他の形式で公開されているテレメトリーをOpenTelemetryモデルに変換したりすることができます。
+このプロジェクトのインスピレーションは、OpenTelemetryを使って計測することで、すべてのライブラリやアプリケーションをすぐに管理可能な状態にすることです。しかし、この目標を実現するには選んだライブラリに計装用アダプターを接続して計装を可能にする必要があります。計装用アダプターはライブラリAPIをラップしたり、ライブラリ固有のコールバックを購読したり、他の形式で公開されているテレメトリーをOpenTelemetryモデルに変換したりすることができます。
 
 <!--
 Instrumentation adapters may be called different names. It is often referred as
@@ -508,7 +508,7 @@ TODO: SIGの議論の結果として記入します。
 ## Semantic Conventions
 -->
 
-## 意味規則 (???Semantic Conventionsの訳として良いか？)
+## セマンティック規約
 
 <!--
 OpenTelemetry defines standard names and values of Resource attributes and
@@ -523,9 +523,9 @@ OpenTelemetryは標準的な名前、ResourceのAttributeとSpanのAttributeに�
 * [Metrics Conventions](metrics/semantic_conventions/README.md)
 -->
 
-* [Resource に関する意味規則](resource/semantic_conventions/README.md)
-* [Span に関する意味規則](trace/semantic_conventions/README.md)
-* [Metrics に関する意味規則](metrics/semantic_conventions/README.md)
+* [Resource に関するセマンティック規約](resource/semantic_conventions/README.md)
+* [Span に関するセマンティック規約](trace/semantic_conventions/README.md)
+* [Metrics に関するセマンティック規約](metrics/semantic_conventions/README.md)
 
 <!--
 The type of the attribute SHOULD be specified in the semantic convention
