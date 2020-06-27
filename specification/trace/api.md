@@ -172,7 +172,8 @@ provider pattern.
 例えば、それぞれのインスタンスに異なる設定(例えば`SpanProcessor`)を提供したり、
 その結果として、それらのインスタンスによって生成された`Tracer`インスタンスを提供したりするためです。
 
-- `name` (必須): nameは、計装されるライブラリではなく、計装するライブラリ (インテグレーションとも呼ばれます。 `io.opentelemetry.contrib.mongodb` など) を識別しなければなりません。
+- `name` (必須): nameは、計装されるライブラリではなく、計装するライブラリ (インテグレーションとも呼ばれます。
+  `io.opentelemetry.contrib.mongodb` など) を識別しなければなりません。
   無効な名前 (nullまたは空文字列) が指定された場合は、nullを返したり例外をスローせず、フォールバックとして作業用であるデフォルトのTracerの実装を返します。
   OpenTelemetry APIを実装しているライブラリが「名前付き」機能をサポートしていない場合（例えば、オブザーバビリティに関係のない実装など）、
   この名前を無視して、すべての呼び出しに対してデフォルトのインスタンスを返すかもしれません。
@@ -478,6 +479,45 @@ created in another process. Each propagators' deserialization must set
 `IsRemote` to true on a parent `SpanContext` so `Span` creation knows if the
 parent is remote.
 -->
+
+### Spanの作成
+
+実装は、`Tracer`を使って`Span`を作成する方法を提供しなければなりません(MUST)。
+デフォルトでは、現在のアクティブな`Span`が新しい`Span`の親に設定されます。
+`Tracer`は、新しく作成された`Span`に他のデフォルトオプションを提供することもできます(MAY)。
+
+`Span`の作成は、新しく作成された`Span`を現在のアクティブな`Span`として設定してはいけません(MUST NOT)が、
+この機能は別の操作として追加で提供することはできます(MAY)。
+
+APIは、以下のパラメータを受け取らなければなりません(MUST)。
+
+- Spa名。これは必須のパラメータです。
+- 親の`Span`、または親の`Span`か`SpanContext`を含む`Context`。および、新しい`Span`がルートの`Span`であるべきかどうか。
+  APIは現在のコンテキストから暗黙的に親化(??? `parenting`の良い訳がほしい)ときの、デフォルトの動作のためのオプションを取ることもできます(MAY)。
+  明示的及び暗黙的な`Context`からの`Span`の親化に関するガイダンスは、  [Contextからの親Spanの決定](#determining-theparent-span-from-a-context)を参照してください。
+- [`SpanKind`](#spankind)。指定されていない場合はデフォルトで`SpanKind.Internal`となります。
+- 複数の`Attribute` - キーと値のペアのコレクションで、[Span::SetAttributes](#set-attributes)で設定可能なものと同じセマンティクスを持ちます。
+  さらに、それらのAttributeは、[サンプリングの説明](sdk.md#sampling)で示されているように、サンプリングの説明を付けるために使うこともできます。
+  指定されていない場合、空のコレクションとして扱われます。
+
+  可能な限り、ユーザーは、後から`SetAttribute`を呼び出すのではなく、Spanのの作成時に既に知ることができるAttributeを設定すべきです(SHOULD)。
+
+- 複数の`Link` - [APIの定義](#add-links)を参照してください。
+  指定されていない場合、空のリストとして扱われます。
+- `Start timestamp`は、デフォルトは現在の時刻です。
+  この引数は、Spanの作成時間がすでに経過している場合にのみ設定されるべきです(SHOULD)。
+  Spanが論理的に開始する瞬間にAPIが呼ばれた場合、APIのユーザーはこの引数を明示的に設定してはなりません(MUST NOT)。(??? 原文ではMUST notになってて扱いがこまる)
+
+因果関係のある操作を表現するために、各Spanは、0または1個の親Spanと、0個以上の子Spanを持ちます。
+関連するSpanのツリーはTraceを含みます。
+親のないSpanは _ルートSpan_ と呼ばれます。
+各Traceには単一のルートSpanが含まれており、Trace内のその他すべてのSpanの共有の先祖になります。
+実装は`Span`をルートSpanとして作成するオプションを提供しなければならず(MUST)、各ルートSpanに対して新しい`TraceId`を生成しなければなりません(MUST)。
+親を持つSpanは、`TraceId`は親と同じものでなければなりません(MUST)。
+また、子スパンはデフォルトで親の`TraceState`値をすべて継承しなければなりません(MUST)。
+
+ある`Span`が別のプロセス内で作られた`Span`の子である場合、その `Span` は _リモート親_ (??? remote parentの訳！)を持っていると言われます。
+各Propagatorのデシリアライズでは、親の`SpanContext`の`IsRemote`をtrueに設定することで、`Span`作成で親がリモートであることを示すことができます。
 
 
 #### Determining the Parent Span from a Context
