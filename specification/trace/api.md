@@ -263,6 +263,7 @@ Tracerは内部的に`Context`を利用して、現在の`Span`の状態と、�
 ある`Span`は終了している（つまり、nullではない終了時刻を持つ）が、まだアクティブかもしれません。
 ある`Span`は、別のスレッドで非アクティブになったあとで、一つのスレッドでアクティブになることもできます。
 
+<!--
 ## SpanContext
 
 A `SpanContext` represents the portion of a `Span` which must be serialized and
@@ -298,7 +299,37 @@ When creating children from remote spans, their IsRemote flag MUST be set to fal
 
 Please review the W3C specification for details on the [Tracestate
 field](https://www.w3.org/TR/trace-context/#tracestate-field).
+-->
 
+
+## SpanContext
+
+`SpanContext`は`Span`の一部分であり、分散コンテキストと一緒にシリアライズされ、伝搬されなければなりません。
+`SpanContext`はイミュータブルです。`SpanContext` はfinal (sealed)クラスでなければなりません(MUST)。
+
+OpenTelemetryの`SpanContext`表現は[w3c TraceContext 仕様](https://www.w3.org/TR/trace-context/)に準拠しています。
+これには2つの識別子`TraceId`と`SpanId`と、共通の`TraceFlags`値とシステム固有の`TraceState`値のセットが含まれています。
+
+`TraceId` 有効なTrace識別子は、16バイトの配列で、少なくとも1つは0以外のバイトです。
+
+`SpanId` 有効なスパン識別子は、8バイトの配列で、少なくとも1つの0以外のバイトです。
+
+
+****************
+`TraceFlags` はトレースに関する詳細を格納する。
+Tracestate の値とは異なります。TraceFlags はすべてのトレースに存在します。
+現在、唯一の `TraceFlags` は ブール値 `sampled` フラグ](https://www.w3.org/TR/trace-context/#trace-flags)。
+
+`Tracestate` はシステム固有の設定データを保持します。キーと値のペアの TraceState は、複数のトレースシステムが 同じトレースを使用しています。
+
+`IsValid` は、スパンコンテキストが 0 以外の値の TraceID と、0 以外の SpanID を指定します。
+
+`IsRemote` は、スパンコンテキストが伝播された場合に真を返すブール値フラグです。の子をリモートの親から作成します。
+リモートスパンから子を作成する場合、その子のIsRemoteフラグをfalseに設定しなければなりません(MUST)。
+
+W3Cの仕様について、詳細は[Tracestate field](https://www.w3.org/TR/trace-context/#tracestate-field)を参照してください。
+
+<!--
 ## Span
 
 A `Span` represents a single operation within a trace. Spans can be nested to
@@ -352,7 +383,53 @@ attributes besides its `SpanContext`.
 Vendors may implement the `Span` interface to effect vendor-specific logic.
 However, alternative implementations MUST NOT allow callers to create `Span`s
 directly. All `Span`s MUST be created via a `Tracer`.
+-->
 
+## Span
+
+`Span`はTrace内の単一の操作を表します。Spanは入れ子にして、Traceのツリーを形成できます。
+各TraceにはルートSpanが含まれており、通常はエンドツーエンドのレイテンシと、オプションで、サブオペレーションのための1つ以上のサブSpanを表しています。
+
+`Span`は次のようにカプセル化されます:
+
+- Span名
+- `Span`をユニークに特定する、不変の [`SpanContext`](#spancontext)
+- [`Span`](#span), [`SpanContext`](#spancontext)のペアの形で指定される親Span（nullの場合もあります）
+- [`SpanKind`](#spankind)
+- 開始タイムスタンプ
+- 終了タイムスタンプ
+- [`Attribute`](#set-attributes)の順序付きマッピング
+- 他の`Span`への[`Link`](#add-links)のリスト
+- タイムスタンプ付きの[`Event`](#add-events) のリスト
+- [`Status`](#set-status)
+
+_Span名_ は人間が読める文字列で、Spanが行う作業を簡潔に識別するためのものです。
+例えば、RPCメソッド名、関数名、サブタスク名や大規模な計算の中でのステージの名前です。
+Span名は、個別のSpanインススタンスを表すよりも、 _Spanのクラス_ を（統計的に）識別できるような、最も一般的な文字列である必要があります。
+つまり、 "get_user" は妥当な名前であり、"314159"をユーザーIDとしたときの "get_user/314159" のような名前はカーディナリティが高く、良い名前ではありません。
+
+例えば、仮のアカウント情報を取得するためのエンドポイントに対する潜在的なSpan名は:
+
+| スパン名                   | ガイダンス                                                              |
+| ------------------------- | ---------------------------------------------------------------------- |
+| `get`                     | 一般的すぎます。                                                         |
+| `get_account/42`          | 限定しすぎています。                                                      |
+| `get_account`             | 良い名前です。Span Attributeとして account_id=42 を指定とするとよさそうです。 |
+| `get_account/{accountId}` | これも良い名前です。（"HTTP route"を使う)                                  |
+
+`Span`の開始と終了のタイムスタンプには、操作の実際の経過時間が反映されます。
+`Span`の開始時間は[Span作成](#span-creation)時点での時刻がセットされる必要があります(SHOULD)。
+`Span`が作成されたあと、Span名は変更、複数の`Attribute`の設定、`Link`および`Event`の追加が可能である必要があります(SHOULD)。
+`Span`の終了時間がセットされたあとは、これらは変更してはいけません(MUST NOT)。
+
+`Span`はプロセス内で情報を伝播するために使用することを意図していません。
+誤用を防ぐために、実装は`Span`の`SpanContext`の他、Attributeへのアクセスを提供するべきではありません(SHOULD NOT)。
+
+ベンダーは`Span`インタフェースを実装して、ベンダー独自のロジックを実現することもできます。
+しかし、代替の実装は呼び出し元が直接`Span`を作成することを許容してはいけません(MUST NOT)。
+すべての`Span`は`Tracer`を通じて作成しなければなりません(MUST)。
+
+<!--
 ### Span Creation
 
 Implementations MUST provide a way to create `Span`s via a `Tracer`. By default,
@@ -400,6 +477,8 @@ A `Span` is said to have a _remote parent_ if it is the child of a `Span`
 created in another process. Each propagators' deserialization must set
 `IsRemote` to true on a parent `SpanContext` so `Span` creation knows if the
 parent is remote.
+-->
+
 
 #### Determining the Parent Span from a Context
 
