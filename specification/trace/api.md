@@ -536,7 +536,7 @@ The parent should be selected in the following order of precedence:
 - There is no parent. Create a root `Span`.
 -->
 
-### Contextから親Spanを決定する
+#### Contextから親Spanを決定する
 
 新しい`Span`が`Context`から作成された場合、その`Context`には次のものを含むことができます:
 
@@ -551,7 +551,7 @@ The parent should be selected in the following order of precedence:
 - 可能であれば、抽出した`SpanContext`を使う
 - 親がない場合、ルート`Span`を作成する
 
-
+<!--
 #### Add Links
 
 During the `Span` creation user MUST have the ability to record links to other `Span`s. Linked
@@ -579,6 +579,34 @@ The Span creation API should provide:
   a wrapping class or function it SHOULD be named `LinkFormatter`.
 
 Links SHOULD preserve the order in which they're set.
+-->
+
+#### Linkの追加
+
+`Span`を作成する際には、ユーザーが他の `Span`とのLinkを記録する機能を持たなければなりません(MUST)。
+Linkされた`Span`は同じTraceから来ている場合もあれば、異なるTraceから来ている場合もあります。
+[Linkの説明](./overview.md#links-between-spans)を参照ください。
+
+`Link`は以下のプロパティで定義されます:
+
+- （必須）Link先の`Span`の`SpanContext`
+- （オプション）[Span Attribute](#set-attributes)で定義されているものと同じ制約を持つ、1つ以上の`Attribute`
+
+`Link`は不変な型である必要があります(SHOULD)。
+
+Span作成APIは、以下のものを提供しなければなりません:
+
+- `link`のプロパティを引数として受け取る、単一の`Link`を記録するAPI。
+  このAPIは`AddLink`とも呼ぶことができます(MAY)。
+- AttributeやAttributeの値を遅延構築する、単一の`Link`を記録するAPI。
+  これは、Linkが使用されていない場合に不要な作業を回避することを目的としています。
+  言語がオーバーロードをサポートしている場合にはこのAPIは`AddLink`と呼ぶ必要がありますが(SHOULD)、
+  オーバーロードがサポートされていなければ`AddLazyLink`と呼ぶこともできます(MAY)。
+  言語によっては、`Link`やフォーマットされたAttributeを返すラッピングクラスや関数を提供することで、
+  `Link`や`Attribute`の作成を完全に遅延させる方が簡単な場合があります。
+  ラッピングクラスや関数を提供する場合、`LinkFormatter`と名付けられる必要があります(SHOULD)。
+
+Linkは設定された順番を保持する必要があります(SHOULD)。
 
 ### Span operations
 
