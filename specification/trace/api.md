@@ -519,7 +519,7 @@ APIは、以下のパラメータを受け取らなければなりません(MUST
 ある`Span`が別のプロセス内で作られた`Span`の子である場合、その `Span` は _リモート親_ (??? remote parentの訳！)を持っていると言われます。
 各Propagatorのデシリアライズでは、親の`SpanContext`の`IsRemote`をtrueに設定することで、`Span`作成で親がリモートであることを示すことができます。
 
-
+<!--
 #### Determining the Parent Span from a Context
 
 When a new `Span` is created from a `Context`, the `Context` may contain:
@@ -534,6 +534,23 @@ The parent should be selected in the following order of precedence:
 - Use the current `Span`, if available.
 - Use the extracted `SpanContext`, if available.
 - There is no parent. Create a root `Span`.
+-->
+
+### Contextから親Spanを決定する
+
+新しい`Span`が`Context`から作成された場合、その`Context`には次のものを含むことができます:
+
+- 現在の`Span`
+- 抽出された`SpanContext`
+- 現在の`Span`と抽出された `SpanContext`
+- 現在の`Span`および抽出された `SpanContext`のどちらも含まない
+
+親は、以下の優先順位で選択する必要があります:
+
+- 可能であれば、現在の`Span`を使う
+- 可能であれば、抽出した`SpanContext`を使う
+- 親がない場合、ルート`Span`を作成する
+
 
 #### Add Links
 
