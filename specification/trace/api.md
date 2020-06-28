@@ -48,7 +48,7 @@ Tracing API consist of a few main classes:
    execution. See [Span](#span) section.
 -->
 
-トレーシングAPIは、いくつかのメインクラスで成り立っています:
+トレーシングAPIは、いくつかのメインクラスから成り立っています:
 
 - `Tracer` はすべての操作に使われます。[Tracer](#tracer)節を参照。
 - `Span` は現在の操作の実行についての情報を格納する可変オブジェクトです。[Span](#span)節を参照。
@@ -72,7 +72,7 @@ OpenTelemetry can operate on time values up to nanosecond (ns) precision.
 The representation of those values is language specific.
 -->
 
-### Time
+### 時間
 
 OpenTelemetryでは、ナノ秒（ns）の精度までの時間の値を操作することができます。
 これらの値の表現は言語固有のものです。
@@ -608,11 +608,19 @@ Span作成APIは、以下のものを提供しなければなりません:
 
 Linkは設定された順番を保持する必要があります(SHOULD)。
 
+<!--
 ### Span operations
 
 With the exception of the function to retrieve the `Span`'s `SpanContext` and
 recording status, none of the below may be called after the `Span` is finished.
+-->
 
+### Spanの操作
+
+`Span`の`SpanContext`と記録状態を取得する関数を除いて、
+以下のいずれも`Span`が終了したあとに呼び出すことはできません。
+
+<!--
 #### Get Context
 
 The Span interface MUST provide:
@@ -620,7 +628,18 @@ The Span interface MUST provide:
 - An API that returns the `SpanContext` for the given `Span`. The returned value
   may be used even after the `Span` is finished. The returned value MUST be the
   same for the entire Span lifetime. This MAY be called `GetContext`.
+-->
 
+#### Contextの取得
+
+Spanは次のインタフェースを提供しなければなりません(MUST):
+
+- 与えられた`Span`の`SpanContext`を返すAPI。
+  返却値は`Span`が終了した後でも使うことができます。
+  返却値はSpanのライフタイム全体に渡って同じものでなければなりません(MUST)。
+  `GetContext`という呼び出しにすることもできます(MAY)。
+
+<!--
 #### IsRecording
 
 Returns true if this `Span` is recording information like events with the
@@ -645,7 +664,21 @@ backend. See also the [sampling section of SDK design](sdk.md#sampling).
 Users of the API should only access the `IsRecording` property when
 instrumenting code and never access `SampledFlag` unless used in context
 propagators.
+-->
 
+#### IsRecording
+
+`Span`が、`AddEvent`の操作や、`SetAttributes`を用いたAttribute、
+`SetStatus`を用いたStatusの操作等のEvent情報を記録している場合に、Trueを返します。
+
+引数は必要ありません。
+
+このフラグは、Spanが記録されないことが明白な場合に、SpanのAttributeやEventの計算コストの
+発生を避けるために使われる必要があります(SHOULD)。
+任意の子Spanの記録は、このフラグ値とは独立して決定されることに注意してください
+（通常、`SpanContext`にある`TraceFlag`の`sampled`フラグに基づきます）。
+
+<!--
 #### Set Attributes
 
 A `Span` MUST have the ability to set attributes associated with it.
@@ -685,6 +718,48 @@ both containing an array of strings to represent a mapping
 
 Note that the OpenTelemetry project documents certain ["standard
 attributes"](semantic_conventions/README.md) that have prescribed semantic meanings.
+-->
+
+#### Attributeのセット
+
+`Span`は、自身に関連付けられるAttributeをセットできなければなりません(MUST)。
+
+`Attribute`は次のプロパティによって定義されます:
+
+- （必須）Attributeのキー。`null`や空文字ではない文字列でなければなりません(MUST)。
+- （必須）Attributeの値。次のどちらかになります:
+  - プリミティブ型: 文字列、真偽値、数値
+  - プリミティブ型の配列: 配列は均一でなければなりません(MUST)。
+    つまり、異なる型の値を含んではなりません(MUST NOT)。
+
+Spanは次のインタフェースを提供しなければなりません(MUST):
+
+- Attributeのプロパティを引数として受け取る、単一の`Attribute`をセットするAPI。
+  このAPIは`SetAttribute`と呼ぶこともできます(MAY)。
+  実装によっては、余分な割り当てを防ぐために、可能な値の型ごとに別のAPIを提供することもできます。
+
+Attributeはセットされた順序を保持する必要があります(SHOULD)。
+既存のAttributeと同じキーを持つAttributeをセットする場合、
+既存のAttributeの値を上書きする必要があります(SHOULD)。
+
+ゼロの整数または空文字列を表すAttributeの値は意味がある値とみなされるため、
+保持され、Span Processor/Exporterに渡さなければなりません(MUST)。
+`null`の値を持つAttributeは、セットされていないものとみなされており、
+ゲットされたとしてもいちども`SetAttribute`されていないように扱われます。
+例外として、値の上書きがサポートされている場合には、
+結果として過去の値をクリアし、Attributeの集合からAttributeのキーを削除することになります。
+
+配列の中の`null`値は、そのまま保持されなければなりません(MUST)
+（つまり、Span Processer/Exporterに`null`として渡されます）。
+Exporterが`null`値のエクスポートをサポートしていない場合、
+その値は0、`false`、空文字に置き換えることもできます(MAY)。
+マップやディクショナリ構造を表現するために、インデックス付きの2つの配列を配列を用いてシンクさせる
+（つまり、2つのAttributeとして`header_keys`と`header_values`という2つの文字列配列を使って、
+`header_keys[i] -> header_values[i]`というマッピングを表現する）ときに必要となります。
+
+OpenTelemetryプロジェクトは、特定の["標準的なAttriubte"](semantic_conventions/README.md)に対して、
+所定の意味を持たせています。
+
 
 #### Add Events
 
