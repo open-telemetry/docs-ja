@@ -7,7 +7,7 @@ OpenTelemetry generates telemetry data to help users monitor application code. I
 <!-- weはわたしたち? -->
 <!-- would prefer to A rather than Bは、AもBもマイナスでどちらがましか？という意味なので選択すると訳しました -->
 
-OpenTelemetryは、ユーザーがアプリケーションコードを監視するのに役立つテレメトリーデータを生成します。ほとんどの場合、ライブラリが実行する作業はアプリケーションのビジネスロジックの観点からは本質的なものではありません。ライブラリーが計測するアプリケーションのふるまいを大幅に変更するよりは、テレメトリーデータを失うほうを選択するとわたしたちは想定しています。
+OpenTelemetryは、ユーザーがアプリケーションコードを監視するのに役立つテレメトリーデータを生成します。ほとんどの場合、ライブラリが実行する作業はアプリケーションのビジネスロジックの観点からは本質的なものではありません。ユーザーは、ライブラリーが計測するアプリケーションのふるまいを大幅に変更するよりは、テレメトリーデータを失うほうを選択するでしょう。
 
 <!--
 OpenTelemetry may be enabled via platform extensibility mechanisms, or dynamically loaded at runtime. This makes the use of the library non-obvious for end users, and may even be outside of the application developer's control. This makes for some unique requirements with respect to error handling.
@@ -39,7 +39,7 @@ OpenTelemetryの実装は、実行時にハンドルされない例外を投げ�
 2. The API or SDK may _fail fast_ and cause the application to fail on initialization, e.g. because of a bad user config or environment, but MUST NOT cause the application to fail later at run time, e.g. due to dynamic config settings received from the Collector.
 -->
 
-2. APIまたはSDKは初期化時にフェイルしてアプリケーションを _早い段階でフェイル_ させてもよいですが（例えば、正しくないユーザー設定や環境により）、アプリケーションを実行時にフェイルさせてはいけません（例えば、Collectorからの動的な設定値を受けとった場合）。
+2. APIまたはSDKは初期化時にエラーを出しアプリケーションを _早い段階で失敗_ させてもよいですが（例えば、正しくないユーザー設定や環境により）、アプリケーションを実行時にフェイルさせてはいけません（例えば、Collectorからの動的な設定値を受けとった場合）。
 
 <!--
 3. The SDK MUST NOT throw unhandled exceptions for errors in their own operations.
@@ -105,7 +105,7 @@ OpenTelemetryの実装は、実行時にハンドルされない例外を投げ�
 -->
 
 7. APIコールが、処理ロジックでエラーが発生した場合に、非 `null` 値であることが期待される値を返すときは常に、SDKは "no-op"、または( _理想的には_ ) 事前に割り当てられすぐに利用可能な他の "デフォルト" オブジェクトを返さなければなりません(MUST)。
-   これにより、APIコールサイトは `null` オブジェクトのメソッドやプロパティにアクセスしようとしてクラッシュすることがありません。
+   これにより、APIの呼び出し側が `null` オブジェクトのメソッドやプロパティにアクセスしようとしてクラッシュすることはありません。
 
 <!--
 ## Error handling and performance
@@ -155,7 +155,7 @@ SDKs MAY expose callbacks to allow end users to handle self-diagnostics separate
 -->
 
 抑制しなければユーザーに公開されていたであろうエラーをライブラリーが抑制するときは常に、ライブラリーは言語固有の規約を使用してエラーをログに記録するべきです(SHOULD)。
-SDKは、エンドユーザーがアプリケーションコードとは別に自己診断をハンドルできるように、コールバックを公開することができます(MAY)。
+SDKは、エンドユーザーがアプリケーションコードとは別に自己診断できるように、コールバックを公開することができます(MAY)。
 
 <!--
 ## Exceptions to the rule
