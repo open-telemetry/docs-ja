@@ -1,3 +1,4 @@
+<!--
 # Tracing SDK
 
 <details>
@@ -10,7 +11,22 @@
 * [Span Exporter](#span-exporter)
 
 </details>
+-->
 
+# トレーシングSDK
+
+<details>
+
+<summary>目次</summary>
+
+* [Sampling](#sampling)
+* [Tracer Creation](#tracer-creation)
+* [Span Processor](#span-processor)
+* [Span Exporter](#span-exporter)
+
+</details>
+
+<!--
 ## Sampling
 
 Sampling is a mechanism to control the noise and overhead introduced by
@@ -51,6 +67,42 @@ MUST NOT allow this combination.
 The SDK defines the two interfaces [`Sampler`](#sampler) and
 [`Decision`](#decision) as well as a set of [built-in
 samplers](#built-in-samplers).
+-->
+
+## サンプリング
+
+サンプリングは、OpenTelemetryによって発生するノイズとオーバーヘッドを制御するためのメカニズムで、
+収集し、バックエンドに送信するTraceのサンプルの数を減らすことによって実現しています。
+
+サンプリングはTraceコレクションの異なるステージで実装されることもできます。
+OpenTelemetry APIはライブラリによって計装ポイントで使用できる`Sampler`インターフェイスを定義しており、
+`SamplingResult`を早期にチェックし、収集する必要があるテレメトリーの量を最適化するために使われます。
+
+その他全てのサンプリングアルゴリズムは、ExporterもしくはAgentやCollectorなどのプロセス外のSDKレイヤーに実装されることもできます。
+
+* `Span`の`IsRecording`フィールド。
+  現在の`Span`で`true`である場合、トレーシングイベント（Attribute, Event, Statusなど）は記録され、
+  `false`である場合、すべてのトレーシングイベントは破棄されます。
+  ユーザーは、高コストなトレースイベントの収集を回避するために、このプロパティを使うことができます。
+  [Span Processor](#span-processor)は、このフラグがセットされた状態で全てのSpanを受け取ります。
+  しかし、[Span Exporter](#span-exporter)は、`Sampled`フラグがセットされていない限り、このフラグは受け取りません。
+* `SpanContext`の`TraceFlags`の`Sampled`フラグは。
+  このフラグは`SpanContext`を通じて子Spanに伝搬されます。
+  詳細は[W3C Trace Context specification][trace-flags]を参照してください。
+  このフラグは、`Span`が`Sampled`であり、エクスポートされることを示します。
+  [Span Processor](#span-processor)と[Span Exporter](#span-exporter) は、
+  処理のために`Sampled`フラグが設定された状態のSpanを受け取ります。
+
+`SampledFlag == false`かつ`IsRecording == true`というフラグの組み合わせは、
+現在の`Span`は情報を記録しているが、子Spanはおそらく記録していないだろうということ意味します。
+
+`SampledFlag == true`かつ`IsRecording == false`というフラグの組み合わせは、
+分散トレースにギャップを生じさせる可能性があるため、
+OpenTelemetry APIはこの組み合わせを許可してはいけません(MUST NOT)。
+
+SDKは[`Sampler`](#sampler)と[`Decision`](#decision)の2つのインタフェースとともに、
+セットである[組み込みSampler](#built-in-samplers)を定義しています。(??? built-in samplersを訳すかどうか)
+
 
 ### Sampler
 
