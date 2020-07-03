@@ -174,10 +174,12 @@ provider pattern.
 
 - `name` (必須): nameは、計装されるライブラリではなく、計装するライブラリ (インテグレーションとも呼ばれます。
   `io.opentelemetry.contrib.mongodb` など) を識別しなければなりません。
-  無効な名前 (nullまたは空文字列) が指定された場合は、nullを返したり例外をスローせず、フォールバックとして作業用であるデフォルトのTracerの実装を返します。
-  OpenTelemetry APIを実装しているライブラリが「名前付き」機能をサポートしていない場合（例えば、オブザーバビリティに関係のない実装など）、
+  無効な名前 (nullまたは空文字列) が指定された場合は、nullを返したり例外をスローせず、
+  フォールバックとして作業用であるデフォルトのTracerの実装を返します。
+  OpenTelemetry APIを実装しているライブラリが「名前付き」機能をサポートしていない場合（例えばオブザーバビリティに関係のない実装など）、
   この名前を無視して、すべての呼び出しに対してデフォルトのインスタンスを返すかもしれません。
-  アプリケーションの所有者がこのライブラリによって生成されたテレメトリーを抑制するようにSDKを設定している場合、TracerProviderは何もしないTracerを返すこともできます。
+  アプリケーションの所有者がこのライブラリによって生成されたテレメトリーを抑制するようにSDKを設定している場合、
+  TracerProviderは何もしないTracerを返すこともできます。
 - `version` (オプション): 計装ライブラリのバージョンを指定します（例: `semver:1.0.0`）。
 
 実装では、`TracerProvider`の作成時にユーザが設定プロパティを指定することを要求したり、
@@ -250,12 +252,16 @@ made inactive on another.
 - 現在アクティブな `Span` を取得する
 - 与えられた `Span` をアクティブにする
 
-Tracerは内部的に`Context`を利用して、現在の`Span`の状態と、どのように`Span`がプロセスの境界を超えるるかについて、取得および設定しなければなりません(MUST)。
+Tracerは内部的に`Context`を利用して、現在の`Span`の状態と、どのように`Span`が
+プロセスの境界を超えるかについて、取得および設定しなければなりません(MUST)。
 
-現在のSpanを取得する際、現在アクティブな `Span` が存在しない場合は、`Tracer`は無効な`SpanContext`とともに、一時的な`Span`を返さなければなりません(MUST)。
+現在のSpanを取得する際、現在アクティブな `Span` が存在しない場合は、
+`Tracer`は無効な`SpanContext`とともに、一時的な`Span`を返さなければなりません(MUST)。
 
-新しい`Span`を作成する際、`Tracer`は、呼び出し元が新しい`Span`の親を`Span`または`SpanContext`の形式で指定できるようにしなければなりません(MUST)。
-`Tracer`は、明示的な親が与えられていたり、親を指定せずにSpanを作成するオプションが選択されたり、現在アクティブな`Span`が無効である以外の場合には、
+新しい`Span`を作成する際、`Tracer`は、呼び出し元が新しい`Span`の親を、
+`Span`または`SpanContext`の形式で指定できるようにしなければなりません(MUST)。
+`Tracer`は、明示的な親が与えられていたり、親を指定せずにSpanを作成するオプションが選択されたり、
+現在アクティブな`Span`が無効である以外の場合には、
 新しい`Span`または`SpanContext`をそれぞれアクティブな`Span`の子として作成する必要があります(SHOULD)。
 
 `Tracer`はアクティブな`Span`を更新する方法を提供する必要があり(SHOULD)、
@@ -389,7 +395,8 @@ directly. All `Span`s MUST be created via a `Tracer`.
 ## Span
 
 `Span`はTrace内の単一の操作を表します。Spanは入れ子にして、Traceのツリーを形成できます。
-各TraceにはルートSpanが含まれており、通常はエンドツーエンドのレイテンシと、オプションで、サブオペレーションのための1つ以上のサブSpanを表しています。
+各TraceにはルートSpanが含まれており、通常はエンドツーエンドのレイテンシと、オプションで、
+サブオペレーションのための1つ以上のサブSpanを表しています。
 
 `Span`は次のようにカプセル化されます:
 
@@ -407,7 +414,8 @@ directly. All `Span`s MUST be created via a `Tracer`.
 _Span名_ は人間が読める文字列で、Spanが行う作業を簡潔に識別するためのものです。
 例えば、RPCメソッド名、関数名、サブタスク名や大規模な計算の中でのステージの名前です。
 Span名は、個別のSpanインススタンスを表すよりも、 _Spanのクラス_ を（統計的に）識別できるような、最も一般的な文字列である必要があります。
-つまり、 "get_user" は妥当な名前であり、"314159"をユーザーIDとしたときの "get_user/314159" のような名前はカーディナリティが高く、良い名前ではありません。
+つまり、 "get_user" は妥当な名前であり、"314159"をユーザーIDとしたときの"get_user/314159"
+のような名前はカーディナリティが高く、良い名前ではありません。
 
 例えば、仮のアカウント情報を取得するためのエンドポイントに対する潜在的なSpan名は:
 
@@ -492,32 +500,42 @@ parent is remote.
 APIは、以下のパラメータを受け取らなければなりません(MUST)。
 
 - Spa名。これは必須のパラメータです。
-- 親の`Span`、または親の`Span`か`SpanContext`を含む`Context`。および、新しい`Span`がルートの`Span`であるべきかどうか。
-  APIは現在のコンテキストから暗黙的に親化(??? `parenting`の良い訳がほしい)ときの、デフォルトの動作のためのオプションを取ることもできます(MAY)。
-  明示的及び暗黙的な`Context`からの`Span`の親化に関するガイダンスは、  [Contextからの親Spanの決定](#determining-theparent-span-from-a-context)を参照してください。
+- 親の`Span`、または親の`Span`か`SpanContext`を含む`Context`。
+  および、新しい`Span`がルートの`Span`であるべきかどうか。
+  APIは現在のコンテキストから暗黙的に親化(??? `parenting`の良い訳がほしい)ときの、
+  デフォルトの動作のためのオプションを取ることもできます(MAY)。
+  明示的及び暗黙的な`Context`からの`Span`の親化に関するガイダンスは、
+  [Contextからの親Spanの決定](#determining-theparent-span-from-a-context)を参照してください。
 - [`SpanKind`](#spankind)。指定されていない場合はデフォルトで`SpanKind.Internal`となります。
-- 複数の`Attribute` - キーと値のペアのコレクションで、[Span::SetAttributes](#set-attributes)で設定可能なものと同じセマンティクスを持ちます。
-  さらに、それらのAttributeは、[サンプリングの説明](sdk.md#sampling)で示されているように、サンプリングの説明を付けるために使うこともできます。
+- 複数の`Attribute` - キーと値のペアのコレクションで、[Span::SetAttributes](#set-attributes)で
+  設定可能なものと同じセマンティクスを持ちます。
+  さらに、それらのAttributeは、[サンプリングの説明](sdk.md#sampling)で示されているように、
+  サンプリングの説明を付けるために使うこともできます。
   指定されていない場合、空のコレクションとして扱われます。
 
-  可能な限り、ユーザーは、後から`SetAttribute`を呼び出すのではなく、Spanのの作成時に既に知ることができるAttributeを設定すべきです(SHOULD)。
+  可能な限り、ユーザーは、後から`SetAttribute`を呼び出すのではなく、
+  Spanのの作成時に既に知ることができるAttributeを設定すべきです(SHOULD)。
 
 - 複数の`Link` - [APIの定義](#add-links)を参照してください。
   指定されていない場合、空のリストとして扱われます。
 - `Start timestamp`は、デフォルトは現在の時刻です。
   この引数は、Spanの作成時間がすでに経過している場合にのみ設定されるべきです(SHOULD)。
-  Spanが論理的に開始する瞬間にAPIが呼ばれた場合、APIのユーザーはこの引数を明示的に設定してはなりません(MUST NOT)。(??? 原文ではMUST notになってて扱いがこまる)
+  Spanが論理的に開始する瞬間にAPIが呼ばれた場合、APIのユーザーはこの引数を明示的に設定してはなりません(MUST NOT)。
+  (??? 原文ではMUST notになってて扱いがこまる)
 
 因果関係のある操作を表現するために、各Spanは、0または1個の親Spanと、0個以上の子Spanを持ちます。
 関連するSpanのツリーはTraceを含みます。
 親のないSpanは _ルートSpan_ と呼ばれます。
 各Traceには単一のルートSpanが含まれており、Trace内のその他すべてのSpanの共有の先祖になります。
-実装は`Span`をルートSpanとして作成するオプションを提供しなければならず(MUST)、各ルートSpanに対して新しい`TraceId`を生成しなければなりません(MUST)。
+実装は`Span`をルートSpanとして作成するオプションを提供しなければならず(MUST)、
+各ルートSpanに対して新しい`TraceId`を生成しなければなりません(MUST)。
 親を持つSpanは、`TraceId`は親と同じものでなければなりません(MUST)。
 また、子スパンはデフォルトで親の`TraceState`値をすべて継承しなければなりません(MUST)。
 
-ある`Span`が別のプロセス内で作られた`Span`の子である場合、その `Span` は _リモート親_ (??? remote parentの訳！)を持っていると言われます。
-各Propagatorのデシリアライズでは、親の`SpanContext`の`IsRemote`をtrueに設定することで、`Span`作成で親がリモートであることを示すことができます。
+ある`Span`が別のプロセス内で作られた`Span`の子である場合、
+その `Span` は _リモート親_ (??? remote parentの訳！)を持っていると言われます。
+各Propagatorのデシリアライズでは、親の`SpanContext`の`IsRemote`をtrueに設定することで、
+`Span`作成で親がリモートであることを示すことができます。
 
 <!--
 #### Determining the Parent Span from a Context
@@ -760,7 +778,7 @@ Exporterが`null`値のエクスポートをサポートしていない場合、
 OpenTelemetryプロジェクトは、特定の["標準的なAttriubte"](semantic_conventions/README.md)に対して、
 所定の意味を持たせています。
 
-
+<!--
 #### Add Events
 
 A `Span` MUST have the ability to add events. Events have a time associated
@@ -792,7 +810,39 @@ the ordering of the events' timestamps.
 
 Note that the OpenTelemetry project documents certain ["standard event names and
 keys"](semantic_conventions/README.md) which have prescribed semantic meanings.
+-->
 
+#### Eventの追加
+
+`Span`はeventを追加できる能力を持たなければなりません(MUST)。
+Eventは`Span`に追加された瞬間に関連付けられた時間を持ちます。
+
+`Event`は次のプロパティを持ちます:
+
+- （必須）Event名
+- （オプション）[Span Attributes](#set-attributes)で定義されたものと同じ制約を持つ、1個以上の`Attribute`
+- （オプション）Eventのタイムスタンプ
+
+`Event`は不変型である必要があります(SHOULD)。
+
+Spanインタフェースは次のものを提供しなければなりません(MUST):
+- `Event`のプロパティを引数として受け取る、単一の`Event`を記録するAPI。`AddEvent`と呼ぶこともできます(MAY)。
+- Attributeやその値を遅延構築する、単一の`Event`を記録するAPI。 
+  これは、Eventが使用されていない場合に不要な作業を回避することを目的としています。
+  言語がオーバーロードをサポートしている場合にはこのAPIは`AddEvent`と呼ぶ必要がありますが(SHOULD)、
+  オーバーロードがサポートされていなければ`AddLazyEvent`と呼ぶこともできます(MAY)。
+  言語によっては、`Event`やフォーマットされたAttributeを返すラッピングクラスや関数を提供することで、
+  `Event`や`Attribute`の作成を完全に遅延させる方が簡単な場合があります。
+  ラッピングクラスや関数を提供する場合、`EventFormatter`と名付けられる必要があります(SHOULD)。
+
+Eventは設定された順番を保持する必要があります(SHOULD)。
+これは通常、Eventのタイムスタンプの順序と対応します。
+
+OpenTelemetryプロジェクトでは、所定の意味を持たせている、
+特定の["標準のEvent名とKey"](semantic_conventions/README.md)について文書化してますので、注意してください。
+
+
+<!--
 #### Set Status
 
 Sets the [`Status`](#status) of the `Span`. If used, this will override the
@@ -805,7 +855,21 @@ The Span interface MUST provide:
 
 - An API to set the `Status` where the new status is the only argument. This
   SHOULD be called `SetStatus`.
+-->
 
+#### Statusのセット
+
+`Span`の[`Statsus`](#status)をセットします。
+使われた場合、デフォルトの`Span` Statusである`OK`を上書きします。
+
+最後の呼び出しの値だけが記録され、実装はそれ以前の呼び出しを無視することができます。
+
+Spanは次のインタフェースを提供しなければなりません(MUST):
+
+- 新しいStatusのみを引数として受け取る、`Status`をセットするAPI。
+  このAPIは`SetStatus`と呼ぶ必要があります(SHOULD)。
+
+<!--
 #### UpdateName
 
 Updates the `Span` name. Upon this update, any sampling behavior based on `Span`
@@ -830,7 +894,31 @@ Required parameters:
 
 - The new **span name**, which supersedes whatever was passed in when the
   `Span` was started
+-->
 
+#### 名前の更新
+
+`Span`名を更新します。
+この更新により、`Span`名に基づくすべてのサンプリングの動作は、実装に依存することになります。
+
+作成後に`Span`名を更新することは、強くお勧めしません。
+`Span`名は通常、論理的なSpanのグループをグループ化したり、フィルタリングしたり、識別するために使われます。
+そして多くの場合、パフォーマンス上の都合により、フィルターのロジックは`Span`作成の前に実装されます。
+したがって、名前の更新はロジックに鑑賞する可能性があります。
+
+関数名は`UpdateName`と呼ばれ、通常のプロパティのセッターとは区別させています。
+この操作は、`Span`の主要な変更を意味しており、実装に応じて以前に行われた
+サンプリングまたはフィルタリングの決定の再計算につながる可能性があることを強調しています。
+
+名前の更新の代替案は、`Span`の遅延作成です。
+`Span`名がわかった時点、もしくは子`Span`として名前をレポートするような時点で、
+過去の明示的にタイムスタンプを与えてSpanをスタートさせます。
+
+必要なパラメーター:
+
+- 新しい **Span名**、これは`Span`が開始されたときに渡されたものよりも優先されます。
+
+<!--
 #### End
 
 Finish the `Span`. This call will take the current timestamp to set as `Span`'s
@@ -846,7 +934,22 @@ Parameters:
 - (Optional) Timestamp to explicitly set the end timestamp
 
 This API MUST be non-blocking.
+-->
 
+#### End
+
+`Span`を終了させます。この呼び出しにより、`Span`の終了時刻として現在時刻がセットされます。
+実装は、それ以降の`End`の呼び出すをすべて無視しなければなりません(MUST)
+（Tracerがイベントのストリーミングをしていて、`Span`に関連した可変な状態を持つときは、例外になるかもしれません）。
+
+`Span`の`End`の呼び出しは、子Spanに影響を与えてはなりません(MUST NOT)。
+子Spanは実行中であり、後で終了するかもしれません。
+
+パラメータ:
+
+- （オプショナル）明示的に終了時刻をセットする場合のタイムスタンプ
+
+<!--
 ### Span lifetime
 
 Span lifetime represents the process of recording the start and the end
@@ -857,12 +960,30 @@ timestamps to the Span object:
 
 Start and end time as well as Event's timestamps MUST be recorded at a time of a
 calling of corresponding API.
+-->
 
+### Spanのライフタイム
+
+Spanのライフタイムは、Spanオブジェクトに対して開始と終了のタイムスタンプを記録するプロセスを表します。
+
+- 開始時刻はSpanが作成されたときに記録されます。
+- 終了時刻は操作が終了したときに記録される必要があります。
+
+開始時刻と終了時刻はEventのタイムスタンプと同様に、関連するAPIの呼び出しの時刻を記録されなければなりません(MUST)
+
+<!--
 ## Status
 
 `Status` interface represents the status of a finished `Span`. It's composed of
 a canonical code in conjunction with an optional descriptive message.
+-->
 
+## Status
+
+`Status`インタフェースは終了した`Span`の状態を表します。
+これは、正規化されたコードとオプションの説明メッセージの組み合わせで構成されています。
+
+<!--
 ### StatusCanonicalCode
 
 `StatusCanonicalCode` represents the canonical set of status codes of a finished
@@ -916,7 +1037,57 @@ codes](https://github.com/grpc/grpc/blob/master/doc/statuscodes.md):
   - Unrecoverable data loss or corruption.
 - `Unauthenticated`
   - The request does not have valid authentication credentials for the operation.
+-->
 
+### StatusCanonicalCode
+
+`StatusCanonicalCode`は終了した`Span`に関する正規化されたステータスコードの集合を表し、
+[Standard GRPC codes](https://github.com/grpc/grpc/blob/master/doc/statuscodes.md)に従っています:
+
+
+- `Ok`
+  - 操作は正常に終了しました。
+- `Cancelled`
+  - 操作は（主に呼び出し元よって）キャンセルされました。
+- `Unknown`
+  - 未知のエラー。
+- `InvalidArgument`
+  - クライアントは無効な引数を指定しました。`FailedPrecondition`とは異なることに注意してください。
+    `InvalidArgument`はシステムの状態に関係なく、問題のある引数を示します。
+- `DeadlineExceeded`
+  - 操作が完了する前に期限が切れました。
+    システムの状態を変更する操作の場合、操作が正常に完了したとしても、このエラーが返さることもあります。
+    システムの状態を変更する操作の場合、操作が正常に完了しても、このエラーが返されることがあります。
+- `NotFound`
+  - リクエストされたエンティティ（ファイルやディレクトリなど）が見つかりません。
+- `AlreadyExists`
+  - 作成しようとしたエンティティ（ファイルやディレクトリなど）はすでに存在しています。
+- `PermissionDenied`
+  - 呼び出し元は指定した操作を実行するための権限を持っていません。
+    `PermissionDenied`は呼び出し元が識別できないときは使ってはいけません
+    （そのようなときは替わりに`Unahtenticated`を使いましょう）。
+- `ResourceExhausted`
+  - リソース（ユーザーごとの割り当てやファイルシステム全体の空き容量など）が枯渇しています。
+- `FailedPrecondition`
+  - システムは操作を実行するための必要な状態ではないため、操作が拒否されました。
+- `Aborted`
+  - 操作が中断されました。通常は、トランザクションの中断やシーケンサーチェックの失敗などの並行処理の問題が原因になります。
+- `OutOfRange`
+  - 有効な範囲を超えた操作（ファイル終端を超えた走査や読み取りなど）が試行されました。
+    `InvalidArgument`と違い、システムの状態が変わったとしても、このエラーは解決すべき問題を特定します。
+- `Unimplemented`
+  - 操作はこのサービスにおいて実装されていないか、サポートされていない、または有効になっていません。
+- `Internal`
+  - 内部エラー。基礎となるシステムによって期待されるいくつかの不変条件が壊れていることを意味します。
+- `Unavailable`
+  - サービスは現在利用できません。
+    これはおそらく一時的な状態であり、バックオフを使って再試行することで修正できることもできます。
+- `DataLoss`
+  - 復旧不可能なデータの損失または破損。
+- `Unauthenticated`
+  - リクエストは、操作に対する有効な認証情報がありません。
+
+<!--
 ### Status creation
 
 API MUST provide a way to create a new `Status`.
@@ -928,20 +1099,53 @@ Required parameters
 Optional parameters
 
 - Description of this `Status`.
+-->
 
+### Statusの作成
+
+APIは、新しい`Status`を作成する手段を提供しなくてはなりません(MUST)。
+
+必要なパラメータ
+
+- その`Status`の`StatusCanonicalCode`
+
+オプションのパラメータ
+
+- その`Status`の説明
+
+<!--
 ### GetCanonicalCode
 
 Returns the `StatusCanonicalCode` of this `Status`.
+-->
 
+# GetCanonicalCode
+
+その`Status`の`StatusCanonicalCode`を返します。
+
+<!--
 ### GetDescription
 
 Returns the description of this `Status`.
 Languages should follow their usual conventions on whether to return `null` or an empty string here if no description was given.
+-->
 
+### GetDescription
+
+その`Status`の説明を返します。
+説明が与えられていない場合に`null`を返すかからの文字列を返すかについては、言語の通常の慣習に従う必要があります。
+
+<!--
 ### GetIsOk
 
 Returns true if the canonical code of this `Status` is `Ok`, otherwise false.
+-->
 
+### GetIsOk
+
+その`Status`の正規化コードが`Ok`の場合にtrueを返し、それ以外の場合にfalseを返します。
+
+<!--
 ## SpanKind
 
 `SpanKind` describes the relationship between the Span, its parents,
@@ -997,3 +1201,5 @@ To summarize the interpretation of these kinds:
 | `PRODUCER` | | yes | | maybe |
 | `CONSUMER` | | yes | maybe | |
 | `INTERNAL` | | | | |
+-->
+
