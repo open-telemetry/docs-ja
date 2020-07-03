@@ -50,8 +50,8 @@ Tracing API consist of a few main classes:
 
 トレーシングAPIは、いくつかのメインクラスから成り立っています:
 
-- `Tracer` はすべての操作に使われます。[Tracer](#tracer)節を参照。
-- `Span` は現在の操作の実行についての情報を格納する可変オブジェクトです。[Span](#span)節を参照。
+- `Tracer` はすべての操作に使われます。[Tracer](#tracer)節を参照してください。
+- `Span` は現在の操作の実行についての情報を格納する可変オブジェクトです。[Span](#span)節を参照してください。
 
 <!--
 ## Data types
@@ -166,7 +166,7 @@ provider pattern.
 この関数は2つの文字列の引数を取ります:
 
 `TracerProvider`は一般的にシングルトンとして使用されることが期待されます。
-実装は、単一でグローバルなデフォルトの `TracerProvider` を提供すべきです(SHOULD)。
+実装は、単一でグローバルなデフォルトの `TracerProvider` を提供する必要があります(SHOULD)。
 
 アプリケーションによっては、複数の `TracerProvider` インスタンスを使用することがあります。
 例えば、それぞれのインスタンスに異なる設定(例えば`SpanProcessor`)を提供したり、
@@ -317,22 +317,21 @@ field](https://www.w3.org/TR/trace-context/#tracestate-field).
 OpenTelemetryの`SpanContext`表現は[w3c TraceContext 仕様](https://www.w3.org/TR/trace-context/)に準拠しています。
 これには2つの識別子`TraceId`と`SpanId`と、共通の`TraceFlags`値とシステム固有の`TraceState`値のセットが含まれています。
 
-`TraceId` 有効なTrace識別子は、16バイトの配列で、少なくとも1つは0以外のバイトです。
+`TraceId`として有効なTrace識別子は16バイトの配列で、少なくとも1つは0以外のバイトです。
 
-`SpanId` 有効なスパン識別子は、8バイトの配列で、少なくとも1つの0以外のバイトです。
+`SpanId`として有効なスパン識別子は8バイトの配列で、少なくとも1つの0以外のバイトです。
 
+`TraceFlags`は、トレースに関する詳細を格納します。
+Tracestate値と異なり、TraceFlagsはすべてのトレースに存在します。
+現在、`TraceFlags`は真偽値`sampled`[フラグ](https://www.w3.org/TR/trace-context/#trace-flags)のみを持っています。
 
-****************
-`TraceFlags` はトレースに関する詳細を格納する。
-Tracestate の値とは異なります。TraceFlags はすべてのトレースに存在します。
-現在、唯一の `TraceFlags` は ブール値 `sampled` フラグ](https://www.w3.org/TR/trace-context/#trace-flags)。
+`Tracestate`は、システム固有の設定データをキーと値のペアとして保持します。
+TraceStateにより、複数のトレースシステムが同じトレースを扱えるようになります。
 
-`Tracestate` はシステム固有の設定データを保持します。キーと値のペアの TraceState は、複数のトレースシステムが 同じトレースを使用しています。
+`IsValid`は真偽値で、SpanContextが0ではないTraceIDと0以外のSpanIDを持っている場合にtrueを返します。
 
-`IsValid` は、スパンコンテキストが 0 以外の値の TraceID と、0 以外の SpanID を指定します。
-
-`IsRemote` は、スパンコンテキストが伝播された場合に真を返すブール値フラグです。の子をリモートの親から作成します。
-リモートスパンから子を作成する場合、その子のIsRemoteフラグをfalseに設定しなければなりません(MUST)。
+`IsRemote`は真偽値で、SpanContextがリモートの親から伝搬された場合にtrueを返します。
+リモートのSpanから子を作成する場合、その子のIsRemoteフラグはfalseにセットされなければなりません(MUST)。
 
 W3Cの仕様について、詳細は[Tracestate field](https://www.w3.org/TR/trace-context/#tracestate-field)を参照してください。
 
