@@ -101,15 +101,22 @@ OpenTelemetry APIはライブラリによって計装ポイントで使用でき
 OpenTelemetry APIはこの組み合わせを許可してはいけません(MUST NOT)。
 
 SDKは[`Sampler`](#sampler)と[`Decision`](#decision)の2つのインタフェースとともに、
-セットである[組み込みSampler](#built-in-samplers)を定義しています。(??? built-in samplersを訳すかどうか)
+セットである[組み込みSampler](#built-in-samplers)を定義しています。(??? built-in samplersを訳すか、英単語でいくか)
 
-
+<!--
 ### Sampler
 
 `Sampler` interface allows to create custom samplers which will return a
 sampling `SamplingResult` based on information that is typically available just
 before the `Span` was created.
+-->
 
+### Sampler
+
+`Sampler`インタフェースを使って、通常は`Span`が作成される直前に得られる情報に基づいて`SamplingResult`を返す、
+カスタムのSamplerを作成することができます。
+
+<!--
 #### ShouldSample
 
 Returns the sampling Decision for a `Span` to be created.
@@ -142,6 +149,24 @@ It produces an output called `SamplingResult` which contains:
   * The list of attributes returned by `SamplingResult` MUST be immutable.
   Caller may call this method any number of times and can safely cache the
   returned value.
+-->
+
+#### ShouldSample
+
+作成する`Span`のサンプリングDecisionを返します。
+
+**必須の引数:**
+
+* 親`Span`の`SpanContest`。通常、ワイヤーから抽出されます(??? `from the wire`とは?)。`null`もありえます。
+* 作成される`Span`の`TraceId`。`SpanContext`内の`TraceId`とは異なる場合もあります。
+  通常、作成される`Span`が新たな`Trace`を始める状況で起こります。
+* 作成される`Span`の`SpanId`
+* 作成される`Span`の名前
+* `SpanKind`
+* 構築される`Span`が持つ`Attribute`の初期セット
+* 作成される`Span`に割り当てられるLinkのコレクション。通常、これはバッチ処理で使われます。
+  詳細は[Links Between Spans](../overview.md#links-between-spans)を参照してください。
+
 
 #### GetDescription
 
