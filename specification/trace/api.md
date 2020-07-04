@@ -424,7 +424,12 @@ Span名は、個別のSpanインススタンスを表すよりも、 _Spanのク
 | `get`                     | 一般的すぎます。                                                         |
 | `get_account/42`          | 限定しすぎています。                                                      |
 | `get_account`             | 良い名前です。Span Attributeとして account_id=42 を指定とするとよさそうです。 |
-| `get_account/{accountId}` | これも良い名前です。（"HTTP route"を使う)                                  |
+| `get_account/{accountId}` | これも良い名前です。（"HTTP route"を使う *）                               |
+
+（* 訳注:
+WEBアプリケーションフレームワークにおけるルーティング設定のようなものを使います。
+フレームワークによっては`get_account/:accountId`のように表現することもあるものです。
+つまり、`{accountId}`部分は文字列`{accountId}`そのものであり、`42`などの実際のIDを名前に使うわけではありません。）
 
 `Span`の開始と終了のタイムスタンプには、操作の実際の経過時間が反映されます。
 `Span`の開始時間は[Span作成](#span-creation)時点での時刻がセットされる必要があります(SHOULD)。
