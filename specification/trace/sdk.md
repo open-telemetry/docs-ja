@@ -167,7 +167,17 @@ It produces an output called `SamplingResult` which contains:
 * 作成される`Span`に割り当てられるLinkのコレクション。通常、これはバッチ処理で使われます。
   詳細は[Links Between Spans](../overview.md#links-between-spans)を参照してください。
 
+**返却値:**
 
+* サンプリングの`Desigion`。次の列挙値の一つ:
+  * `NOT_RECORD` - `IsRecording() == false`のときで、Spanはイベントを全く記録せず、すべてのAttributeは破棄されます。
+  * `RECORD` - `IsRecording() == true`だが、`Sampled`フラグはセットされてはいけません(MUST NOT)。
+  * `RECORD_AND_SAMPLED` - `IsRecording() == true`かつ`Sampled`フラグがセットされなければなりません(MUST)。
+* SpanのAttributeのセットで、`Span`に追加で加えるもの。
+  * `SamplingResult`によって返されるAttributeのリストはイミュータブルでなければなりません(MUST)。
+  呼び出し元は何度でもこのメソッドを呼ぶこともでき、返却値は安全にキャッシュすることができます。
+
+<!--
 #### GetDescription
 
 Returns the sampler name or short description with the configuration. This may
@@ -175,7 +185,17 @@ be displayed on debug pages or in the logs. Example:
 `"ProbabilitySampler{0.000100}"`.
 
 Description MUST NOT change over time and caller can cache the returned value.
+-->
 
+#### GetDescription
+
+設定されているSamplerの名前または短いDescriptionはを返します。(??? プロパティ名ならDescriptionで翻訳するけど、後で確認)
+これはバグ通知やログで表示されることもあります。
+例: `"ProbabilitySampler{0.000100}"`
+
+Descriptionは、時間経過とともに変化させてはならず(MUST NOT)、呼び出し元は返却値をキャッシュすることができます。
+
+<!--
 ### Built-in samplers
 
 These are the default samplers implemented in the OpenTelemetry SDK:
@@ -196,6 +216,28 @@ These are the default samplers implemented in the OpenTelemetry SDK:
   that are root spans (no parent) and Spans with remote parent. However there
   should be configuration to change this to "root spans only", or "all spans".
   * Description MUST be `ProbabilitySampler{0.000100}`.
+-->
+
+### 組み込みSampler
+
+OpenTelemetry SDKには、デフォルトのSampler実装があります:
+
+* ALWAYS_ON
+  * デフォルト値として使われます。
+  * Descriptionは`AlwaysOnSampler`でなければなりません(MUST)。
+* ALWAYS_OFF
+  * Descriptionは`AlwaysOffSampler`でなければなりません(MUST)。
+* ALWAYS_PARENT
+  * 親のSpanContextの`SanpledFlag`がtrueであり、かつ`NOT_RECORDED`である場合、(??? 条件あってなさそう。and ... otherwizeとは?)
+    `RECORD_AND_SAMPLED`を返します。 
+  * Descriptionは`AlwaysParentSampler`でなければなりません(MUST)。
+* Probability
+  * デフォルトの動作は、親の`SampledFlag`を信用する必要があります。
+    しかし、これを変更するための設定が必要です。
+  * デフォルトの動作では、（親のいない）ルートSpanとリモートの親を持つSpanにのみ、サンプリング確率を適用します。
+    しかし、これを「ルートSpanのみ」または「全てのSpan」に変更するための設定である必要があります。
+  * Descriptionは`ProbabilitySampler{0.000100}`でなければなりません(MUST)。
+
 
 #### Probability Sampler algorithm
 
