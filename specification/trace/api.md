@@ -172,12 +172,12 @@ provider pattern.
 例えば、それぞれのインスタンスに異なる設定(例えば`SpanProcessor`)を提供したり、
 その結果として、それらのインスタンスによって生成された`Tracer`インスタンスを提供したりするためです。
 
-- `name` (必須): nameは、計装されるライブラリではなく、計装するライブラリ (インテグレーションとも呼ばれます。
-  `io.opentelemetry.contrib.mongodb` など) を識別しなければなりません。
+- `name` (必須): nameは、計装されるライブラリ *ではなく* 、計装するライブラリ
+  (`io.opentelemetry.contrib.mongodb` などの、インテグレーションとも呼ばれるもの) を識別しなければなりません。
   無効な名前 (nullまたは空文字列) が指定された場合は、nullを返したり例外をスローせず、
   フォールバックとして作業用であるデフォルトのTracerの実装を返します。
   OpenTelemetry APIを実装しているライブラリが「名前付き」機能をサポートしていない場合（例えばオブザーバビリティに関係のない実装など）、
-  この名前を無視して、すべての呼び出しに対してデフォルトのインスタンスを返すかもしれません。
+  この名前を無視して、すべての呼び出しに対してデフォルトのインスタンスを返す *かもしれません* 。
   アプリケーションの所有者がこのライブラリによって生成されたテレメトリーを抑制するようにSDKを設定している場合、
   TracerProviderは何もしないTracerを返すこともできます。
 - `version` (オプション): 計装ライブラリのバージョンを指定します（例: `semver:1.0.0`）。
@@ -204,7 +204,7 @@ mechanism, for instance the `ServiceLoader` class in Java.
 複数のデプロイメントやアプリケーションをサポートするランタイムは、
 各デプロイメントに異なる`TracerProvider`インスタンスを提供する必要があるかもしれません。
 これをサポートするために、グローバルの`TracerProvider`レジストリは、
-呼び出しを`TracerProvider`の新しいインスタンスを作成する委譲し、`Provider`コンポーネントを分離することもでき、
+呼び出しを`TracerProvider`の新しいインスタンスを作成する関数呼び出しに委譲しすることによって`Provider`コンポーネントを分離することもでき、
 ランタイムは各デプロイメントごとに異なる`TracerProvider`を返す独自の`Provider`実装を含めることができます。
 
 `Provider`インスタンスは、Javaの`ServiceLoader`クラスなど、言語固有のメカニズムを介してAPIに登録されます。
@@ -247,7 +247,7 @@ made inactive on another.
 
 - 新しい `Span` を作成する
 
-`Tracer` は以下のメソッドを提供する必要があります(SHOULD):
+`Tracer` は可能な限り、以下のメソッドを提供する必要があります(SHOULD):
 
 - 現在アクティブな `Span` を取得する
 - 与えられた `Span` をアクティブにする
@@ -325,7 +325,7 @@ OpenTelemetryの`SpanContext`表現は[w3c TraceContext 仕様](https://www.w3.o
 Tracestate値と異なり、TraceFlagsはすべてのトレースに存在します。
 現在、`TraceFlags`は真偽値`sampled`[フラグ](https://www.w3.org/TR/trace-context/#trace-flags)のみを持っています。
 
-`Tracestate`は、システム固有の設定データをキーと値のペアとして保持します。
+`Tracestate`は、システム固有の設定データをキーと値のペアの配列として保持します。
 TraceStateにより、複数のトレースシステムが同じトレースを扱えるようになります。
 
 `IsValid`は真偽値で、SpanContextが0ではないTraceIDと0以外のSpanIDを持っている場合にtrueを返します。
@@ -400,7 +400,7 @@ directly. All `Span`s MUST be created via a `Tracer`.
 `Span`は次のようにカプセル化されます:
 
 - Span名
-- `Span`をユニークに特定する、不変の [`SpanContext`](#spancontext)
+- `Span`をユニークに特定する、イミュータブルな [`SpanContext`](#spancontext)
 - [`Span`](#span), [`SpanContext`](#spancontext)のペアの形で指定される親Span（nullの場合もあります）
 - [`SpanKind`](#spankind)
 - 開始タイムスタンプ
@@ -417,7 +417,7 @@ Span名は、個別のSpanインススタンスを表すよりも、 _Spanのク
 つまり、 "get_user" は妥当な名前であり、"314159"をユーザーIDとしたときの"get_user/314159"
 のような名前はカーディナリティが高く、良い名前ではありません。
 
-例えば、仮のアカウント情報を取得するためのエンドポイントに対する潜在的なSpan名は:
+例えば、仮のアカウント情報を取得するためのエンドポイントに対するSpan名は以下が考えられます:
 
 | スパン名                   | ガイダンス                                                              |
 | ------------------------- | ---------------------------------------------------------------------- |
@@ -514,12 +514,12 @@ APIは、以下のパラメータを受け取らなければなりません(MUST
   指定されていない場合、空のコレクションとして扱われます。
 
   可能な限り、ユーザーは、後から`SetAttribute`を呼び出すのではなく、
-  Spanのの作成時に既に知ることができるAttributeを設定すべきです(SHOULD)。
+  Spanのの作成時に既に知ることができるAttributeをセットする必要があります(SHOULD)。
 
 - 複数の`Link` - [APIの定義](#add-links)を参照してください。
   指定されていない場合、空のリストとして扱われます。
 - `Start timestamp`は、デフォルトは現在の時刻です。
-  この引数は、Spanの作成時間がすでに経過している場合にのみ設定されるべきです(SHOULD)。
+  この引数は、Spanの作成時間がすでに経過している場合にのみセットあれる必要があります(SHOULD)。
   Spanが論理的に開始する瞬間にAPIが呼ばれた場合、APIのユーザーはこの引数を明示的に設定してはなりません(MUST NOT)。
   (??? 原文ではMUST notになってて扱いがこまる)
 
