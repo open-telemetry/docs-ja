@@ -509,7 +509,7 @@ APIは、以下のパラメータを受け取らなければなりません(MUST
   および、新しい`Span`がルートの`Span`であるべきかどうか。
   APIは現在のコンテキストから暗黙的に親化(??? `parenting`の良い訳がほしい)ときの、
   デフォルトの動作のためのオプションを取ることもできます(MAY)。
-  明示的及び暗黙的な`Context`からの`Span`の親化に関するガイダンスは、
+  明示的及び暗黙的な`Context`から`Span`の親への変換に関しては、
   [Contextからの親Spanの決定](#determining-theparent-span-from-a-context)を参照してください。
 - [`SpanKind`](#spankind)。指定されていない場合はデフォルトで`SpanKind.Internal`となります。
 - 複数の`Attribute` - キーと値のペアのコレクションで、[Span::SetAttributes](#set-attributes)で
