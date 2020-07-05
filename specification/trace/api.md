@@ -1138,7 +1138,7 @@ Languages should follow their usual conventions on whether to return `null` or a
 ### GetDescription
 
 その`Status`の説明を返します。
-説明が与えられていない場合に`null`を返すかからの文字列を返すかについては、言語の通常の慣習に従う必要があります。
+説明が与えられていない場合に`null`を返すか空の文字列を返すかについては、言語の通常の慣習に従う必要があります。
 
 <!--
 ### GetIsOk
