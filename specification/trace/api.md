@@ -694,7 +694,7 @@ propagators.
 `Span`が、`AddEvent`の操作や、`SetAttributes`を用いたAttribute、
 `SetStatus`を用いたStatusの操作等のEvent情報を記録している場合に、Trueを返します。
 
-引数は必要ありません。
+引数を取ってはいけません
 
 このフラグは、Spanが記録されないことが明白な場合に、SpanのAttributeやEventの計算コストの
 発生を避けるために使われる必要があります(SHOULD)。
