@@ -615,7 +615,7 @@ Linkされた`Span`は同じTraceから来ている場合もあれば、異な�
 - （必須）Link先の`Span`の`SpanContext`
 - （オプション）[Span Attribute](#set-attributes)で定義されているものと同じ制約を持つ、1つ以上の`Attribute`
 
-`Link`は不変な型である必要があります(SHOULD)。
+`Link`はイミュータブルな型である必要があります(SHOULD)。
 
 Span作成APIは、以下のものを提供しなければなりません:
 
