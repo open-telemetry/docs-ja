@@ -1226,7 +1226,7 @@ To summarize the interpretation of these kinds:
 例えば、サーバーサイドSpanは、他のリモートSpanの親として直接使ってはいけません。
 簡単なガイドラインとしては、計装はリモートコール用のSpanContextを抽出したりシリアライズしたりする前に、新しいSpanを作成する必要があります。
 
-とり得るSpanKindの値は次の通りです:
+使用できるSpanKindの値は次の通りです:
 
 * `SERVER`は、そのSpanが非同期のRPCやその他のリモートリクエストなどの、サーバーサイドでの処理をカバーしていることを示します。
   このSpanは、リモートの`CLIENT`としてレスポンスを待っていると思われるSpanの子になります。
