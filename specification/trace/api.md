@@ -1210,7 +1210,7 @@ To summarize the interpretation of these kinds:
 
 ## SpanKind
 
-`SpanKind`は、Trace内での親子関係など(??? などって言っていい？訳がスッキリしない)の`Span`同士の関係性を記述します。
+`SpanKind`は、Trace内での親子関係を記述します。
 `SpanKind`は、トレーシングシステムで分析の際に利点となる、2つの独立したプロパティを記述します。
 
 `SpanKind`が記述する1つめのプロパティは、Spanがリモートの子または親かを反映します。
