@@ -504,7 +504,7 @@ parent is remote.
 
 APIは、以下のパラメータを受け取らなければなりません(MUST)。
 
-- Spa名。これは必須のパラメータです。
+- Span名。これは必須のパラメータです。
 - 親の`Span`、または親の`Span`か`SpanContext`を含む`Context`。
   および、新しい`Span`がルートの`Span`であるべきかどうか。
   APIは現在のコンテキストから暗黙的に親化(??? `parenting`の良い訳がほしい)ときの、
