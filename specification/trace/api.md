@@ -1238,7 +1238,7 @@ To summarize the interpretation of these kinds:
 * `CONSUMER`は、そのSpanが非同期の`PRODUCER`リクエストの子であることを示します。
 * `INTERNAL`は、デフォルトの値であり、リモート操作の親や子とは対照的に、そのSpanがアプリケーションの内部操作であることを表します。
 
-これらの種類の解釈をまとめると:
+これらの種類の解釈をまとめると以下のようになります:
 
 | `SpanKind` | 同期 | 非同期 | リモート受信 | リモート発信 |
 |--|--|--|--|--|
@@ -1247,4 +1247,3 @@ To summarize the interpretation of these kinds:
 | `PRODUCER` | | yes | | maybe |
 | `CONSUMER` | | yes | maybe | |
 | `INTERNAL` | | | | |
-
