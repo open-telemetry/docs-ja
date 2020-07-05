@@ -828,7 +828,7 @@ Eventは`Span`に追加された瞬間に関連付けられた時間を持ちま
 - （オプション）[Span Attributes](#set-attributes)で定義されたものと同じ制約を持つ、1個以上の`Attribute`
 - （オプション）Eventのタイムスタンプ
 
-`Event`は不変型である必要があります(SHOULD)。
+`Event`はイミュータブル型である必要があります(SHOULD)。
 
 Spanインタフェースは次のものを提供しなければなりません(MUST):
 - `Event`のプロパティを引数として受け取る、単一の`Event`を記録するAPI。`AddEvent`と呼ぶこともできます(MAY)。
