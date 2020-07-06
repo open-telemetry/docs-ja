@@ -81,7 +81,7 @@ that moment. -->
 呼び出し規約にかかわらず、ここでは _メトリックイベント_ を新しい Measurement が取得されたときに起こる論理的なものとして定義します。
 （「実行時」の）取得の瞬間には暗黙的なタイムスタンプが定義されます。タイムスタンプはその瞬間にSDKが実行環境の時計から読み込むウォールタイムです。
 
-The word "semantic" or "semantics" as used here refers to _how we give
+<!-- The word "semantic" or "semantics" as used here refers to _how we give
 meaning_ to metric events, as they take place under the API.  The term
 is used extensively in this document to define and explain these API
 functions and how we should interpret them.  As far as possible, the
@@ -89,16 +89,25 @@ terminology used here tries to convey the intended semantics, and a
 _standard implementation_ will be described below to help us
 understand their meaning.  Standard implementations perform
 aggregation corresponding to the default interpretation for each kind
-of metric event.
+of metric event. -->
 
-Monitoring and alerting systems commonly use the data provided through
+「セマンティック」や「セマンティクス」といった用語はここではメトリックイベントがAPIの中で発生するときに、*どのように意味を与えるか*という意味で使っています。
+この用語は本ドキュメントにおいては広くこれらのAPI関数とセマンティクスの解釈のすべきかを定義し、説明しています。
+可能な限り、この用語は意図したセマンティクスを伝えるように使われ、以下で説明される*標準実装*はその意味を理解するのに役立つでしょう。
+標準実装は各種メトリックイベントのデフォルトの解釈に対応するアグリゲーションをおこないます。
+
+<!-- Monitoring and alerting systems commonly use the data provided through
 metric events, after applying various [aggregations](#aggregations)
 and converting into various [exposition formats](#exposition-formats).
 However, we find that there are many other uses for metric events,
 such as to record aggregated or raw measurements in tracing and
 logging systems.  For this reason, [OpenTelemetry requires a
 separation of the API from the SDK](../library-guidelines.md#requirements),
-so that different SDKs can be configured at run time.
+so that different SDKs can be configured at run time. -->
+
+モニタリングシステムとアラートシステムはメトリックイベントを通じて提供されるデータをさまざまな[アグリゲーション](#アグリゲーション)を行い、さまざまな[公開フォーマット](#公開フォーマット)に変換した後に、共有して使っています。
+しかしながら、他にも多くのものがメトリックイベントを使うことを知りました。たとえば、トレースやロギングにおいてアグリゲートされた、あるいは生の計測を記録するために使います。
+こうした理由から異なるSDKが実行時に構成できるように、[OpenTelemetryではAPIとSDKを分離する必要](../library-guidelines.md#requirements)があります。
 
 ### Measurements
 
