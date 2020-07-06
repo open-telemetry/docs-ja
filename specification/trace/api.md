@@ -512,7 +512,7 @@ APIは、以下のパラメータを受け取らなければなりません(MUST
   明示的及び暗黙的な`Context`から`Span`の親への変換に関しては、
   [Contextからの親Spanの決定](#determining-theparent-span-from-a-context)を参照してください。
 - [`SpanKind`](#spankind)。指定されていない場合はデフォルトで`SpanKind.Internal`となります。
-- 複数の`Attribute` - キーと値のペアのコレクションで、[Span::SetAttributes](#set-attributes)で
+- 複数の`Attribute` - キーと値のペアの配列で、[Span::SetAttributes](#set-attributes)で
   設定可能なものと同じセマンティクスを持ちます。
   さらに、それらのAttributeは、[サンプリングの説明](sdk.md#sampling)で示されているように、
   サンプリングの説明を付けるために使うこともできます。
