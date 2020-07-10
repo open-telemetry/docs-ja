@@ -28,7 +28,7 @@ Here are the key principles:
 -->
 
 - **ライブラリはデフォルトでエンドユーザーのアプリケーションをブロックすべきではありません(SHOULD NOT)**
-- **ライブラリは束縛されていないメモリリソースを消費してはいけません(SHOULD NOT)**
+- **ライブラリは束縛されていないメモリリソースを消費すべきではありません(SHOULD NOT)**
 
 <!--
 Although there are inevitable overhead to achieve monitoring, API should not degrade the end-user application as possible. So that it should not block the end-user application nor consume too much memory resource.
