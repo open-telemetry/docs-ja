@@ -554,7 +554,7 @@ Returns a global `Propagator`. This usually will be composite instance.
 This method MUST exist for each supported `Format`.
 -->
 
-このメソッドはサポートされている`Format`ごとに存在しなければならない(MUST)。
+このメソッドはサポートされている`Format`ごとに存在しなければなりません(MUST)。
 
 <!--
 Sets the global `Propagator` instance.
