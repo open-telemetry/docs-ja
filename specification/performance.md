@@ -58,7 +58,7 @@ Incomplete asynchronous I/O tasks or background tasks may consume memory to pres
 If there is such tradeoff in language library, it should provide the following options to end-user:
 -->
 
-言語ライブラリにこのようなトレードオフがある場合、エンドユーザに以下のオプションを提供する必要があります(SHOULD)。
+言語ライブラリにこのようなトレードオフがある場合、エンドユーザに以下のオプションを提供すべきです(SHOULD)。
 
 <!--
 - **Prevent information loss**: Preserve all information but possible to consume many resources
