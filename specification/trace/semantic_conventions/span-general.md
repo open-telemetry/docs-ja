@@ -58,7 +58,7 @@ the `net.peer.*` properties of a client are equal to the `net.host.*` properties
 |  属性名  |                                 説明と例                               |
 | :--------------- | :--------------------------------------------------------------------------------|
 | `net.transport` | 使用しているトランスポートプロトコル[以下の注意書きを参照](#net.transport)              |
-| `net.peer.ip`   | ピアノリモートアドレス (`.` で区切られたIPv4あるいはIPv6には [RFC5952][])       |
+| `net.peer.ip`   | ピアのリモートアドレス (`.` で区切られたIPv4あるいはIPv6には [RFC5952][])       |
 | `net.peer.port` | リモートポート番号を整数で指定します。例：`80`                                         |
 | `net.peer.name` | リモートホスト名またはそれに類するもの [以下の注意書きを参照](#net.name)                 |
 | `net.host.ip`   | `net.peer.ip` のようなものですが、ホストの IP を指定します。複数のIPを持つホストの場合に便利です。 |
@@ -251,4 +251,3 @@ information is required and would not violate any policies or regulations.
 -->
 
 この情報の機密性を考えると、SDKとExporterはデフォルトではこれらの属性を削除しておくべきです(SHOULD)。情報が必要でありいかなるポリシーや規制にも違反しないようなユースケースのために、保持を有効にするための設定パラメータを提供すべきです(SHOULD)。
-
