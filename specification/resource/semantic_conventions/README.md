@@ -9,7 +9,7 @@ This document defines standard attributes for resources. These attributes are ty
 [OpenCensus Resource standard](https://github.com/census-instrumentation/opencensus-specs/blob/master/resource/StandardResources.md).
 -->
 
-この文書では、Resourceの標準的属性を定義します。これらの属性は通常、[Resource](../sdk.md)で使用され、また、uを一貫した方法で記述する必要がある場合には、他の場所でも使用することが推奨されます。これらの属性の大部分は [OpenCensus Resource standard](https://github.com/census-instrumentation/opencensus-specs/blob/master/resource/StandardResources.md) から継承されています。
+この文書では、Resourceの標準的属性を定義します。これらの属性は通常、[Resource](../sdk.md)で使用され、また一貫した方法で記述する必要がある場合には、他の場所でも使用することが推奨されます。これらの属性の大部分は [OpenCensus Resource standard](https://github.com/census-instrumentation/opencensus-specs/blob/master/resource/StandardResources.md) から継承されています。
 
 <!--
 - [Service](#service)
@@ -458,4 +458,3 @@ The type and version value MUST be separated by a colon character `:`.
 -->
 
 タイプとバージョンの値はコロン文字 `:` で区切らなければなりません(MUST)。
-
