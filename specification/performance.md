@@ -114,7 +114,7 @@ The language library could block the end-user application when it shut down. On 
 If the language library supports an explicit flush operation, it could block also. But should support a configurable timeout.
 -->
 
-言語ライブラリが明示的なフラッシュ操作をサポートしている場合は、それもブロックすることができます。しかし、設定可能なタイムアウトをサポートしている必要があります(SHOULD)。
+言語ライブラリが明示的なフラッシュ操作をサポートしている場合は、それもブロックすることができます。しかし、設定可能なタイムアウトをサポートすべきです(SHOULD)。
 
 <!--
 ## Documentation
