@@ -357,7 +357,7 @@ Getter は `Extract` の引数で、与えられたフィールドから値を�
 The Get function MUST return the first value of the given propagation key or return null if the key doesn't exist.
 -->
 
-Get関数は、与えられた伝搬キーの最初の値。あるいは、キーが存在しない場合はNULLを返す必要があります(MUST)。
+Get関数は、与えられた伝搬キーの最初の値。あるいは、キーが存在しない場合はNULLを返さなければなりません(MUST)。
 
 <!--
 Required arguments:
