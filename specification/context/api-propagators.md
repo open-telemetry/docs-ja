@@ -345,7 +345,7 @@ Getter は `Extract` の引数で、与えられたフィールドから値を�
 `Getter` MUST be stateless and allowed to be saved as a constant to avoid runtime allocations. One of the ways to implement it is `Getter` class with `Get` method as described below.
 -->
 
-`Getter` はステートレスでなければならず、実行時のメモリ割り当てを避けるために定数として保存される必要があります(MUST)。これを実装する方法の一つとして、以下に説明するように `Get` メソッドを持つ `Getter` クラスがあります。
+`Getter` はステートレスでなければならず、実行時のメモリ割り当てを避けるために定数として保存しなければなりません(MUST)。これを実装する方法の一つとして、以下に説明するように `Get` メソッドを持つ `Getter` クラスがあります。
 
 <!--
 ##### Get
