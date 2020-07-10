@@ -12,7 +12,7 @@ specify whether it is safe or no to make concurrent calls and in what
 situations.
 -->
 
-並行実行をサポートする言語については、OpenTelemetry APIは限定されt保証と安全性を提供しています。すべてのAPI関数が同時に呼び出されても安全というわけではありません。関数やメソッドのドキュメントでは、どのような状況での同時呼び出しが安全か否かを明示的に指定しなければなりません。
+並行実行をサポートする言語については、OpenTelemetry APIは限定された保証と安全性を提供しています。すべてのAPI関数が同時に呼び出されても安全というわけではありません。関数やメソッドのドキュメントでは、どのような状況での同時呼び出しが安全か否かを明示的に指定しなければなりません。
 
 <!--
 The following are general recommendations of concurrent call safety of
