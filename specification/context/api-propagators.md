@@ -143,7 +143,7 @@ interceptors, where the client-side injects values and the server-side extracts 
 and extracts values from carriers.
 -->
 
-`HTTPTextFormat` はキャリアに値を注入し、キャリアから値を抽出するAPIを公開する必要があります(MUST)。
+`HTTPTextFormat` はキャリアに値を注入し、キャリアから値を抽出するAPIを公開しなければなりません(MUST)。
 
 <!--
 ### Fields
@@ -210,8 +210,8 @@ Required arguments:
 - the `Setter` invoked for each propagation key to add or remove.
 -->
 
-- `Context`: Propagator は最初に `SpanContext` や `CorrelationContext` あるいは他の関連するコンポーネントの `Context` から適切な値を取得する必要があります(MUST)。現在の `Context` をサポートする言語では、この引数はオプションであり、デフォルトは現在の `Context` インスタンスになります。
-- 伝搬用のフィールドを保持するキャリア: 例えば、発信メッセージやhttpリクエストなどです。
+- `Context`: Propagator は最初に `SpanContext` や `CorrelationContext` あるいは他の関連するコンポーネントの `Context` から適切な値を取得しなければなりません(MUST)。現在の `Context` をサポートする言語では、この引数はオプションであり、デフォルトは現在の `Context` インスタンスになります。
+- 伝搬用のフィールドを保持するキャリア: 例えば、発信メッセージやHTTPリクエストなどです。
 - 追加または削除する伝搬キーごとに呼び出される `Setter`
 
 <!--
@@ -237,7 +237,7 @@ Setterは指定されたフィールドに値をセットする `Inject` のた�
 `Setter` MUST be stateless and allowed to be saved as a constant to avoid runtime allocations. One of the ways to implement it is `Setter` class with `Set` method as described below.
 -->
 
-`Setter` はステートレスでなければならず、実行時の割り当てを避けるために定数として保存できる必要があります(MUST)。これを実装する方法の一つは、以下のように `Set` メソッドを持つ `Setter` クラスです。
+`Setter` はステートレスでなければならず、実行時の割り当てを避けるために定数として保存できなければなりません(MUST)。これを実装する方法の一つは、以下のように `Set` メソッドを持つ `Setter` クラスです。
 
 <!--
 ##### Set
@@ -263,7 +263,7 @@ Required arguments:
 - the value of the field.
 -->
 
-- 伝搬されるフィールドを保持しているキャリア。例えば、送信メッセージや http リクエストなどです。
+- 伝搬されるフィールドを保持しているキャリア。例えば、送信メッセージや HTTP リクエストなどです。
 - そのフィールドのキー
 - そのフィールドの値
 
@@ -271,7 +271,7 @@ Required arguments:
 The implemenation SHOULD preserve casing (e.g. it should not transform `Content-Type` to `content-type`) if the used protocol is case insensitive, otherwise it MUST preserve casing.
 -->
 
-使用されるプロトコルが大文字小文字を区別しない場合、実装は大文字小文字を保存するべきです(SHOULD) (例: `Content-Type` を `content-type` に変換してはならない) 。区別する場合は、大文字小文字を保持する必要があります(MUST)。
+使用されるプロトコルが大文字小文字を区別しない場合、実装は大文字小文字を保存するべきです(SHOULD) (例: `Content-Type` を `content-type` に変換してはならない) 。区別する場合は、大文字小文字を保持しなければなりません(MUST)。
 
 <!--
 ### Extract
@@ -291,7 +291,7 @@ the implementation MUST NOT throw an exception. It MUST store a value in the `Co
 that the implementation can recognize as a null or empty value.
 -->
 
-関連するコンポーネントのためにキャリアから値を解析できない場合、実装は例外を投げてはいけません(MUST NOT)。実装がnullまたは空の値として認識できる値を `Context` に格納する必要があります(MUST)。
+関連するコンポーネントのためにキャリアから値を解析できない場合、実装は例外を投げてはいけません(MUST NOT)。実装がnullまたは空の値として認識できる値を `Context` に格納してください(MUST)。
 
 <!--
 Required arguments:
@@ -306,7 +306,7 @@ Required arguments:
 -->
 
 - `Context`. 現在の `Context` をサポートする言語では、この引数はオプションであり、デフォルトは現在の `Context` インスタンスになります。
-- 伝搬されるフィールドを保持しているキャリア。例えば、送信メッセージや http リクエストなどです。
+- 伝搬されるフィールドを保持しているキャリア。例えば、送信メッセージや HTTP リクエストなどです。
 - 各伝搬キーを取得するために呼び出される `Getter` のインスタンス
 
 <!--
@@ -339,13 +339,13 @@ Getter は `Extract` の引数で、与えられたフィールドから値を�
 `Getter` allows a `HttpTextFormat` to read propagated fields from a carrier.
 -->
 
-`Getter` は `HttpTextFormat` がキャリアから伝搬されたフィールドを読み込むことを可能にする。
+`Getter` は `HttpTextFormat` がキャリアから伝搬されたフィールドを読み込むことを可能にします。
 
 <!--
 `Getter` MUST be stateless and allowed to be saved as a constant to avoid runtime allocations. One of the ways to implement it is `Getter` class with `Get` method as described below.
 -->
 
-`Getter` はステートレスでなければならず、実行時のメモリ割り当てを避けるために定数として保存される必要があります(MUST)。これを実装する方法の一つとして、以下に説明するように `Get` メソッドを持つ `Getter` クラスがあります。
+`Getter` はステートレスでなければならず、実行時のメモリ割り当てを避けるために定数として保存しなければなりません(MUST)。これを実装する方法の一つとして、以下に説明するように `Get` メソッドを持つ `Getter` クラスがあります。
 
 <!--
 ##### Get
@@ -357,7 +357,7 @@ Getter は `Extract` の引数で、与えられたフィールドから値を�
 The Get function MUST return the first value of the given propagation key or return null if the key doesn't exist.
 -->
 
-Get関数は、与えられた伝搬キーの最初の値。あるいは、キーが存在しない場合はNULLを返す必要があります(MUST)。
+Get関数は、与えられた伝搬キーの最初の値。あるいは、キーが存在しない場合はNULLを返さなければなりません(MUST)。
 
 <!--
 Required arguments:
@@ -377,7 +377,7 @@ Required arguments:
 The Get function is responsible for handling case sensitivity. If the getter is intended to work with a HTTP request object, the getter MUST be case insensitive. To improve compatibility with other text-based protocols, text `Format` implementions MUST ensure to always use the canonical casing for their attributes. NOTE: Cannonical casing for HTTP headers is usually title case (e.g. `Content-Type` instead of `content-type`).
 -->
 
-Get関数は、大文字小文字の区別を処理する役割を担っています。GetterがHTTPリクエストオブジェクトで動作することを意図している場合、 Getterは大文字小文字を区別する必要があります(MUST)。他のテキストベースのプロトコルとの互換性を向上させるために、テキスト `Format` の実装は、その属性は常にCanonical Case(???ここでのcanonocal caseとはどういう意味？)である必要があります(MUST)。注意: HTTPヘッダのキャノニカルなケーシングは通常タイトルケース(先頭が大文字)です(例えば、`content-type`の代わりに`Content-Type`など)。
+Get関数は、大文字小文字の区別を処理する役割を担っています。GetterがHTTPリクエストオブジェクトで動作することを意図している場合、 Getterは大文字小文字を区別しなければなりません(MUST)。他のテキストベースのプロトコルとの互換性を向上させるために、テキスト `Format` の実装は、その属性は常にヘッダフィールド名がカノニカルなものでなければなりません(MUST)。注意: HTTPヘッダのカノニカルなケーシングは通常タイトルケース(先頭が大文字)です(例えば、`content-type`の代わりに`Content-Type`など)。
 
 <!--
 ## Injectors and Extractors as Separate Interfaces
@@ -407,7 +407,7 @@ from different cross-cutting concerns in order to leverage them as a
 single entity.
 -->
 
-実装は、単一のエンティティとして活用するために、異なる関連するコンポーネントから複数の `Propagator` をグループ化する機能を提供する必要があります(MUST)。
+実装は、単一のエンティティとして活用するために、異なる関連するコンポーネントから複数の `Propagator` をグループ化する機能を提供しなければなりません(MUST)。
 
 <!--
 A composite propagator can be built from a list of propagators, or a list of
@@ -536,7 +536,7 @@ OpenTelemetry implementations.
 This method MUST exist for each supported `Format`.
 -->
 
-このメソッドはサポートされている`Format`ごとに存在しなければならない(MUST)。
+このメソッドはサポートされている`Format`ごとに存在しなければなりません(MUST)。
 
 <!--
 Returns a global `Propagator`. This usually will be composite instance.
@@ -554,7 +554,7 @@ Returns a global `Propagator`. This usually will be composite instance.
 This method MUST exist for each supported `Format`.
 -->
 
-このメソッドはサポートされている`Format`ごとに存在しなければならない(MUST)。
+このメソッドはサポートされている`Format`ごとに存在しなければなりません(MUST)。
 
 <!--
 Sets the global `Propagator` instance.
