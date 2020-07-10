@@ -137,7 +137,7 @@ If that is not known, a public hostname should be preferred over a private one. 
 It will usually not make sense to use reverse-lookup to obtain `net.host.name`, as that would result in static information that is better stored as resource information.
 -->
 
-IPベースの通信の場合、名前はDNSホスト名でなければなりません(SHOULD)。`net.peer.name`の場合は、接続先のIPアドレスを調べるのに使われた名前の必要があります(SHOULD)(つまり、`net.peer.ip`が設定されていればそれにマッチする。例えば、URL `https://example.com/foo` に接続する場合は `"example.com"`)。IPアドレスのみでホスト名がない場合は、オプションでIPの逆引きを使用して取得しても構いません(MAY)。 `net.host.name` はローカルホストのホスト名で(SHOULD)、できればピアが現在の操作のために接続に使用したホスト名でなければなりません。もしそのホスト名が分からなければ、プライベートホスト名よりもパブリックホスト名の方が優先されます。 しかし、その場合、すでにリソースに含まれている情報と重複している可能性があり、取り残されてしまう可能性があります。通常、`net.host.name`を取得するために逆引きを使用することは意味がありません。これはリソース情報として保存される方が良い、静的な情報になってしまうからです。
+IPベースの通信の場合、名前はDNSホスト名にすべきです(SHOULD)。`net.peer.name`の場合は、接続先のIPアドレスを調べるのに使われた名前であるべきです(SHOULD)。(つまり、`net.peer.ip`が設定されていればそれにマッチする。例えば、URL `https://example.com/foo` に接続する場合は `"example.com"`)。IPアドレスのみでホスト名がない場合は、オプションでIPの逆引きを使用して取得しても構いません(MAY)。 `net.host.name` はローカルホストのホスト名で(SHOULD)、できればピアが現在の操作のために接続に使用したホスト名でなければなりません。もしそのホスト名が分からなければ、プライベートホスト名よりもパブリックホスト名の方が優先されます。 しかし、その場合、すでにリソースに含まれている情報と重複している可能性があり、取り残されてしまう可能性があります。通常、`net.host.name`を取得するために逆引きを使用することは意味がありません。これはリソース情報として保存される方が良い、静的な情報になってしまうからです。
 <!--
 If `net.transport` is `"unix"` or `"pipe"`, the absolute path to the file representing it should be used as `net.peer.name` (`net.host.name` doesn't make sense in that context).
 If there is no such file (e.g., anonymous pipe),
