@@ -210,7 +210,7 @@ Required arguments:
 - the `Setter` invoked for each propagation key to add or remove.
 -->
 
-- `Context`: Propagator は最初に `SpanContext` や `CorrelationContext` あるいは他の関連するコンポーネントの `Context` から適切な値を取得する必要があります(MUST)。現在の `Context` をサポートする言語では、この引数はオプションであり、デフォルトは現在の `Context` インスタンスになります。
+- `Context`: Propagator は最初に `SpanContext` や `CorrelationContext` あるいは他の関連するコンポーネントの `Context` から適切な値を取得しなければなりません(MUST)。現在の `Context` をサポートする言語では、この引数はオプションであり、デフォルトは現在の `Context` インスタンスになります。
 - 伝搬用のフィールドを保持するキャリア: 例えば、発信メッセージやhttpリクエストなどです。
 - 追加または削除する伝搬キーごとに呼び出される `Setter`
 
