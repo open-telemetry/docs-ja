@@ -13,7 +13,7 @@ OpenTelemetry documents Japanese translation poject
 
 翻訳プロジェクトへようこそ。この翻訳プロジェクトでは、全体的に翻訳に統一感を出すための工夫をしています。
 
-* 訳語一覧: `dictonary.md` で英語と日本語の対訳の一覧を作成しているので、翻訳時にこちらに揃えてください。
+* 訳語一覧: [wikiのDictionary](https://github.com/open-telemetry/docs-ja/wiki/Dictionary) で英語と日本語の対訳の一覧を作成しているので、翻訳時にこちらに揃えてください。
 * 助動詞について: 原文はBCP 14に準ずると[明記しているので](https://github.com/open-telemetry/opentelemetry-specification#notation-conventions-and-compliance)、日本語訳もそれに従います。
   * 参照: https://www.ipa.go.jp/security/rfc/RFC2119JA.html
 
