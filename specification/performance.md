@@ -108,7 +108,7 @@ In a documentation of the language library, it is a good idea to point out that 
 The language library could block the end-user application when it shut down. On shutdown, it has to flush data to prevent information loss. The language library should support user-configurable timeout if it blocks on shut down.
 -->
 
-言語ライブラリは、エンドユーザーアプリケーションがシャットダウンするときにブロックする可能性があります。シャットダウン時には、情報の損失を防ぐためにデータをフラッシュしなければなりません。シャットダウン時にブロックする場合、言語ライブラリはユーザが設定可能なタイムアウトをサポートする必要があります(SHOULD)。
+言語ライブラリは、エンドユーザーアプリケーションがシャットダウンするときにブロックする可能性があります。シャットダウン時には、情報の損失を防ぐためにデータをフラッシュしなければなりません。シャットダウン時にブロックする場合、言語ライブラリはユーザが設定可能なタイムアウトをサポートすべきです(SHOULD)。
 
 <!--
 If the language library supports an explicit flush operation, it could block also. But should support a configurable timeout.
