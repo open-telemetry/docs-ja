@@ -74,7 +74,7 @@ Each name in `CorrelationContext` MUST be associated with exactly one value.
 specification.
 -->
 
-`CorrelationContext` は、テレメトリーに注釈を付けるために使用され、メトリック、トレース、ログにContextと情報を追加します。これは、ユーザー定義のプロパティを記述する名前と値のペアのセットで表される抽象的なデータ型です。 `CorrelationContext` の各名前は正確に1つの値に関連付けられる必要があります(MUST)。`CorrelationContext` は、[W3C Correlation Context](https://w3c.github.io/correlation-context/) 仕様のエディタードラフトに従ってシリアライズされる必要があります(MUST)。
+`CorrelationContext` は、テレメトリーに注釈を付けるために使用され、メトリック、トレース、ログにContextと情報を追加します。これは、ユーザー定義のプロパティを記述する名前と値のペアのセットで表される抽象的なデータ型です。 `CorrelationContext` の各名前は正確に1つの値に関連付けなければなりません(MUST)。`CorrelationContext` は、[W3C Correlation Context](https://w3c.github.io/correlation-context/) 仕様のエディタードラフトに従ってシリアライズされなければなりません(MUST)。
 
 <!--
 ### Get correlations
