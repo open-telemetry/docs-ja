@@ -189,7 +189,7 @@ The identifier SHOULD be stable across different versions of an implementation.
 | 属性  | 説明  | 例  | Required? |
 |---|---|---|---|
 | telemetry.sdk.name | 上記で定義したテレメトリSDKの名前です。 | `opentelemetry` | No |
-| telemetry.sdk.language | テレメトリーSDKの言語<br/> 以下のいずれかの値を使用しなければなりません。"cpp", "dotnet", "erlang", "go", "java", "nodejs", "php", "python", "ruby", "webjs" | `java` | No |
+| telemetry.sdk.language | テレメトリーSDKの言語<br/> 以下のいずれかの値を使用しなければなりません(MUST)。"cpp", "dotnet", "erlang", "go", "java", "nodejs", "php", "python", "ruby", "webjs" | `java` | No |
 | telemetry.sdk.version | [バージョン属性](#バージョン属性)で定義されているテレメトリーSDKのバージョン文字列です。 | `semver:1.2.3` | No |
 
 
