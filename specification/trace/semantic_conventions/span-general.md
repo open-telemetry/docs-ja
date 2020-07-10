@@ -144,7 +144,7 @@ If there is no such file (e.g., anonymous pipe),
 the name should explicitly be set to the empty string to distinguish it from the case where the name is just unknown or not covered by the instrumentation.
 -->
 
-`net.transport` が `"unix"` または `"pipe"` の場合、それを表すファイルへの絶対パスは `net.peer.name` とするべきです(SHOULD) (この場合、`net.host.name` は意味をなさない)。そのようなファイルが存在しない場合(例えばanonymous pipe)は、名前が不明なだけの場合や計装でカバーされていない場合と区別するために、名前を明示的に空の文字列に設定する必要があります(SHOULD)。
+`net.transport` が `"unix"` または `"pipe"` の場合、それを表すファイルへの絶対パスは `net.peer.name` とするべきです(SHOULD) (この場合、`net.host.name` は意味をなさない)。そのようなファイルが存在しない場合(例えば匿名パイプ)は、名前が不明なだけの場合や計装でカバーされていない場合と区別するために、名前を明示的に空の文字列に設定する必要があります(SHOULD)。
 
 <!--
 ## General identity attributes
