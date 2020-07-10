@@ -237,7 +237,7 @@ Setterは指定されたフィールドに値をセットする `Inject` のた�
 `Setter` MUST be stateless and allowed to be saved as a constant to avoid runtime allocations. One of the ways to implement it is `Setter` class with `Set` method as described below.
 -->
 
-`Setter` はステートレスでなければならず、実行時の割り当てを避けるために定数として保存できる必要があります(MUST)。これを実装する方法の一つは、以下のように `Set` メソッドを持つ `Setter` クラスです。
+`Setter` はステートレスでなければならず、実行時の割り当てを避けるために定数として保存できなければなりません(MUST)。これを実装する方法の一つは、以下のように `Set` メソッドを持つ `Setter` クラスです。
 
 <!--
 ##### Set
