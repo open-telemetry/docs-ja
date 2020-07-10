@@ -46,7 +46,7 @@ See [Library Guidelines](library-guidelines.md#sdk-implementation) and
 ### Instrumented Library
 -->
 
-### 計装ライブラリ (???被計装ライブラリ)
+### 計装済みライブラリ
 
 <!--
 Denotes the library for which the telemetry signals (traces, metrics, logs) are gathered.
@@ -59,7 +59,7 @@ The calls to the OpenTelemetry API can be done either by the Instrumented Librar
 or by another [Instrumenting Library](#instrumenting_library).
 -->
 
-OpenTelemetry APIの呼び出しは、被計装ライブラリ(???)自身、または別の[計装ライブラリ](#instrumenting_library)から行うことができます。
+OpenTelemetry APIの呼び出しは、計装済みライブラリ自身、または別の[計装ライブラリ](#instrumenting_library)から行うことができます。
 
 <!--
 Example: `org.mongodb.client`.
@@ -77,7 +77,7 @@ Example: `org.mongodb.client`.
 ### Instrumenting Library
 -->
 
-### 計装ライブラリ(???)
+### 計装ライブラリ
 
 <!--
 Denotes the library that provides the instrumentation for a given [Instrumented Library](#instrumented_library).
@@ -85,7 +85,7 @@ Denotes the library that provides the instrumentation for a given [Instrumented 
 if it has built-in OpenTelemetry instrumentation.
 -->
 
-与えられた[被計装ライブラリ](#instrumented_library)の計装を提供するライブラリを示します。OpenTelemetryの計装が組み込まれている場合、*被計装ライブラリ*と*計装ライブラリ*は同じライブラリである可能性があります。
+与えられた[計装済みライブラリ](#instrumented_library)の計装を提供するライブラリを示します。OpenTelemetryの計装が組み込まれている場合、*計装済みライブラリ*と*計装ライブラリ*は同じライブラリである可能性があります。
 
 <!--
 Example: `io.opentelemetry.contrib.mongodb`.
@@ -109,7 +109,7 @@ Synonyms: *Instrumentation Library*, *Integration*.
 ### Tracer Name / Meter Name
 -->
 
-### Tracer Name / Meter Name
+### Tracer 名 / Meter 名
 
 <!--
 This refers to the `name` and (optional) `version` arguments specified when
