@@ -272,4 +272,4 @@ If a new name/value pair is added and its name is the same as an existing name, 
 is replaced with the added value (regardless if it is locally generated or received from a remote peer).
 -->
 
-新しい名前/値のペアが追加され、その名前が既存の名前と同じ場合、新しいペアを優先する必要があります(MUST)。値は追加された値に置き換えられます(ローカルで生成されたものかリモートピアから受信したものかは関係ありません)。
+新しい名前/値のペアが追加され、その名前が既存の名前と同じ場合、新しいペアを優先しなければなりません(MUST)。値は追加された値に置き換えられます(ローカルで生成されたものかリモートピアから受信したものかは関係ありません)。
