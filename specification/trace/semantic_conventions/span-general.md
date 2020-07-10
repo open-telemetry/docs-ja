@@ -58,7 +58,7 @@ the `net.peer.*` properties of a client are equal to the `net.host.*` properties
 |  属性名  |                                 説明と例                               |
 | :--------------- | :--------------------------------------------------------------------------------|
 | `net.transport` | 使用しているトランスポートプロトコル[以下の注意書きを参照](#net.transport)              |
-| `net.peer.ip`   | ピアノリモートアドレス (`.` で区切られたIPv4あるいはIPv6には [RFC5952][])       |
+| `net.peer.ip`   | ピアのリモートアドレス (`.` で区切られたIPv4あるいはIPv6には [RFC5952][])       |
 | `net.peer.port` | リモートポート番号を整数で指定します。例：`80`                                         |
 | `net.peer.name` | リモートホスト名またはそれに類するもの [以下の注意書きを参照](#net.name)                 |
 | `net.host.ip`   | `net.peer.ip` のようなものですが、ホストの IP を指定します。複数のIPを持つホストの場合に便利です。 |
@@ -103,8 +103,8 @@ This attribute should be set to the name of the transport layer protocol (or the
 * `IP.UDP`
 * `IP`: 他のIPベースのプロトコル
 * `Unix`: Unix Domain socket。以下を参照のこと。
-* `pipe`: Named あるいは anonymous pipe. 以下を参照のこと。
-* `inproc`: ネットワーク属性が通常期待されるような「実際の」ネットワークプロトコルを使用しない。インプロセス通信のみを使うシグナルの場合(???あってるか自信なし)。通常、他のすべてのネットワーク属性は、この場合は除外することができます。
+* `pipe`: 名前付きパイプあるいは匿名パイプ。以下を参照のこと。
+* `inproc`: ネットワーク属性が通常期待されるような「実際の」ネットワークプロトコルを使用しない。インプロセス通信のみを使うシグナルの場合。通常、他のすべてのネットワーク属性は、この場合は除外することができます。
 * `other`: その他 (IPベース以外)
 
 
@@ -137,14 +137,14 @@ If that is not known, a public hostname should be preferred over a private one. 
 It will usually not make sense to use reverse-lookup to obtain `net.host.name`, as that would result in static information that is better stored as resource information.
 -->
 
-IPベースの通信の場合、名前はDNSホスト名でなければなりません(SHOULD)。`net.peer.name`の場合は、接続先のIPアドレスを調べるのに使われた名前の必要があります(SHOULD)(つまり、`net.peer.ip`が設定されていればそれにマッチする。例えば、URL `https://example.com/foo` に接続する場合は `"example.com"`)。IPアドレスのみでホスト名がない場合は、オプションでIPの逆引きを使用して取得しても構いません(MAY)。 `net.host.name` はローカルホストのホスト名で(SHOULD)、できればピアが現在の操作のために接続に使用したホスト名でなければなりません。もしそのホスト名が分からなければ、プライベートホスト名よりもパブリックホスト名の方が優先されます。 しかし、その場合、すでにリソースに含まれている情報と重複している可能性があり、取り残されてしまう可能性があります。通常、`net.host.name`を取得するために逆引きを使用することは意味がありません。これはリソース情報として保存される方が良い、静的な情報になってしまうからです。
+IPベースの通信の場合、名前はDNSホスト名にすべきです(SHOULD)。`net.peer.name`の場合は、接続先のIPアドレスを調べるのに使われた名前であるべきです(SHOULD)。(つまり、`net.peer.ip`が設定されていればそれにマッチする。例えば、URL `https://example.com/foo` に接続する場合は `"example.com"`)。IPアドレスのみでホスト名がない場合は、オプションでIPの逆引きを使用して取得しても構いません(MAY)。 `net.host.name` はローカルホストのホスト名で(SHOULD)、できればピアが現在の操作のために接続に使用したホスト名でなければなりません。もしそのホスト名が分からなければ、プライベートホスト名よりもパブリックホスト名の方が優先されます。 しかし、その場合、すでにリソースに含まれている情報と重複している可能性があり、取り残されてしまう可能性があります。通常、`net.host.name`を取得するために逆引きを使用することは意味がありません。これはリソース情報として保存される方が良い、静的な情報になってしまうからです。
 <!--
 If `net.transport` is `"unix"` or `"pipe"`, the absolute path to the file representing it should be used as `net.peer.name` (`net.host.name` doesn't make sense in that context).
 If there is no such file (e.g., anonymous pipe),
 the name should explicitly be set to the empty string to distinguish it from the case where the name is just unknown or not covered by the instrumentation.
 -->
 
-`net.transport` が `"unix"` または `"pipe"` の場合、それを表すファイルへの絶対パスは `net.peer.name` とするべきです(SHOULD) (この場合、`net.host.name` は意味をなさない)。そのようなファイルが存在しない場合(例えばanonymous pipe)は、名前が不明なだけの場合や計装でカバーされていない場合と区別するために、名前を明示的に空の文字列に設定する必要があります(SHOULD)。
+`net.transport` が `"unix"` または `"pipe"` の場合、それを表すファイルへの絶対パスは `net.peer.name` とするべきです(SHOULD) (この場合、`net.host.name` は意味をなさない)。そのようなファイルが存在しない場合(例えば匿名パイプ)は、名前が不明なだけの場合や計装でカバーされていない場合と区別するために、名前を明示的に空の文字列に設定する必要があります(SHOULD)。
 
 <!--
 ## General identity attributes
@@ -251,4 +251,3 @@ information is required and would not violate any policies or regulations.
 -->
 
 この情報の機密性を考えると、SDKとExporterはデフォルトではこれらの属性を削除しておくべきです(SHOULD)。情報が必要でありいかなるポリシーや規制にも違反しないようなユースケースのために、保持を有効にするための設定パラメータを提供すべきです(SHOULD)。
-
