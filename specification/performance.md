@@ -27,7 +27,7 @@ Here are the key principles:
 - **Library should not consume unbounded memory resource.**
 -->
 
-- **ライブラリはデフォルトでエンドユーザーのアプリケーションをブロックしてはいけません(SHOULD NOT)**
+- **ライブラリはデフォルトでエンドユーザーのアプリケーションをブロックすべきではありません(SHOULD NOT)**
 - **ライブラリは束縛されていないメモリリソースを消費してはいけません(SHOULD NOT)**
 
 <!--
@@ -127,4 +127,3 @@ If language specific implementation has special characteristics that are not des
 -->
 
 言語固有の実装がこの文書に記載されていない特殊な特性を持つ場合は，そのような特性を文書化するべきです(SHOULD)。
-
