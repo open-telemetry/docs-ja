@@ -32,7 +32,7 @@ When associated with a `TracerProvider`,
 all `Span`s produced by any `Tracer` from the provider MUST be associated with this `Resource`.
 -->
 
-分散トレーシングで使用する場合、Resourceは作成時に[TracerProvider](./trace/sdk.md#tracer-sdk)と関連付けることができます。この関連付けは後で変更することはできません。`TracerProvider`と関連付けられている場合、そのプロバイダの `Tracer` が生成したすべての `Span` は、この `Resource` と関連付けられる必要があります(MUST)。
+分散トレーシングで使用する場合、Resourceは作成時に[TracerProvider](./trace/sdk.md#tracer-sdk)と関連付けることができます。この関連付けは後で変更することはできません。`TracerProvider`と関連付けられている場合、そのプロバイダの `Tracer` が生成したすべての `Span` は、この `Resource` と関連付けらなければなりません(MUST)。
 
 <!--
 Analogous to distributed tracing, when used with metrics,
@@ -202,4 +202,3 @@ for a attribute with a specific key.
 -->
 
 属性を取得する際の最も一般的な操作は、それらの属性を列挙することです。そのため、特定のキーを持つ属性の値を素早く取得する方法などを設計するよりも、配列を高速に列挙するように最適化することをお勧めします。
-
