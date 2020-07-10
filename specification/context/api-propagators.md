@@ -377,7 +377,7 @@ Required arguments:
 The Get function is responsible for handling case sensitivity. If the getter is intended to work with a HTTP request object, the getter MUST be case insensitive. To improve compatibility with other text-based protocols, text `Format` implementions MUST ensure to always use the canonical casing for their attributes. NOTE: Cannonical casing for HTTP headers is usually title case (e.g. `Content-Type` instead of `content-type`).
 -->
 
-Get関数は、大文字小文字の区別を処理する役割を担っています。GetterがHTTPリクエストオブジェクトで動作することを意図している場合、 Getterは大文字小文字を区別する必要があります(MUST)。他のテキストベースのプロトコルとの互換性を向上させるために、テキスト `Format` の実装は、その属性は常にCanonical Case(???ここでのcanonocal caseとはどういう意味？)である必要があります(MUST)。注意: HTTPヘッダのキャノニカルなケーシングは通常タイトルケース(先頭が大文字)です(例えば、`content-type`の代わりに`Content-Type`など)。
+Get関数は、大文字小文字の区別を処理する役割を担っています。GetterがHTTPリクエストオブジェクトで動作することを意図している場合、 Getterは大文字小文字を区別しなければなりません(MUST)。他のテキストベースのプロトコルとの互換性を向上させるために、テキスト `Format` の実装は、その属性は常にヘッダフィールド名がカノニカルなものでなければなりません(MUST)。注意: HTTPヘッダのカノニカルなケーシングは通常タイトルケース(先頭が大文字)です(例えば、`content-type`の代わりに`Content-Type`など)。
 
 <!--
 ## Injectors and Extractors as Separate Interfaces
