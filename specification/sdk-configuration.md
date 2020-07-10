@@ -57,7 +57,7 @@ This interface SHOULD be written in the language of the SDK itself.
 All other configuration mechanisms SHOULD be built on top of this interface.
 -->
 
-SDKは、すべての設定のために、プログラムから呼び出せるインターフェースを提供しなければなりません(MUST)。このインターフェースはSDK自体の言語で書かれるべきです(SHOULD)。他のすべての設定方法は、このインターフェースの上に構築されるべきです。
+SDKは、すべての設定のために、プログラムから呼び出せるインターフェースを提供しなければなりません(MUST)。このインターフェースはSDK自体の言語で書かれるべきです(SHOULD)。他のすべての設定方法は、このインターフェースの上に構築されるべきです(SHOULD)。
 
 <!--
 An example of this programmatic interface is accepting a well-defined
