@@ -536,7 +536,7 @@ OpenTelemetry implementations.
 This method MUST exist for each supported `Format`.
 -->
 
-このメソッドはサポートされている`Format`ごとに存在しなければならない(MUST)。
+このメソッドはサポートされている`Format`ごとに存在しなければなりません(MUST)。
 
 <!--
 Returns a global `Propagator`. This usually will be composite instance.
