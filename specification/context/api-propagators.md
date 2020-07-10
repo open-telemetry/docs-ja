@@ -407,7 +407,7 @@ from different cross-cutting concerns in order to leverage them as a
 single entity.
 -->
 
-実装は、単一のエンティティとして活用するために、異なる関連するコンポーネントから複数の `Propagator` をグループ化する機能を提供する必要があります(MUST)。
+実装は、単一のエンティティとして活用するために、異なる関連するコンポーネントから複数の `Propagator` をグループ化する機能を提供しなければなりません(MUST)。
 
 <!--
 A composite propagator can be built from a list of propagators, or a list of
