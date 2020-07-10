@@ -184,7 +184,9 @@ The use cases of this are:
 Returns list of fields that will be used by this formatter.
 -->
 
-このフォーマッタが使用するフィールドのリストを返します。(??? この文章唐突なんだけど)
+<!--
+このフォーマッタが使用するフィールドのリストを返します。(この文章唐突なので、削除します)
+-->
 
 <!--
 ### Inject
