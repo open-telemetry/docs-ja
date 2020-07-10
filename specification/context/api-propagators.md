@@ -143,7 +143,7 @@ interceptors, where the client-side injects values and the server-side extracts 
 and extracts values from carriers.
 -->
 
-`HTTPTextFormat` はキャリアに値を注入し、キャリアから値を抽出するAPIを公開する必要があります(MUST)。
+`HTTPTextFormat` はキャリアに値を注入し、キャリアから値を抽出するAPIを公開しなければなりません(MUST)。
 
 <!--
 ### Fields
