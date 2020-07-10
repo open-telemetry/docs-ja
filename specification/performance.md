@@ -90,7 +90,7 @@ Logging could consume much memory by default if the end-user application emits t
 Therefore, the language library should provide a way to filter logs to capture by OpenTelemetry. End-user applications may want to log so much into log file or stdout (or somewhere else) but not want to send all of the logs to OpenTelemetry exporters.
 -->
 
-したがって、言語ライブラリはOpenTelemetryでキャプチャするログをフィルタリングする方法を提供すべきです。エンドユーザーアプリケーションは、ログファイルや標準出力(またはどこか他の場所)に多くのログを記録したいが、OpenTelemetryのエクスポート先にすべてのログを送りたくないかもしれません。
+したがって、言語ライブラリはOpenTelemetryでキャプチャするログをフィルタリングする方法を提供すべきです。エンドユーザーアプリケーションは、ログファイルや標準出力(またはどこか他の場所)に多くのログを記録したいけれど、OpenTelemetryのエクスポート先にすべてのログを送りたくないかもしれません。
 
 <!--
 In a documentation of the language library, it is a good idea to point out that too many logs consume many resources by default then guide how to filter logs.
