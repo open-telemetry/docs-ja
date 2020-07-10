@@ -154,7 +154,7 @@ takes a context, a name, and a value as input. Returns a new `Context` which
 contains a `CorrelationContext` with the new value.
 -->
 
-`名前と値のペアの値を記録するために、Correlations APIはContext、名前、値を入力として受け取る関数を提供する必要があります(SHALL)。戻り値は、新しい値を含む `CorrelationContext` を含む新しい `Context` です。
+名前と値のペアの値を記録するために、Correlations APIはContext、名前、値を入力として受け取る関数を提供することになります(SHALL)。戻り値は、新しい値を含む `CorrelationContext` を含む新しい `Context` です。
 
 <!--
 REQUIRED parameters:
