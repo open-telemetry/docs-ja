@@ -74,7 +74,7 @@ Attributes are grouped logically by the type of the concept that they described.
 Certain attribute groups in this document have a **Required** column. For these groups if any attribute from the particular group is present in the Resource then all attributes that are marked as Required MUST be also present in the Resource. However it is also valid if the entire attribute group is omitted (i.e. none of the attributes from the particular group are present even though some of them are marked as Required in this document).
 -->
 
-この文書中のいくつかの属性グループは **Required** カラムを持っています。これらの属性がResourceに存在する場合、Requiredとマークされている全ての属性がResourceに存在する必要があります(MUST)。しかし、属性グループ全体が省略されている場合も有効です（つまり、このドキュメントでRequiredとマークされている属性があるにもかかわらず、特定のグループの属性が存在しない場合）。(???ちょっと訳が取れていない)
+この文書中のいくつかの属性グループは **Required** カラムを持っています。これらの属性がResourceに存在する場合、Requiredとマークされている全ての属性がResourceに存在しなければなりません(MUST)。しかし、属性グループ全体が省略されている場合も有効です（つまり、このドキュメントでRequiredとマークされている属性があったとしても、特定のグループの属性がすべてが存在しない場合は有効です）。
 
 <!--
 ## Service
