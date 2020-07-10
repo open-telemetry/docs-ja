@@ -166,7 +166,7 @@ The default OpenTelemetry SDK provided by the OpenTelemetry project MUST set `te
 to the value `opentelemetry`.
 -->
 
-OpenTelemetryプロジェクトが提供するデフォルトのOpenTelemetry SDKは、`telemetry.sdk.name` を値 `opentelemetry` に設定する必要があります(MUST)。
+OpenTelemetryプロジェクトが提供するデフォルトのOpenTelemetry SDKは、`telemetry.sdk.name` を値 `opentelemetry` に設定してください(MUST)。
 
 <!--
 If another SDK, like a fork or a vendor-provided implementation, is used, this SDK MUST set the attribute
