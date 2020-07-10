@@ -271,7 +271,7 @@ Required arguments:
 The implemenation SHOULD preserve casing (e.g. it should not transform `Content-Type` to `content-type`) if the used protocol is case insensitive, otherwise it MUST preserve casing.
 -->
 
-使用されるプロトコルが大文字小文字を区別しない場合、実装は大文字小文字を保存するべきです(SHOULD) (例: `Content-Type` を `content-type` に変換してはならない) 。区別する場合は、大文字小文字を保持する必要があります(MUST)。
+使用されるプロトコルが大文字小文字を区別しない場合、実装は大文字小文字を保存するべきです(SHOULD) (例: `Content-Type` を `content-type` に変換してはならない) 。区別する場合は、大文字小文字を保持しなければなりません(MUST)。
 
 <!--
 ### Extract
