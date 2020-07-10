@@ -339,7 +339,7 @@ Getter は `Extract` の引数で、与えられたフィールドから値を�
 `Getter` allows a `HttpTextFormat` to read propagated fields from a carrier.
 -->
 
-`Getter` は `HttpTextFormat` がキャリアから伝搬されたフィールドを読み込むことを可能にする。
+`Getter` は `HttpTextFormat` がキャリアから伝搬されたフィールドを読み込むことを可能にします。
 
 <!--
 `Getter` MUST be stateless and allowed to be saved as a constant to avoid runtime allocations. One of the ways to implement it is `Getter` class with `Get` method as described below.
