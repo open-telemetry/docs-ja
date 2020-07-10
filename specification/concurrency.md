@@ -47,4 +47,4 @@ SpanBuilder is used by more than one thread/coroutine.
 initialized links must be implemented to be safe to be called concurrently.
 -->
 
-**Link** - リンクはイミュータブルであり、同時に使用しても安全です。遅延初期化されたリンクは、並行に呼び出されても安全なように実装する必要があります(MUST)。
+**Link** - リンクはイミュータブルであり、同時に使用しても安全です。遅延初期化されたリンクは、並行に呼び出されても安全なように実装しなければなりません(MUST)。
