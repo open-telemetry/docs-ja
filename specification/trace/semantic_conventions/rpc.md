@@ -41,7 +41,7 @@ client-side and one for server-side. Outgoing requests should be a span `kind`
 of `CLIENT` and incoming requests should be a span `kind` of `SERVER`.
 -->
 
-実装では、gRPC呼び出しの開始時に、クライアント側とサーバ側のSpanを作成する必要があります(MUST)。外部へのリクエストは `CLIENT` の `kind` というSpanで、外部からのリクエストは `SERVER` の `kind` というSpanでなければなりません。
+実装では、gRPC呼び出しの開始時に、クライアント側とサーバ側のSpanを作成しなければなりません(MUST)。外部へのリクエストは `CLIENT` の `kind` というSpanで、外部からのリクエストは `SERVER` の `kind` というSpanでなければなりません。
 
 <!--
 Span `name` MUST be full gRPC method name formatted as:
@@ -82,7 +82,7 @@ Span 名の例: `grpc.test.EchoService/Echo`
 
 | 属性名 | 説明と例                                       | Required? |
 | -------------- | ------------------------------------------------------------ | --------- |
-| `rpc.service`  | サービス名はです。Span名の中の $service の部分と同じでなければなりません。| Yes |
+| `rpc.service`  | サービス名です。Span名の中の $service の部分と同じでなければなりません。| Yes |
 | `net.peer.ip`  | [ネットワーク属性][]を参照 | 以下を参照 |
 | `net.peer.name`  | [ネットワーク属性][]を参照 | 以下を参照 |
 | `net.peer.port`  | [ネットワーク属性][]を参照 | 以下を参照 |
@@ -114,7 +114,7 @@ is 1:1 as OpenTelemetry canonical codes is just a snapshot of grpc codes which
 can be found [here](https://github.com/grpc/grpc-go/blob/master/codes/codes.go).
 -->
 
-実装では、gRPC クライアント/サーバのステータスと同じステータスを設定する必要があります(MUST)。gRPCの正規コードとOpenTelemetryのステータスコードの間のマッピングは1:1で、OpenTelemetryの正規コードは、[ここ] (https://github.com/grpc/grpc-go/blob/master/codes/codes.go)で見つけられるgrpcのコードのスナップショットにすぎません。
+実装では、gRPC クライアント/サーバのステータスと同じステータスでなければなりません(MUST)。gRPCの正規コードとOpenTelemetryのステータスコードの間のマッピングは1:1で、OpenTelemetryの正規コードは、[ここ] (https://github.com/grpc/grpc-go/blob/master/codes/codes.go)で見つけられるgrpcのコードのスナップショットにすぎません。
 
 <!--
 ### Events
@@ -177,4 +177,4 @@ unary calls only one sent and one received message will be recorded for both
 client and server spans.
 -->
 
-message.id` は `1` から始まる2つの異なるカウンタとして計算されなければいけません(MUST)。この方法で、異なる実装間で値が一貫していることを保証します。unary callの場合は、クライアントとサーバの両方のSpanに対して、送信されたメッセージと受信されたメッセージのうちの1つだけが記録されます。
+`message.id` は `1` から始まる2つの異なるカウンタとして計算されなければいけません(MUST)。この方法で、異なる実装間で値が一貫していることを保証します。unary callの場合は、クライアントとサーバの両方のSpanに対して、送信されたメッセージと受信されたメッセージのうちの1つだけが記録されます。

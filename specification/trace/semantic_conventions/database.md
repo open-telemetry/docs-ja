@@ -8,7 +8,7 @@
 For database client call the `SpanKind` MUST be `Client`.
 -->
 
-データベースクライアントを呼び出す場合、`SpanKind` は `Client` の必要があります(MUST)。
+データベースクライアントを呼び出す場合、`SpanKind` は `Client` でなければなりません(MUST)。
 
 <!--
 Span `name` should be set to low cardinality value representing the statement
@@ -18,7 +18,7 @@ meaningful representation of the span `name`, it can be populated using the same
 value as `db.instance`.
 -->
 
-Span `name` には、データベース上で実行された文を表すカーディナリティの低い値を設定する必要があります。(引数なしの)ストアドプロシージャ名、変数引数なしのSQL文などが考えられます。Span `name` に意味のある表現が得られない場合は、`db.instance` と同じ値を用いて入力することができます。
+Spanの`name` には、データベース上で実行された文を表すカーディナリティの低い値を設定する必要があります。(引数なしの)ストアドプロシージャ名、変数引数なしのSQL文などが考えられます。Spanの`name` として意味のある表現が得られない場合は、`db.instance` と同じ値を用いて入力することができます。
 
 <!--
 Note, Redis, Cassandra, HBase and other storage systems may reuse the same
