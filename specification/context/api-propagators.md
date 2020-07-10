@@ -291,7 +291,7 @@ the implementation MUST NOT throw an exception. It MUST store a value in the `Co
 that the implementation can recognize as a null or empty value.
 -->
 
-関連するコンポーネントのためにキャリアから値を解析できない場合、実装は例外を投げてはいけません(MUST NOT)。実装がnullまたは空の値として認識できる値を `Context` に格納する必要があります(MUST)。
+関連するコンポーネントのためにキャリアから値を解析できない場合、実装は例外を投げてはいけません(MUST NOT)。実装がnullまたは空の値として認識できる値を `Context` に格納してください(MUST)。
 
 <!--
 Required arguments:
