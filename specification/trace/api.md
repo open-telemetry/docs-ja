@@ -1070,7 +1070,7 @@ codes](https://github.com/grpc/grpc/blob/master/doc/statuscodes.md):
     `PermissionDenied`は呼び出し元が識別できないときは使ってはいけません
     （そのようなときは替わりに`Unahtenticated`を使いましょう）。
 - `ResourceExhausted`
-  - リソース（ユーザーごとの割り当てやファイルシステム全体の空き容量など）が枯渇しています。∂
+  - リソース（ユーザーごとの割り当てやファイルシステム全体の空き容量など）が枯渇しています。
 - `FailedPrecondition`
   - システムは操作を実行するための必要な状態ではないため、操作が拒否されました。
 - `Aborted`
