@@ -4,7 +4,7 @@
 
 - [Metrics API](#metrics-api)
   - [概要](#概要)
-    - [Measurements](#measurements)
+    - [Measurement](#measurement)
     - [Metric Instruments](#metric-instruments)
     - [Labels](#labels)
     - [Meter Interface](#meter-interface)
@@ -109,9 +109,11 @@ so that different SDKs can be configured at run time. -->
 しかしながら、他にも多くのものがメトリックイベントを使うことを知りました。たとえば、トレースやロギングにおいてアグリゲートされた、あるいは生の計測を記録するために使います。
 こうした理由から異なるSDKが実行時に構成できるように、[OpenTelemetryではAPIとSDKを分離する必要](../library-guidelines.md#requirements)があります。
 
-### Measurements
+<!-- ### Measurements -->
 
-The term _capture_ is used in this document to describe the action
+### Measurement
+
+<!-- The term _capture_ is used in this document to describe the action
 performed when the user passes a measurement to the API.  The result
 of a capture depends on the configured SDK, and if there is no SDK
 installed, the default action is to do nothing in response to captured
@@ -119,29 +121,47 @@ events.  This usage is intended to convey that _anything can happen_
 with the measurement, depending on the SDK, but implying that the user
 has put effort into taking some kind of measurement.  For both
 performance and semantic reasons, the API let users choose between two
-kinds of measurement.
+kinds of measurement. -->
 
-The term _additive_ is used to specify a characteristic of some
+本文書での「キャプチャー」という用語はユーザーがAPIに Measurement を渡すときに行われるアクションを指します。
+キャプチャーの結果は設定されたSDKに依存します。そして、SDKがインストールされていない場合には、キャプチャーされたイベントに対してなにもしないというのがデフォルトのアクションです。
+この用法は、SDKに依存して、Measurement に付随して_起こりうるあらゆるもの_を伝達することが意図されていますが、ユーザーはなんらかの Measurement を行うにあったって労力を払うことを暗黙的に意味しています。(???)
+パフォーマンスとセマンティクスの観点から、APIはユーザーに2種類の Measurement を選択できるようにしています。
+
+<!-- The term _additive_ is used to specify a characteristic of some
 measurements, meant to indicate that only the sum is considered useful
 information.  These are measurements that you would naturally combine
 using arithmetic addition, usually real quantities of something
-(e.g., number of bytes).
+(e.g., number of bytes). -->
 
-Non-additive measurements are used when the set of values, also known
+「付加的」という用語はある種の Measurement の特性を表すために使われ、合計値のみが有用な情報であると考えられることを示しています。
+これは自然に算術的加算によって結合を行うような Measurement で、通常なにかの実際の数量を表しています。（例: データのバイト数）
+
+<!-- Non-additive measurements are used when the set of values, also known
 as the population, is presumed to have useful information.  A
 non-additive measurement is either one that you would not naturally
 combine using arithmetic addition (e.g., request latency), or it is a
 measurement you would naturally add where the intention is to monitor
 the distribution of values (e.g., queue size).  The median value is
-considered useful information for non-additive measurements.
+considered useful information for non-additive measurements. -->
 
-Non-additive instruments semantically capture more information than
+「非付加的」Measurementはある値群、あるいはある個体群が有用な情報を持っていると考えられる場合に使われます。
+非負荷的 Measurement は算術的加算を使って結合を行うようなものではない（例: リクエストのレイテンシー）か、あるいは自然に算術的加算を行う意図が値の分散を監視するもの（例: キューのサイズ）のどちらかです。
+非付加的 Measurement の場合、中央値が有用な情報と考えられます。
+
+<!-- Non-additive instruments semantically capture more information than
 additive instruments.  Non-additive measurements are more expensive
 than additive measurements, by this definition.  Users will choose
 additive instruments except when they expect to get value from the
 additional cost of information about individual values.  None of this
 is to prevent an SDK from re-interpreting measurements based on
-configuration.  Anything can happen with any kind of measurement.
+configuration.  Anything can happen with any kind of measurement. -->
+
+非付加的な計装はセマンティクス的に付加的な計装よりもより多くの情報をキャプチャーします。
+非付加的 Measurement は、その定義から、付加的な Measurement よりもよりコストが高いものになります。
+追加のコストを払ってでも個々の値から情報を取得したい場合意外は付加的な計装を選びましょう。
+こうした内容はSDKが設定によって Measurement を再解釈することを妨げるものではありません。
+あらゆる種類の Measurement においてあらゆることが発生しえます。
 
 ### Metric Instruments
 
