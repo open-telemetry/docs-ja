@@ -507,7 +507,7 @@ APIは、以下のパラメータを受け取らなければなりません(MUST
 - Span名。これは必須のパラメータです。
 - 親の`Span`、または親の`Span`か`SpanContext`を含む`Context`。
   および、新しい`Span`がルートの`Span`であるべきかどうか。
-  APIは現在のコンテキストから暗黙的に親化(??? `parenting`の良い訳がほしい)ときの、
+  APIは現在のコンテキストから暗黙的に親へと変換するときの、
   デフォルトの動作のためのオプションを取ることもできます(MAY)。
   明示的及び暗黙的な`Context`から`Span`の親への変換に関しては、
   [Contextからの親Spanの決定](#determining-theparent-span-from-a-context)を参照してください。
