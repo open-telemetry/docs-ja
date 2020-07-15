@@ -4,8 +4,8 @@
 
 - [Metrics API](#metrics-api)
   - [概要](#概要)
-    - [Measurement](#measurement)
-    - [Metric Instruments](#metric-instruments)
+    - [メジャメント](#メジャメント)
+    - [メトリック計装](#メトリック計装)
     - [Labels](#labels)
     - [Meter Interface](#meter-interface)
     - [Aggregations](#aggregations)
@@ -18,9 +18,9 @@
       - [Set the global MeterProvider](#set-the-global-meterprovider)
   - [Instrument properties](#instrument-properties)
     - [Instrument naming requirements](#instrument-naming-requirements)
-    - [Synchronous and asynchronous instruments compared](#synchronous-and-asynchronous-instruments-compared)
-    - [Additive and non-additive instruments compared](#additive-and-non-additive-instruments-compared)
-    - [Monotonic and non-monotonic instruments compared](#monotonic-and-non-monotonic-instruments-compared)
+    - [同期的計装と非同期的計装の比較](#同期的計装と非同期的計装の比較)
+    - [加算的計装と非加算的計装の比較](#加算的計装と非加算的計装の比較)
+    - [単調的計装と非単調的計装の比較](#単調的計装と非単調的計装の比較)
     - [Function names](#function-names)
   - [The instruments](#the-instruments)
     - [Counter](#counter)
@@ -65,8 +65,8 @@ the intent to produce continuous summaries of those measurements,
 efficiently and simultaneously.  Hereafter, "the API" refers to the
 OpenTelemetry Metrics API. -->
 
-OpenTelemetry Metrics API はプログラムの実行状態に関する Measurement を実行時に取得する支援をします。
-Metrics API は明示的に生の Measurement の処理を行うよう設計されていて、全体的にこれらの Measurement の継続的なサマリーを効率的かつ生成することが意図されています。
+OpenTelemetry Metrics API はプログラムの実行状態に関するメジャメントを実行時に取得する支援をします。
+Metrics API は明示的に生のメジャメントの処理を行うよう設計されていて、全体的にこれらのメジャメントの継続的なサマリーを効率的かつ生成することが意図されています。
 以降、OpenTelemetry Metrics API を「本API」と表記します。
 
 <!-- The API provides functions for capturing raw measurements, through
@@ -77,8 +77,8 @@ captured.  This moment of capture (at "run time") defines an implicit
 timestamp, which is the wall time an SDK would read from a clock at
 that moment. -->
 
-本APIでは、異なる水準での処理を提供する呼び出し規約を通して、生の Measurement を取得する関数を提供します。
-呼び出し規約にかかわらず、ここでは _メトリックイベント_ を新しい Measurement が取得されたときに起こる論理的なものとして定義します。
+本APIでは、異なる水準での処理を提供する呼び出し規約を通して、生のメジャメントを取得する関数を提供します。
+呼び出し規約にかかわらず、ここでは _メトリックイベント_ を新しいメジャメントが取得されたときに起こる論理的なものとして定義します。
 （「実行時」の）取得の瞬間には暗黙的なタイムスタンプが定義されます。タイムスタンプはその瞬間にSDKが実行環境の時計から読み込むウォールタイムです。
 
 <!-- The word "semantic" or "semantics" as used here refers to _how we give
@@ -111,7 +111,7 @@ so that different SDKs can be configured at run time. -->
 
 <!-- ### Measurements -->
 
-### Measurement
+### メジャメント
 
 <!-- The term _capture_ is used in this document to describe the action
 performed when the user passes a measurement to the API.  The result
@@ -123,10 +123,10 @@ has put effort into taking some kind of measurement.  For both
 performance and semantic reasons, the API let users choose between two
 kinds of measurement. -->
 
-本文書での「キャプチャー」という用語はユーザーがAPIに Measurement を渡すときに行われるアクションを指します。
+本文書での「キャプチャー」という用語はユーザーが本APIにメジャメントを渡すときに行われるアクションを指します。
 キャプチャーの結果は設定されたSDKに依存します。そして、SDKがインストールされていない場合には、キャプチャーされたイベントに対してなにもしないというのがデフォルトのアクションです。
-この用法は、SDKに依存して、Measurement に付随して_起こりうるあらゆるもの_を伝達することが意図されていますが、ユーザーはなんらかの Measurement を行うにあったって労力を払うことを暗黙的に意味しています。(???)
-パフォーマンスとセマンティクスの観点から、APIはユーザーに2種類の Measurement を選択できるようにしています。
+この用法は、SDKに依存して、メジャメントに付随して_起こりうるあらゆるもの_を伝達することが意図されていますが、ユーザーはなんらかのメジャメントを行うにあったって労力を払うことを暗黙的に意味しています。(???)
+パフォーマンスとセマンティクスの観点から、本APIはユーザーに2種類のメジャメントを選択できるようにしています。
 
 <!-- The term _additive_ is used to specify a characteristic of some
 measurements, meant to indicate that only the sum is considered useful
@@ -134,8 +134,8 @@ information.  These are measurements that you would naturally combine
 using arithmetic addition, usually real quantities of something
 (e.g., number of bytes). -->
 
-「付加的」という用語はある種の Measurement の特性を表すために使われ、合計値のみが有用な情報であると考えられることを示しています。
-これは自然に算術的加算によって結合を行うような Measurement で、通常なにかの実際の数量を表しています。（例: データのバイト数）
+「加算的」という用語はある種のメジャメントの特性を表すために使われ、合計値のみが有用な情報であると考えられることを示しています。
+これは自然に算術的加算によって結合を行うようなメジャメントで、通常なにかの実際の数量を表しています。（例: データのバイト数）
 
 <!-- Non-additive measurements are used when the set of values, also known
 as the population, is presumed to have useful information.  A
@@ -145,9 +145,9 @@ measurement you would naturally add where the intention is to monitor
 the distribution of values (e.g., queue size).  The median value is
 considered useful information for non-additive measurements. -->
 
-「非付加的」Measurementはある値群、あるいはある個体群が有用な情報を持っていると考えられる場合に使われます。
-非負荷的 Measurement は算術的加算を使って結合を行うようなものではない（例: リクエストのレイテンシー）か、あるいは自然に算術的加算を行う意図が値の分散を監視するもの（例: キューのサイズ）のどちらかです。
-非付加的 Measurement の場合、中央値が有用な情報と考えられます。
+「非加算的」Measurementはある値群、あるいはある個体群が有用な情報を持っていると考えられる場合に使われます。
+非加算的メジャメントは算術的加算を使って結合を行うようなものではない（例: リクエストのレイテンシー）か、あるいは自然に算術的加算を行う意図が値の分散を監視するもの（例: キューのサイズ）のどちらかです。
+非加算的メジャメントの場合、中央値が有用な情報と考えられます。
 
 <!-- Non-additive instruments semantically capture more information than
 additive instruments.  Non-additive measurements are more expensive
@@ -157,35 +157,57 @@ additional cost of information about individual values.  None of this
 is to prevent an SDK from re-interpreting measurements based on
 configuration.  Anything can happen with any kind of measurement. -->
 
-非付加的な計装はセマンティクス的に付加的な計装よりもより多くの情報をキャプチャーします。
-非付加的 Measurement は、その定義から、付加的な Measurement よりもよりコストが高いものになります。
-追加のコストを払ってでも個々の値から情報を取得したい場合意外は付加的な計装を選びましょう。
-こうした内容はSDKが設定によって Measurement を再解釈することを妨げるものではありません。
-あらゆる種類の Measurement においてあらゆることが発生しえます。
+非加算的な計装はセマンティクス的に加算的な計装よりもより多くの情報をキャプチャーします。
+非加算的メジャメントは、その定義から、加算的なメジャメントよりもよりコストが高いものになります。
+追加のコストを払ってでも個々の値から情報を取得したい場合意外は加算的な計装を選びましょう。
+こうした内容はSDKが設定によってメジャメントを再解釈することを妨げるものではありません。
+あらゆる種類のメジャメントにおいてあらゆることが発生しえます。
 
-### Metric Instruments
+<!-- ### Metric Instruments -->
 
-A _metric instrument_ is a device for capturing raw measurements in
+### メトリック計装
+
+<!-- A _metric instrument_ is a device for capturing raw measurements in
 the API.  The standard instruments, listed in the table below, each have a dedicated
 purpose.  The API purposefully avoids optional features that change
 the semantic interpretation of an instrument; the API instead prefers
-instruments that support a single method each with fixed interpretation.
+instruments that support a single method each with fixed interpretation. -->
 
-All measurements captured by the API are associated with the
+_メトリック計装_は本API内で生メジャメントをキャプチャーするための装置です。
+以下の表にまとめられているような標準的な計装は、各々の目的がそれぞれ異なります。
+本APIでは計装のセマンティックな解釈を変えてしまうようなオプションの機能を意図的に避けています。
+そのかわり本APIでは固定の解釈ができる方法を各目的に沿ってそれぞれ1つ提供するようにしています。
+
+<!-- All measurements captured by the API are associated with the
 instrument used to make the measurement, thus giving the measurement its semantic properties.
 Instruments are created and defined through calls to a `Meter` API,
-which is the user-facing entry point to the SDK.
+which is the user-facing entry point to the SDK. -->
 
-Instruments are classified in several ways that distinguish them from
-one another.
+本APIでキャプチャーされたメジャメントはすべて、そのメジャメントを作るために使われた計装と紐付いています。
+これによってメジャメントに対してセマンティックな属性を与えています。
+計装は `Meter` APIへの呼び出しを通じて生成され、定義されます。この `Meter` APIが本SDKにおいてユーザーが触れるエントリーポイントです。
 
+<!-- Instruments are classified in several ways that distinguish them from
+one another. -->
+
+計装はいくつかの分類でお互いに区別されます。
+
+<!--
 1. Synchronicity: A synchronous instrument is called by the user in a distributed [Context](../context/context.md) (i.e., Span context, Correlation context). An asynchronous instrument is called by the SDK once per collection interval, lacking a Context.
 2. Additivity: An additive instrument is one that records additive measurements, as described above.
 3. Monotonicity: A monotonic instrument is an additive instrument, where the progression of each sum is non-decreasing.  Monotonic instruments are useful for monitoring rate information.
+-->
 
-The metric instruments names are shown below along with whether they
-are synchronous, additive, and/or monotonic.
+1. 同期性: 同期的計装は分散[コンテキスト](../context/context.md)（つまりSpanコンテキスト、Correlationコンテキスト）内でユーザーによって呼ばれます。非同期的計装はコンテキストなしに本SDKによって収集インターバルごとに呼ばれます。
+2. 加算性: 加算的計装は、先に説明したように、加算的メジャメントを記録するものです
+3. 単調性: 単調的計装は加算的計装で、各合計値の変化が減少しないものです。単調的計装は割合に関する情報を監視する場合に有用です。
 
+<!-- The metric instruments names are shown below along with whether they
+are synchronous, additive, and/or monotonic. -->
+
+メトリック計装名をそれぞれ同期性、加算性、単調性の有無とともに並べてみました。
+
+<!--
 | Name | Synchronous | Additive | Monotonic |
 | ---- | ----------- | -------- | --------- |
 | Counter           | Yes | Yes | Yes |
@@ -194,28 +216,55 @@ are synchronous, additive, and/or monotonic.
 | SumObserver       | No  | Yes | Yes |
 | UpDownSumObserver | No  | Yes | No  |
 | ValueObserver     | No  | No  | No  |
+-->
 
+| 名称 | 同期性 | 加算性 | 単調性 |
+| ---- | ----------- | -------- | --------- |
+| Counter           | Yes | Yes | Yes |
+| UpDownCounter     | Yes | Yes | No  |
+| ValueRecorder     | Yes | No  | No  |
+| SumObserver       | No  | Yes | Yes |
+| UpDownSumObserver | No  | Yes | No  |
+| ValueObserver     | No  | No  | No  |
+
+<!--
 The synchronous instruments are useful for measurements that are
 gathered in a distributed [Context](../context/context.md) (i.e., Span context, Correlation context).  The asynchronous instruments are
 useful when measurements are expensive, therefore should be gathered
 periodically.  Read more [characteristics of synchronous and
 asynchronous instruments](#synchronous-and-asynchronous-instruments-compared) below.
+-->
 
-The synchronous and asynchronous additive instruments have a
+同期的計装は分散[コンテキスト](../context/context.md)（つまりSpanコンテキストやCorrelationコンテキスト）の中で集められたメジャメントに有用です。
+非同期的計装はメジャメントのコストが高く、それゆえに周期的に集められるべき場合に有用です。
+詳細は[同期的計装および非同期的計装の特性](#同期的計装と非同期的計装の比較)を参照してください。
+
+<!-- The synchronous and asynchronous additive instruments have a
 significant difference: synchronous instruments are used to capture
 changes in a sum, whereas asynchronous instruments are used to capture
 sums directly.  Read more [characteristics of additive
-instruments](#additive-and-non-additive-instruments-compared) below.
+instruments](#additive-and-non-additive-instruments-compared) below. -->
 
-The monotonic additive instruments are significant because they support rate
+同期加算的計装と非同期加算的計装には大きな違いがあります。同期的計装は合計値の変化をキャプチャーするために使われますが、非同期的計装は合計値自体をキャプチャーするために使われます。
+詳細は[加算的計装の特性](#加算的計装と非加算的計装の比較)を参照してください。
+
+<!-- The monotonic additive instruments are significant because they support rate
 calculations.  Read more information about [choosing metric
-instruments](#monotonic-and-non-monotonic-instruments-compared) below.
+instruments](#monotonic-and-non-monotonic-instruments-compared) below. -->
 
-An _instrument definition_ describes several properties of the
+単調加算的計装は割合の計算をサポートする上で非常に重要です。
+詳細は[メトリック計装の選択](#単調的計装と非単調的計装の比較)を参照してください。
+
+<!-- An _instrument definition_ describes several properties of the
 instrument, including its name and its kind.  The other properties of
 a metric instrument are optional, including a description and the unit
 of measurement.  An instrument definition is associated with the
-data that it produces.
+data that it produces. -->
+
+_計装の定義_では名前や種類といった計装に関するいくつかの属性を説明しています。
+メトリック計装における他の属性、たとえば説明書き、メジャメントの単位などは任意です。
+計装の定義はその計装が生成するデータに紐付いています。
+
 
 ### Labels
 
@@ -447,7 +496,7 @@ like "http\_request\_latency", as it would inform the viewer of the
 semantic meaning of the latency measurement.  Multiple instrumentation
 libraries may be written to generate this metric.
 
-### Synchronous and asynchronous instruments compared
+### 同期的計装と非同期的計装の比較
 
 Synchronous instruments are called inside a request, meaning they
 have an associated distributed [Context](../context/context.md) (i.e., Span context, Correlation context).  Multiple metric events may occur for a
@@ -468,7 +517,7 @@ corresponding to the instrument and label set.  (For this reasons,
 SDKs SHOULD run asynchronous instrument callbacks near the end of the
 collection interval.)
 
-### Additive and non-additive instruments compared
+### 加算的計装と非加算的計装の比較
 
 Additive instruments are used to capture information about a sum,
 where, by definition, only the sum is of interest.  Individual events
@@ -494,7 +543,7 @@ default for additive instruments (Sum).  Unlike additive instruments,
 where only the sum is of interest by definition, non-additive
 instruments can be configured with even more expensive aggregators.
 
-### Monotonic and non-monotonic instruments compared
+### 単調的計装と非単調的計装の比較
 
 Monotonicity applies only to additive instruments.  `Counter` and
 `SumObserver` instruments are defined as monotonic because the sum
