@@ -6,9 +6,9 @@
   - [概要](#概要)
     - [メジャメント](#メジャメント)
     - [メトリック計装](#メトリック計装)
-    - [Labels](#labels)
+    - [ラベル](#ラベル)
     - [Meter Interface](#meter-interface)
-    - [Aggregations](#aggregations)
+    - [アグリゲーション](#アグリゲーション)
     - [Time](#time)
     - [Metric Event Format](#metric-event-format)
   - [Meter provider](#meter-provider)
@@ -266,25 +266,37 @@ _計装の定義_では名前や種類といった計装に関するいくつか
 計装の定義はその計装が生成するデータに紐付いています。
 
 
-### Labels
+<!-- ### Labels -->
 
-_Label_ is the term used to refer to a key-value attribute associated
+### ラベル
+
+<!-- _Label_ is the term used to refer to a key-value attribute associated
 with a metric event, similar to a [Span
 attribute](../trace/api.md#span) in the tracing API.  Each label
 categorizes the metric event, allowing events to be filtered and
-grouped for analysis.
+grouped for analysis. -->
 
-Each of the instrument calling conventions (detailed below) accepts a
+_ラベル_ はメトリックイベントに紐付いたキーバリューの属性を指す用語で、トレースAPIの[Span属性](../trace/api.md#span)と似たものです。
+各ラベルによってメトリックイベントを分類して、解析時にイベントをフィルターしたりグルーピングできるようにします。
+
+<!-- Each of the instrument calling conventions (detailed below) accepts a
 set of labels as an argument.  The set of labels is defined as a
 unique mapping from key to value.  Typically, labels are passed to the
 API in the form of a list of key:values, in which case the
 specification dictates that duplicate entries for a key are resolved
-by taking the last value to appear in the list.
+by taking the last value to appear in the list. -->
 
-Measurements by a synchronous instrument are commonly combined with
+各計装の呼び出し規約（後ほど説明します）はラベル群を引数として受け付けます。
+ラベル群はキーから値への一意な対応として定義されています。
+一般的にはラベルは本APIにキー:値のリストの形式で渡されます。ここで、仕様ではあるキーに対して冗長な要素があった場合にはリストの中で最後に出てきた値が使われます。
+
+<!-- Measurements by a synchronous instrument are commonly combined with
 other measurements having exactly the same label set, which enables
 significant optimizations.  Read more about [combining measurements
-through aggregation](#aggregations) below.
+through aggregation](#aggregations) below. -->
+
+同期的計装によるメジャメントは、一般にまったく同一のラベル群を持っている他のメジャメントと結合されます。これにより大きな最適化が図れます。
+後に説明される[アグリゲーションを通じたメジャメントの結合](#アグリゲーション)を参照してください。
 
 ### Meter Interface
 
@@ -310,7 +322,7 @@ purposes as disabling instrumentation, configuring aggregation, and
 applying sampling policies.  See the specification on [obtaining a
 Tracer](../trace/api.md#obtaining-a-tracer) for more details.
 
-### Aggregations
+### アグリゲーション
 
 _Aggregation_ refers to the process of combining multiple measurements
 into exact or estimated statistics about the measurements that took
