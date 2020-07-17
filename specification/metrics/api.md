@@ -337,25 +337,36 @@ Tracer](../trace/api.md#obtaining-a-tracer) for more details. -->
 ライブラリ名はそのライブラリから生成された計装を特定するために使われます。この名前は計装を無効にしたり、アグリゲーションを設定したり、サンプリングポリシーを適用するために使われます。
 仕様に関しては[Tracerの取得](../trace/api.md#obtaining-a-tracer)を参照してください。
 
+<!-- ### Aggregation -->
+
 ### アグリゲーション
 
-_Aggregation_ refers to the process of combining multiple measurements
+<!-- _Aggregation_ refers to the process of combining multiple measurements
 into exact or estimated statistics about the measurements that took
-place during an interval of time, during program execution.
+place during an interval of time, during program execution. -->
 
-Each instrument specifies a default aggregation that is suited to the
+_アグリゲーション_ はプログラムの実行中に一定時間おきに複数のメジャメントを正確にあるいは予測として統計値として結合します。
+
+<!-- Each instrument specifies a default aggregation that is suited to the
 semantics of the instrument, that serves to explain its properties and
 give users an understanding of how it is meant to be used.
 Instruments, in the absence of any configuration override, can be
-expected to deliver a useful, economical aggregation out of the box.
+expected to deliver a useful, economical aggregation out of the box. -->
 
-The additive instruments (`Counter`, `UpDownCounter`, `SumObserver`,
+各計装はそのセマンティクスに適したデフォルトのアグリゲーションを指定します。こうしたアグリゲーションが計装の属性を説明し、計装がどのように使われることを意図しているかの理解を深めることに繋がります。
+計装は、設定が上書きされることがなければ、便利で無駄のないアグリゲーションが何もせずに行われることを期待できます。
+
+<!-- The additive instruments (`Counter`, `UpDownCounter`, `SumObserver`,
 `UpDownSumObserver`) use a Sum aggregation by default.  Details about
 computing a Sum aggregation vary, but from the user's perspective this
 means they will be able to monitor the sum of values captured.  The
 distinction between synchronous and asynchronous instruments is
 crucial to specifying how exporters work, a topic that is covered in
-the [SDK specification (WIP)](https://github.com/open-telemetry/opentelemetry-specification/pull/347).
+the [SDK specification (WIP)](https://github.com/open-telemetry/opentelemetry-specification/pull/347). -->
+
+加算的計装（`Counter`、`UpDownCounter`、`SumObserver`、`UpDownSumObserver`）はデフォルトでSumアグリゲーションを使います。
+Sumアグリゲーションの計算方法の細かな部分は計装の種類によって変わりますが、ユーザーの観点ではキャプチャーされた値の合計値を監視できるようになるということを意味します。
+同期的計装と非同期的計装の違いは、エクスポーターがどのように動作するかを決定する上で非常に重要です。これは[SDK仕様（執筆中）](https://github.com/open-telemetry/opentelemetry-specification/pull/347)で扱っている話題です。
 
 The non-additive instruments (`ValueRecorder`, `ValueObserver`) use
 a MinMaxSumCount aggregation, by default.  This aggregation keeps track
