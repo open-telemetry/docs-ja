@@ -7,7 +7,7 @@
     - [メジャメント](#メジャメント)
     - [メトリック計装](#メトリック計装)
     - [ラベル](#ラベル)
-    - [Meter Interface](#meter-interface)
+    - [Meterインターフェース](#meterインターフェース)
     - [アグリゲーション](#アグリゲーション)
     - [Time](#time)
     - [Metric Event Format](#metric-event-format)
@@ -298,13 +298,18 @@ through aggregation](#aggregations) below. -->
 同期的計装によるメジャメントは、一般にまったく同一のラベル群を持っている他のメジャメントと結合されます。これにより大きな最適化が図れます。
 後に説明される[アグリゲーションを通じたメジャメントの結合](#アグリゲーション)を参照してください。
 
-### Meter Interface
+<!-- ### Meter Interface -->
 
-The API defines a `Meter` interface.  This interface consists of a set
+### Meterインターフェース
+
+<!-- The API defines a `Meter` interface.  This interface consists of a set
 of instrument constructors, and a facility for capturing batches of
-measurements in a semantically atomic way.
+measurements in a semantically atomic way. -->
 
-There is a global `Meter` instance available for use that facilitates
+本APIでは `Meter` インターフェースを定義しています。
+このインターフェースは計装コンストラクタ群とセマンティック的にアトミックな方法でメジャメントのまとまりをキャプチャーする機能から成ります。
+
+<!-- There is a global `Meter` instance available for use that facilitates
 automatic instrumentation for third-party code.  Use of this instance
 allows code to statically initialize its metric instruments, without
 explicit dependency injection.  The global `Meter` instance acts as a
@@ -312,15 +317,25 @@ no-op implementation until the application initializes a global
 `Meter` by installing an SDK either explicitly, through a service
 provider interface, or other language-specific support.  Note that it
 is not necessary to use the global instance: multiple instances of the
-OpenTelemetry SDK may run simultaneously.
+OpenTelemetry SDK may run simultaneously. -->
 
-As an obligatory step, the API requires the caller to provide the name
+グローバルな `Meter` インスタンスが利用でき、これはサードパーティなコードに対する自動的な計装を容易にしてくれます。
+このインスタンスを使うことで、そのメトリック計装を明示的な依存性の注入（DI）なしに静的に初期化します。
+グローバルな `Meter` インスタンスは、アプリケーションがグローバルな `Meter` をサービスプロバイダーインターフェースを通じて、あるいは言語特有のサポートによって明示的にSDKをインストールしない限りno-op実装として振る舞います。
+ここでグローバルなインスタンスを必ずしも使う必要は無いことに注意してください。
+複数のOpenTelemetry SDKのインスタンスが同時に実行されているかもしれません。
+
+<!-- As an obligatory step, the API requires the caller to provide the name
 of the instrumenting library (optionally, the version) when obtaining
 a `Meter` implementation.  The library name is meant to be used for
 identifying instrumentation produced from that library, for such
 purposes as disabling instrumentation, configuring aggregation, and
 applying sampling policies.  See the specification on [obtaining a
-Tracer](../trace/api.md#obtaining-a-tracer) for more details.
+Tracer](../trace/api.md#obtaining-a-tracer) for more details. -->
+
+義務的な手順として、本APIでは`Meter`実装を取得する際に呼び出し元は計装ライブラリの名前（補助的にそのバージョン）を指定する必要があります。
+ライブラリ名はそのライブラリから生成された計装を特定するために使われます。この名前は計装を無効にしたり、アグリゲーションを設定したり、サンプリングポリシーを適用するために使われます。
+仕様に関しては[Tracerの取得](../trace/api.md#obtaining-a-tracer)を参照してください。
 
 ### アグリゲーション
 
