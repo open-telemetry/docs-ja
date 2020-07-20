@@ -368,23 +368,32 @@ the [SDK specification (WIP)](https://github.com/open-telemetry/opentelemetry-sp
 Sumアグリゲーションの計算方法の細かな部分は計装の種類によって変わりますが、ユーザーの観点ではキャプチャーされた値の合計値を監視できるようになるということを意味します。
 同期的計装と非同期的計装の違いは、エクスポーターがどのように動作するかを決定する上で非常に重要です。これは[SDK仕様（執筆中）](https://github.com/open-telemetry/opentelemetry-specification/pull/347)で扱っている話題です。
 
-The non-additive instruments (`ValueRecorder`, `ValueObserver`) use
+<!-- The non-additive instruments (`ValueRecorder`, `ValueObserver`) use
 a MinMaxSumCount aggregation, by default.  This aggregation keeps track
 of the minimum value, the maximum value, the sum of values, and the
 count of values.  These four values support monitoring the range of
-values, the rate of events, and the average event value.
+values, the rate of events, and the average event value. -->
 
-Other standard aggregations are available, especially for non-additive
+非加算的計装（`ValueRecorder`、`ValueObserver`）はデフォルトで`MinMaxSumCount`アグリゲーションを行います。
+このアグリゲーションは最小値、最大値、合計値、要素数を絶えず記録します。
+これら4つの値は、値の変動幅やイベントの割合、平均的なイベントの値などを監視する手助けとなります。
+
+<!-- Other standard aggregations are available, especially for non-additive
 instruments, where we are generally interested in a variety of
 different summaries, such as histograms, quantile summaries,
-cardinality estimates, and other kinds of sketch data structure.
+cardinality estimates, and other kinds of sketch data structure. -->
 
-The default OpenTelemetry SDK implements a [Views API (WIP)](https://github.com/open-telemetry/oteps/pull/89), which
+他の標準的なアグリゲーションも利用可能で、特に非加算的計装には様々な異なる集計を行いたくなるでしょう。たとえば、ヒストグラム、分位値、カーディナリティ予測といった他の種類のデータ構造などです。
+
+<!-- The default OpenTelemetry SDK implements a [Views API (WIP)](https://github.com/open-telemetry/oteps/pull/89), which
 supports configuring non-default aggregation behavior(s) on the level
 of an individual instrument.  Even though OpenTelemetry SDKs can be
 configured to treat instruments in non-standard ways, users are
 expected to select instruments based on their semantic meaning, which
-is explained using the default aggregation.
+is explained using the default aggregation. -->
+
+デフォルトのOpenTelemetry SDKは[Views API（実装中）](https://github.com/open-telemetry/oteps/pull/89)を実装しており、これによって各計装ごとにデフォルトではないアグリゲーションを設定できるようになります。
+OpenTelemetry SDKが非標準的な方法で計装を扱うように設定できるようにしていたとしても、ユーザーは計装をそのセマンティクスに沿った形で選択することが想定されています。このことはデフォルトアグリゲーションの利用の部分で説明しました。
 
 ### Time
 
