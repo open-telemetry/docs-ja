@@ -5,7 +5,9 @@ OpenTelemetry documents Japanese translation poject
 ## 翻訳対象ドキュメント (Target repositories)
 
 * [community](https://github.com/open-telemetry/community)
+  * 67d8f20a8b0cb49e3fd9033545c3f9e5865de7cf (2021-02-11バージョン)
 * [specification](https://github.com/open-telemetry/opentelemetry-specification)
+  * v1.0.0
 
 ## 翻訳に取り掛かる前に
 
