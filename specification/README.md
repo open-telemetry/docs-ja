@@ -39,7 +39,7 @@ Technical committee holds regular meetings, notes are held
 [here](https://docs.google.com/document/d/17v2RMZlJZkgoPYHZhIFTVdDqQMIAH8kzo8Sl2kP3cbY/edit?usp=sharing).
 -->
 
-技術委員会へのエスカレーションは、[e-mail](https://github.com/open-telemetry/community#tc-technical-committee)で行うことができます。技術委員会では定例会議を開催しており、ノートはこちら(https://docs.google.com/document/d/17v2RMZlJZkgoPYHZhIFTVdDqQMIAH8kzo8Sl2kP3cbY/edit?usp=sharing)に掲載しています。
+技術委員会へのエスカレーションは、[e-mail](https://github.com/open-telemetry/community#tc-technical-committee)で行うことができます。技術委員会では定例会議を開催しており、ノートは[こちら](https://docs.google.com/document/d/17v2RMZlJZkgoPYHZhIFTVdDqQMIAH8kzo8Sl2kP3cbY/edit?usp=sharing)に掲載しています。
 
 
 <!--
@@ -76,31 +76,31 @@ Technical committee holds regular meetings, notes are held
   - [License](#license)
 -->
 
-- [概要](仕様/overview.md)
+- [概要](specification/overview.md)
 - [用語集](specification/glossary.md)
 - [OpenTelemetryクライアントのバージョン管理と安定性](specification/versioning-and-stability.md)
 - [ライブラリガイドライン](specification/library-guidelines.md)
   - [パッケージ/ライブラリレイアウト](specification/library-layout.md)
   - [一般的なエラー処理ガイドライン](specification/error-handling.md)
 - API仕様
-  - [手荷物](specification/baggage/api.md)
-    - [Propagators](specification/context/api-propagators.md)
-  - [トレース](specification/trace/api.md)
-  - [メトリクス](specification/metrics/api.md)
+  - [Baggage](specification/baggage/api.md)
+    - [Propagator](specification/context/api-propagators.md)
+  - [Trace](specification/trace/api.md)
+  - [メトリック](specification/metrics/api.md)
 - SDK仕様
-  - [トレース](specification/trace/sdk.md)
-  - [リソース](specification/resource/sdk.md)
+  - [Trace](specification/trace/sdk.md)
+  - [Resource](specification/resource/sdk.md)
   - [設定](specification/sdk-configuration.md)
 - データ仕様
   - [意味規定](specification/overview.md#semantic-conventions)
   - [プロトコル](specification/protocol/README.md)
 - プロジェクトについて
-  - [タイムライン](#プロジェクトタイムライン)
+  - [プロジェクトのタイムライン](#プロジェクトのタイムライン)
   - [表記規則とコンプライアンス](#表記規則とコンプライアンス)
   - [仕様書のバージョン管理](#versioning-the-specification)
   - [頭字語](#略語)
   - [貢献](#貢献)
-  - [ライセンス](#license)
+  - [ライセンス](#ライセンス)
 
 
 <!--
@@ -133,14 +133,14 @@ Information about current work and future development plans is found at the
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in the [specification](./specification/overview.md) are to be interpreted as described in [BCP 14](https://tools.ietf.org/html/bcp14) [[RFC2119](https://tools.ietf.org/html/rfc2119)] [[RFC8174](https://tools.ietf.org/html/rfc8174)] when, and only when, they appear in all capitals, as shown here.
 -->
 
-[仕様書](./specification/overview.md)のキーワード "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", "OPTIONAL "は、[BCP 14](https://tools.ietf.org/html/bcp14) [RFC2119](https://tools.ietf.org/html/rfc2119) [RFC8174](https://tools.ietf.org/html/rfc8174)で述べられているように解釈されるべきです。このドキュメント中に示されているように、これらの用語はすべて大文字で表示される場合に限ります。
+[仕様書](./specification/overview.md)のキーワード "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", "OPTIONAL"は、[BCP 14](https://tools.ietf.org/html/bcp14)、[RFC2119](https://tools.ietf.org/html/rfc2119)、[RFC8174](https://tools.ietf.org/html/rfc8174)で述べられているように解釈されるべきです。このドキュメント中に示されているように、これらの用語はすべて大文字で表示される場合に限ります。
 
 <!--
 An implementation of the [specification](./specification/overview.md) is not compliant if it fails to satisfy one or more of the "MUST", "MUST NOT", "REQUIRED", "SHALL", or "SHALL NOT" requirements defined in the [specification](./specification/overview.md).
 Conversely, an implementation of the [specification](./specification/overview.md) is compliant if it satisfies all the "MUST", "MUST NOT", "REQUIRED", "SHALL", and "SHALL NOT" requirements defined in the [specification](./specification/overview.md).
 -->
 
-[仕様](./specification/overview.md)の実装は、[仕様](./specification/overview.md)で定義された "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT "のうち1つ以上の要件を満たさない場合、準拠していません。逆に、[仕様](./specification/overview.md)の実装は、[仕様](./specification/overview.md)で定義されている "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT "のすべての要件を満たしていれば、準拠しています。
+[仕様](./specification/overview.md)の実装は、[仕様](./specification/overview.md)で定義された "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT "のうち1つ以上の要件を満たさない場合、準拠していません。逆に、[仕様](./specification/overview.md)の実装は、[仕様](./specification/overview.md)で定義されている "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT"のすべての要件を満たしていれば、準拠しています。
 
 
 <!--
