@@ -15,7 +15,7 @@
 | `faas.instance` | string | 実行環境のID文字列。 | `my-function:instance-0001` | No |
 | `faas.max_memory` | number | サーバーレス関数を実行する際のメモリをMiBで記述したもの [2] | `128` | No |
 
-**[1]:** このフィールド例えば、AWS Lambdaではは[ARN](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)の値に、GCPではリソースのURIに、Azureでは[FunctionDirectory](https://github.com/Azure/azure-functions-host/wiki/Retrieving-information-about-the-currently-running-function)の値に対応しています。
+**[1]:** このフィールドは、例えばAWS Lambdaでは[ARN](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)の値に、GCPではリソースのURIに、Azureでは[FunctionDirectory](https://github.com/Azure/azure-functions-host/wiki/Retrieving-information-about-the-currently-running-function)の値に対応しています。
 
 **[2]:** メモリが少なすぎるとJavaのAWS Lambda関数が正常に動作しなくなることがあるので、この属性を設定しておくことをお勧めします。 AWS Lambda上では、環境変数 `AWS_LAMBDA_FUNCTION_MEMORY_SIZE` がこの情報を提供します。
 <!-- endsemconv -->

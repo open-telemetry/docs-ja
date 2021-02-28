@@ -52,16 +52,16 @@ as specified in the [Resource SDK specification](../sdk.md#sdk-provided-resource
 <!-- semconv service -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `service.name` | string | Logical name of the service. [1] | `shoppingcart` | Yes |
-| `service.namespace` | string | A namespace for `service.name`. [2] | `Shop` | No |
-| `service.instance.id` | string | The string ID of the service instance. [3] | `627cc493-f310-47de-96bd-71410b7dec09` | No |
-| `service.version` | string | The version string of the service API or implementation. | `2.0.0` | No |
+| `service.name` | string | サービスの論理名。 [1] | `shoppingcart` | Yes |
+| `service.namespace` | string | `service.name`の名前空間。 [2] | `Shop` | No |
+| `service.instance.id` | string | サービスインスタンスを表すID文字列。 [3] | `627cc493-f310-47de-96bd-71410b7dec09` | No |
+| `service.version` | string | サービスAPIまたは実装のバージョン文字列。 | `2.0.0` | No |
 
-**[1]:** MUST be the same for all instances of horizontally scaled services. If the value was not specified, SDKs MUST fallback to `unknown_service:` concatenated with [`process.executable.name`](process.md#process), e.g. `unknown_service:bash`. If `process.executable.name` is not available, the value MUST be set to `unknown_service`.
+**[1]:** 水平方向にスケールされたサービスのすべてのインスタンスに対して同じ値を指定しなければなりません(MUST)。値が指定されていない場合、SDKは `unknown_service:` を [`process.executeable.name`](process.md#process) で連結したもの、例えば `unknown_service:bash` などにフォールバックしなければなりません(MUST)。もし `process.executeable.name` が利用できない場合は、`unknown_service` を設定しなければなりません(MUST)。
 
-**[2]:** A string value having a meaning that helps to distinguish a group of services, for example the team name that owns a group of services. `service.name` is expected to be unique within the same namespace. If `service.namespace` is not specified in the Resource then `service.name` is expected to be unique for all services that have no explicit namespace defined (so the empty/unspecified namespace is simply one more valid namespace). Zero-length namespace string is assumed equal to unspecified namespace.
+**[2]:** サービスのグループを区別するのに役立つ意味を持つ文字列値。例えば、サービスのグループを所有するチーム名などです。 `service.name` は同じ名前空間内で一意であることが期待されます。`service.namespace` がResourceに指定されていない場合、`service.name` は明示的な名前空間が定義されていないすべてのサービスに対して一意であることが期待されます (つまり、空の/未指定の名前空間は単に有効な名前空間の1つに過ぎません)。長さ0の名前空間文字列は、未指定の名前空間と同じとみなされます。
 
-**[3]:** MUST be unique for each instance of the same `service.namespace,service.name` pair (in other words `service.namespace,service.name,service.instance.id` triplet MUST be globally unique). The ID helps to distinguish instances of the same service that exist at the same time (e.g. instances of a horizontally scaled service). It is preferable for the ID to be persistent and stay the same for the lifetime of the service instance, however it is acceptable that the ID is ephemeral and changes during important lifetime events for the service (e.g. service restarts). If the service has no inherent unique ID that can be used as the value of this attribute it is recommended to generate a random Version 1 or Version 4 RFC 4122 UUID (services aiming for reproducible UUIDs may also use Version 5, see RFC 4122 for more recommendations).
+**[3]:** 同じ `service.namespace,service.name` のペアの各インスタンスに対して一意でなければなりません(言い換えれば、`service.namespace,service.name,service.instance.id` の一組はグローバルに一意でなければなりません(MUST)。IDは、同時に存在する同じサービスのインスタンスを区別するのに役立ちます(例えば、水平方向にスケーリングされたサービスのインスタンス)。ID は永続的で、サービスインスタンスの寿命の間は同じであることが望ましいですが、サービスの重要な寿命イベント(サービスの再起動など)の間に ID が変化しても構いません。サービスがこの属性の値として使用できる固有のユニークなIDを持たない場合、ランダムなバージョン1またはバージョン4のRFC 4122 UUIDを生成することが推奨されます(再現可能なUUIDを目指すサービスはバージョン5を使用することもできます。より多くの推奨事項についてはRFC 4122を参照してください)。
 <!-- endsemconv -->
 
 Note: `service.namespace` and `service.name` are not intended to be concatenated for the purpose of forming a single globally unique name for the service. For example the following 2 sets of attributes actually describe 2 different services (despite the fact that the concatenation would result in the same string):
@@ -96,10 +96,10 @@ The identifier SHOULD be stable across different versions of an implementation.
 <!-- semconv telemetry -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `telemetry.sdk.name` | string | The name of the telemetry SDK as defined above. | `opentelemetry` | No |
-| `telemetry.sdk.language` | string | The language of the telemetry SDK. | `cpp` | No |
-| `telemetry.sdk.version` | string | The version string of the telemetry SDK. | `1.2.3` | No |
-| `telemetry.auto.version` | string | The version string of the auto instrumentation agent, if used. | `1.2.3` | No |
+| `telemetry.sdk.name` | string | 上記で定義したテレメトリSDKの名前。 | `opentelemetry` | No |
+| `telemetry.sdk.language` | string | テレメトリSDKの言語。 | `cpp` | No |
+| `telemetry.sdk.version` | string | テレメトリSDKのバージョン文字列。 | `1.2.3` | No |
+| `telemetry.auto.version` | string | 使用されている場合は、自動インストルメンテーションエージェントのバージョン文字列。 | `1.2.3` | No |
 
 `telemetry.sdk.language` MUST be one of the following or, if none of the listed values apply, a custom value:
 

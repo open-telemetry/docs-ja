@@ -2,12 +2,12 @@ groups:
   - id: telemetry
     prefix: telemetry
     brief: >
-      The telemetry SDK used to capture data recorded by the instrumentation libraries.
+      計装ライブラリで記録されたデータをキャプチャするために使用されるテレメトリSDKです。
     attributes:
       - id: sdk.name
         type: string
         brief: >
-          The name of the telemetry SDK as defined above.
+          上記で定義したテレメトリSDKの名前。
         examples: ["opentelemetry"]
       - id: sdk.language
         type:
@@ -34,14 +34,14 @@ groups:
             - id: webjs
               value: "webjs"
         brief: >
-          The language of the telemetry SDK.
+          テレメトリSDKの言語。
       - id: sdk.version
         type: string
         brief: >
-          The version string of the telemetry SDK.
+          テレメトリSDKのバージョン文字列。
         examples: ["1.2.3"]
       - id: auto.version
         type: string
         brief: >
-          The version string of the auto instrumentation agent, if used.
+          使用されている場合は、自動インストルメンテーションエージェントのバージョン文字列。
         examples: ["1.2.3"]

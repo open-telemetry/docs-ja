@@ -27,13 +27,13 @@
 <!-- semconv process -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `process.pid` | number | Process identifier (PID). | `1234` | No |
-| `process.executable.name` | string | The name of the process executable. On Linux based systems, can be set to the `Name` in `proc/[pid]/status`. On Windows, can be set to the base name of `GetProcessImageFileNameW`. | `otelcol` | See below |
-| `process.executable.path` | string | The full path to the process executable. On Linux based systems, can be set to the target of `proc/[pid]/exe`. On Windows, can be set to the result of `GetProcessImageFileNameW`. | `/usr/bin/cmd/otelcol` | See below |
-| `process.command` | string | The command used to launch the process (i.e. the command name). On Linux based systems, can be set to the zeroth string in `proc/[pid]/cmdline`. On Windows, can be set to the first parameter extracted from `GetCommandLineW`. | `cmd/otelcol` | See below |
-| `process.command_line` | string | The full command used to launch the process as a single string representing the full command. On Windows, can be set to the result of `GetCommandLineW`. Do not set this if you have to assemble it just for monitoring; use `process.command_args` instead. | `C:\cmd\otecol --config="my directory\config.yaml"` | See below |
-| `process.command_args` | string[] | All the command arguments (including the command/executable itself) as received by the process. On Linux-based systems (and some other Unixoid systems supporting procfs), can be set according to the list of null-delimited strings extracted from `proc/[pid]/cmdline`. For libc-based executables, this would be the full argv vector passed to `main`. | `[cmd/otecol, --config=config.yaml]` | See below |
-| `process.owner` | string | The username of the user that owns the process. | `root` | No |
+| `process.pid` | number | プロセスの識別子(PID) | `1234` | No |
+| `process.executable.name` | string | 実行可能なプロセスの名前。Linuxベースのシステムでは、`proc/[pid]/status` の `Name` を設定できます。Windowsでは、`GetProcessImageFileNameW`のBaseNameを設定できます。 | `otelcol` | See below |
+| `process.executable.path` | string | 実行可能なプロセスへのフルパス。Linuxベースのシステムでは、`proc/[pid]/exe` を設定できます。Windowsでは、`GetProcessImageFileNameW`の結果を設定できます。 | `/usr/bin/cmd/otelcol` | See below |
+| `process.command` | string | プロセスを起動するために使用されたコマンド (すなわち、コマンド名)。Linuxベースのシステムでは、`proc/[pid]/cmdline`の0番目の文字列を設定できます。 Windowsでは、`GetCommandLineW`から抽出した最初のパラメータを設定できます。 | `cmd/otelcol` | See below |
+| `process.command_line` | string | プロセスを起動するために使用された完全なコマンドを1つの文字列で表します。Windowsでは、`GetCommandLineW`の結果を設定できます。モニタリングのためだけに構築する必要がある場合は設定しないでください。代わりに `process.command_args` を使ってください。 | `C:\cmd\otecol --config="my directory\config.yaml"` | See below |
+| `process.command_args` | string[] | プロセスが受け取ったすべてのコマンド引数(コマンド/実行可能なもの自体を含む)。Linuxベースのシステム(およびprocfsをサポートする他のいくつかのUnix系システム)では、`proc/[pid]/cmdline`から抽出されたNULLで区切られた文字列のリストを設定できます。libcベースの実行ファイルの場合、これは `main` に渡される完全な argv ベクトルになります。 | `[cmd/otecol, --config=config.yaml]` | See below |
+| `process.owner` | string | プロセスを所有するユーザーのユーザー名。 | `root` | No |
 <!-- endsemconv -->
 
 Between `process.command_args` and `process.command_line`, usually `process.command_args` should be preferred.
@@ -55,9 +55,9 @@ At least one of `process.executable.name`, `process.executable.path`, `process.c
 <!-- semconv process.runtime -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `process.runtime.name` | string | The name of the runtime of this process. For compiled native binaries, this SHOULD be the name of the compiler. | `OpenJDK Runtime Environment` | No |
-| `process.runtime.version` | string | The version of the runtime of this process, as returned by the runtime without modification. | `14.0.2` | No |
-| `process.runtime.description` | string | An additional description about the runtime of the process, for example a specific vendor customization of the runtime environment. | `Eclipse OpenJ9 Eclipse OpenJ9 VM openj9-0.21.0` | No |
+| `process.runtime.name` | string | このプロセスのランタイムの名前。コンパイルされたネイティブバイナリの場合、これはコンパイラの名前であるべきです[SHOULD]。 | `OpenJDK Runtime Environment` | No |
+| `process.runtime.version` | string | ランタイムが修正せずに返した、このプロセスのランタイムのバージョン。 | `14.0.2` | No |
+| `process.runtime.description` | string | プロセスのランタイムに関する追加の記述、例えば、ランタイム環境の特定のベンダのカスタマイズなど。 | `Eclipse OpenJ9 Eclipse OpenJ9 VM openj9-0.21.0` | No |
 <!-- endsemconv -->
 
 How to set these attributes for particular runtime kinds is described in the following subsections.
