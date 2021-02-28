@@ -1,0 +1,36 @@
+groups:
+  - id: host
+    prefix: host
+    brief: >
+        ホストは一般的なコンピューティングインスタンスとして定義されます。
+    attributes:
+      - id: id
+        type: string
+        brief: >
+          一意のホスト ID。クラウドの場合、これはクラウドプロバイダーによって割り当てられた instance_id である必要があります。
+        examples: ['opentelemetry-test']
+      - id: name
+        type: string
+        brief: >
+          ホストの名前。Unix システムでは、hostname コマンドが返すもの、完全修飾されたホスト名、あるいはユーザが指定した別の名前が含まれます。
+        examples: ['opentelemetry-test']
+      - id: type
+        type: string
+        brief: >
+          ホストの種類。クラウドの場合は、マシンタイプである必要があります。
+        examples: ['n1-standard-1']
+      - id: image.name
+        type: string
+        brief: >
+          ホストがインスタンス化されたVMイメージまたはOSのインストール名。
+        examples: ['infra-ami-eks-worker-node-7d4ec78312', 'CentOS-8-x86_64-1905']
+      - id: image.id
+        type: string
+        brief: >
+          VM イメージ ID。クラウドの場合、この値はプロバイダのものです。
+        examples: ['ami-07b06b442921831e5']
+      - id: image.version
+        type: string
+        brief: >
+          [バージョン属性](README.md#version-attributes)で定義されているVMイメージのバージョン文字列。
+        examples: ['0.1']

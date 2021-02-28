@@ -1,0 +1,93 @@
+groups:
+  - id: cloud
+    prefix: cloud
+    brief: >
+      クラウドインフラストラクチャ (例: GCP, Azure, AWS)
+    attributes:
+      - id: provider
+        type:
+          allow_custom_values: true
+          members:
+            - id: AWS
+              value: 'aws'
+              brief: 'Amazon Web Services'
+            - id: Azure
+              value: 'azure'
+              brief: 'Microsoft Azure'
+            - id: GCP
+              value: 'gcp'
+              brief: 'Google Cloud Platform'
+        brief: >
+          クラウドプロバイダの名前
+        examples: 'gcp'
+      - id: account.id
+        type: string
+        brief: >
+          異なるエンティティを識別するために使用されるクラウドアカウントID。
+        examples: ['opentelemetry']
+      - id: region
+        type: string
+        brief: >
+          異なるエンティティが実行可能な特定の地理的な場所。
+        examples: ['us-central1']
+      - id: zone
+        type: string
+        brief: >
+          ゾーンは、低遅延リンクを介して接続されたRegionのサブセットです。
+        note: >
+          AWSでは、アベイラビリティゾーンと呼ばれます。
+        examples: ['us-central1-a']
+      - id: infrastructure_service
+        type:
+          allow_custom_values: true
+          members:
+            - id: AWS_EC2
+              value: 'aws_ec2'
+              brief: AWS Elastic Compute Cloud
+            - id: AWS_ECS
+              value: 'aws_ecs'
+              brief: AWS Elastic Container Service
+            - id: AWS_EKS
+              value: 'aws_eks'
+              brief: AWS Elastic Kubernetes Service
+            - id: AWS_Lambda
+              value: 'aws_lambda'
+              brief: AWS Lambda
+            - id: AWS_ElasticBeanstalk
+              value: 'aws_elastic_beanstalk'
+              brief: AWS Elastic Beanstalk
+            - id: Azure_VM
+              value: 'azure_vm'
+              brief: Azure Virtual Machines
+            - id: Azure_ContainerInstances
+              value: 'azure_container_instances'
+              brief: Azure Container Instances
+            - id: Azure_AKS
+              value: 'azure_aks'
+              brief: Azure Kubernetes Service
+            - id: Azure_Functions
+              value: 'azure_functions'
+              brief: Azure Functions
+            - id: Azure_AppService
+              value: 'azure_app_service'
+              brief: Azure App Service
+            - id: GCP_ComputeEngine
+              value: 'gcp_compute_engine'
+              brief: GCP Compute Engine
+            - id: GCP_CloudRun
+              value: 'gcp_cloud_run'
+              brief: GCP Cloud Run
+            - id: GCP_GKE
+              value: 'gcp_gke'
+              brief: Google Kubernetes Engine
+            - id: GCP_CloudFunctions
+              value: 'gcp_cloud_functions'
+              brief: GCP Cloud Functions
+            - id: GCP_AppEngine
+              value: 'gcp_app_engine'
+              brief: GCP App Engine
+        brief: >
+          使用中のクラウド基盤リソース。
+        note: >
+          サービスのプレフィックスは `cloud.provider` で指定されたものと一致するべきです(SHOULD)。
+        examples: ['aws_ec2', 'azure_vm', 'gcp_compute_engine']

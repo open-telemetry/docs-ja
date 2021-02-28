@@ -1,0 +1,26 @@
+groups:
+  - id: container
+    prefix: container
+    brief: >
+      コンテナインスタンス
+    attributes:
+      - id: name
+        type: string
+        brief: >
+          コンテナ名
+        examples: ['opentelemetry-autoconf']
+      - id: id
+        type: string
+        brief: >
+          コンテナID。通常はUUIDで、例えば[Dockerコンテナの識別子](https://docs.docker.com/engine/reference/run/#container-identification)]に使用されます。UUIDが略されている場合があります。
+        examples: ['a3bf90e006b2']
+      - id: image.name
+        type: string
+        brief: >
+          コンテナイメージの名前。
+        examples: ['gcr.io/opentelemetry/operator']
+      - id: image.tag
+        type: string
+        brief: >
+          コンテナイメージタグ。
+        examples: ['0.1']
