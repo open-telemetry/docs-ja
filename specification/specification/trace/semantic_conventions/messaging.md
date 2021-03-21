@@ -138,8 +138,8 @@ The following operations related to messages are defined for these semantic conv
 | `messaging.conversation_id` | string | The [conversation ID](#conversations) identifying the conversation to which the message belongs, represented as a string. Sometimes called "Correlation ID". | `MyConversationId` | No |
 | `messaging.message_payload_size_bytes` | number | The (uncompressed) size of the message payload in bytes. Also use this attribute if it is unknown whether the compressed or uncompressed payload size is reported. | `2738` | No |
 | `messaging.message_payload_compressed_size_bytes` | number | The compressed size of the message payload in bytes. | `2048` | No |
-| [`net.peer.ip`](span-general.md) | string | Remote address of the peer (dotted decimal for IPv4 or [RFC5952](https://tools.ietf.org/html/rfc5952) for IPv6) | `127.0.0.1` | If available. |
-| [`net.peer.name`](span-general.md) | string | Remote hostname or similar, see note below. [2] | `example.com` | If available. |
+| [`net.peer.ip`](span-general.md) | string | 相手のリモートアドレス(IPv4ではドット10進数、IPv6では[RFC5952](https://tools.ietf.org/html/rfc5952) | `127.0.0.1` | If available. |
+| [`net.peer.name`](span-general.md) | string | リモートのホスト名あるいは類似の文字列。下記注釈参照 [2] | `example.com` | If available. |
 
 **[1]:** Required only if the message destination is either a `queue` or `topic`.
 

@@ -44,27 +44,14 @@ their types.
 <!-- semconv exception -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `exception.type` | string | The type of the exception (its fully-qualified class name, if applicable). The dynamic type of the exception should be preferred over the static type in languages that support it. | `java.net.ConnectException`; `OSError` | See below |
-| `exception.message` | string | The exception message. | `Division by zero`; `Can't convert 'int' object to str implicitly` | See below |
-| `exception.stacktrace` | string | A stacktrace as a string in the natural representation for the language runtime. The representation is to be determined and documented by each language SIG. | `Exception in thread "main" java.lang.RuntimeException: Test exception\n at com.example.GenerateTrace.methodB(GenerateTrace.java:13)\n at com.example.GenerateTrace.methodA(GenerateTrace.java:9)\n at com.example.GenerateTrace.main(GenerateTrace.java:5)` | No |
-| `exception.escaped` | boolean | SHOULD be set to true if the exception event is recorded at a point where it is known that the exception is escaping the scope of the span. [1] |  | No |
+| `exception.type` | string | 例外のタイプ(該当する場合は、完全修飾クラス名)。 例外の動的な型をサポートする言語では、静的型よりも動的型を優先すべきです。 | `java.net.ConnectException`; `OSError` | See below |
+| `exception.message` | string | 例外のメッセージ | `Division by zero`; `Can't convert 'int' object to str implicitly` | See below |
+| `exception.stacktrace` | string | スタックトレースは，言語ランタイムの自然な表現の文字列です。 この表現は各言語のSIGが決定し、文書化することになっています。 | `Exception in thread "main" java.lang.RuntimeException: Test exception\n at com.example.GenerateTrace.methodB(GenerateTrace.java:13)\n at com.example.GenerateTrace.methodA(GenerateTrace.java:9)\n at com.example.GenerateTrace.main(GenerateTrace.java:5)` | No |
+| `exception.escaped` | boolean | 例外がSpanの範囲を逸脱していることが分かっている場所で例外イベントが記録された場合、trueに設定するべきです(SHOULD)。 [1] |  | No |
 
-**[1]:** An exception is considered to have escaped (or left) the scope of a span,
-if that span is ended while the exception is still logically "in flight".
-This may be actually "in flight" in some languages (e.g. if the exception
-is passed to a Context manager's `__exit__` method in Python) but will
-usually be caught at the point of recording the exception in most languages.
-
-It is usually not possible to determine at the point where an exception is thrown
-whether it will escape the scope of a span.
-However, it is trivial to know that an exception
-will escape, if one checks for an active exception just before ending the span,
-as done in the [example above](#exception-end-example).
-
-It follows that an exception may still escape the scope of the span
-even if the `exception.escaped` attribute was not set or set to false,
-since the event might have been recorded at a time where it was not
-clear whether the exception will escape.
+**[1]:** 例外が論理的に"飛行中(in flight)"である間にSpanが終了した場合、例外はSpanの範囲から脱出(または離脱)したとみなされます。これは、言語によっては実際に"飛行中"かもしれませんが(例：Pythonで例外がContext managerの`__exit__`メソッドに渡された場合)、ほとんどの言語では例外を記録した時点で捕捉されるのが普通です。
+例外が投げられた時点で、その例外がSpanのスコープから外れるかどうかを判断することは通常できません。しかし、[上記の例](#exception-end-example)のように、Spanを終了する直前にアクティブな例外があるかどうかをチェックすれば、例外がエスケープされるかどうかを知ることは簡単です。
+これによると、`exception.escaped` 属性が設定されていなかったり、false に設定されていたりしても、例外がSpanのスコープを抜け出す可能性があります。これは、例外が抜け出すかどうかがはっきりしない時点でイベントが記録されている可能性があるからです。
 
 **Additional attribute requirements:** At least one of the following sets of attributes is required:
 

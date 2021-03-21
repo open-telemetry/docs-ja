@@ -57,10 +57,10 @@ Examples of span names:
 | `rpc.system` | string | A string identifying the remoting system. | `grpc`; `java_rmi`; `wcf` | Yes |
 | `rpc.service` | string | The full name of the service being called, including its package name, if applicable. | `myservice.EchoService` | No, but recommended |
 | `rpc.method` | string | The name of the method being called, must be equal to the $method part in the span name. | `exampleMethod` | No, but recommended |
-| [`net.peer.ip`](span-general.md) | string | Remote address of the peer (dotted decimal for IPv4 or [RFC5952](https://tools.ietf.org/html/rfc5952) for IPv6) | `127.0.0.1` | See below |
-| [`net.peer.name`](span-general.md) | string | Remote hostname or similar, see note below. | `example.com` | See below |
-| [`net.peer.port`](span-general.md) | number | Remote port number. | `80`; `8080`; `443` | See below |
-| [`net.transport`](span-general.md) | string | Transport protocol used. See note below. | `IP.TCP` | See below |
+| [`net.peer.ip`](span-general.md) | string | 相手のリモートアドレス(IPv4ではドット10進数、IPv6では[RFC5952](https://tools.ietf.org/html/rfc5952) | `127.0.0.1` | See below |
+| [`net.peer.name`](span-general.md) | string | リモートのホスト名あるいは類似の文字列。下記注釈参照 | `example.com` | See below |
+| [`net.peer.port`](span-general.md) | number | リモートのポート番号 | `80`; `8080`; `443` | See below |
+| [`net.transport`](span-general.md) | string | Transport protocol used. 下記注釈参照。 | `IP.TCP` | See below |
 
 **Additional attribute requirements:** At least one of the following sets of attributes is required:
 

@@ -34,13 +34,13 @@ the `net.peer.*` properties of a client are equal to the `net.host.*` properties
 <!-- semconv network -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `net.transport` | string | Transport protocol used. See note below. | `IP.TCP` | No |
-| `net.peer.ip` | string | Remote address of the peer (dotted decimal for IPv4 or [RFC5952](https://tools.ietf.org/html/rfc5952) for IPv6) | `127.0.0.1` | No |
-| `net.peer.port` | number | Remote port number. | `80`; `8080`; `443` | No |
-| `net.peer.name` | string | Remote hostname or similar, see note below. | `example.com` | No |
-| `net.host.ip` | string | Like `net.peer.ip` but for the host IP. Useful in case of a multi-IP host. | `192.168.0.1` | No |
-| `net.host.port` | number | Like `net.peer.port` but for the host port. | `35555` | No |
-| `net.host.name` | string | Local hostname or similar, see note below. | `localhost` | No |
+| `net.transport` | string | Transport protocol used. 下記注釈参照。 | `IP.TCP` | No |
+| `net.peer.ip` | string | 相手のリモートアドレス(IPv4ではドット10進数、IPv6では[RFC5952](https://tools.ietf.org/html/rfc5952) | `127.0.0.1` | No |
+| `net.peer.port` | number | リモートのポート番号 | `80`; `8080`; `443` | No |
+| `net.peer.name` | string | リモートのホスト名あるいは類似の文字列。下記注釈参照 | `example.com` | No |
+| `net.host.ip` | string | `net.peer.ip`と同じですが、ホストのIPを指定します。マルチIPのホストの場合に便利です。 | `192.168.0.1` | No |
+| `net.host.port` | number | `net.peer.port`と同じですが、ホストのポートを指定します。 | `35555` | No |
+| `net.host.name` | string | ローカルのホスト名あるいは類似の文字列 下記注釈参照 | `localhost` | No |
 
 `net.transport` MUST be one of the following:
 
@@ -48,13 +48,13 @@ the `net.peer.*` properties of a client are equal to the `net.host.*` properties
 |---|---|
 | `IP.TCP` | IP.TCP |
 | `IP.UDP` | IP.UDP |
-| `IP` | Another IP-based protocol |
-| `Unix` | Unix Domain socket. See below. |
-| `pipe` | Named or anonymous pipe. See note below. |
+| `IP` | 他の IP-based プロトコル |
+| `Unix` | Unix Domain socket. 下記参照 |
+| `pipe` | Named あるいは anonymous pipe. 下記注釈参照 |
 | `inproc` | In-process communication. [1] |
-| `other` | Something else (non IP-based). |
+| `other` | その他 (non IP-based). |
 
-**[1]:** Signals that there is only in-process communication not using a "real" network protocol in cases where network attributes would normally be expected. Usually all other network attributes can be left out in that case.
+**[1]:** 通常、ネットワークの属性が期待される場合に、「実際の」ネットワークプロトコルを使用しないin-processの通信のみが存在することを示します。通常、この場合、他のネットワーク属性はすべて省くことができます。
 
 <!-- endsemconv -->
 For `Unix` and `pipe`, since the connection goes over the file system instead of being directly to a known peer, `net.peer.name` is the only attribute that usually makes sense (see description of `net.peer.name` below).
@@ -85,7 +85,7 @@ Instrumentations SHOULD provide a way for users to configure this name.
 <!-- semconv peer -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `peer.service` | string | The [`service.name`](../../resource/semantic_conventions/README.md#service) of the remote service. SHOULD be equal to the actual `service.name` resource attribute of the remote service if any. | `AuthTokenCache` | No |
+| `peer.service` | string | リモートサービスの[`service.name`](../../resource/semantic_conventions/README.md#service)を指定します。リモートサービスの実際の `service.name` リソース属性があれば、それと等しくすべきです(SHOULD)。 | `AuthTokenCache` | No |
 <!-- endsemconv -->
 
 Examples of `peer.service` that users may specify:
@@ -100,9 +100,9 @@ These attributes may be used for any operation with an authenticated and/or auth
 <!-- semconv identity -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `enduser.id` | string | Username or client_id extracted from the access token or [Authorization](https://tools.ietf.org/html/rfc7235#section-4.2) header in the inbound request from outside the system. | `username` | No |
-| `enduser.role` | string | Actual/assumed role the client is making the request under extracted from token or application security context. | `admin` | No |
-| `enduser.scope` | string | Scopes or granted authorities the client currently possesses extracted from token or application security context. The value would come from the scope associated with an [OAuth 2.0 Access Token](https://tools.ietf.org/html/rfc6749#section-3.3) or an attribute value in a [SAML 2.0 Assertion](http://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html). | `read:message, write:files` | No |
+| `enduser.id` | string | システム外からのインバウンドリクエストのアクセストークンまたは[Authorization](https://tools.ietf.org/html/rfc7235#section-4.2)ヘッダーから抽出したユーザー名またはclient_id。 | `username` | No |
+| `enduser.role` | string | トークンやアプリケーションのセキュリティコンテキストから抽出された、クライアントがリクエストを行う際の実際の役割／想定される役割。 | `admin` | No |
+| `enduser.scope` | string | トークンやアプリケーションのセキュリティコンテキストから抽出された、クライアントが現在所有しているスコープや付与された権限。この値は、[OAuth 2.0 Access Token](https://tools.ietf.org/html/rfc6749#section-3.3)に関連付けられたスコープ、または[SAML 2.0 Assertion](http://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html)の属性値に由来するものです。 | `read:message, write:files` | No |
 <!-- endsemconv -->
 
 These attributes describe the authenticated user driving the user agent making requests to the instrumented
@@ -149,8 +149,8 @@ a thread that started a span.
 <!-- semconv thread -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `thread.id` | number | Current "managed" thread ID (as opposed to OS thread ID). | `42` | No |
-| `thread.name` | string | Current thread name. | `main` | No |
+| `thread.id` | number | 現在の「管理された」スレッドID（OSのスレッドIDとは異なります）。 | `42` | No |
+| `thread.name` | string | 現在のスレッド名 | `main` | No |
 <!-- endsemconv -->
 
 Examples of where `thread.id` and `thread.name` can be extracted from:
@@ -175,8 +175,8 @@ about the span.
 <!-- semconv code -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `code.function` | string | The method or function name, or equivalent (usually rightmost part of the code unit's name). | `serveRequest` | No |
-| `code.namespace` | string | The "namespace" within which `code.function` is defined. Usually the qualified class or module name, such that `code.namespace` + some separator + `code.function` form a unique identifier for the code unit. | `com.example.MyHttpService` | No |
-| `code.filepath` | string | The source code file name that identifies the code unit as uniquely as possible (preferably an absolute file path). | `/usr/local/MyApplication/content_root/app/index.php` | No |
-| `code.lineno` | number | The line number in `code.filepath` best representing the operation. It SHOULD point within the code unit named in `code.function`. | `42` | No |
+| `code.function` | string | メソッド名、関数名、またはそれに相当するもの（通常はコードユニット名の最右端）。 | `serveRequest` | No |
+| `code.namespace` | string | `code.function`が定義されている「名前空間」です。通常は、修飾されたクラスやモジュールの名前で、 `code.namespace` + 何かの区切り文字 + `code.function` がコードユニットの一意な識別子になります。 | `com.example.MyHttpService` | No |
+| `code.filepath` | string | コードユニットを可能な限り一意に識別するためのソースコードファイル名(絶対ファイルパスが望ましい)。 | `/usr/local/MyApplication/content_root/app/index.php` | No |
+| `code.lineno` | number | `code.filepath` の中で、操作を表すのに最適な行番号です。これは `code.function` で指定されたコードユニット内を指すべきです。 | `42` | No |
 <!-- endsemconv -->

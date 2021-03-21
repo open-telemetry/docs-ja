@@ -1,14 +1,21 @@
+<!--
 # Resource Semantic Conventions
+-->
+# Resource セマンティック規約
 
 **Status**: [Experimental](../../document-status.md)
 
-This document defines standard attributes for resources. These attributes are typically used in the [Resource](../sdk.md) and are also recommended to be used anywhere else where there is a need to describe a resource in a consistent manner. The majority of these attributes are inherited from
-[OpenCensus Resource standard](https://github.com/census-instrumentation/opencensus-specs/blob/master/resource/StandardResources.md).
+<!--
+This document defines standard attributes for resources. These attributes are typically used in the [Resource](../sdk.md) and are also recommended to be used anywhere else where there is a need to describe a resource in a consistent manner. The majority of these attributes are inherited from [OpenCensus Resource standard](https://github.com/census-instrumentation/opencensus-specs/blob/master/resource/StandardResources.md).
+-->
+
+この文書では、Resourceの標準属性を定義しています。これらの属性は通常 [Resource](../sdk.md) で使用され、Resourceを一貫した方法で記述する必要がある場合にはどこでも使用することが推奨されます。これらの属性の大部分は [OpenCensus Resource standard](https://github.com/census-instrumentation/opencensus-specs/blob/master/resource/StandardResources.md) から継承されています。
 
 <!-- Re-generate TOC with `markdown-toc --no-first-h1 -i` -->
 
 <!-- toc -->
 
+<!--
 - [TODOs](#todos)
 - [Document Conventions](#document-conventions)
 - [Semantic Attributes with SDK-provided Default Value](#semantic-attributes-with-sdk-provided-default-value)
@@ -19,18 +26,42 @@ This document defines standard attributes for resources. These attributes are ty
 - [Environment](#environment)
 - [Version attributes](#version-attributes)
 - [Cloud-Provider-Specific Attributes](#cloud-provider-specific-attributes)
+-->
+
+- [TODO](#todo)
+- [ドキュメント規約](#document-conventions)
+- [SDKが提供するデフォルト値を持つセマンティック属性](#semantic-attributes-with-sdk-provided-default-value)
+- [サービス](#service)
+- [Telemetry SDK](#telemetry-sdk)
+- [Compute Unit](#compute-unit)
+- [Compute Instance](#compute-instance)
+- [環境](#環境)
+- [バージョン属性](#version-attributes)
+- [クラウドプロバイダ固有の属性](#クラウドプロバイダ固有の属性)
 
 <!-- tocstop -->
 
-## TODOs
+## TODO
 
+<!--
 * Add more compute units: AppEngine unit, etc.
 * Add Device (mobile) and Web Browser.
 * Decide if lower case strings only.
 * Consider to add optional/required for each attribute and combination of attributes
   (e.g when supplying a k8s resource all k8s may be required).
+-->
 
+* 計算単位の追加。AppEngine単位など。
+* デバイス(モバイル)とWebブラウザを追加する。
+* 小文字の文字列のみにするかどうかを決める
+* 各属性や属性の組み合わせについて、オプション/必須を追加することを検討
+  (例: k8sリソースを供給する場合は、すべてのk8が必要になるかもしれません)。
+
+<!--
 ## Document Conventions
+-->
+
+## ドキュメント規約
 
 Attributes are grouped logically by the type of the concept that they described. Attributes in the same group have a common prefix that ends with a dot. For example all attributes that describe Kubernetes properties start with "k8s."
 
@@ -131,23 +162,49 @@ Attributes defining a computing instance (e.g. host):
 
 - [Host](./host.md)
 
+<!--
 ## Environment
+-->
 
+## 環境
+
+<!--
 Attributes defining a running environment (e.g. Operating System, Cloud, Data Center, Deployment Service):
+-->
 
+実行環境を定義する属性（例：オペレーティングシステム、クラウド、データセンター、デプロイメントサービス）。
+
+<!--
 - [Operating System](./os.md)
 - [Cloud](./cloud.md)
 - Deployment:
   - [Deployment Environment](./deployment_environment.md)
   - [Kubernetes](./k8s.md)
+-->
 
+- [オペレーティングシステム](./os.md)
+- [クラウド](./cloud.md)
+- デプロイ:
+  - [デプロイ環境] (./deployment_environment.md)
+  - [Kubernetes](./k8s.md)
+
+
+<!--
 ## Version attributes
+-->
+
+## バージョン属性
 
 Version attributes, such as `service.version`, are values of type `string`. They are
 the exact version used to identify an artifact. This may be a semantic version, e.g., `1.2.3`, git hash, e.g.,
 `8ae73a`, or an arbitrary version string, e.g., `0.1.2.20210101`, whatever was used when building the artifact.
 
+
+<!--
 ## Cloud-Provider-Specific Attributes
+-->
+
+## クラウドプロバイダ固有の属性
 
 Attributes that are only applicable to resources from a specific cloud provider. Currently, these
 resources can only be defined for providers listed as a valid `cloud.provider` in
