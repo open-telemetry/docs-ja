@@ -23,29 +23,41 @@ or managing of servers (also known as serverless functions or Function as a Serv
 
 <!-- tocstop -->
 
+<!--
 ## General Attributes
+-->
 
+## 一般属性
+
+<!--
 Span `name` should be set to the function name being executed. Depending on the value of the `faas.trigger` attribute, additional attributes MUST be set. For example, an `http` trigger SHOULD follow the [HTTP Server semantic conventions](http.md#http-server-semantic-conventions). For more information, refer to the [Function Trigger Type](#function-trigger-type) section.
+-->
 
+Span `name` には、実行される関数名を設定する必要があります。 `fas.trigger` 属性の値に応じて、追加の属性を設定しなければなりません(MUST)。例えば、`http`のトリガーは、[HTTP Server セマンティク規約](http.md#http-server-semantic-conventions)に従うべきです(SHOULD)。詳細については、[関数トリガタイプ](#function-trigger-type)のセクションを参照してください。
+
+<!--
 If Spans following this convention are produced, a Resource of type `faas` MUST exist following the [Resource semantic convention](../../resource/semantic_conventions/faas.md#function-as-a-service).
+-->
+
+この規約に従ったSpanが生成された場合、[Resource セマンティク規約](./../resource/semantic_conventions/faas.md#function-as-a-service)に従った`faas`タイプのResourceが存在しなければなりません(MUST)。
 
 <!-- semconv faas_span -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `faas.trigger` | string | Type of the trigger on which the function is executed. | `datasource` | Conditional [1] |
-| `faas.execution` | string | The execution ID of the current function execution. | `af9d5aa4-a685-4c5f-a22b-444f80b3cc28` | No |
+| `faas.trigger` | string | 関数が実行されるトリガーのタイプ。 | `datasource` | Conditional [1] |
+| `faas.execution` | string | 現在実行されている関数の実行ID。 | `af9d5aa4-a685-4c5f-a22b-444f80b3cc28` | No |
 
-**[1]:** On FaaS instances, faas.trigger MUST be set on incoming invocations. Clients invoking FaaS instances MUST set `faas.trigger` on outgoing invocations, if it is known to the client. This is, for example, not the case, when the transport layer is abstracted in a FaaS client framework without access to its configuration.
+**[1]:** FaaSインスタンスでは、着信時にfaas.trigger属性を設定しなければなりません(MUST)。FaaSインスタンスを起動しているクライアントは、クライアントに知られている場合、発信される起動に`faas.trigger`を設定しなければなりません(MUST)。例えば、トランスポートレイヤーがFaaSクライアントフレームワークで抽象化されていて、その設定にアクセスできない場合は、この限りではありません。
 
 `faas.trigger` MUST be one of the following:
 
 | Value  | Description |
 |---|---|
-| `datasource` | A response to some data source operation such as a database or filesystem read/write. |
-| `http` | To provide an answer to an inbound HTTP request |
-| `pubsub` | A function is set to be executed when messages are sent to a messaging system. |
-| `timer` | A function is scheduled to be executed regularly. |
-| `other` | If none of the others apply |
+| `datasource` | データベースやファイルシステムの読み取り/書き込みなど、データソースの操作に対する応答の関数。 |
+| `http` | 受信したHTTPリクエストへの応答の関数。 |
+| `pubsub` | メッセージングシステムにメッセージが送信されたときに実行される設定の関数。 |
+| `timer` | 定期的に実行されるように予定されている関数。 |
+| `other` | 他に該当するものがない関数 |
 <!-- endsemconv -->
 
 ### Function Name
@@ -84,7 +96,7 @@ For incoming FaaS spans, the span kind MUST be `Server`.
 <!-- semconv faas_span.in -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `faas.coldstart` | boolean | A boolean that is true if the serverless function is executed for the first time (aka cold-start). |  | No |
+| `faas.coldstart` | boolean | サーバーレス機能が初めて実行された場合(コールドスタート)に真となる真偽値。 |  | No |
 <!-- endsemconv -->
 
 ## Outgoing Invocations
@@ -100,17 +112,17 @@ which the invoked FaaS instance reports about itself, if it's instrumented.
 <!-- semconv faas_span.out -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `faas.invoked_name` | string | The name of the invoked function. [1] | `my-function` | Yes |
-| `faas.invoked_provider` | string | The cloud provider of the invoked function. [2] | `aws` | Yes |
-| `faas.invoked_region` | string | The cloud region of the invoked function. [3] | `eu-central-1` | Conditional [4] |
+| `faas.invoked_name` | string | 呼び出された関数の名前です。 [1] | `my-function` | Yes |
+| `faas.invoked_provider` | string | 呼び出された関数のクラウドプロバイダー。 [2] | `aws` | Yes |
+| `faas.invoked_region` | string | 呼び出された関数が動いているリージョン [3] | `eu-central-1` | Conditional [4] |
 
-**[1]:** SHOULD be equal to the `faas.name` resource attribute of the invoked function.
+**[1]:** 呼び出された関数のリソース属性 `faas.name` と同じ値にすべきです(SHOULD)。
 
-**[2]:** SHOULD be equal to the `cloud.provider` resource attribute of the invoked function.
+**[2]:** 呼び出された関数のリソース属性である `cloud.provider` と同じ値にすべきです(SHOULD)。
 
-**[3]:** SHOULD be equal to the `cloud.region` resource attribute of the invoked function.
+**[3]:** 呼び出された関数のリソース属性である `cloud.region` と同じ値にすべきです(SHOULD)。
 
-**[4]:** For some cloud providers, like AWS or GCP, the region in which a function is hosted is essential to uniquely identify the function and also part of its endpoint. Since it's part of the endpoint being called, the region is always known to clients. In these cases, `faas.invoked_region` MUST be set accordingly. If the region is unknown to the client or not required for identifying the invoked function, setting `faas.invoked_region` is optional.
+**[4]:** AWSやGCPなどの一部のクラウドプロバイダーでは、関数を一意に識別するためにその関数がホストされているリージョンが不可欠な情報であり、またエンドポイントの一部でもあります。リージョンは呼び出されるエンドポイントの一部であるため、クライアントは常にリージョンを知っています。このような場合には、`faas.invoked_region` を適宜設定しなければなりません(MUST)。リージョンがクライアントに知られていない場合や、呼び出された関数を識別するのに必要ない場合は、`faas.invoked_region`の設定は任意です。
 
 `faas.invoked_provider` MUST be one of the following or, if none of the listed values apply, a custom value:
 
@@ -136,18 +148,18 @@ For `faas` spans with trigger `datasource`, it is recommended to set the followi
 <!-- semconv faas_span.datasource -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `faas.document.collection` | string | The name of the source on which the triggering operation was performed. For example, in Cloud Storage or S3 corresponds to the bucket name, and in Cosmos DB to the database name. | `myBucketName`; `myDbName` | Yes |
-| `faas.document.operation` | string | Describes the type of the operation that was performed on the data. | `insert` | Yes |
-| `faas.document.time` | string | A string containing the time when the data was accessed in the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format expressed in [UTC](https://www.w3.org/TR/NOTE-datetime). | `2020-01-23T13:47:06Z` | Yes |
-| `faas.document.name` | string | The document name/table subjected to the operation. For example, in Cloud Storage or S3 is the name of the file, and in Cosmos DB the table name. | `myFile.txt`; `myTableName` | No |
+| `faas.document.collection` | string | トリガー操作が行われたソースの名前。例えば、Cloud StorageやS3であればバケット名、Cosmos DBであればデータベース名に対応します。 | `myBucketName`; `myDbName` | Yes |
+| `faas.document.operation` | string | データに対して行われた操作の種類を記述します。 | `insert` | Yes |
+| `faas.document.time` | string | データにアクセスした時刻を[ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html)形式で、[UTC](https://www.w3.org/TR/NOTE-datetime)で表した文字列。 | `2020-01-23T13:47:06Z` | Yes |
+| `faas.document.name` | string | 操作の対象となるドキュメント名/テーブル名。例えば、クラウドストレージやS3ではファイル名、Cosmos DBではテーブル名となります。 | `myFile.txt`; `myTableName` | No |
 
 `faas.document.operation` MUST be one of the following or, if none of the listed values apply, a custom value:
 
 | Value  | Description |
 |---|---|
-| `insert` | When a new object is created. |
-| `edit` | When an object is modified. |
-| `delete` | When an object is deleted. |
+| `insert` | 新しいオブジェクトが作成されたとき |
+| `edit` | オブジェクトが変更されたとき |
+| `delete` | オブジェクトが削除されたとき |
 <!-- endsemconv -->
 
 ### HTTP
@@ -168,8 +180,8 @@ A function is scheduled to be executed regularly. The following additional attri
 <!-- semconv faas_span.timer -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `faas.time` | string | A string containing the function invocation time in the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format expressed in [UTC](https://www.w3.org/TR/NOTE-datetime). | `2020-01-23T13:47:06Z` | Yes |
-| `faas.cron` | string | A string containing the schedule period as [Cron Expression](https://docs.oracle.com/cd/E12058_01/doc/doc.1014/e12030/cron_expressions.htm). | `0/5 * * * ? *` | No |
+| `faas.time` | string | [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html)形式で、[UTC](https://www.w3.org/TR/NOTE-datetime)で表現された関数の起動時間を含む文字列です | `2020-01-23T13:47:06Z` | Yes |
+| `faas.cron` | string | スケジュール期間を[Cron Expression](https://docs.oracle.com/cd/E12058_01/doc/doc.1014/e12030/cron_expressions.htm)として含む文字列。 | `0/5 * * * ? *` | No |
 <!-- endsemconv -->
 
 ### Other

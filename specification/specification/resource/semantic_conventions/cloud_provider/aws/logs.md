@@ -4,7 +4,7 @@
 
 **Type:** `aws.log`
 
-**Description:** Log attributes for Amazon Web Services.
+**Description:** Amazon Web Servicesのログ属性です。
 
 <!-- semconv aws.log -->
 | Attribute  | Type | Description  | Examples  | Required |
