@@ -19,7 +19,7 @@
 
 <summary>目次</summary>
 
-* [Sampling](#sampling)
+* [サンプリング](#サンプリング)
 * [Tracer Creation](#tracer-creation)
 * [Span Processor](#span-processor)
 * [Span Exporter](#span-exporter)
