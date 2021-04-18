@@ -74,7 +74,7 @@ The representation of those values is language specific.
 
 ### 時間
 
-OpenTelemetryでは、ナノ秒（ns）の精度までの時間の値を操作することができます。
+OpenTelemetryでは、ナノ秒(ns)の精度までの時間の値を操作することができます。
 これらの値の表現は言語固有のものです。
 
 <!--
@@ -176,11 +176,11 @@ provider pattern.
   (`io.opentelemetry.contrib.mongodb` などの、インテグレーションとも呼ばれるもの) を識別しなければなりません。
   無効な名前 (nullまたは空文字列) が指定された場合は、nullを返したり例外をスローせず、
   フォールバックとして作業用であるデフォルトのTracerの実装を返します。
-  OpenTelemetry APIを実装しているライブラリが「名前付き」機能をサポートしていない場合（例えばオブザーバビリティに関係のない実装など）、
+  OpenTelemetry APIを実装しているライブラリが「名前付き」機能をサポートしていない場合(例えばオブザーバビリティに関係のない実装など)、
   この名前を無視して、すべての呼び出しに対してデフォルトのインスタンスを返す *かもしれません* 。
   アプリケーションの所有者がこのライブラリによって生成されたテレメトリーを抑制するようにSDKを設定している場合、
   TracerProviderは何もしないTracerを返すこともできます。
-- `version` (オプション): 計装ライブラリのバージョンを指定します（例: `semver:1.0.0`）。
+- `version` (オプション): 計装ライブラリのバージョンを指定します(例: `semver:1.0.0`)。
 
 実装では、`TracerProvider`の作成時にユーザが設定プロパティを指定することを要求したり、
 プロバイダパターンを使用する場合など、外部設定に依存したりすることがあります。
@@ -267,7 +267,7 @@ Tracerは内部的に`Context`を利用して、現在の`Span`の状態と、�
 `Tracer`はアクティブな`Span`を更新する方法を提供する必要があり(SHOULD)、
 `Span`をアクティブにして、`Span`のライフタイムとスコープを管理するための便利な関数を提供することもできます(MAY)。
 アクティブな`Span`が非アクティブになる際、それまでアクティブだった`Span`はアクティブになる必要があります(SHOULD)。
-ある`Span`は終了している（つまり、nullではない終了時刻を持つ）が、まだアクティブかもしれません。
+ある`Span`は終了している(つまり、nullではない終了時刻を持つ)が、まだアクティブかもしれません。
 ある`Span`は、別のスレッドで非アクティブになったあとで、一つのスレッドでアクティブになることもできます。
 
 <!--
@@ -401,7 +401,7 @@ directly. All `Span`s MUST be created via a `Tracer`.
 
 - Span名
 - `Span`をユニークに特定する、イミュータブルな [`SpanContext`](#spancontext)
-- [`Span`](#span), [`SpanContext`](#spancontext)のペアの形で指定される親Span（nullの場合もあります）
+- [`Span`](#span), [`SpanContext`](#spancontext)のペアの形で指定される親Span(nullの場合もあります)
 - [`SpanKind`](#spankind)
 - 開始タイムスタンプ
 - 終了タイムスタンプ
@@ -412,7 +412,7 @@ directly. All `Span`s MUST be created via a `Tracer`.
 
 _Span名_ は人間が読める文字列で、Spanが行う作業を簡潔に識別するためのものです。
 例えば、RPCメソッド名、関数名、サブタスク名や大規模な計算の中でのステージの名前です。
-Span名は、個別のSpanインススタンスを表すよりも、 _Spanのクラス_ を（統計的に）識別できるような、
+Span名は、個別のSpanインススタンスを表すよりも、 _Spanのクラス_ を(統計的に)識別できるような、
 最も一般的な文字列である必要があります。
 つまり、 "get_user" は妥当な名前であり、"314159"をユーザーIDとしたときの"get_user/314159"
 のような名前はカーディナリティが高く、良い名前ではありません。
@@ -424,12 +424,12 @@ Span名は、個別のSpanインススタンスを表すよりも、 _Spanのク
 | `get`                     | 一般的すぎます。                                                         |
 | `get_account/42`          | 限定しすぎています。                                                      |
 | `get_account`             | 良い名前です。Span Attributeとして account_id=42 を指定とするとよさそうです。 |
-| `get_account/{accountId}` | これも良い名前です。（"HTTP route"を使う *）                               |
+| `get_account/{accountId}` | これも良い名前です。("HTTP route"を使う *)                               |
 
-（* 訳注:
+(* 訳注:
 WEBアプリケーションフレームワークにおけるルーティング設定のようなものを使います。
 フレームワークによっては`get_account/:accountId`のように表現することもあるものです。
-つまり、`{accountId}`部分は文字列`{accountId}`そのものであり、`42`などの実際のIDを名前が埋め込まれるわけではありません。）
+つまり、`{accountId}`部分は文字列`{accountId}`そのものであり、`42`などの実際のIDを名前が埋め込まれるわけではありません。)
 
 `Span`の開始と終了のタイムスタンプには、操作の実際の経過時間が反映されます。
 `Span`の開始時間は[Span作成](#span-creation)時点での時刻がセットされる必要があります(SHOULD)。
@@ -611,8 +611,8 @@ Linkされた`Span`は同じTraceから来ている場合もあれば、異な�
 
 `Link`は以下のプロパティで定義されます:
 
-- （必須）Link先の`Span`の`SpanContext`
-- （オプション）[Span Attribute](#set-attributes)で定義されているものと同じ制約を持つ、1つ以上の`Attribute`
+- (必須)Link先の`Span`の`SpanContext`
+- (オプション)[Span Attribute](#set-attributes)で定義されているものと同じ制約を持つ、1つ以上の`Attribute`
 
 `Link`はイミュータブルな型である必要があります(SHOULD)。
 
@@ -698,7 +698,7 @@ propagators.
 このフラグは、Spanが記録されないことが明白な場合に、SpanのAttributeやEventの計算コストの
 発生を避けるために使われる必要があります(SHOULD)。
 任意の子Spanの記録は、このフラグ値とは独立して決定されることに注意してください
-（通常、`SpanContext`にある`TraceFlag`の`sampled`フラグに基づきます）。
+(通常、`SpanContext`にある`TraceFlag`の`sampled`フラグに基づきます)。
 
 <!--
 #### Set Attributes
@@ -748,8 +748,8 @@ attributes"](semantic_conventions/README.md) that have prescribed semantic meani
 
 `Attribute`は次のプロパティによって定義されます:
 
-- （必須）Attributeのキー。`null`や空文字ではない文字列でなければなりません(MUST)。
-- （必須）Attributeの値。次のどちらかになります:
+- (必須)Attributeのキー。`null`や空文字ではない文字列でなければなりません(MUST)。
+- (必須)Attributeの値。次のどちらかになります:
   - プリミティブ型: 文字列、真偽値、数値
   - プリミティブ型の配列: 配列は均一でなければなりません(MUST)。
     つまり、異なる型の値を含んではなりません(MUST NOT)。
@@ -772,12 +772,12 @@ Attributeはセットされた順序を保持する必要があります(SHOULD)
 結果として過去の値をクリアし、Attributeの集合からAttributeのキーを削除することになります。
 
 配列の中の`null`値は、そのまま保持されなければなりません(MUST)
-（つまり、Span Processer/Exporterに`null`として渡されます）。
+(つまり、Span Processer/Exporterに`null`として渡されます)。
 Exporterが`null`値のエクスポートをサポートしていない場合、
 その値は0、`false`、空文字に置き換えることもできます(MAY)。
 マップやディクショナリ構造を表現するために、2つの配列をインデックスを使って同期させる
-（つまり、2つのAttributeとして`header_keys`と`header_values`という2つの文字列配列を使って、
-`header_keys[i] -> header_values[i]`というマッピングを表現する）ときに必要となります。
+(つまり、2つのAttributeとして`header_keys`と`header_values`という2つの文字列配列を使って、
+`header_keys[i] -> header_values[i]`というマッピングを表現する)ときに必要となります。
 
 OpenTelemetryプロジェクトは、特定の["標準的なAttriubte"](semantic_conventions/README.md)に対して、
 所定の意味を持たせています。
@@ -823,15 +823,15 @@ Eventは`Span`に追加された瞬間に関連付けられた時間を持ちま
 
 `Event`は次のプロパティを持ちます:
 
-- （必須）Event名
-- （オプション）[Span Attributes](#set-attributes)で定義されたものと同じ制約を持つ、1個以上の`Attribute`
-- （オプション）Eventのタイムスタンプ
+- (必須)Event名
+- (オプション)[Span Attributes](#set-attributes)で定義されたものと同じ制約を持つ、1個以上の`Attribute`
+- (オプション)Eventのタイムスタンプ
 
 `Event`はイミュータブル型である必要があります(SHOULD)。
 
 Spanインタフェースは次のものを提供しなければなりません(MUST):
 - `Event`のプロパティを引数として受け取る、単一の`Event`を記録するAPI。`AddEvent`と呼ぶこともできます(MAY)。
-- Attributeやその値を遅延構築する、単一の`Event`を記録するAPI。 
+- Attributeやその値を遅延構築する、単一の`Event`を記録するAPI。
   これは、Eventが使用されていない場合に不要な作業を回避することを目的としています。
   言語がオーバーロードをサポートしている場合にはこのAPIは`AddEvent`と呼ぶ必要がありますが(SHOULD)、
   オーバーロードがサポートされていなければ`AddLazyEvent`と呼ぶこともできます(MAY)。
@@ -944,14 +944,16 @@ This API MUST be non-blocking.
 
 `Span`を終了させます。この呼び出しにより、`Span`の終了時刻として現在時刻がセットされます。
 実装は、それ以降の`End`の呼び出しをすべて無視しなければなりません(MUST)
-（Tracerがイベントのストリーミングをしていて、`Span`に関連したミュータブルな状態を持つときは、例外になるかもしれません）。
+(Tracerがイベントのストリーミングをしていて、`Span`に関連したミュータブルな状態を持つときは、例外になるかもしれません)。
 
 `Span`の`End`の呼び出しは、子Spanに影響を与えてはなりません(MUST NOT)。
 子Spanは実行中であり、後で終了するかもしれません。
 
 パラメータ:
 
-- （オプショナル）明示的に終了時刻をセットする場合のタイムスタンプ
+- (オプショナル)明示的に終了時刻をセットする場合のタイムスタンプ
+
+このAPIはノンブロッキングでなければなりません(MUST)。
 
 <!--
 ### Span lifetime
@@ -1052,7 +1054,7 @@ codes](https://github.com/grpc/grpc/blob/master/doc/statuscodes.md):
 - `Ok`
   - 操作は正常に終了しました。
 - `Cancelled`
-  - 操作は（主に呼び出し元よって）キャンセルされました。
+  - 操作は(主に呼び出し元よって)キャンセルされました。
 - `Unknown`
   - 未知のエラー。
 - `InvalidArgument`
@@ -1062,21 +1064,21 @@ codes](https://github.com/grpc/grpc/blob/master/doc/statuscodes.md):
   - 操作が完了する前に期限が切れました。
     システムの状態を変更する操作の場合、操作が正常に完了しても、このエラーが返されることがあります。
 - `NotFound`
-  - リクエストされたエンティティ（ファイルやディレクトリなど）が見つかりません。
+  - リクエストされたエンティティ(ファイルやディレクトリなど)が見つかりません。
 - `AlreadyExists`
-  - 作成しようとしたエンティティ（ファイルやディレクトリなど）はすでに存在しています。
+  - 作成しようとしたエンティティ(ファイルやディレクトリなど)はすでに存在しています。
 - `PermissionDenied`
   - 呼び出し元は指定した操作を実行するための権限を持っていません。
     `PermissionDenied`は呼び出し元が識別できないときは使ってはいけません
-    （そのようなときは替わりに`Unahtenticated`を使いましょう）。
+    (そのようなときは替わりに`Unahtenticated`を使いましょう)。
 - `ResourceExhausted`
-  - リソース（ユーザーごとの割り当てやファイルシステム全体の空き容量など）が枯渇しています。
+  - リソース(ユーザーごとの割り当てやファイルシステム全体の空き容量など)が枯渇しています。
 - `FailedPrecondition`
   - システムは操作を実行するための必要な状態ではないため、操作が拒否されました。
 - `Aborted`
   - 操作が中断されました。通常は、トランザクションの中断やシーケンサーチェックの失敗などの並行処理の問題が原因になります。
 - `OutOfRange`
-  - 有効な範囲を超えた操作（ファイル終端を超えた走査や読み取りなど）が試行されました。
+  - 有効な範囲を超えた操作(ファイル終端を超えた走査や読み取りなど)が試行されました。
     `InvalidArgument`と違い、システムの状態が変わった場合、解消されるかもしれません。
 - `Unimplemented`
   - 操作はこのサービスにおいて実装されていないか、サポートされていない、または有効になっていません。

@@ -81,7 +81,7 @@ OpenTelemetry APIはライブラリによって計装ポイントで使用でき
 その他全てのサンプリングアルゴリズムは、ExporterもしくはAgentやCollectorなどのプロセス外のSDKレイヤーに実装されることもできます。
 
 * `Span`の`IsRecording`フィールド。
-  現在の`Span`で`true`である場合、トレーシングイベント（Attribute, Event, Statusなど）は記録され、
+  現在の`Span`で`true`である場合、トレーシングイベント(Attribute, Event, Statusなど)は記録され、
   `false`である場合、すべてのトレーシングイベントは破棄されます。
   ユーザーは、高コストなトレースイベントの収集を回避するために、このプロパティを使うことができます。
   [Span Processor](#span-processor)は、このフラグがセットされた状態で全てのSpanを受け取ります。
@@ -229,12 +229,12 @@ OpenTelemetry SDKには、デフォルトのSampler実装があります:
   * Descriptionは`AlwaysOffSampler`でなければなりません(MUST)。
 * ALWAYS_PARENT
   * 親のSpanContextの`SanpledFlag`がtrueであり、かつ`NOT_RECORDED`である場合、(??? 条件あってなさそう。and ... otherwizeとは?)
-    `RECORD_AND_SAMPLED`を返します。 
+    `RECORD_AND_SAMPLED`を返します。
   * Descriptionは`AlwaysParentSampler`でなければなりません(MUST)。
 * Probability
   * デフォルトの動作は、親の`SampledFlag`を信用する必要があります。
     しかし、これを変更するための設定が必要です。
-  * デフォルトの動作では、（親のいない）ルートSpanとリモートの親を持つSpanにのみ、サンプリング確率を適用します。
+  * デフォルトの動作では、(親のいない)ルートSpanとリモートの親を持つSpanにのみ、サンプリング確率を適用します。
     しかし、これを「ルートSpanのみ」または「全てのSpan」に変更するための設定である必要があります。
   * Descriptionは`ProbabilitySampler{0.000100}`でなければなりません(MUST)。
 
