@@ -157,7 +157,7 @@ Each signal represents a coherent, stand-alone set of functionality.
 Each signal follows a separate lifecycle, defining its current stability level.
 -->
 
-OpenTelemetryはシグナル、つまり遠隔測定のカテゴリーを中心に構成されています。Metrics、Log、Trace、Baggageなどがシグナルの例です。各シグナルは、一貫した独立した機能のセットを表しています。各シグナルは独立したライフサイクルをたどり、現在の安定性レベルを定義します。
+OpenTelemetryはシグナル、つまりテレメトリのカテゴリーを中心に構成されています。Metrics、Log、Trace、Baggageなどがシグナルの例です。各シグナルは、一貫した独立した機能のセットを表しています。各シグナルは独立したライフサイクルをたどり、現在の安定性レベルを定義します。
 
 <!--
 ### Packages

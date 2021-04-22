@@ -652,7 +652,7 @@ recorded. For example, metrics exposed by a Kubernetes container can be linked
 to a resource that specifies the cluster, namespace, pod, and container name.
 -->
 
-`Resource`は、遠隔測定が記録されるエンティティに関する情報をキャプチャします。例えば、Kubernetesコンテナが公開するメトリクスは、クラスタ、ネームスペース、ポッド、コンテナ名を指定するリソースにリンクできます。
+`Resource`は、テレメトリが記録されるエンティティに関する情報をキャプチャします。例えば、Kubernetesコンテナが公開するメトリクスは、クラスタ、ネームスペース、ポッド、コンテナ名を指定するリソースにリンクできます。
 
 <!--
 `Resource` may capture an entire hierarchy of entity identification. It may
