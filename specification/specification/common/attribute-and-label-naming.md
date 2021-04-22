@@ -36,7 +36,7 @@ section when we use the term "name" without an adjective it is implied to mean
 "attribute name or metric label key"._
 -->
 
-_このセクションは、Resource、Span、Logの属性名(「属性キー」としても知られている)とメトリック・ラベルのキーに適用されます。このセクションを簡潔にするために、形容詞なしで「名前」という用語を使用する場合、それは「属性名またはメトリック・ラベル・キー」を意味します。
+_このセクションは、リソース、Span、Logの属性名(「属性キー」としても知られている)とメトリック・ラベルのキーに適用されます。このセクションを簡潔にするために、形容詞なしで「名前」という用語を使用する場合、それは「属性名またはメトリック・ラベル・キー」を意味します。
 
 <!--
 Every name MUST be a valid Unicode sequence.
@@ -144,10 +144,10 @@ Names SHOULD follow these rules:
 -->
 
 - OpenTelemetryのセマンティック規約の一部であるすべての名前は、名前空間の一部であるべきです(SHOULD)。
-- 新しいセマンティック規約を考え出すときには、既存の名前空間である[Resources](../resource/semantic_conventions/README.md)、[Span](../trace/semantic_conventions/README.md)、[Metrics](../metrics/semantic_conventions/README.md)をチェックして、新しい名前が適合するかどうかを確認してください。
+- 新しいセマンティック規約を考え出すときには、既存の名前空間である[リソース](../resource/semantic_conventions/README.md)、[Span](../trace/semantic_conventions/README.md)、[Metrics](../metrics/semantic_conventions/README.md)をチェックして、新しい名前が適合するかどうかを確認してください。
 - 新しい名前空間が必要になったときには、トップレベルの名前空間(例：`service`)にするか、ネストした名前空間(例：`service.instance`)にするかを検討してください
 
-- Resource、Span、Logの属性名とMetricラベルキーの4つの領域でセマンティック規約が存在します。また、Spanについては、さらに2つの領域があります。EventとLinkの属性名です。これらすべての領域で同一の名前空間または名前は、同一の意味を持たなければなりません(MUST)。例えば、`http.method`というSpan 属性名は、`http.method`というMetric・ラベルと全く同じ概念を表しており、同じデータ・タイプ、同じ値のセットを持っています(どちらの場合も、HTTPプロトコルのリクエスト・メソッドの値を文字列として記録します)。
+- リソース、Span、Logの属性名とMetricラベルキーの4つの領域でセマンティック規約が存在します。また、Spanについては、さらに2つの領域があります。EventとLinkの属性名です。これらすべての領域で同一の名前空間または名前は、同一の意味を持たなければなりません(MUST)。例えば、`http.method`というSpan 属性名は、`http.method`というMetric・ラベルと全く同じ概念を表しており、同じデータ・タイプ、同じ値のセットを持っています(どちらの場合も、HTTPプロトコルのリクエスト・メソッドの値を文字列として記録します)。
 - セマンティック規約では、名前を印刷可能な基本ラテン文字(より正確には、[U+0021 .. U+007E](https://en.wikipedia.org/wiki/Basic_Latin_(Unicode_block)#Table_of_characters)のUnicodeコードポイントのサブセット)に制限しなければなりません(MUST)。さらに、名前を以下のUnicodeコードポイントに限定することを推奨します。ラテン・アルファベット、数字、アンダースコア、ドット(名前空間の区切り文字として)。
 
 <!--
@@ -167,7 +167,7 @@ If an appropriate name does not exists you will need to come up with a new name.
 To do that consider a few options:
 -->
 
-アプリケーション開発者として、属性やラベルを記録する必要があるときは、まず[Resource](../resource/semantic_conventions/README.md)、[Span](../trace/semantic_conventions/README.md)、[Metrics](../metrics/semantic_conventions/README.md)の既存のセマンティック規約を参照してください。適切な名前が存在しない場合は、新しい名前を考える必要があります。そのためには、いくつかの事項を検討します。
+アプリケーション開発者として、属性やラベルを記録する必要があるときは、まず[リソース](../resource/semantic_conventions/README.md)、[Span](../trace/semantic_conventions/README.md)、[Metrics](../metrics/semantic_conventions/README.md)の既存のセマンティック規約を参照してください。適切な名前が存在しない場合は、新しい名前を考える必要があります。そのためには、いくつかの事項を検討します。
 
 <!--
 - The name is specific to your company and may be possibly used outside the

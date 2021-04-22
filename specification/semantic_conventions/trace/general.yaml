@@ -93,7 +93,7 @@ groups:
       - id: id
         type: number
         brief: >
-          現在の「管理された」スレッドID（OSのスレッドIDとは異なります）。
+          現在の「管理された」スレッドID(OSのスレッドIDとは異なります)。
         examples: 42
       - id: name
         type: string
@@ -108,7 +108,7 @@ groups:
       - id: function
         type: string
         brief: >
-          メソッド名、関数名、またはそれに相当するもの（通常はコードユニット名の最右端）。
+          メソッド名、関数名、またはそれに相当するもの(通常はコードユニット名の最右端)。
         examples: serveRequest
       - id: namespace
         type: string

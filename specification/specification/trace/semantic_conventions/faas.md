@@ -39,7 +39,7 @@ Span `name` には、実行される関数名を設定する必要がありま�
 If Spans following this convention are produced, a Resource of type `faas` MUST exist following the [Resource semantic convention](../../resource/semantic_conventions/faas.md#function-as-a-service).
 -->
 
-この規約に従ったSpanが生成された場合、[Resource セマンティク規約](./../resource/semantic_conventions/faas.md#function-as-a-service)に従った`faas`タイプのResourceが存在しなければなりません(MUST)。
+この規約に従ったSpanが生成された場合、[リソース セマンティク規約](./../resource/semantic_conventions/faas.md#function-as-a-service)に従った`faas`タイプのリソースが存在しなければなりません(MUST)。
 
 <!-- semconv faas_span -->
 | Attribute  | Type | Description  | Examples  | Required |

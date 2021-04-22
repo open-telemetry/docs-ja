@@ -8,13 +8,13 @@
 We want to design a telemetry data exchange protocol that has the following characteristics:
 -->
 
-以下のような特徴を持つテレメトリーデータ交換プロトコルを設計したいと考えています。
+以下のような特徴を持つテレメトリデータ交換プロトコルを設計したいと考えています。
 
 <!--
 - Be suitable for use between all of the following node types: instrumented applications, telemetry backends, local agents, stand-alone collectors/forwarders.
 -->
 
-- 以下のすべてのタイプのノードでの使用に適していること: 計装されたアプリケーション、テレメトリー・バックエンド、ローカル・エージェント、スタンドアローン・コレクター/フォワーダーなど。
+- 以下のすべてのタイプのノードでの使用に適していること: 計装されたアプリケーション、テレメトリ・バックエンド、ローカル・エージェント、スタンドアローン・コレクター/フォワーダーなど。
 
 <!--
 - Have high reliability of data delivery and clear visibility when the data cannot be delivered.
@@ -56,5 +56,5 @@ We want to design a telemetry data exchange protocol that has the following char
 - Be load-balancer friendly (do not hinder re-balancing).
 -->
 
-- ロードバランサーフレンドリーであること（リバランシングの妨げにならないこと）
+- ロードバランサーフレンドリーであること(リバランシングの妨げにならないこと)
 

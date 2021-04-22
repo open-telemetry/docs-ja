@@ -149,7 +149,7 @@ a thread that started a span.
 <!-- semconv thread -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `thread.id` | number | 現在の「管理された」スレッドID（OSのスレッドIDとは異なります）。 | `42` | No |
+| `thread.id` | number | 現在の「管理された」スレッドID(OSのスレッドIDとは異なります)。 | `42` | No |
 | `thread.name` | string | 現在のスレッド名 | `main` | No |
 <!-- endsemconv -->
 
@@ -175,7 +175,7 @@ about the span.
 <!-- semconv code -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `code.function` | string | メソッド名、関数名、またはそれに相当するもの（通常はコードユニット名の最右端）。 | `serveRequest` | No |
+| `code.function` | string | メソッド名、関数名、またはそれに相当するもの(通常はコードユニット名の最右端)。 | `serveRequest` | No |
 | `code.namespace` | string | `code.function`が定義されている「名前空間」です。通常は、修飾されたクラスやモジュールの名前で、 `code.namespace` + 何かの区切り文字 + `code.function` がコードユニットの一意な識別子になります。 | `com.example.MyHttpService` | No |
 | `code.filepath` | string | コードユニットを可能な限り一意に識別するためのソースコードファイル名(絶対ファイルパスが望ましい)。 | `/usr/local/MyApplication/content_root/app/index.php` | No |
 | `code.lineno` | number | `code.filepath` の中で、操作を表すのに最適な行番号です。これは `code.function` で指定されたコードユニット内を指すべきです。 | `42` | No |

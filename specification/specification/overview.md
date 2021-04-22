@@ -59,7 +59,7 @@
 - [Log Signal](#log-signal)
   * [データモデル](#データモデル)
 - [Baggage Signal](#bagagage-signal)
-- [Resource](#Resource)
+- [リソース](#リソース)
 - [Context伝搬](#context伝搬)
 - [Propagator](#propagator)
 - [Collector](#Collector)
@@ -157,7 +157,7 @@ The **Semantic Conventions** define the keys and values which describe commonly 
 * [Metrics Conventions](metrics/semantic_conventions/README.md)
 -->
 
-* [Resource規約](resource/semantic_conventions/README.md)
+* [リソース規約](resource/semantic_conventions/README.md)
 * [Span規約](trace/semantic_conventions/README.md)
 * [メトリクス規約](metrics/semantic_conventions/README.md)
 
@@ -173,7 +173,7 @@ Example API integrations include instrumentation for web frameworks, database cl
 Example SDK integrations include plugins for exporting telemetry to popular analysis tools and telemetry storage systems.
 -->
 
-OpenTelemetry プロジェクトは、最新のウェブサービスを観測するために重要な、人気のある OSS プロジェクトとの統合を維持しています。API統合の例には、Webフレームワーク、データベースクライアント、メッセージキューのための計装が含まれます。SDK の統合例には、一般的な分析ツールやテレメトリー・ストレージ・システムにテレメトリーをエクスポートするためのプラグインが含まれています。
+OpenTelemetry プロジェクトは、最新のウェブサービスを観測するために重要な、人気のある OSS プロジェクトとの統合を維持しています。API統合の例には、Webフレームワーク、データベースクライアント、メッセージキューのための計装が含まれます。SDK の統合例には、一般的な分析ツールやテレメトリ・ストレージ・システムにテレメトリをエクスポートするためのプラグインが含まれています。
 
 <!--
 Some plugins, such as OTLP Exporters and TraceContext Propagators, are required by the OpenTelemetry specification. These required plugins are included as part of the SDK.
@@ -644,7 +644,7 @@ OpenTracingとの下位互換性のために、BaggageはOpenTracingブリッジ
 ## Resources
 -->
 
-## Resources
+## リソース
 
 <!--
 `Resource` captures information about the entity for which telemetry is
@@ -652,7 +652,7 @@ recorded. For example, metrics exposed by a Kubernetes container can be linked
 to a resource that specifies the cluster, namespace, pod, and container name.
 -->
 
-`Resource`は、テレメトリが記録されるエンティティに関する情報をキャプチャします。例えば、Kubernetesコンテナが公開するメトリクスは、クラスタ、ネームスペース、ポッド、コンテナ名を指定するリソースにリンクできます。
+`リソース`は、テレメトリが記録されるエンティティに関する情報をキャプチャします。例えば、Kubernetesコンテナが公開するメトリクスは、クラスタ、ネームスペース、ポッド、コンテナ名を指定するリソースにリンクできます。
 
 <!--
 `Resource` may capture an entire hierarchy of entity identification. It may
@@ -660,7 +660,7 @@ describe the host in the cloud and specific container or an application running
 in the process.
 -->
 
-`Resource`はエンティティ識別の階層全体を捉えることができます。これは、クラウド上のホストや特定のコンテナ、あるいはプロセス内で実行されているアプリケーションを記述することができます。
+`リソース`はエンティティ識別の階層全体を捉えることができます。これは、クラウド上のホストや特定のコンテナ、あるいはプロセス内で実行されているアプリケーションを記述することができます。
 
 <!--
 Note, that some of the process identification information can be associated with

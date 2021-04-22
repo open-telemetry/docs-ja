@@ -76,7 +76,7 @@ samplers](#built-in-samplers).
 
 サンプリングはTraceコレクションの異なるステージで実装されることもできます。
 OpenTelemetry APIはライブラリによって計装ポイントで使用できる`Sampler`インターフェイスを定義しており、
-`SamplingResult`を早期にチェックし、収集する必要があるテレメトリーの量を最適化するために使われます。
+`SamplingResult`を早期にチェックし、収集する必要があるテレメトリの量を最適化するために使われます。
 
 その他全てのサンプリングアルゴリズムは、ExporterもしくはAgentやCollectorなどのプロセス外のSDKレイヤーに実装されることもできます。
 

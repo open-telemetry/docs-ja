@@ -4,7 +4,7 @@
 
 **type:** `aws.ecs`
 
-**Description:** AWS Elastic Container Service（ECS）が使用するリソースです。
+**Description:** AWS Elastic Container Service(ECS)が使用するリソースです。
 
 <!-- semconv aws.ecs -->
 | Attribute  | Type | Description  | Examples  | Required |

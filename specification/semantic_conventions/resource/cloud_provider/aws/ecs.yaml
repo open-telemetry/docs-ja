@@ -2,7 +2,7 @@ groups:
   - id: aws.ecs
     prefix: aws.ecs
     brief: >
-      AWS Elastic Container Service（ECS）が利用するResource。
+      AWS Elastic Container Service(ECS)が利用するResource。
     attributes:
       - id: container.arn
         type: string
