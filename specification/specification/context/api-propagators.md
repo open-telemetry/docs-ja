@@ -388,7 +388,7 @@ Setterは `Inject` の引数で、与えられたフィールドに値を設定�
 One of the ways to implement it is `Setter` class with `Set` method as described below.
 -->
 
-これを実装する方法の一つとして，以下で説明する`Setter`クラスの`Set`メソッドがあります。
+これを実装する方法の一つとして、以下で説明する`Setter`クラスの`Set`メソッドがあります。
 
 <!--
 ##### Set
@@ -480,7 +480,7 @@ as described below. Languages may decide on alternative implementations and
 expose corresponding methods as delegates or other ways.
 -->
 
-これを実装する方法の一つとして，以下に示すような `Get` と `Keys` のメソッドを持つ `Getter` クラスがあります．言語によっては、別の実装方法を決めて、対応するメソッドをデリゲートやその他の方法で公開することもできます。
+これを実装する方法の一つとして、以下に示すような `Get` と `Keys` のメソッドを持つ `Getter` クラスがあります．言語によっては、別の実装方法を決めて、対応するメソッドをデリゲートやその他の方法で公開することもできます。
 
 <!--
 ##### Keys
@@ -695,7 +695,7 @@ the language, MAY be set up using various dependency injection techniques or
 available as global accessors.
 -->
 
-OpenTelemetry APIは、サポートされている各 `Propagator` タイプのプロパゲータを取得する方法を提供しなければなりません(MUST)。計装ライブラリは、すべてのリモートコールでPropagatorを呼び出してContextを抽出・注入すべき(SHOULD)です。Propagatorは，言語によっては，様々な依存性注入技術を用いて設定してもかまいません(MAY)し，グローバルアクセサとして利用してもかまいません(MAY)。
+OpenTelemetry APIは、サポートされている各 `Propagator` タイプのプロパゲータを取得する方法を提供しなければなりません(MUST)。計装ライブラリは、すべてのリモートコールでPropagatorを呼び出してContextを抽出・注入すべき(SHOULD)です。Propagatorは、言語によっては、様々な依存性注入技術を用いて設定してもかまいません(MAY)し、グローバルアクセサとして利用してもかまいません(MAY)。
 
 <!--
 **Note:** It is a discouraged practice, but certain instrumentation libraries

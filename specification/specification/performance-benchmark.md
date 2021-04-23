@@ -114,7 +114,7 @@ total CPU consumption of benchmark program could be considered as approximation
 of SDK's CPU consumption.
 -->
 
-ユーザーによって指定された任意のSpan・スループット数、またはユーザーが数を入力しない場合はデフォルトとして毎秒10,000のSpanを使用して、OTLP Exporterと共にデフォルトで構成されたシンプルなスパン・プロセッサーとバッチ・スパン・プロセッサーの両方を備えたSDKのCPU使用率を測定し、報告します。ベンチマークは、エクスポートするターゲット上でListenするout-of-processのOTLPレシーバーを作成するか、out-of-processで実行され、直ちに成功ステータスで応答し、データをドロップする既存のOTLPエクスポーターを採用する必要があります。コレクタは、測定に大きなCPUオーバーヘッドを加えるべきではありません。ベンチマークにはユーザーの処理ロジックが含まれていないため、ベンチマークプログラムの総CPU消費量は、SDKのCPU消費量の近似値とみなすことができます。
+ユーザーによって指定された任意のSpan・スループット数、またはユーザーが数を入力しない場合はデフォルトとして毎秒10,000のSpanを使用して、OTLP Exporterと共にデフォルトで構成されたシンプルなSpan・プロセッサーとバッチ・Span・プロセッサーの両方を備えたSDKのCPU使用率を測定し、報告します。ベンチマークは、エクスポートするターゲット上でListenするout-of-processのOTLPレシーバーを作成するか、out-of-processで実行され、直ちに成功ステータスで応答し、データをドロップする既存のOTLPエクスポーターを採用する必要があります。コレクタは、測定に大きなCPUオーバーヘッドを加えるべきではありません。ベンチマークにはユーザーの処理ロジックが含まれていないため、ベンチマークプログラムの総CPU消費量は、SDKのCPU消費量の近似値とみなすことができます。
 
 <!--
 The total running time for one test iteration is suggested to be at least 15

@@ -684,7 +684,7 @@ share an underlying `Context` mechanism for storing state and
 accessing data across the lifespan of a distributed transaction.
 -->
 
-`Trace`や`Metric`などの OpenTelemetry の横断的な関心事はすべて、分散トランザクションのライフスパンにわたって状態を保存し、データにアクセスするための基盤となる `Context` メカニズムを共有しています。
+`Trace`や`Metric`などの OpenTelemetry の横断的な関心事はすべて、分散トランザクションのライフSpanにわたって状態を保存し、データにアクセスするための基盤となる `Context` メカニズムを共有しています。
 
 <!--
 See the [Context](context/context.md)

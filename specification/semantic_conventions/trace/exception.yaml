@@ -16,7 +16,7 @@ groups:
       - id: stacktrace
         type: string
         brief: >
-          スタックトレースは，言語ランタイムの自然な表現の文字列です。 この表現は各言語のSIGが決定し、文書化することになっています。
+          スタックトレースは、言語ランタイムの自然な表現の文字列です。 この表現は各言語のSIGが決定し、文書化することになっています。
         examples: 'Exception in thread "main" java.lang.RuntimeException: Test exception\n
         at com.example.GenerateTrace.methodB(GenerateTrace.java:13)\n
         at com.example.GenerateTrace.methodA(GenerateTrace.java:9)\n

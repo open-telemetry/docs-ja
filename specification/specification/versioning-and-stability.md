@@ -309,7 +309,7 @@ Changes to telemetry produced by OpenTelemetry instrumentation SHOULD avoid brea
 However, it is not clear at this time what type of instrumentation changes (for example, adding additional spans and labels) would actually cause a breaking change.
 -->
 
-OpenTelemetry計装によって生成されるテレメトリへの変更は、ダッシュボードやアラートなどの分析ツールの破損を避けるべきです(SHOULD)。しかし、現時点では、どのようなタイプの計測器の変更(例えば、追加のスパンやラベルの追加)が、実際に壊れた変更を引き起こすかは明らかではありません。
+OpenTelemetry計装によって生成されるテレメトリへの変更は、ダッシュボードやアラートなどの分析ツールの破損を避けるべきです(SHOULD)。しかし、現時点では、どのようなタイプの計測器の変更(例えば、追加のSpanやラベルの追加)が、実際に壊れた変更を引き起こすかは明らかではありません。
 
 <!--
 #### NOT DEFINED: Semantic Conventions Stability
