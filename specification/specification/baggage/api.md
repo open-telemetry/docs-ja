@@ -347,7 +347,7 @@ Note: The W3C baggage specification does not currently assign semantic meaning
 to the optional metadata.
 -->
 
-注：W3C baggage仕様では、現在、オプションのメタデータにセマンティックな意味を付与していません。
+注:W3C baggage仕様では、現在、オプションのメタデータにセマンティックな意味を付与していません。
 
 <!--
 On `extract`, the propagator should store all metadata as a single metadata instance per entry.

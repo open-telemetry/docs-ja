@@ -42,7 +42,7 @@ Attributes are a list of zero or more key-value pairs. An `Attribute` MUST have 
 
 - 属性のキーは、非`null`かつ非空の文字列でなければなりません(MUST)。
 - 属性の値は、下のいずれかの値です:
-  - プリミティブタイプ：string、boolean、倍精度浮動小数点(IEEE 754-1985)、符号付き64ビット整数
+  - プリミティブタイプ:string、boolean、倍精度浮動小数点(IEEE 754-1985)、符号付き64ビット整数
   - プリミティブ型の値の配列。配列内はすべて同じ型でなければならない(MUST)。つまり、異なるタイプの値を含んではならない(MUST NOT)。配列値をネイティブにサポートしていないプロトコルでは、そのような値はJSON文字列として表現されるべきです(SHOULD)。
 
 <!--

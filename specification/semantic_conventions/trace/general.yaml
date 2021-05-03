@@ -78,7 +78,7 @@ groups:
         examples: 'username'
       - id: role
         type: string
-        brief: 'トークンやアプリケーションのセキュリティコンテキストから抽出された、クライアントがリクエストを行う際の実際の役割／想定される役割。'
+        brief: 'トークンやアプリケーションのセキュリティコンテキストから抽出された、クライアントがリクエストを行う際の実際の役割/想定される役割。'
         examples: 'admin'
       - id: scope
         type: string

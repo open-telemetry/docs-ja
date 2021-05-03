@@ -172,7 +172,7 @@ Attributes defining a computing instance (e.g. host):
 Attributes defining a running environment (e.g. Operating System, Cloud, Data Center, Deployment Service):
 -->
 
-実行環境を定義する属性(例：オペレーティングシステム、クラウド、データセンター、デプロイメントサービス)。
+実行環境を定義する属性(例:オペレーティングシステム、クラウド、データセンター、デプロイメントサービス)。
 
 <!--
 - [Operating System](./os.md)

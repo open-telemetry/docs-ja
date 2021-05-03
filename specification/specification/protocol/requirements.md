@@ -63,7 +63,7 @@ OpenCensusやその他のプロトコルを使用した経験から、多くの�
 
 - 受信したテレメトリデータのシリアライズ、特にデシリアライズのためのCPU消費が大きい
 - ガベージ・コレクタによるCPU消費が大きく、頻繁に発生する
-- 特定のプロトコル(例：ストリームベースのgRPC OpenCensusプロトコル)に対する配信保証がないため、テレメトリ・パイプラインのトラブルシューティングが困難になる
+- 特定のプロトコル(例:ストリームベースのgRPC OpenCensusプロトコル)に対する配信保証がないため、テレメトリ・パイプラインのトラブルシューティングが困難になる
 - ロードバランサーを認識していない、あるいは協力していないため、水平方向に拡張されたバックエンドで大きな不均衡が生じる可能性がある
 - TraceまたはMetricsのいずれかをサポートするが、両方はサポートしない
 
@@ -95,7 +95,7 @@ The following are OpenTelemetry protocol requirements.
 The protocol must be suitable for use between all of the following node types: instrumented applications, telemetry backends, telemetry agents running as local daemons, stand-alone collector/forwarder services.
 -->
 
-プロトコルは、次のすべてのタイプのノード間での使用に適していなければなりません：計装済みアプリケーション、テレメトリ・バックエンド、ローカル・デーモンとして動作するテレメトリ・エージェント、スタンドアロンのコレクター/フォワーダーサービス。
+プロトコルは、次のすべてのタイプのノード間での使用に適していなければなりません:計装済みアプリケーション、テレメトリ・バックエンド、ローカル・デーモンとして動作するテレメトリ・エージェント、スタンドアロンのコレクター/フォワーダーサービス。
 
 <!--
 ### Supported Data Types
@@ -150,7 +150,7 @@ For this reason we have slightly relaxed requirements and consider duplicate dat
 Note: this protocol is concerned with reliability of delivery between one pair of client/server nodes and aims to ensure that no data is lost in-transit between the client and the server. Many telemetry collection systems have multiple nodes that the data must travel across until reaching the final destination (e.g. application -> agent -> collector -> backend). End-to-end delivery guarantees in such systems is outside of the scope for this document. The acknowledgements described in this protocol happen between a single client/server pair and do not span multiple nodes in multi-hop delivery paths.
 -->
 
-注：このプロトコルは、一対のクライアント/サーバーのノード間の配信の信頼性に関するもので、クライアントとサーバー間の移動中にデータが失われないことを目的としています。多くのテレメトリ収集システムでは、データが最終目的地に到達するまでに、複数のノードを経由しなければなりません(例：アプリケーション -> エージェント -> コレクター -> バックエンド)。このようなシステムでのエンドツーエンドの配信保証は、本ドキュメントの範囲外です。このプロトコルに記載されている確認応答は、単一のクライアント/サーバーペアの間で行われ、マルチホップ配信パスの複数のノードにまたがることはありません。
+注:このプロトコルは、一対のクライアント/サーバーのノード間の配信の信頼性に関するもので、クライアントとサーバー間の移動中にデータが失われないことを目的としています。多くのテレメトリ収集システムでは、データが最終目的地に到達するまでに、複数のノードを経由しなければなりません(例:アプリケーション -> エージェント -> コレクター -> バックエンド)。このようなシステムでのエンドツーエンドの配信保証は、本ドキュメントの範囲外です。このプロトコルに記載されている確認応答は、単一のクライアント/サーバーペアの間で行われ、マルチホップ配信パスの複数のノードにまたがることはありません。
 
 <!--
 ### Throughput

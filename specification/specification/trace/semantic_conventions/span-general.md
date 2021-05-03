@@ -101,7 +101,7 @@ These attributes may be used for any operation with an authenticated and/or auth
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
 | `enduser.id` | string | システム外からのインバウンドリクエストのアクセストークンまたは[Authorization](https://tools.ietf.org/html/rfc7235#section-4.2)ヘッダーから抽出したユーザー名またはclient_id。 | `username` | No |
-| `enduser.role` | string | トークンやアプリケーションのセキュリティコンテキストから抽出された、クライアントがリクエストを行う際の実際の役割／想定される役割。 | `admin` | No |
+| `enduser.role` | string | トークンやアプリケーションのセキュリティコンテキストから抽出された、クライアントがリクエストを行う際の実際の役割/想定される役割。 | `admin` | No |
 | `enduser.scope` | string | トークンやアプリケーションのセキュリティコンテキストから抽出された、クライアントが現在所有しているスコープや付与された権限。この値は、[OAuth 2.0 Access Token](https://tools.ietf.org/html/rfc6749#section-3.3)に関連付けられたスコープ、または[SAML 2.0 Assertion](http://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html)の属性値に由来するものです。 | `read:message, write:files` | No |
 <!-- endsemconv -->
 

@@ -76,4 +76,4 @@ language/format/style is idiomatic for the language of the SDK. The
 SDK can include as many configuration mechanisms as appropriate.
 -->
 
-追加の設定メカニズムは、SDKの言語に適した言語／フォーマット／スタイルで提供されるべきです(SHOULD)。SDKは適切な数の設定メカニズムを含むことができます。
+追加の設定メカニズムは、SDKの言語に適した言語/フォーマット/スタイルで提供されるべきです(SHOULD)。SDKは適切な数の設定メカニズムを含むことができます。

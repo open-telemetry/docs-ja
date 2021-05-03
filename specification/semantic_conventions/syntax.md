@@ -239,7 +239,7 @@ examples:
 Attention, the following will throw a type mismatch error because a string type as example value is expected and not an array of string:
 -->
 
-注意：以下は文字列の配列ではなく文字列型が想定されているため、型の不一致エラーが発生します。
+注意:以下は文字列の配列ではなく文字列型が想定されているため、型の不一致エラーが発生します。
 
 ```yaml
 examples:
@@ -288,7 +288,7 @@ examples:
 Attention, the following will throw a type mismatch error because an array of strings as type for the example values is expected and not a string:
 -->
 
-注意：例の値の型は文字列ではなく文字列の配列を想定しているため、以下のような場合は型の不一致エラーが発生します。
+注意:例の値の型は文字列ではなく文字列の配列を想定しているため、以下のような場合は型の不一致エラーが発生します。
 ```yaml
 examples: 'this is an error'
 ```

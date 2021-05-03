@@ -62,7 +62,7 @@ _OpenTelemetryクライアント作成者への注意事項:_ OpenTelemetryの�
 4. The SDK must be clearly separated into wire protocol-independent parts that implement common logic (e.g. batching, tag enrichment by process information, etc.) and protocol-dependent telemetry exporters. Telemetry exporters must contain minimal functionality, thus enabling vendors to easily add support for their specific protocol.
 -->
 
-4. SDKは、共通のロジック(例：バッチ処理、プロセス情報によるタグの改良など)を実装するワイヤープロトコルに依存しない部分と、プロトコルに依存するテレメトリ・エクスポーターに明確に分離されていなければなりません。テレメトリ・エクスポータには最小限の機能しか含まれていないため、ベンダーは特定のプロトコルのサポートを容易に追加することができます。
+4. SDKは、共通のロジック(例:バッチ処理、プロセス情報によるタグの改良など)を実装するワイヤープロトコルに依存しない部分と、プロトコルに依存するテレメトリ・エクスポーターに明確に分離されていなければなりません。テレメトリ・エクスポータには最小限の機能しか含まれていないため、ベンダーは特定のプロトコルのサポートを容易に追加することができます。
 
 <!--
 5. The SDK implementation should include the following exporters:
@@ -87,7 +87,7 @@ _OpenTelemetryクライアント作成者への注意事項:_ OpenTelemetryの�
     Note: some of these support multiple protocols (e.g. gRPC, Thrift, etc). The exact list of protocols to implement in the exporters is TBD.
 -->
 
-    注：これらの中には、複数のプロトコルをサポートしているものがあります(例：gRPC、Thriftなど)。エクスポーターに実装するプロトコルの正確なリストは未定です。
+    注:これらの中には、複数のプロトコルをサポートしているものがあります(例:gRPC、Thriftなど)。エクスポーターに実装するプロトコルの正確なリストは未定です。
 
 <!--
     Other vendor-specific exporters (exporters that implement vendor protocols) should not be included in OpenTelemetry clients and should be placed elsewhere (the exact approach for storing and maintaining vendor-specific exporters will be defined in the future).
@@ -124,7 +124,7 @@ The OpenTelemetry client is composed of 4 types of [packages](glossary.md#packag
 The API and the SDK are split into multiple packages, based on signal type (e.g. one for api-trace, one for api-metric, one for sdk-trace, one for sdk-metric) is considered an implementation detail as long as the API artifact(s) stay separate from the SDK artifact(s).
 -->
 
-OpenTelemetryクライアントは、4種類の[パッケージ](glossary.md#packages)で構成されています。APIパッケージ、SDKパッケージ、セマンティック規約パッケージ、そしてプラグインパッケージです。APIとSDKはシグナルタイプに応じて複数のパッケージに分割されています(例：api-trace用のパッケージ、api-metric用のパッケージ、sdk-trace用のパッケージ、sdk-metric用のパッケージ)が、APIの成果物とSDKの成果物が分離されている限り、実装の詳細は考慮されません。
+OpenTelemetryクライアントは、4種類の[パッケージ](glossary.md#packages)で構成されています。APIパッケージ、SDKパッケージ、セマンティック規約パッケージ、そしてプラグインパッケージです。APIとSDKはシグナルタイプに応じて複数のパッケージに分割されています(例:api-trace用のパッケージ、api-metric用のパッケージ、sdk-trace用のパッケージ、sdk-metric用のパッケージ)が、APIの成果物とSDKの成果物が分離されている限り、実装の詳細は考慮されません。
 
 <!--
 Libraries, frameworks, and applications that want to be instrumented with OpenTelemetry take a dependency only on the API packages. The developers of these third-party libraries will make calls to the API to produce telemetry data.

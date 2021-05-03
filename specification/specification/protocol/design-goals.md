@@ -44,7 +44,7 @@ We want to design a telemetry data exchange protocol that has the following char
 - Ensure high throughput (within the available bandwidth) in high latency networks (e.g. scenarios where telemetry source and the backend are separated by high latency network).
 -->
 
-- 高遅延ネットワークでの高スループット(利用可能な帯域幅)を確保すること。(例：テレメトリソースとバックエンドが高遅延ネットワークで分離されているシナリオ)
+- 高遅延ネットワークでの高スループット(利用可能な帯域幅)を確保すること。(例:テレメトリソースとバックエンドが高遅延ネットワークで分離されているシナリオ)
 
 <!--
 - Allow backpressure signalling.

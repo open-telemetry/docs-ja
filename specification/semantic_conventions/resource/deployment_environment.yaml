@@ -7,5 +7,5 @@ groups:
       - id: environment
         type: string
         brief: >
-          [デプロイ環境](https://en.wikipedia.org/wiki/Deployment_environment)の名前(別名：配置層)
+          [デプロイ環境](https://en.wikipedia.org/wiki/Deployment_environment)の名前(別名:配置層)
         examples: ['staging', 'production']

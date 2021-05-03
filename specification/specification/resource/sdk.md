@@ -77,7 +77,7 @@ or specify their attributes by implementing
 instead of explicitly associating a resource.
 -->
 
-注：これは、SDKが提供する属性のすべてまたは一部が存在しないリソースを作成して関連付けることが可能であることを意味します。しかし、それはデフォルトでは起こりません。ユーザーがデフォルトのリソースにカスタム属性を組み合わせたい場合は、[`Merge`](#merge)をカスタムリソースに使用するか、リソースを明示的に関連付ける代わりに、[環境からリソース情報を検出する](#環境からリソース情報を検出する)を実装して属性を指定します。
+注:これは、SDKが提供する属性のすべてまたは一部が存在しないリソースを作成して関連付けることが可能であることを意味します。しかし、それはデフォルトでは起こりません。ユーザーがデフォルトのリソースにカスタム属性を組み合わせたい場合は、[`Merge`](#merge)をカスタムリソースに使用するか、リソースを明示的に関連付ける代わりに、[環境からリソース情報を検出する](#環境からリソース情報を検出する)を実装して属性を指定します。
 
 
 <!--
@@ -138,7 +138,7 @@ come from different sources,
 such as environment variables, or metadata extracted from the host or container.
 -->
 
-注：これは、環境変数や、ホストやコンテナから抽出されたメタデータなど、異なるソースから属性を得ているリソースをマージするために使用することを目的としています。
+注:これは、環境変数や、ホストやコンテナから抽出されたメタデータなど、異なるソースから属性を得ているリソースをマージするために使用することを目的としています。
 
 <!--
 The resulting resource MUST have all attributes that are on any of the two input resources.
@@ -240,7 +240,7 @@ except that additional semi-colon delimited metadata is not supported, i.e.:
 `key1=value1,key2=value2`. All attribute values MUST be considered strings.
 -->
 
-環境変数 `OTEL_RESOURCE_ATTRIBUTES` には、キーと値のペアのリストが含まれます。これらは、セミコロンで区切られた追加のメタデータがサポートされていないことを除いて、[W3C Baggage](https://github.com/w3c/baggage/blob/fdc7a5c4f4a31ba2a36717541055e551c2b032e4/baggage/HTTP_HEADER_FORMAT.md#header-content)に沿ったフォーマットで表現されることが期待されています(例：`key1=value1,key2=value2`)。すべての属性値は文字列とみなされなければなりません(MUST)。
+環境変数 `OTEL_RESOURCE_ATTRIBUTES` には、キーと値のペアのリストが含まれます。これらは、セミコロンで区切られた追加のメタデータがサポートされていないことを除いて、[W3C Baggage](https://github.com/w3c/baggage/blob/fdc7a5c4f4a31ba2a36717541055e551c2b032e4/baggage/HTTP_HEADER_FORMAT.md#header-content)に沿ったフォーマットで表現されることが期待されています(例:`key1=value1,key2=value2`)。すべての属性値は文字列とみなされなければなりません(MUST)。
 
 <!--
 ## Resource operations

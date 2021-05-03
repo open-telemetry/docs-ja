@@ -261,7 +261,7 @@ Languages which ship binary artifacts SHOULD offer [ABI compatibility](glossary.
 **NOTE: Until telemetry stability is defined, Contrib instrumentation MUST NOT be marked as stable. See below.**
 -->
 
-**注：テレメトリの安定性が定義されるまでは、Contribの計装は安定しているとマークしてはいけません。以下を参照してください。**
+**注:テレメトリの安定性が定義されるまでは、Contribの計装は安定しているとマークしてはいけません。以下を参照してください。**
 
 <!--
 Plugins, instrumentation, and other contrib packages SHOULD be kept up to date and compatible with the latest versions of the API, SDK, and Semantic Conventions.
@@ -290,7 +290,7 @@ However, it is strongly RECOMMENDED that older contrib packages remain stable.
 A new, incompatible version of an integration SHOULD be released as a separate contrib package, rather than break the existing contrib package.
 -->
 
-**例外：** Contribパッケージは、必要な下流の依存関係が安定性を失う場合、安定性を失っても構いません(MAY)。例えば、必要なデータベースクライアントが安定性を失うと、データベースインテグレーションが安定性を失う可能性があります。しかし、古いcontribパッケージは安定していることが強く推奨されます(RECOMMENDED)。新しい、互換性のないバージョンの統合は、既存のcontribパッケージを壊すのではなく、別のcontribパッケージとしてリリースすべきです(SHOULD)。
+**例外:** Contribパッケージは、必要な下流の依存関係が安定性を失う場合、安定性を失っても構いません(MAY)。例えば、必要なデータベースクライアントが安定性を失うと、データベースインテグレーションが安定性を失う可能性があります。しかし、古いcontribパッケージは安定していることが強く推奨されます(RECOMMENDED)。新しい、互換性のないバージョンの統合は、既存のcontribパッケージを壊すのではなく、別のcontribパッケージとしてリリースすべきです(SHOULD)。
 
 <!--
 #### NOT DEFINED: Telemetry Stability

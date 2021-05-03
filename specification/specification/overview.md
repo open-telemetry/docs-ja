@@ -734,7 +734,7 @@ enrich and transform collected telemetry (e.g. add additional attributes or
 scrub personal information).
 -->
 
-OpenTelemetry コレクターは、OpenTelemetry や他のモニタリング/トレースライブラリ (Jaeger, Prometheus など) によって計測されたプロセスからTraceやMetric、最終的には他のテレメトリデータ (ログなど) を収集し、集約やスマートサンプリングを行い、TraceやMetricを 1 つまたは複数のモニタリング/トレースバックエンドにエクスポートすることができるコンポーネントのセットです。コレクターは、収集したテレメトリに情報を追加したり、変換したりすることができます(例：属性の追加や個人情報のスクラブ)。
+OpenTelemetry コレクターは、OpenTelemetry や他のモニタリング/トレースライブラリ (Jaeger, Prometheus など) によって計測されたプロセスからTraceやMetric、最終的には他のテレメトリデータ (ログなど) を収集し、集約やスマートサンプリングを行い、TraceやMetricを 1 つまたは複数のモニタリング/トレースバックエンドにエクスポートすることができるコンポーネントのセットです。コレクターは、収集したテレメトリに情報を追加したり、変換したりすることができます(例:属性の追加や個人情報のスクラブ)。
 
 <!--
 The OpenTelemetry collector has two primary modes of operation: Agent (a daemon

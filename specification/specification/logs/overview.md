@@ -373,7 +373,7 @@ may also be able to write records to standard system logs: this case is covered
 below in the [Third-Party Applications](#third-party-application-logs) section).
 -->
 
-システムログはホストレベル(物理的、仮想的、またはコンテナ化されたもの)で書き込まれ、あらかじめ定義されたフォーマットと内容を持っています(アプリケーションが標準のシステムログに記録を書き込める場合もあることに注意してください：このケースについては後述の[サードパーティアプリケーション](#サードパーティアプリケーションのログ)のセクションで説明します)。
+システムログはホストレベル(物理的、仮想的、またはコンテナ化されたもの)で書き込まれ、あらかじめ定義されたフォーマットと内容を持っています(アプリケーションが標準のシステムログに記録を書き込める場合もあることに注意してください:このケースについては後述の[サードパーティアプリケーション](#サードパーティアプリケーションのログ)のセクションで説明します)。
 
 <!--
 System operations recorded in the logs can be a result of a request execution.
@@ -433,7 +433,7 @@ specialized medium (e.g. Windows Event Logs for applications). These logs can be
 in many different formats, spanning a spectrum along these variations:
 -->
 
-アプリケーションは通常、標準出力やファイル、その他の特殊な媒体にログを書き込みます(例：アプリケーションのWindowsイベントログ)。これらのログは、以下のような様々なフォーマットで出力されます。
+アプリケーションは通常、標準出力やファイル、その他の特殊な媒体にログを書き込みます(例:アプリケーションのWindowsイベントログ)。これらのログは、以下のような様々なフォーマットで出力されます。
 
 <!--
 - Free-form text formats with no easily automatable and reliable way to parse
@@ -608,7 +608,7 @@ only works if the destination that the logs need to be delivered is able to
 receive logs via the network protocol that OpenTelemetry can send in.
 -->
 
-このアプローチの欠点は、ログをローカルファイルに保存することのシンプルさが失われることであり(例：ログファイルをローカルで簡単に検査することができる)、OpenTelemetryのログ取得アプローチに全面的な賛同を得る必要があります。また、この方法は、ログの配信先がOpenTelemetryが送信できるネットワークプロトコルでログを受信できる場合にのみ機能します。
+このアプローチの欠点は、ログをローカルファイルに保存することのシンプルさが失われることであり(例:ログファイルをローカルで簡単に検査することができる)、OpenTelemetryのログ取得アプローチに全面的な賛同を得る必要があります。また、この方法は、ログの配信先がOpenTelemetryが送信できるネットワークプロトコルでログを受信できる場合にのみ機能します。
 
 <!--
 The benefits of this approach is that it emits the logs in well-defined, formal,
@@ -854,7 +854,7 @@ The fields should be recorded according to the customary approach used for a
 particular format (e.g. field:value format for LTSV). For example:
 -->
 
-フィールドは、特定のフォーマットに使用されている慣習的な方法(例：LTSVのフィールド：値のフォーマット)に従って記録する必要があります。例えば、以下のようになります。
+フィールドは、特定のフォーマットに使用されている慣習的な方法(例:LTSVのフィールド:値のフォーマット)に従って記録する必要があります。例えば、以下のようになります。
 
 <!--
 ```

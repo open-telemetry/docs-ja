@@ -705,7 +705,7 @@ API-provided propagators and instead hardcode the context extraction and injecti
 logic.
 -->
 
-**注釈：** これは推奨されない方法ですが、特定の計装ライブラリは、独自のContext伝搬プロトコルを使用したり、特定のプロトコルを使用するようにハードコードされている場合があります。このような場合、計装ライブラリは、APIが提供するPropagatorを使用せず、代わりにContext抽出とインジェクション・ロジックをハードコードしてもかまいません(MAY)。
+**注釈:** これは推奨されない方法ですが、特定の計装ライブラリは、独自のContext伝搬プロトコルを使用したり、特定のプロトコルを使用するようにハードコードされている場合があります。このような場合、計装ライブラリは、APIが提供するPropagatorを使用せず、代わりにContext抽出とインジェクション・ロジックをハードコードしてもかまいません(MAY)。
 
 <!--
 The OpenTelemetry API MUST use no-op propagators unless explicitly configured

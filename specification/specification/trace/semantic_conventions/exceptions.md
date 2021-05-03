@@ -49,7 +49,7 @@ their types.
 | `exception.stacktrace` | string | スタックトレースは、言語ランタイムの自然な表現の文字列です。 この表現は各言語のSIGが決定し、文書化することになっています。 | `Exception in thread "main" java.lang.RuntimeException: Test exception\n at com.example.GenerateTrace.methodB(GenerateTrace.java:13)\n at com.example.GenerateTrace.methodA(GenerateTrace.java:9)\n at com.example.GenerateTrace.main(GenerateTrace.java:5)` | No |
 | `exception.escaped` | boolean | 例外がSpanの範囲を逸脱していることが分かっている場所で例外イベントが記録された場合、trueに設定するべきです(SHOULD)。 [1] |  | No |
 
-**[1]:** 例外が論理的に"飛行中(in flight)"である間にSpanが終了した場合、例外はSpanの範囲から脱出(または離脱)したとみなされます。これは、言語によっては実際に"飛行中"かもしれませんが(例：Pythonで例外がContext managerの`__exit__`メソッドに渡された場合)、ほとんどの言語では例外を記録した時点で捕捉されるのが普通です。
+**[1]:** 例外が論理的に"飛行中(in flight)"である間にSpanが終了した場合、例外はSpanの範囲から脱出(または離脱)したとみなされます。これは、言語によっては実際に"飛行中"かもしれませんが(例:Pythonで例外がContext managerの`__exit__`メソッドに渡された場合)、ほとんどの言語では例外を記録した時点で捕捉されるのが普通です。
 例外が投げられた時点で、その例外がSpanのスコープから外れるかどうかを判断することは通常できません。しかし、[上記の例](#exception-end-example)のように、Spanを終了する直前にアクティブな例外があるかどうかをチェックすれば、例外がエスケープされるかどうかを知ることは簡単です。
 これによると、`exception.escaped` 属性が設定されていなかったり、false に設定されていたりしても、例外がSpanのスコープを抜け出す可能性があります。これは、例外が抜け出すかどうかがはっきりしない時点でイベントが記録されている可能性があるからです。
 
