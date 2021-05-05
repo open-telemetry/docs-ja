@@ -24,7 +24,7 @@ Kubernetes object, but "name" is usually more user friendly so can be also set.
 <!-- semconv k8s.cluster -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `k8s.cluster.name` | string | クラスターの名前。 | `opentelemetry-cluster` | No |
+| `k8s.cluster.name` | string | クラスターの名前。| `opentelemetry-cluster` | No |
 <!-- endsemconv -->
 
 ## Node

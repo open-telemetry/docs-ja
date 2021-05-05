@@ -56,7 +56,7 @@ _OpenTelemetryクライアント作成者への注意事項:_ OpenTelemetryの�
 3. The developers of the final application normally decide how to configure OpenTelemetry SDK and what extensions to use. They should be also free to choose to not use any OpenTelemetry implementation at all, even though the application and/or its libraries are already instrumented.  The rationale is that third-party libraries and frameworks which are instrumented with OpenTelemetry must still be fully usable in the applications which do not want to use OpenTelemetry (so this removes the need for framework developers to have "instrumented" and "non-instrumented" versions of their framework).
 -->
 
-3. 最終的なアプリケーションの開発者は、通常、OpenTelemetry SDKをどのように設定するか、どの拡張機能を使用するかを決定します。また、アプリケーションやそのライブラリがすでに計装されている場合でも、OpenTelemetryの実装を一切使用しないという選択も自由にできるはずです。 その理由は、OpenTelemetryで計装されたサードパーティのライブラリやフレームワークは、OpenTelemetryを使用したくないアプリケーションでも、完全に使用可能でなければならないからです(そのため、フレームワーク開発者が自分のフレームワークに「計装されたバージョン」と「計装されていないバージョン」を用意する必要がなくなります)。
+3. 最終的なアプリケーションの開発者は、通常、OpenTelemetry SDKをどのように設定するか、どの拡張機能を使用するかを決定します。また、アプリケーションやそのライブラリがすでに計装されている場合でも、OpenTelemetryの実装を一切使用しないという選択も自由にできるはずです。その理由は、OpenTelemetryで計装されたサードパーティのライブラリやフレームワークは、OpenTelemetryを使用したくないアプリケーションでも、完全に使用可能でなければならないからです(そのため、フレームワーク開発者が自分のフレームワークに「計装されたバージョン」と「計装されていないバージョン」を用意する必要がなくなります)。
 
 <!--
 4. The SDK must be clearly separated into wire protocol-independent parts that implement common logic (e.g. batching, tag enrichment by process information, etc.) and protocol-dependent telemetry exporters. Telemetry exporters must contain minimal functionality, thus enabling vendors to easily add support for their specific protocol.

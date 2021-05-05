@@ -58,7 +58,7 @@ and Zipkin.
 | Span.Name                | Span.name        |                                                                                               |
 | Span.Kind                | Span.kind        | 値のマッピングについては [SpanKind](#spankind)参照                                                  |
 | Span.StartTime           | Span.timestamp   | [時間の単位](#時間の単位) 参照                                                             |
-| Span.EndTime             | Span.duration    | 期間(duration)はStartTimeとEndTimeから計算されます。 [時間の単位](#時間の単位)を参照 |
+| Span.EndTime             | Span.duration    | 期間(duration)はStartTimeとEndTimeから計算されます。[時間の単位](#時間の単位)を参照 |
 | Span.Attributes          | Span.tags        | データ型のマッピングについては[Attributes](../../common/common.md#attributes) 参照            |
 | Span.Events              | Span.annotations | マッピング形式については [イベント](#イベント) 参照                                                 |
 | Span.Links               | TBD              | TBD                                                                                           |
@@ -343,7 +343,7 @@ The following table defines the OpenTelemetry `Status` to Zipkin `tags` mapping.
 | Status|Tag キー| Tag の値 |
 |--|--|--|
 |Code | `otel.status_code` | コードの名前で、`OK`または`ERROR`です。コードが `UNSET` の場合、設定してはいけません (MUST NOT) |
-|Description| `error` | `Status`の説明です。コードが `ERROR` の場合は設定しなければなりません (MUST)。コードが `OK` と `UNSET` の場合は設定してはいけません。 |
+|Description| `error` | `Status`の説明です。コードが `ERROR` の場合は設定しなければなりません (MUST)。コードが `OK` と `UNSET` の場合は設定してはいけません。|
 
 
 <!--

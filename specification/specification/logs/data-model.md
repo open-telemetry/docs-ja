@@ -1880,11 +1880,11 @@ Field    | Type     | Description               | Maps to Unified Model Field
 -----------------|--------------------| ------------------------------------------------------- | ---------------------------
 timestamp    | string     | ログエントリに記載されているイベントが発生した時間 | Timestamp
 resource   | MonitoredResource  | このログエントリを生成したモニターリソース  | Resource
-log_name   | string     | log_nameフィールドのURLエンコードされたLOG_IDサフィックスは、このエントリーがどのログストリームに属しているかを識別します。 | Name
+log_name   | string     | log_nameフィールドのURLエンコードされたLOG_IDサフィックスは、このエントリーがどのログストリームに属しているかを識別します。| Name
 json_payload   | google.protobuf.Struct | ログエントリのペイロードで、JSONオブジェクトとして表現される構造体 | Body
 proto_payload  | google.protobuf.Any | ログエントリのペイロードで、Protocol Bufferとして表されます | Body
 text_payload   | string     | ログエントリのペイロードで、ユニコード文字列(UTF-8)で表されます| Body
-severity   | LogSeverity    | ログエントリの深刻度。          | Severity
+severity   | LogSeverity    | ログエントリの深刻度。         | Severity
 trace    | string     | ログエントリに関連するトレースがあれば、それを表示します    | TraceId
 span_id    | string     | ログエントリに関連するトレース内のSpanID | SpanId
 labels     | map<string,string> | ログエントリに関する追加情報を提供する、ユーザー定義の(キー、値)データのセットログエントリに関連するHTTPリクエスト(ある場合) | Attributes

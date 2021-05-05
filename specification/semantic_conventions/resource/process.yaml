@@ -28,7 +28,7 @@ groups:
         required:
           conditional: "See below"
         brief: >
-          プロセスを起動するために使用されたコマンド (すなわち、コマンド名)。Linuxベースのシステムでは、`proc/[pid]/cmdline`の0番目の文字列を設定できます。 Windowsでは、`GetCommandLineW`から抽出した最初のパラメータを設定できます。
+          プロセスを起動するために使用されたコマンド (すなわち、コマンド名)。Linuxベースのシステムでは、`proc/[pid]/cmdline`の0番目の文字列を設定できます。Windowsでは、`GetCommandLineW`から抽出した最初のパラメータを設定できます。
         examples: ['cmd/otelcol']
       - id: command_line
         type: string

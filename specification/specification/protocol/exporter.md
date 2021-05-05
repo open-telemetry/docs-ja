@@ -36,11 +36,11 @@ OTLP Exporterを構成するために、以下の構成オプションが利用�
 
 | Configuration Option | 説明                                                  | Default           | 環境変数名                                                 |
 | -------------------- | ------------------------------------------------------------ | ----------------- | ------------------------------------------------------------ |
-| Endpoint             | ExporterがSpanやMetricsを送信する先のターゲット。エンドポイントは、スキーム(httpまたはhttps)とホストを持つ有効なURLでなければならず(MUST)、ポートとパスを含んでもかまいません(MAY)。スキームが https の場合は、安全な接続を示します。OTLP/HTTP で `OTEL_EXPORTER_ENDPOINT` を使用する場合、エクスポートする側は、バージョンとシグナルをパスに追加するというコレクターの慣習に従うべきです(SHOULD) (例: `v1/traces` や `v1/metrics`)。Signalごとのエンドポイント設定オプションが優先され、この動作をオーバーライドするために使用することができます。詳しくは[OTLP仕様書][otlphttp-req]を参照してください。 | `https://localhost:4317` | `OTEL_EXPORTER_OTLP_ENDPOINT` `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT` `OTEL_EXPORTER_OTLP_METRICS_ENDPOINT` |
-| Certificate File     | gRPCクライアントのTLS認証用証明書ファイルへのパス。安全な接続のためにのみ使用してください。 | n/a               | `OTEL_EXPORTER_OTLP_CERTIFICATE` `OTEL_EXPORTER_OTLP_TRACES_CERTIFICATE` `OTEL_EXPORTER_OTLP_METRICS_CERTIFICATE` |
-| Headers              | gRPCやHTTPリクエストに関連するヘッダーとして使用されるキーと値のペアです。詳しくは、[Specifying headers](./exporter.md#specifying-headers-via-environment-variables)をご覧ください。              | n/a               | `OTEL_EXPORTER_OTLP_HEADERS` `OTEL_EXPORTER_OTLP_TRACES_HEADERS` `OTEL_EXPORTER_OTLP_METRICS_HEADERS` |
+| Endpoint             | ExporterがSpanやMetricsを送信する先のターゲット。エンドポイントは、スキーム(httpまたはhttps)とホストを持つ有効なURLでなければならず(MUST)、ポートとパスを含んでもかまいません(MAY)。スキームが https の場合は、安全な接続を示します。OTLP/HTTP で `OTEL_EXPORTER_ENDPOINT` を使用する場合、エクスポートする側は、バージョンとシグナルをパスに追加するというコレクターの慣習に従うべきです(SHOULD) (例: `v1/traces` や `v1/metrics`)。Signalごとのエンドポイント設定オプションが優先され、この動作をオーバーライドするために使用することができます。詳しくは[OTLP仕様書][otlphttp-req]を参照してください。| `https://localhost:4317` | `OTEL_EXPORTER_OTLP_ENDPOINT` `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT` `OTEL_EXPORTER_OTLP_METRICS_ENDPOINT` |
+| Certificate File     | gRPCクライアントのTLS認証用証明書ファイルへのパス。安全な接続のためにのみ使用してください。| n/a               | `OTEL_EXPORTER_OTLP_CERTIFICATE` `OTEL_EXPORTER_OTLP_TRACES_CERTIFICATE` `OTEL_EXPORTER_OTLP_METRICS_CERTIFICATE` |
+| Headers              | gRPCやHTTPリクエストに関連するヘッダーとして使用されるキーと値のペアです。詳しくは、[Specifying headers](./exporter.md#specifying-headers-via-environment-variables)をご覧ください。             | n/a               | `OTEL_EXPORTER_OTLP_HEADERS` `OTEL_EXPORTER_OTLP_TRACES_HEADERS` `OTEL_EXPORTER_OTLP_METRICS_HEADERS` |
 | Compression          | サポートされている圧縮タイプの圧縮キーです。サポートされている圧縮形式:`gzip`。| No value              | `OTEL_EXPORTER_OTLP_COMPRESSION` `OTEL_EXPORTER_OTLP_TRACES_COMPRESSION` `OTEL_EXPORTER_OTLP_METRICS_COMPRESSION` |
-| Timeout              | バックエンドが各SpanやMetricsのバッチを処理するまでの最大待ち時間。 | 10s               | `OTEL_EXPORTER_OTLP_TIMEOUT` `OTEL_EXPORTER_OTLP_TRACES_TIMEOUT` `OTEL_EXPORTER_OTLP_METRICS_TIMEOUT` |
+| Timeout              | バックエンドが各SpanやMetricsのバッチを処理するまでの最大待ち時間。| 10s               | `OTEL_EXPORTER_OTLP_TIMEOUT` `OTEL_EXPORTER_OTLP_TRACES_TIMEOUT` `OTEL_EXPORTER_OTLP_METRICS_TIMEOUT` |
 
 <!--
 Supported values for `OTEL_EXPORTER_OTLP_*COMPRESSION` options:
@@ -110,7 +110,7 @@ reserve the following environment variables for configuration of protocols in
 the future:
 -->
 
-現在、OTLPは、`grpc`、`http/json`、`http/protobuf`など、サポートできるトランスポートプロトコルが複数あります。  仕様書の1.0の時点では、*指定されたデフォルトはなく、環境変数による設定もありません*。 今後のプロトコルの設定のために、以下の環境変数を予約しています。
+現在、OTLPは、`grpc`、`http/json`、`http/protobuf`など、サポートできるトランスポートプロトコルが複数あります。 仕様書の1.0の時点では、*指定されたデフォルトはなく、環境変数による設定もありません*。今後のプロトコルの設定のために、以下の環境変数を予約しています。
 
 <!--
 - `OTEL_EXPORTER_OTLP_PROTOCOL`

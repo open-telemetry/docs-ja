@@ -198,7 +198,7 @@ Required arguments:
 - The carrier that holds the propagation fields. For example, an outgoing message or HTTP request.
 -->
 
-- `Context`。 Propagator は最初に `Context` から適切な値を取得しなければなりません (例: `SpanContext`, `Baggage` または他の横断的な関心事のContextなど)。
+- `Context`。Propagator は最初に `Context` から適切な値を取得しなければなりません (例: `SpanContext`, `Baggage` または他の横断的な関心事のContextなど)。
 - 伝搬フィールドを保持するキャリア。例えば、送信メッセージやHTTPリクエストなどです。
 
 <!--
@@ -276,7 +276,7 @@ and are defined as separate objects from the carrier to avoid runtime allocation
 by removing the need for additional interface-implementing-objects wrapping the carrier in order
 to access its contents.
 -->
-`Getter`と`Setter`は、それぞれ抽出と注入に使用される任意のヘルパーコンポーネントで、ランタイムの割り当てを避けるために、キャリアとは別のオブジェクトとして定義されています。これは、キャリアのコンテンツにアクセスするために、キャリアをラップする追加のインターフェース実装オブジェクトの必要性を排除するためです。 (XXX: 一文が長すぎて自信なし)
+`Getter`と`Setter`は、それぞれ抽出と注入に使用される任意のヘルパーコンポーネントで、ランタイムの割り当てを避けるために、キャリアとは別のオブジェクトとして定義されています。これは、キャリアのコンテンツにアクセスするために、キャリアをラップする追加のインターフェース実装オブジェクトの必要性を排除するためです。(XXX: 一文が長すぎて自信なし)
 
 <!--
 `Getter` and `Setter` MUST be stateless and allowed to be saved as constants, in order to effectively

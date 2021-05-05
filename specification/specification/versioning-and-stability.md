@@ -103,7 +103,7 @@ We do not want to create hard breaks in support, of any kind, which leave users 
 It MUST always be possible to upgrade to the latest minor version of the OpenTelemetry SDK, without creating compilation or runtime errors.
 -->
 
-**アプリケーションの所有者がSDKの最新リリースを維持することを保証します**。 私たちは、すべてのユーザーがOpenTelemetry SDKの最新バージョンを維持することを望みます。私たちは、ユーザーが古いバージョンに取り残されるような、いかなる種類のサポートも断絶することを望んでいません。コンパイルエラーやランタイムエラーを起こすことなく、常にOpenTelemetry SDKの最新のマイナーバージョンにアップグレードできるようにしなければなりません(MUST)。
+**アプリケーションの所有者がSDKの最新リリースを維持することを保証します**。私たちは、すべてのユーザーがOpenTelemetry SDKの最新バージョンを維持することを望みます。私たちは、ユーザーが古いバージョンに取り残されるような、いかなる種類のサポートも断絶することを望んでいません。コンパイルエラーやランタイムエラーを起こすことなく、常にOpenTelemetry SDKの最新のマイナーバージョンにアップグレードできるようにしなければなりません(MUST)。
 
 <!--
 **Never create a dependency conflict between packages which rely on different versions of OpenTelemetry. Avoid breaking all stable public APIs.**
@@ -115,7 +115,7 @@ A library that imports the OpenTelemetry API should never become incompatible wi
 Theoretically, APIs can be deprecated and eventually removed, but this is a process measured in years and we have no plans to do so.
 -->
 
-**異なるバージョンのOpenTelemetryに依存しているパッケージ間で依存関係の衝突を起こさないようにします。すべての安定した公開APIを壊さないようにします**。 後方互換性は厳格な要件です。計装APIは、絶対にバージョンの衝突を起こしてはいけません。そうしないと、OpenTelemetry APIを、Webフレームワークなどの広く共有されているライブラリに組み込むことができません。古いバージョンのAPIに対して書かれたコードは、新しいバージョンのAPIのすべてで動作しなければなりません(MUST)。API の推移的な依存関係によって、バージョンの競合が発生してはいけません。OpenTelemetry APIは、ライブラリやアプリケーションがそのパッケージの互換性のない別のバージョンを必要とする可能性がある場合、特定のパッケージに依存してはいけません。OpenTelemetry APIをインポートしているライブラリは、OpenTelemetryの依存関係のいずれかのバージョンが競合することで、他のライブラリとの互換性を失ってはいけません。理論的には、APIは非推奨となり、最終的には削除される可能性がありますが、これは数年単位のプロセスであり、私たちはそのような計画を持っていません。
+**異なるバージョンのOpenTelemetryに依存しているパッケージ間で依存関係の衝突を起こさないようにします。すべての安定した公開APIを壊さないようにします**。後方互換性は厳格な要件です。計装APIは、絶対にバージョンの衝突を起こしてはいけません。そうしないと、OpenTelemetry APIを、Webフレームワークなどの広く共有されているライブラリに組み込むことができません。古いバージョンのAPIに対して書かれたコードは、新しいバージョンのAPIのすべてで動作しなければなりません(MUST)。API の推移的な依存関係によって、バージョンの競合が発生してはいけません。OpenTelemetry APIは、ライブラリやアプリケーションがそのパッケージの互換性のない別のバージョンを必要とする可能性がある場合、特定のパッケージに依存してはいけません。OpenTelemetry APIをインポートしているライブラリは、OpenTelemetryの依存関係のいずれかのバージョンが競合することで、他のライブラリとの互換性を失ってはいけません。理論的には、APIは非推奨となり、最終的には削除される可能性がありますが、これは数年単位のプロセスであり、私たちはそのような計画を持っていません。
 
 <!--
 **Allow for multiple levels of package stability within the same release of an OpenTelemetry component.**
@@ -124,7 +124,7 @@ Different packages within the same release may have different levels of stabilit
 This means that an implementation wishing to release stable tracing today MUST ensure that experimental metrics are factored out in such a way that breaking changes to metrics API do not destabilize the trace API packages.
 -->
 
-**OpenTelemetryコンポーネントの同一リリース内で、複数のレベルのパッケージの安定性を許容します**。 メンテナに対して、安定したシグナルと並行して新しい実験的な[シグナル](glossary.md#signals)を開発するための明確なプロセスを提供します。同じリリースの中でも、パッケージによって安定性のレベルが異なる場合があります。
+**OpenTelemetryコンポーネントの同一リリース内で、複数のレベルのパッケージの安定性を許容します**。メンテナに対して、安定したシグナルと並行して新しい実験的な[シグナル](glossary.md#signals)を開発するための明確なプロセスを提供します。同じリリースの中でも、パッケージによって安定性のレベルが異なる場合があります。
 これは、安定したTraceをリリースしたいと考えている実装は、実験的なMetricsがMetrics APIへの重大な変更がトレースAPIパッケージを不安定にしないような方法で取り除かれていることを保証しなければなりません(MUST)
 
 <!--

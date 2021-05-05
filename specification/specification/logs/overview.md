@@ -319,7 +319,7 @@ Logs can be correlated with the rest of observability data in a few dimensions:
   [Resource](data-model.md#field-resource) in log records.
 -->
 
-- リソース・コンテキストとしても知られる、テレメトリの**オリジン**によって。OpenTelemetryのトレースとメトリクスは、それらの元となるResourceに関する情報を含んでいます。私たちは、ログレコードに[Resource](data-model.md#field-resource)を含めることで、この慣習をログにも適用しています。 
+- リソース・コンテキストとしても知られる、テレメトリの**オリジン**によって。OpenTelemetryのトレースとメトリクスは、それらの元となるResourceに関する情報を含んでいます。私たちは、ログレコードに[Resource](data-model.md#field-resource)を含めることで、この慣習をログにも適用しています。
 
 <!--
 These 3 correlations can be the foundation of powerful navigational, filtering,
@@ -804,7 +804,7 @@ names should be used in legacy formats:
   according to W3C traceflags format.
 -->
 
-- "trace_id" [TraceId](data-model.md#field-traceid) のことで、16 進数で表現されます。 
+- "trace_id" [TraceId](data-model.md#field-traceid) のことで、16 進数で表現されます。
 - "span_id" は [SpanId](data-model.md#field-spanid) のことで、16 進数で表現されます。
 - "trace_flags" は [trace flags](data-model.md#field-traceflags) のことで、W3C traceflags フォーマットにしたがって表現されます。
 

@@ -10,10 +10,10 @@
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
 | `cloud.provider` | string | クラウドプロバイダの名前 | `gcp` | No |
-| `cloud.account.id` | string | 異なるエンティティを識別するために使用されるクラウドアカウントID。 | `opentelemetry` | No |
-| `cloud.region` | string | 異なるエンティティが実行可能な特定の地理的な場所。 | `us-central1` | No |
-| `cloud.zone` | string | ゾーンは、低遅延リンクを介して接続されたRegionのサブセットです。 [1] | `us-central1-a` | No |
-| `cloud.infrastructure_service` | string | 使用中のクラウド基盤リソース。 [2] | `aws_ec2`; `azure_vm`; `gcp_compute_engine` | No |
+| `cloud.account.id` | string | 異なるエンティティを識別するために使用されるクラウドアカウントID。| `opentelemetry` | No |
+| `cloud.region` | string | 異なるエンティティが実行可能な特定の地理的な場所。| `us-central1` | No |
+| `cloud.zone` | string | ゾーンは、低遅延リンクを介して接続されたRegionのサブセットです。[1] | `us-central1-a` | No |
+| `cloud.infrastructure_service` | string | 使用中のクラウド基盤リソース。[2] | `aws_ec2`; `azure_vm`; `gcp_compute_engine` | No |
 
 **[1]:** AWSでは、アベイラビリティゾーンと呼ばれます。
 

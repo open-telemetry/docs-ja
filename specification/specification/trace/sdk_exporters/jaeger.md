@@ -307,8 +307,8 @@ The following table defines the OpenTelemetry `Status` to Jaeger `tags` mapping.
 
 | Status|Tag Key| Tag Value |
 |--|--|--|
-|Code | `otel.status_code` | コードの名前で、`OK`または`ERROR`です。コードが `UNSET` の場合、設定してはいけません (MUST NOT)。 |
-|Description | `otel.status_description` | `Status`に値がある場合はその説明、ない場合は設定されていません。 |
+|Code | `otel.status_code` | コードの名前で、`OK`または`ERROR`です。コードが `UNSET` の場合、設定してはいけません (MUST NOT)。|
+|Description | `otel.status_description` | `Status`に値がある場合はその説明、ない場合は設定されていません。|
 
 <!--
 ### Error flag

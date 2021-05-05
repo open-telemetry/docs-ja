@@ -7,7 +7,7 @@ groups:
       - id: type
         type: string
         brief: >
-          例外のタイプ(該当する場合は、完全修飾クラス名)。 例外の動的な型をサポートする言語では、静的型よりも動的型を優先すべきです。
+          例外のタイプ(該当する場合は、完全修飾クラス名)。例外の動的な型をサポートする言語では、静的型よりも動的型を優先すべきです。
         examples: ["java.net.ConnectException","OSError"]
       - id: message
         type: string
@@ -16,7 +16,7 @@ groups:
       - id: stacktrace
         type: string
         brief: >
-          スタックトレースは、言語ランタイムの自然な表現の文字列です。 この表現は各言語のSIGが決定し、文書化することになっています。
+          スタックトレースは、言語ランタイムの自然な表現の文字列です。この表現は各言語のSIGが決定し、文書化することになっています。
         examples: 'Exception in thread "main" java.lang.RuntimeException: Test exception\n
         at com.example.GenerateTrace.methodB(GenerateTrace.java:13)\n
         at com.example.GenerateTrace.methodA(GenerateTrace.java:9)\n
