@@ -101,7 +101,7 @@ For example, the value `12000` indicates 12000 milliseconds, i.e., 12 seconds.
 | OTEL_LOG_LEVEL           | SDKロガーが使用するログレベル                 | "info"                            |                                     |
 | OTEL_PROPAGATORS         | コンマで区切られたリストとして使用されるPropagetor  | "tracecontext,baggage"            | `Propagator`を一度だけ登録するためには、値を重複排除しなければなりません(MUST) |
 | OTEL_TRACES_SAMPLER       | トレースに使用するサンプラー                | "parentbased_always_on"                       | [サンプリング](./trace/sdk.md#sampling)参照 |
-| OTEL_TRACES_SAMPLER_ARG   | サンプラー引数として使用する文字列値   |                                   | 指定された値は、OTEL_TRACES_SAMPLERが設定されている場合にのみ使用されます。サンプラータイプごとに、期待される入力があればそれを定義します。無効または認識できない入力はログに記録されなければならず(MUST)、それ以外は無視されなければなりません(MUST)、つまり、SDKはOTEL_TRACES_SAMPLER_ARGが設定されていないかのように動作しなければなりません(MUST)。 |
+| OTEL_TRACES_SAMPLER_ARG   | サンプラー引数として使用する文字列値   |                                   | 指定された値は、OTEL_TRACES_SAMPLERが設定されている場合にのみ使用されます。サンプラータイプごとに、期待される入力があればそれを定義します。無効または認識できない入力はログに記録されなければならず(MUST)、それ以外は無視されなければなりません(MUST)、つまり、SDKはOTEL_TRACES_SAMPLER_ARGが設定されていないかのように動作しなければなりません(MUST)。|
 
 <!--
 Known values for OTEL_PROPAGATORS are:
