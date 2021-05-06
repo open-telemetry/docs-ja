@@ -19,7 +19,34 @@ groups:
         brief: >
           ホストの種類。クラウドの場合は、マシンタイプである必要があります。
         examples: ['n1-standard-1']
-      - id: image.name
+      - id: arch
+        type:
+          allow_custom_values: true
+          members:
+            - id: amd64
+              value: 'amd64'
+              brief: "AMD64"
+            - id: arm32
+              value: 'arm32'
+              brief: "ARM32"
+            - id: arm64
+              value: 'arm64'
+              brief: "ARM64"
+            - id: ia64
+              value: 'ia64'
+              brief: "Itanium"
+            - id: ppc32
+              value: 'ppc32'
+              brief: "32-bit PowerPC"
+            - id: ppc64
+              value: 'ppc64'
+              brief: "64-bit PowerPC"
+            - id: x86
+              value: 'x86'
+              brief: "32-bit x86"
+        brief: >
+            ホストシステムが動いているCPUアーキテクチャ
+        - id: image.name
         type: string
         brief: >
           ホストがインスタンス化されたVMイメージまたはOSのインストール名。

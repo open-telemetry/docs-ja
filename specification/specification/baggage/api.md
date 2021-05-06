@@ -15,7 +15,6 @@
 目次
 </summary>
 
-
 <!--
 - [Overview](#overview)
 - [Operations](#operations)
@@ -75,10 +74,10 @@ Baggage APIは以下のように構成されています:
 The functions described here are one way to approach interacting with the
 `Baggage` via having struct/object that represents the entire Baggage content.
 Depending on language idioms, a language API MAY implement these functions by
-providing the defined functionality interacting purely via the `Context`.
+interacting with the baggage via the `Context` directly.
 -->
 
-ここで説明されている関数は、`Baggage`の内容全体を表す構造体/オブジェクトを介して `Baggage` と対話するための1つの方法です。言語イディオムに応じて、言語APIは、定義された機能を純粋に `Context` を介して対話することで、これらの機能を実装しても構いません(MAY)。
+ここで説明されている関数は、`Baggage`の内容全体を表す構造体/オブジェクトを介して `Baggage` と対話するための1つの方法です。言語イディオムによっては、言語APIは、`Context`を介してBaggageを直接扱うことで、これらの関数を実装しても構いません(MAY)。
 
 <!--
 The Baggage API MUST be fully functional in the absence of an installed SDK.
@@ -235,11 +234,11 @@ the [`Context`](../context/context.md).
 このセクションでは、[`Context`](../context/context.md)と相互作用するBaggage API内のすべての操作を定義します。
 
 <!--
-The API MUST provide the following functionality to interact with a `Context`
-instance:
+If an implementation of this API does not operate directly on the `Context`, it
+MUST provide the following functionality to interact with a `Context` instance:
 -->
 
-APIは、`Context`インスタンスと対話するために、以下の機能を提供しなければなりません(MUST)。
+API の実装が `Context` を直接操作しない場合は、`Context` インスタンスを扱うための以下の機能を提供しなければなりません (MUST)。
 
 <!--
 - Extract the `Baggage` from a `Context` instance
@@ -357,24 +356,12 @@ On `inject`, the propagator should append the metadata per the W3C specification
 `extract`では、Propagatorはすべてのメタデータをエントリごとに単一のメタデータ・インスタンスとして保存します。`inject`では、PropagatorはW3C仕様のフォーマットに従ってメタデータを追加します。
 
 <!--
-Notes:
+Refer to the API Propagators
+[Operation](../context/api-propagators.md#operations) section for the
+additional requirements these operations need to follow.
 -->
 
-注意:
-
-<!--
-If the propagator is unable to parse the incoming `baggage`, `extract` MUST return
-a `Context` with no baggage entries in it.
--->
-
-Propagatorが入力された `baggage` を解析できない場合、`extract` はBaggageのエントリがない `Context` を返さなければなりません (MUST)。
-
-<!--
-If the incoming `baggage` is present, but contains no entries, `extract` MUST
-return a `Context` with no baggage entries in it.
--->
-
-入力された `baggage` が存在するが、エントリを含んでいない場合、`extract` は、Baggageのエントリがない `Context` を返さなければなりません (MUST)。
+API Propagatorsの[操作](../context/api-propagators.md#operations)のセクションを参照して、これらの操作が従うべき追加要件を確認してください。
 
 <!--
 ## Conflict Resolution

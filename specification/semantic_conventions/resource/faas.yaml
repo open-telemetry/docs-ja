@@ -29,7 +29,7 @@ groups:
           実行環境のID文字列。
         examples: ['my-function:instance-0001']
       - id: max_memory
-        type: number
+        type: int
         brief: >
           サーバーレス関数を実行する際のメモリをMiBで記述したもの
         note: >

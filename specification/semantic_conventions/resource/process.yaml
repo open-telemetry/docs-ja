@@ -5,7 +5,7 @@ groups:
         OSのプロセス
     attributes:
       - id: pid
-        type: number
+        type: int
         brief: >
           プロセスの識別子(PID)
         examples: [1234]

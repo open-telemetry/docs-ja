@@ -1,41 +1,43 @@
 groups:
   - id: http
     prefix: http
-    brief: 'This document defines semantic conventions for HTTP client and server Spans.'
+    brief: 'この文書では、HTTPクライアントおよびサーバーのSpansのセマンティック規約を定義しています。'
     note: >
-        These conventions can be used for http and https schemes
-        and various HTTP versions like 1.1, 2 and SPDY.
+        これらの規約は、httpとhttpsのスキームや、1.1、2、SPDYなどの様々なHTTPバージョンに使用することができます。
     attributes:
       - id: method
         type: string
         required: always
-        brief: 'HTTP request method.'
+        brief: 'HTTPリクエストメソッド'
         examples: ["GET", "POST", "HEAD"]
       - id: url
         type: string
         brief: >
-            Full HTTP request URL in the form `scheme://host[:port]/path?query[#fragment]`.
-            Usually the fragment is not transmitted over HTTP, but if it is known, it should be included nevertheless.
+            `scheme://host[:port]/path?query[#fragment]`という形式の完全なHTTPリクエストURLです。
+            通常、このフラグメントはHTTPでは送信されませんが、知られている場合は、それにもかかわらず含める必要があります。
+        note: >
+          `http.url` MUST NOT contain credentials passed via URL in form of `https://username:password@www.example.com/`.
+          In such case the attribute's value should be `https://www.example.com/`.
         examples: ['https://www.foo.bar/search?q=OpenTelemetry#SemConv']
       - id: target
         type: string
-        brief: 'The full request target as passed in a HTTP request line or equivalent.'
+        brief: 'HTTPリクエスト行またはそれに相当するもので渡される、完全なリクエストターゲット。'
         examples: ['/path/12314/?q=ddds#123']
       - id: host
         type: string
         brief: >
-            The value of the [HTTP host header](https://tools.ietf.org/html/rfc7230#section-5.4).
-            When the header is empty or not present, this attribute should be the same.
+            [HTTP host ヘッダー](https://tools.ietf.org/html/rfc7230#section-5.4)の値です。
+            ヘッダーが空の場合、または存在しない場合、この属性は同じである必要があります。
         examples: ['www.example.org']
       - id: scheme
         type: string
-        brief: 'The URI scheme identifying the used protocol.'
+        brief: '使用するプロトコルを示すURIスキーム'
         examples: ["http", "https"]
       - id: status_code
-        type: number
+        type: int
         required:
-          conditional: If and only if one was received/sent.
-        brief: '[HTTP response status code](https://tools.ietf.org/html/rfc7231#section-6).'
+          conditional: 受信/送信された場合に限ります。
+        brief: '[HTTP レスポンス status code](https://tools.ietf.org/html/rfc7231#section-6).'
         examples: [200]
       - id: flavor
         type:
@@ -58,38 +60,33 @@ groups:
             - id: QUIC
               value: 'QUIC'
               brief: 'QUIC protocol.'
-        brief: 'Kind of HTTP protocol used'
+        brief: '使われているHTTP protocolの種類'
         note: >
-          If `net.transport` is not specified, it can be assumed to be `IP.TCP` except if `http.flavor`
-          is `QUIC`, in which case `IP.UDP` is assumed.
+          `net.transport` が指定されていない場合は、`IP.TCP`と仮定できます。ただし、`http.flavor` が `QUIC` の場合は、`IP.UDP` を想定しています。
         examples: ['1.0']
       - id: user_agent
         type: string
-        brief: 'Value of the [HTTP User-Agent](https://tools.ietf.org/html/rfc7231#section-5.5.3) header sent by the client.'
+        brief: 'クライアントが送信した[HTTP User-Agent](https://tools.ietf.org/html/rfc7231#section-5.5.3)ヘッダの値。'
         examples: ['CERN-LineMode/2.15 libwww/2.17b3']
       - id: request_content_length
-        type: number
+        type: int
         brief: >
-          The size of the request payload body in bytes. This is the number of bytes transferred excluding headers and
-          is often, but not always, present as the [Content-Length](https://tools.ietf.org/html/rfc7230#section-3.3.2)
-          header. For requests using transport encoding, this should be the compressed size.
+          リクエストのペイロードボディのサイズ(バイト)です。これは、ヘッダーを除いて転送されたバイト数で、[Content-Length](https://tools.ietf.org/html/rfc7230#section-3.3.2)ヘッダーとして表示されることが多いですが、必ずしもそうではありません。トランスポートエンコーディングを使用するリクエストでは、これは圧縮されたサイズでなければなりません。
         examples: 3495
       - id: request_content_length_uncompressed
-        type: number
+        type: int
         brief: >
-          The size of the uncompressed request payload body after transport decoding. Not set if transport encoding not used.
+          トランスポートデコーディング後の、圧縮されていないリクエストペイロードボディのサイズです。トランスポートエンコーディングを使用しない場合は設定されません。
         examples: 5493
       - id: response_content_length
-        type: number
+        type: int
         brief: >
-          The size of the response payload body in bytes. This is the number of bytes transferred excluding headers and
-          is often, but not always, present as the [Content-Length](https://tools.ietf.org/html/rfc7230#section-3.3.2)
-          header. For requests using transport encoding, this should be the compressed size.
+          レスポンスペイロードボディのサイズ(バイト)です。これは、ヘッダーを除いて転送されたバイト数で、[Content-Length](https://tools.ietf.org/html/rfc7230#section-3.3.2)ヘッダーとして表示されることが多いですが、必ずしもそうではありません。トランスポートエンコーディングを使用するリクエストでは、これは圧縮されたサイズでなければなりません。
         examples: 3495
       - id: response_content_length_uncompressed
-        type: number
+        type: int
         brief: >
-          The size of the uncompressed response payload body after transport decoding. Not set if transport encoding not used.
+          トランスポートデコーディング後の、圧縮されていないレスポンスペイロードボディのサイズです。トランスポートエンコーディングを使用しない場合は設定されません。
         examples: 5493
     constraints:
       - include: network
@@ -98,7 +95,7 @@ groups:
     prefix: http
     extends: http
     span_kind: client
-    brief: 'Semantic Convention for HTTP Client'
+    brief: 'HTTP Clientのセマンティック規約'
     constraints:
       - any_of:
         - [http.url]
@@ -110,30 +107,28 @@ groups:
     prefix: http
     extends: http
     span_kind: server
-    brief: 'Semantic Convention for HTTP Server'
+    brief: 'HTTP Serverのセマンティック規約'
     attributes:
       - id: server_name
         type: string
         brief: >
-            The primary server name of the matched virtual host. This should be obtained via configuration.
-            If no such configuration can be obtained, this attribute MUST NOT be set ( `net.host.name` should be used instead).
+            一致したバーチャルホストのプライマリサーバー名です。これは設定で取得する必要があります。
+            そのような設定が得られない場合は、この属性を設定してはいけません(MUST NOT)(`net.host.name`を代わりに使用する必要があります)。
         note: >
-            `http.url` is usually not readily available on the server side but would have to be assembled in a cumbersome and
-            sometimes lossy process from other information (see e.g. open-telemetry/opentelemetry-python/pull/148).
-            It is thus preferred to supply the raw data that is available.
+            `http.url`は通常、サーバー側では容易に入手できませんが、他の情報から煩雑で時には損失を伴うプロセスで組み立てなければなりません(例:open-telemetry/opentelemetry-python/pull/148を参照)。
+            そのため、利用可能な生データを提供することが望ましいです。
         examples: ['example.com']
       - id: route
         type: string
         brief: >
-            The matched route (path template).
+            マッチしたルート(パステンプレート)
         examples: '/users/:userID?'
       - id: client_ip
         type: string
         brief: >
-            The IP address of the original client behind all proxies, if
-            known (e.g. from [X-Forwarded-For](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For)).
+            すべてのプロキシの背後にあるオリジナルのクライアントのIPアドレス(既知の場合)(例:[X-Forwarded-For](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For)より)
         note: >
-            This is not necessarily the same as `net.peer.ip`, which would identify the network-level peer, which may be a proxy.
+            これは必ずしも`net.peer.ip`と同じではありません。`net.peer.ip`はネットワークレベルのピアを特定するもので、プロキシである可能性もあります。
         examples: '83.164.160.102'
     constraints:
       - any_of:

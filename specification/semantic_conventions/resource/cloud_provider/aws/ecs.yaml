@@ -35,3 +35,8 @@ groups:
         brief: >
           このタスク定義が属するタスク定義ファミリ。
         examples: ['opentelemetry-family']
+      - id: task.revision
+        type: string
+        brief: >
+          このタスク定義のリビジョン
+        examples: ["8", "26"]

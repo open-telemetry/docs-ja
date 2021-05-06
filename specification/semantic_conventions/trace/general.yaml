@@ -38,7 +38,7 @@ groups:
           相手のリモートアドレス(IPv4ではドット10進数、IPv6では[RFC5952](https://tools.ietf.org/html/rfc5952)
         examples: '127.0.0.1'
       - id: peer.port
-        type: number
+        type: int
         brief: 'リモートのポート番号'
         examples: [80, 8080, 443]
       - id: peer.name
@@ -50,7 +50,7 @@ groups:
         brief: '`net.peer.ip`と同じですが、ホストのIPを指定します。マルチIPのホストの場合に便利です。'
         examples: '192.168.0.1'
       - id: host.port
-        type: number
+        type: int
         brief: '`net.peer.port`と同じですが、ホストのポートを指定します。'
         examples: 35555
       - id: host.name
@@ -91,7 +91,7 @@ groups:
       これらの属性は、Spanを開始したスレッドに関する情報を保存するためのあらゆる操作に使用できます。
     attributes:
       - id: id
-        type: number
+        type: int
         brief: >
           現在の「管理された」スレッドID(OSのスレッドIDとは異なります)。
         examples: 42
@@ -121,7 +121,7 @@ groups:
           コードユニットを可能な限り一意に識別するためのソースコードファイル名(絶対ファイルパスが望ましい)。
         examples: /usr/local/MyApplication/content_root/app/index.php
       - id: lineno
-        type: number
+        type: int
         brief: >
           `code.filepath` の中で、操作を表すのに最適な行番号です。これは `code.function` で指定されたコードユニット内を指すべきです。
         examples: 42

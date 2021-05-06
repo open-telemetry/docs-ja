@@ -2,7 +2,7 @@ groups:
   - id: cloud
     prefix: cloud
     brief: >
-      クラウドインフラストラクチャ (例: GCP, Azure, AWS)
+      クラウド環境 (例: GCP, Azure, AWS)
     attributes:
       - id: provider
         type:
@@ -23,21 +23,21 @@ groups:
       - id: account.id
         type: string
         brief: >
-          異なるエンティティを識別するために使用されるクラウドアカウントID。
-        examples: ['opentelemetry']
+          リソースが割り当てられているクラウドのアカウントID
+        examples: ['111111111111', 'opentelemetry']
       - id: region
         type: string
         brief: >
-          異なるエンティティが実行可能な特定の地理的な場所。
-        examples: ['us-central1']
-      - id: zone
+          リソースが動作している地理的な地域。[AWSリージョン](https://aws.amazon.com/about-aws/global-infrastructure/regions_az/)、[Azureリージョン](https://azure.microsoft.com/en-us/global-infrastructure/geographies/)、[Google Cloudリージョン](https://cloud.google.com/about/locations)など、利用可能なリージョンについては、プロバイダーのドキュメントを参照してください。
+        examples: ['us-central1', 'us-east-1']
+      - id: availability_zone
         type: string
         brief: >
-          ゾーンは、低遅延リンクを介して接続されたRegionのサブセットです。
+          クラウドのリージョンは、可用性を高めるために、ゾーンと呼ばれる複数の隔離された場所を持つことが多いです。アベイラビリティゾーンは、リソースが稼働しているゾーンを表します。
         note: >
-          AWSでは、アベイラビリティゾーンと呼ばれます。
-        examples: ['us-central1-a']
-      - id: infrastructure_service
+          Google Cloudでは、アベイラビリティー・ゾーンを"Zone"と呼んでいます。
+        examples: ['us-east-1c']
+      - id: platform
         type:
           allow_custom_values: true
           members:
@@ -73,21 +73,21 @@ groups:
               brief: Azure App Service
             - id: GCP_ComputeEngine
               value: 'gcp_compute_engine'
-              brief: GCP Compute Engine
+              brief: Google Cloud Compute Engine (GCE)
             - id: GCP_CloudRun
               value: 'gcp_cloud_run'
-              brief: GCP Cloud Run
-            - id: GCP_GKE
-              value: 'gcp_gke'
-              brief: Google Kubernetes Engine
+              brief: Google Cloud Run
+            - id: GCP_KubernetesEngine
+              value: 'gcp_kubernetes_engine'
+              brief: Google Cloud Kubernetes Engine (GKE)
             - id: GCP_CloudFunctions
               value: 'gcp_cloud_functions'
-              brief: GCP Cloud Functions
+              brief: Google Cloud Functions (GCF)
             - id: GCP_AppEngine
               value: 'gcp_app_engine'
-              brief: GCP App Engine
+              brief: Google Cloud App Engine (GAE)
         brief: >
-          使用中のクラウド基盤リソース。
+          使用中のクラウドプラットフォームのリソース
         note: >
           サービスのプレフィックスは `cloud.provider` で指定されたものと一致するべきです(SHOULD)。
         examples: ['aws_ec2', 'azure_vm', 'gcp_compute_engine']

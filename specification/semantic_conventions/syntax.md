@@ -49,10 +49,12 @@ attributes ::= (id type brief examples | ref [brief] [examples]) [required] [not
 ref ::= id
 
 type ::= "string"
-     |   "number"
+     |   "int"
+     |   "double"
      |   "boolean"
      |   "string[]"
-     |   "number[]"
+     |   "int[]"
+     |   "double[]"
      |   "boolean[]"
      |   enum
 
@@ -151,13 +153,17 @@ An attribute is defined by:
 <!--
 - `id`, string that uniquely identifies the attribute.
 - `type`, either a string literal denoting the type or an enum definition (See later).
-   The accepted strings literals are:
+   The accepted string literals are:
   * "string": String attributes.
-  * "number": Numeric attributes.
+  * "int": Integer attributes.
+  * "double": Double attributes.
   * "boolean": Boolean attributes.
   * "string[]": Array of strings attributes.
-  * "number[]": Array of numbers attributes.
+  * "int[]": Array of integer attributes.
+  * "double[]": Array of double attributes.
   * "boolean[]": Array of booleans attributes.
+
+  See the [specification of Attributes](../specification/common/common.md#attributes) for the definition of the value types.
 - `ref`, optional string, reference an existing attribute, see later.
 - `required`, optional, specifies if the attribute is mandatory.
     Can be "always", or "conditional". When omitted, the attribute is not required.
@@ -173,12 +179,16 @@ An attribute is defined by:
 
 - `id`, 属性を一意に識別する文字列。
 - `type`, 型を表す文字列リテラルか、列挙型の定義(後述)。受け入れられる文字列リテラルは以下の通りです。
-  * "string": 文字列属性。
-  * "number": 数値属性。
-  * "boolean": 真偽値属性。
-  * "string[]": 文字列属性の配列。
-  * "number[]": 数値属性の配列。
-  * "boolean[]": 真偽値属性の配列。
+  * "string": 文字列属性
+  * "int": Integer 属性
+  * "double": Double 属性
+  * "boolean": 真偽値属性
+  * "string[]": 文字列属性の配列
+  * "int[]": Integer属性の配列
+  * "double[]": Double属性の配列
+  * "boolean[]": 真偽値属性の配列
+
+  値の型の定義については、[属性の仕様](../specification/common/common.md#attributes)を参照してください。
 - `ref`: 任意で設定する文字列で、既存の属性を参照します(後述)。
 - `required`, 任意で設定する属性, この属性が必須かどうかを指定します。"alwaysまたは"conditional"と指定することができます。省略した場合、その属性は必須ではないという意味です。
     "conditional "に設定されている場合、`<condition>`として与えられる文字列は、属性が要求される条件を指定しなければなりません(MUST)。
@@ -329,11 +339,11 @@ fields are present in the current attribute definition, they override the inheri
 ### 型
 
 <!--
-An attribute type can either be a string, number, boolean, array of strings, array of numbers,
+An attribute type can either be a string, int, double, boolean, array of strings, array of int, array of double,
 array of booleans, or an enumeration. If it is an enumeration, additional fields are required:
 -->
 
-属性の型は、文字列、数値、真偽値、文字列の配列、数値の配列、真偽値の配列、または列挙型のいずれかです。列挙型の場合は、追加のフィールドが必要です。
+属性の型は、文字列、Int、Double、真偽値、文字列の配列、Intの配列、Doubleの配列、真偽値の配列、または列挙型のいずれかです。列挙型の場合は、追加のフィールドが必要です。
 
 <!--
 - `allow_custom_values`, optional boolean, set to false to not accept values
@@ -352,13 +362,13 @@ An enum entry has the following fields:
 
 <!--
 - `id`, string that uniquely identifies the enum entry.
-- `value`, string, number, or boolean, value of the enum entry.
+- `value`, string, int, or boolean; value of the enum entry.
 - `brief`, optional string, brief description of the enum entry value. It defaults to the value of `id`.
 - `note`, optional string, longer description. It defaults to an empty string.
 -->
 
 - `id`, 列挙型を一意に識別する文字列。
-- `value`, 文字列、数値、あるいは真偽値で、列挙型の値。
+- `value`, 文字列、int、あるいは真偽値で、列挙型の値。
 - `brief`, オプションの文字列で、列挙項目の値の簡単な説明を記述します。デフォルトは `id` の値です。
 - `note`, オプションの文字列。デフォルトは空文字列です。
 

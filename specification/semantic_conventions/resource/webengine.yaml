@@ -1,0 +1,22 @@
+groups:
+  - id: webengine_resource
+    prefix: webengine
+    brief: >
+       アプリケーション・コードを実行するパッケージ・ソフトウェアを記述するリソース。Webエンジンは、通常、process.runtimeを使用して実行されます。
+    attributes:
+      - id: name
+        type: string
+        required: always
+        brief: >
+          Webエンジンの名前
+        examples: ['WildFly']
+      - id: version
+        type: string
+        brief: >
+          Webエンジンのバージョン
+        examples: ['21.0.0']
+      - id: description
+        type: string
+        brief: >
+          Webエンジンの追加説明(詳細なバージョンとエディション情報など)
+        examples: ['WildFly Full 21.0.0.Final (WildFly Core 13.0.1.Final) - 2.2.2.Final']

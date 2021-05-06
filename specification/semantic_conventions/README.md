@@ -12,6 +12,19 @@ generation of semantics-related code.
 
 このディレクトリに含まれるセマンティック規約のYAML記述は、セマンティック関連のコードの自動生成を支援するために、様々なOpenTelemetry言語の実装によって使用されることを意図しています。
 
+
+<!--
+## Writing semantic conventions
+-->
+
+## セマンティック規約の書き方
+
+<!--
+Refer to the [syntax](./syntax.md) for how to write the YAML files for semantic conventions.
+-->
+
+YAMLファイルの書き方については、[syntax](./syntax.md)を参考にしてください。
+
 <!--
 ## Generation
 -->
@@ -20,7 +33,7 @@ generation of semantics-related code.
 
 <!--
 These YAML files are used by the make target `table-generation` to generate consistently
-formattted Markdown tables for all semantic conventions in the specification. Run it from the root of this repository using the command
+formatted Markdown tables for all semantic conventions in the specification. Run it from the root of this repository using the command
 -->
 
 これらのYAMLファイルはmakeターゲットの`table-generation`によって仕様のすべてのセマンティック規約のために、一貫してフォーマットされたMarkdownテーブルを生成するために使われます。このリポジトリの直下からコマンドを使って実行してください。

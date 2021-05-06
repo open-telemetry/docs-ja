@@ -1,0 +1,11 @@
+groups:
+  - id: aws.eks
+    prefix: aws.eks
+    brief: >
+      AWS Elastic Kubernetes Service(EKS)が使用するリソース
+    attributes:
+      - id: cluster.arn
+        type: string
+        brief: >
+          EKSクラスターのARN
+        examples: ['arn:aws:ecs:us-west-2:123456789123:cluster/my-cluster'] 
