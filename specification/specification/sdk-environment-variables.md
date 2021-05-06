@@ -121,8 +121,8 @@ OTEL_PROPAGATORSの既知の値は以下の通りです。
 
 - `"tracecontext"`: [W3C Trace Context](https://www.w3.org/TR/trace-context/)
 - `"baggage"`: [W3C Baggage](https://www.w3.org/TR/baggage/)
-- `"b3"`: [B3 Single](https://github.com/openzipkin/b3-propagation#single-header)
-- `"b3multi"`: [B3 Multi](https://github.com/openzipkin/b3-propagation#multiple-headers)
+- `"b3"`: [B3 Single](./context/api-propagators.md#configuration)
+- `"b3multi"`: [B3 Multi](./context/api-propagators.md#configuration)
 - `"jaeger"`: [Jaeger](https://www.jaegertracing.io/docs/1.21/client-libraries/#propagation-format)
 - `"xray"`: [AWS X-Ray](https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html#xray-concepts-tracingheader) (_サードパーティー_)
 - `"ottrace"`: [OT Trace](https://github.com/opentracing?q=basic&type=&language=) (_サードパーティー_)
@@ -361,6 +361,7 @@ OTEL_TRACES_EXPORTERの既知の値は以下のとおりです。
 - `"otlp"`: [OTLP](./protocol/otlp.md)
 - `"jaeger"`: [Jaeger gRPC](https://www.jaegertracing.io/docs/1.21/apis/#protobuf-via-grpc-stable)
 - `"zipkin"`: [Zipkin](https://zipkin.io/zipkin-api/) (Defaults to [protobuf](https://github.com/openzipkin/zipkin-api/blob/master/zipkin.proto) format)
+- `"none"`: 自動的に設定されるTrace用のエクスポーターがありません。
 
 <!--
 Known values for OTEL_METRICS_EXPORTER are:
@@ -375,6 +376,7 @@ OTEL_METRICS_EXPORTERの既知の値は以下のとおりです。
 
 - `"otlp"`: [OTLP](./protocol/otlp.md)
 - `"prometheus"`: [Prometheus](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md)
+- `"none"`: 自動的に設定されるMetrics用のエクスポーターがありません。
 
 <!--
 ## Language Specific Environment Variables

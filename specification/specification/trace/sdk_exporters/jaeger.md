@@ -150,7 +150,7 @@ OpenTelemetry Spanの`InstrumentationLibrary`は、以下のマッピングを�
 ### ID
 
 <!--
-Trace and span IDs in Jaeger are random sequences of bytes. However, Thrft model
+Trace and span IDs in Jaeger are random sequences of bytes. However, Thrift model
 represents IDs using `i64` type, or in case of a 128-bit wide Trace ID as two `i64`
 fields `traceIdLow` and `traceIdHigh`. The bytes MUST be converted to/from unsigned
 ints using Big Endian byte order, e.g. `[0x10, 0x00, 0x00, 0x00] == 268435456`.
@@ -158,7 +158,7 @@ The unsigned ints MUST be converted to `i64` by re-interpreting the existing
 64bit value as signed `i64`. For example (in Go):
 -->
 
-JaegerのTrace IDやSpan IDは、ランダムなバイト列です。しかし、Thrftモデルでは、`i64`型を用いてIDを表現しています。128ビット幅のTrace IDの場合は、2つの`i64`フィールド `traceIdLow`と`traceIdHigh`で表現しています。例えば、`[0x10, 0x00, 0x00, 0x00] == 268435456`のように、ビッグエンディアンのバイトオーダーを使って、バイトを符号なし整数に変換する必要があります。符号なし整数は、既存の64ビット値を符号付きの`i64`として再解釈することで、`i64`に変換しなければなりません(MUST)。以下にGoの場合の例を示します:
+JaegerのTrace IDやSpan IDは、ランダムなバイト列です。しかし、Thriftモデルでは、`i64`型を用いてIDを表現しています。128ビット幅のTrace IDの場合は、2つの`i64`フィールド `traceIdLow`と`traceIdHigh`で表現しています。例えば、`[0x10, 0x00, 0x00, 0x00] == 268435456`のように、ビッグエンディアンのバイトオーダーを使って、バイトを符号なし整数に変換する必要があります。符号なし整数は、既存の64ビット値を符号付きの`i64`として再解釈することで、`i64`に変換しなければなりません(MUST)。以下にGoの場合の例を示します:
 
 <!--
 ```go

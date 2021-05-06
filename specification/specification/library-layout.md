@@ -129,10 +129,12 @@ This API consist of a few main classes:
 ### `/internal` (_任意_)
 
 <!--
-Private application and library code.
+Library components and implementations that shouldn't be exposed to the users.
+If a language has an idiomatic layout for internal compoents, please follow
+the language idiomatic style.
 -->
 
-プライベートなアプリケーションやライブラリのコード。
+ユーザーに公開されるべきではないライブラリのコンポーネントや実装。言語によって内部コンポーネントの慣習的なレイアウトが決まっている場合は、その言語の慣習的なスタイルに従ってください。
 
 <!--
 ### `/logs` (_In the future_)
@@ -258,10 +260,12 @@ api/traceのSDK実装について説明しているディレクトリです。
 ### `/sdk/internal` (_任意_)
 
 <!--
-Private application and library code.
+Library components and implementations that shouldn't be exposed to the users.
+If a language has an idiomatic layout for internal compoents, please follow
+the language idiomatic style.
 -->
 
-プライベートなアプリケーションやライブラリのコード。
+ユーザーに公開されるべきではないライブラリのコンポーネントや実装。言語によって内部コンポーネントの慣習的レイアウトが決まっている場合は、その言語の慣習的スタイルに従ってください。
 
 <!--
 ### `/sdk/logs` (_In the future_)
