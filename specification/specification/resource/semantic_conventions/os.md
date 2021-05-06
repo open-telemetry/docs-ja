@@ -12,7 +12,7 @@ In case of virtualized environments, this is the operating system as it is obser
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
 | `os.type` | string | The operating system type. | `WINDOWS` | Yes |
-| `os.description` | string | 人間が読める (解析を意図していない) OS のバージョン情報で、例えば `ver` や `lsb_release -a` コマンドで得られるような文字列です。| `Microsoft Windows [Version 10.0.18363.778]`; `Ubuntu 18.04.1 LTS` | No |
+| `os.description` | string | 人間が読める (解析を意図していない) OS のバージョン情報で、例えば `ver` や `lsb_release -a` コマンドで得られるような文字列です。 | `Microsoft Windows [Version 10.0.18363.778]`; `Ubuntu 18.04.1 LTS` | No |
 
 `os.type` MUST be one of the following or, if none of the listed values apply, a custom value:
 

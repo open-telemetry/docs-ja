@@ -54,5 +54,5 @@ Attributes that relate to an individual AWS service:
 - [Elastic Container Service](./ecs.md)
 -->
 
-- [Elastic Container Service](./ecs.md)
-
+- [Elastic Container Service (ECS)](./ecs.md)
+- [Elastic Kubernetes Service (EKS)](./eks.md)

@@ -59,8 +59,8 @@ Examples of span names:
 | `rpc.method` | string | The name of the method being called, must be equal to the $method part in the span name. | `exampleMethod` | No, but recommended |
 | [`net.peer.ip`](span-general.md) | string | 相手のリモートアドレス(IPv4ではドット10進数、IPv6では[RFC5952](https://tools.ietf.org/html/rfc5952) | `127.0.0.1` | See below |
 | [`net.peer.name`](span-general.md) | string | リモートのホスト名あるいは類似の文字列。下記注釈参照 | `example.com` | See below |
-| [`net.peer.port`](span-general.md) | number | リモートのポート番号 | `80`; `8080`; `443` | See below |
-| [`net.transport`](span-general.md) | string | Transport protocol used. 下記注釈参照。| `IP.TCP` | See below |
+| [`net.peer.port`](span-general.md) | int | リモートのポート番号 | `80`; `8080`; `443` | See below |
+| [`net.transport`](span-general.md) | string | Transport protocol used. 下記注釈参照。 | `IP.TCP` | See below |
 
 **Additional attribute requirements:** At least one of the following sets of attributes is required:
 
@@ -105,7 +105,7 @@ For remote procedure calls via [gRPC][], additional conventions are described in
 <!-- semconv rpc.grpc -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `rpc.grpc.status_code` | number | The [numeric status code](https://github.com/grpc/grpc/blob/v1.33.2/doc/statuscodes.md) of the gRPC request. | `0`; `1`; `16` | Yes |
+| `rpc.grpc.status_code` | int | The [numeric status code](https://github.com/grpc/grpc/blob/v1.33.2/doc/statuscodes.md) of the gRPC request. | `0`; `1`; `16` | Yes |
 
 `rpc.grpc.status_code` MUST be one of the following:
 

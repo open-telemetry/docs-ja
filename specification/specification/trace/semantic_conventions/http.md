@@ -10,14 +10,15 @@ and various HTTP versions like 1.1, 2 and SPDY.
 
 <!-- toc -->
 
-- [Name](#name)
-- [Status](#status)
-- [Common Attributes](#common-attributes)
-- [HTTP client](#http-client)
-- [HTTP server](#http-server)
-  * [HTTP server definitions](#http-server-definitions)
-  * [HTTP Server semantic conventions](#http-server-semantic-conventions)
-- [HTTP client-server example](#http-client-server-example)
+- [Semantic conventions for HTTP spans](#semantic-conventions-for-http-spans)
+  - [Name](#name)
+  - [Status](#status)
+  - [Common Attributes](#common-attributes)
+  - [HTTP client](#http-client)
+  - [HTTP server](#http-server)
+    - [HTTP server definitions](#http-server-definitions)
+    - [HTTP Server semantic conventions](#http-server-semantic-conventions)
+  - [HTTP client-server example](#http-client-server-example)
 
 <!-- tocstop -->
 
@@ -54,20 +55,22 @@ Don't set the span status description if the reason can be inferred from `http.s
 <!-- semconv http -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `http.method` | string | HTTP request method. | `GET`; `POST`; `HEAD` | Yes |
-| `http.url` | string | Full HTTP request URL in the form `scheme://host[:port]/path?query[#fragment]`. Usually the fragment is not transmitted over HTTP, but if it is known, it should be included nevertheless. | `https://www.foo.bar/search?q=OpenTelemetry#SemConv` | No |
-| `http.target` | string | The full request target as passed in a HTTP request line or equivalent. | `/path/12314/?q=ddds#123` | No |
-| `http.host` | string | The value of the [HTTP host header](https://tools.ietf.org/html/rfc7230#section-5.4). When the header is empty or not present, this attribute should be the same. | `www.example.org` | No |
-| `http.scheme` | string | The URI scheme identifying the used protocol. | `http`; `https` | No |
-| `http.status_code` | number | [HTTP response status code](https://tools.ietf.org/html/rfc7231#section-6). | `200` | If and only if one was received/sent. |
-| `http.flavor` | string | Kind of HTTP protocol used [1] | `1.0` | No |
-| `http.user_agent` | string | Value of the [HTTP User-Agent](https://tools.ietf.org/html/rfc7231#section-5.5.3) header sent by the client. | `CERN-LineMode/2.15 libwww/2.17b3` | No |
-| `http.request_content_length` | number | The size of the request payload body in bytes. This is the number of bytes transferred excluding headers and is often, but not always, present as the [Content-Length](https://tools.ietf.org/html/rfc7230#section-3.3.2) header. For requests using transport encoding, this should be the compressed size. | `3495` | No |
-| `http.request_content_length_uncompressed` | number | The size of the uncompressed request payload body after transport decoding. Not set if transport encoding not used. | `5493` | No |
-| `http.response_content_length` | number | The size of the response payload body in bytes. This is the number of bytes transferred excluding headers and is often, but not always, present as the [Content-Length](https://tools.ietf.org/html/rfc7230#section-3.3.2) header. For requests using transport encoding, this should be the compressed size. | `3495` | No |
-| `http.response_content_length_uncompressed` | number | The size of the uncompressed response payload body after transport decoding. Not set if transport encoding not used. | `5493` | No |
+| `http.method` | string | HTTPリクエストメソッド | `GET`; `POST`; `HEAD` | Yes |
+| `http.url` | string | `scheme://host[:port]/path?query[#fragment]`という形式の完全なHTTPリクエストURLです。 通常、このフラグメントはHTTPでは送信されませんが、知られている場合は、それにもかかわらず含める必要があります。 [1] | `https://www.foo.bar/search?q=OpenTelemetry#SemConv` | No |
+| `http.target` | string | HTTPリクエスト行またはそれに相当するもので渡される、完全なリクエストターゲット。 | `/path/12314/?q=ddds#123` | No |
+| `http.host` | string | [HTTP host ヘッダー](https://tools.ietf.org/html/rfc7230#section-5.4)の値です。 ヘッダーが空の場合、または存在しない場合、この属性は同じである必要があります。 | `www.example.org` | No |
+| `http.scheme` | string | 使用するプロトコルを示すURIスキーム | `http`; `https` | No |
+| `http.status_code` | int | [HTTP レスポンス status code](https://tools.ietf.org/html/rfc7231#section-6). | `200` | 受信/送信された場合に限ります。 |
+| `http.flavor` | string | 使われているHTTP protocolの種類 [2] | `1.0` | No |
+| `http.user_agent` | string | クライアントが送信した[HTTP User-Agent](https://tools.ietf.org/html/rfc7231#section-5.5.3)ヘッダの値。 | `CERN-LineMode/2.15 libwww/2.17b3` | No |
+| `http.request_content_length` | int | リクエストのペイロードボディのサイズ(バイト)です。これは、ヘッダーを除いて転送されたバイト数で、[Content-Length](https://tools.ietf.org/html/rfc7230#section-3.3.2)ヘッダーとして表示されることが多いですが、必ずしもそうではありません。トランスポートエンコーディングを使用するリクエストでは、これは圧縮されたサイズでなければなりません。 | `3495` | No |
+| `http.request_content_length_uncompressed` | int | トランスポートデコーディング後の、圧縮されていないリクエストペイロードボディのサイズです。トランスポートエンコーディングを使用しない場合は設定されません。 | `5493` | No |
+| `http.response_content_length` | int | レスポンスペイロードボディのサイズ(バイト)です。これは、ヘッダーを除いて転送されたバイト数で、[Content-Length](https://tools.ietf.org/html/rfc7230#section-3.3.2)ヘッダーとして表示されることが多いですが、必ずしもそうではありません。トランスポートエンコーディングを使用するリクエストでは、これは圧縮されたサイズでなければなりません。 | `3495` | No |
+| `http.response_content_length_uncompressed` | int | トランスポートデコーディング後の、圧縮されていないレスポンスペイロードボディのサイズです。トランスポートエンコーディングを使用しない場合は設定されません。 | `5493` | No |
 
-**[1]:** If `net.transport` is not specified, it can be assumed to be `IP.TCP` except if `http.flavor` is `QUIC`, in which case `IP.UDP` is assumed.
+**[1]:** `http.url` MUST NOT contain credentials passed via URL in form of `https://username:password@www.example.com/`. In such case the attribute's value should be `https://www.example.com/`.
+
+**[2]:** `net.transport` が指定されていない場合は、`IP.TCP`と仮定できます。ただし、`http.flavor` が `QUIC` の場合は、`IP.UDP` を想定しています。
 
 `http.flavor` MUST be one of the following or, if none of the listed values apply, a custom value:
 
@@ -170,13 +173,13 @@ If the route cannot be determined, the `name` attribute MUST be set as defined i
 <!-- semconv http.server -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `http.server_name` | string | The primary server name of the matched virtual host. This should be obtained via configuration. If no such configuration can be obtained, this attribute MUST NOT be set ( `net.host.name` should be used instead). [1] | `example.com` | See below |
-| `http.route` | string | The matched route (path template). | `/users/:userID?` | No |
-| `http.client_ip` | string | The IP address of the original client behind all proxies, if known (e.g. from [X-Forwarded-For](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For)). [2] | `83.164.160.102` | No |
+| `http.server_name` | string | 一致したバーチャルホストのプライマリサーバー名です。これは設定で取得する必要があります。 そのような設定が得られない場合は、この属性を設定してはいけません(MUST NOT)(`net.host.name`を代わりに使用する必要があります)。 [1] | `example.com` | See below |
+| `http.route` | string | マッチしたルート(パステンプレート) | `/users/:userID?` | No |
+| `http.client_ip` | string | すべてのプロキシの背後にあるオリジナルのクライアントのIPアドレス(既知の場合)(例:[X-Forwarded-For](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For)より) [2] | `83.164.160.102` | No |
 
-**[1]:** `http.url` is usually not readily available on the server side but would have to be assembled in a cumbersome and sometimes lossy process from other information (see e.g. open-telemetry/opentelemetry-python/pull/148). It is thus preferred to supply the raw data that is available.
+**[1]:** `http.url`は通常、サーバー側では容易に入手できませんが、他の情報から煩雑で時には損失を伴うプロセスで組み立てなければなりません(例:open-telemetry/opentelemetry-python/pull/148を参照)。 そのため、利用可能な生データを提供することが望ましいです。
 
-**[2]:** This is not necessarily the same as `net.peer.ip`, which would identify the network-level peer, which may be a proxy.
+**[2]:** これは必ずしも`net.peer.ip`と同じではありません。`net.peer.ip`はネットワークレベルのピアを特定するもので、プロキシである可能性もあります。
 
 **Additional attribute requirements:** At least one of the following sets of attributes is required:
 

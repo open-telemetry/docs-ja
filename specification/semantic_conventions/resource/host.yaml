@@ -46,7 +46,7 @@ groups:
               brief: "32-bit x86"
         brief: >
             ホストシステムが動いているCPUアーキテクチャ
-        - id: image.name
+      - id: image.name
         type: string
         brief: >
           ホストがインスタンス化されたVMイメージまたはOSのインストール名。

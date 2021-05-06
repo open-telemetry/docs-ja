@@ -40,13 +40,13 @@ Some database systems may allow a connection to switch to a different `db.user`,
 <!-- semconv db(tag=connection-level) -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `db.system` | string | 使用しているデータベース管理システム(DBMS)製品の識別子。よく知られた識別子のリストは以下を参照してください。| `other_sql` | Yes |
-| `db.connection_string` | string | データベースへの接続に使用される接続文字列です。埋め込まれた資格情報を削除することを推奨します。| `Server=(localdb)\v11.0;Integrated Security=true;` | No |
-| `db.user` | string | データベースにアクセスするためのユーザー名。| `readonly_user`; `reporting_user` | No |
+| `db.system` | string | 使用しているデータベース管理システム(DBMS)製品の識別子。よく知られた識別子のリストは以下を参照してください。 | `other_sql` | Yes |
+| `db.connection_string` | string | データベースへの接続に使用される接続文字列です。埋め込まれた資格情報を削除することを推奨します。 | `Server=(localdb)\v11.0;Integrated Security=true;` | No |
+| `db.user` | string | データベースにアクセスするためのユーザー名。 | `readonly_user`; `reporting_user` | No |
 | [`net.peer.ip`](span-general.md) | string | 相手のリモートアドレス(IPv4ではドット10進数、IPv6では[RFC5952](https://tools.ietf.org/html/rfc5952) | `127.0.0.1` | 下記参照 |
 | [`net.peer.name`](span-general.md) | string | リモートのホスト名あるいは類似の文字列。下記注釈参照 | `example.com` | 下記参照 |
-| [`net.peer.port`](span-general.md) | number | リモートのポート番号 | `80`; `8080`; `443` | このDBMSのデフォルトポート以外のポートを使用している場合は必須。|
-| [`net.transport`](span-general.md) | string | Transport protocol used. 下記注釈参照。| `IP.TCP` | 一般的に推奨、プロセス中のデータベース(`"inproc"`)には必須。|
+| [`net.peer.port`](span-general.md) | int | リモートのポート番号 | `80`; `8080`; `443` | このDBMSのデフォルトポート以外のポートを使用している場合は必須。 |
+| [`net.transport`](span-general.md) | string | Transport protocol used. 下記注釈参照。 | `IP.TCP` | 一般的に推奨、プロセス中のデータベース(`"inproc"`)には必須。 |
 
 **Additional attribute requirements:** At least one of the following sets of attributes is required:
 
@@ -57,7 +57,7 @@ Some database systems may allow a connection to switch to a different `db.user`,
 
 | Value  | Description |
 |---|---|
-| `other_sql` | 他のSQLデータベース。フォールバックのみ。注意事項を参照してください。|
+| `other_sql` | 他のSQLデータベース。フォールバックのみ。注意事項を参照してください。 |
 | `mssql` | Microsoft SQL Server |
 | `mysql` | MySQL |
 | `oracle` | Oracle Database |
@@ -101,6 +101,7 @@ Some database systems may allow a connection to switch to a different `db.user`,
 | `dynamodb` | Amazon DynamoDB |
 | `neo4j` | Neo4j |
 | `geode` | Apache Geode |
+| `elasticsearch` | Elasticsearch |
 <!-- endsemconv -->
 
 ### Notes and well-known identifiers for `db.system`
@@ -126,8 +127,8 @@ When additional attributes are added that only apply to a specific DBMS, its ide
 <!-- semconv db.mssql(tag=connection-level-tech-specific,remove_constraints) -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `db.jdbc.driver_classname` | string | 接続に使用する[Java Database Connectivity (JDBC)](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/)ドライバの完全修飾クラス名。| `org.postgresql.Driver`; `com.microsoft.sqlserver.jdbc.SQLServerDriver` | No |
-| `db.mssql.instance_name` | string | 接続しているMicrosoft SQL Serverの[インスタンス名](https://docs.microsoft.com/en-us/sql/connect/jdbc/building-the-connection-url?view=sql-server-ver15)です。この名前は、名前付きインスタンスのポートを決定するために使用されます。[1] | `MSSQLSERVER` | No |
+| `db.jdbc.driver_classname` | string | 接続に使用する[Java Database Connectivity (JDBC)](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/)ドライバの完全修飾クラス名。 | `org.postgresql.Driver`; `com.microsoft.sqlserver.jdbc.SQLServerDriver` | No |
+| `db.mssql.instance_name` | string | 接続しているMicrosoft SQL Serverの[インスタンス名](https://docs.microsoft.com/en-us/sql/connect/jdbc/building-the-connection-url?view=sql-server-ver15)です。この名前は、名前付きインスタンスのポートを決定するために使用されます。 [1] | `MSSQLSERVER` | No |
 
 **[1]:** `db.mssql.instance_name`を設定する場合、`net.peer.port`は必須ではなくなりました(ただし、非標準の場合は推奨)
 <!-- endsemconv -->
@@ -140,9 +141,9 @@ Usually only one `db.name` will be used per connection though.
 <!-- semconv db(tag=call-level,remove_constraints) -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `db.name` | string | もし[その技術特有の属性](#call-level-attributes-for-specific-technologies)が定義されていない場合、この属性はアクセスされているデータベースの名前を報告するために使用されます。データベースを切り替えるコマンドのために、これは(コマンドが失敗した場合でも)ターゲットデータベースに設定しなければなりません。[1] | `customers`; `main` | 該当し、他に適切な属性が定義されていない場合は必須 |
-| `db.statement` | string | 実行されているデータベース文。[2] | `SELECT * FROM wuser_table`; `SET mykey "WuValue"` | 該当する場合は必須 |
-| `db.operation` | string | 実行する操作の名前。例えば、`findAndModify` のような [MongoDB コマンド名](https://docs.mongodb.com/manual/reference/command/#database-operations) や SQL キーワード。[3] | `findAndModify`; `HMSET`; `SELECT` | Required, if `db.statement` is not applicable. |
+| `db.name` | string | もし[その技術特有の属性](#call-level-attributes-for-specific-technologies)が定義されていない場合、この属性はアクセスされているデータベースの名前を報告するために使用されます。データベースを切り替えるコマンドのために、これは(コマンドが失敗した場合でも)ターゲットデータベースに設定しなければなりません。 [1] | `customers`; `main` | 該当し、他に適切な属性が定義されていない場合は必須 |
+| `db.statement` | string | 実行されているデータベース文。 [2] | `SELECT * FROM wuser_table`; `SET mykey "WuValue"` | 該当する場合は必須 |
+| `db.operation` | string | 実行する操作の名前。例えば、`findAndModify` のような [MongoDB コマンド名](https://docs.mongodb.com/manual/reference/command/#database-operations) や SQL キーワード。 [3] | `findAndModify`; `HMSET`; `SELECT` | Required, if `db.statement` is not applicable. |
 
 **[1]:** 一部のSQLデータベースでは、使用するデータベース名を「スキーマ名」と呼びます。
 
@@ -166,10 +167,10 @@ For example, when retrieving a document, `db.operation` would be set to (literal
 <!-- semconv db.tech(tag=call-level-tech-specific) -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `db.hbase.namespace` | string | アクセスされている[HBase 名前空間](https://hbase.apache.org/book.html#_namespace)です。一般的な `db.name` 属性の代わりに使用します。| `default` | Yes |
-| `db.redis.database_index` | number | [`SELECT`コマンド](https://redis.io/commands/select)で使われる、アクセスするデータベースのインデックスを整数で指定します。一般的な `db.name` 属性の代わりに使用されます。| `0`; `1`; `15` | デフォルトのデータベース(`0`)以外の場合は必須です。|
-| `db.mongodb.collection` | string | `db.name`で指定されたデータベース内でアクセスされるコレクションです。| `customers`; `products` | Yes |
-| `db.sql.table` | string | 操作の対象となる主テーブルの名前で、該当する場合スキーマ名も含まれます。[1] | `public.users`; `customers` | 使用可能であれば推奨されます。|
+| `db.hbase.namespace` | string | アクセスされている[HBase 名前空間](https://hbase.apache.org/book.html#_namespace)です。一般的な `db.name` 属性の代わりに使用します。 | `default` | Yes |
+| `db.redis.database_index` | int | [`SELECT`コマンド](https://redis.io/commands/select)で使われる、アクセスするデータベースのインデックスを整数で指定します。一般的な `db.name` 属性の代わりに使用されます。 | `0`; `1`; `15` | デフォルトのデータベース(`0`)以外の場合は必須です。 |
+| `db.mongodb.collection` | string | `db.name`で指定されたデータベース内でアクセスされるコレクションです。 | `customers`; `products` | Yes |
+| `db.sql.table` | string | 操作の対象となる主テーブルの名前で、該当する場合スキーマ名も含まれます。 [1] | `public.users`; `customers` | 使用可能であれば推奨されます。 |
 
 **[1]:** このプロパティを取得するために、クライアントサイドで `db.statement` の解析を行うことはお勧めできませんが、計装対象のライブラリで提供されている場合には設定する必要があります。匿名のテーブルや複数のテーブルを操作する場合には、この値を設定してはいけません(MUST NOT)。
 <!-- endsemconv -->
@@ -181,14 +182,14 @@ Separated for clarity.
 <!-- semconv db.tech(tag=call-level-tech-specific-cassandra) -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `db.cassandra.keyspace` | string | アクセスするキースペースの名前です。一般的な `db.name` 属性の代わりに使用されます。| `mykeyspace` | Yes |
-| `db.cassandra.page_size` | number | ページングに使用されるフェッチサイズ、つまり一度に何行を返すかを指定します。| `5000` | No |
-| `db.cassandra.consistency_level` | string | クエリの一貫性レベル。[CQL](https://docs.datastax.com/en/cassandra-oss/3.0/cassandra/dml/dmlConfigConsistency.html)の整合性値に基づいています。| `ALL` | No |
-| `db.cassandra.table` | string | 操作の対象となる主テーブルの名前で、(該当する場合)スキーマ名も含まれます。[1] | `mytable` | Recommended if available. |
-| `db.cassandra.idempotence` | boolean | クエリがべき等であるかどうか。|  | No |
-| `db.cassandra.speculative_execution_count` | number | クエリが投機的に実行された回数です。クエリが投機的に実行されなかった場合は、設定されないか、または `0` となります。| `0`; `2` | No |
-| `db.cassandra.coordinator.id` | string | クエリのコーディネーションノードのIDです。| `be13faa2-8574-4d71-926d-27f16cf8a7af` | No |
-| `db.cassandra.coordinator.dc` | string | クエリのコーディネーションノードのデータセンターです。| `us-west-2` | No |
+| `db.cassandra.keyspace` | string | アクセスするキースペースの名前です。一般的な `db.name` 属性の代わりに使用されます。 | `mykeyspace` | Yes |
+| `db.cassandra.page_size` | int | ページングに使用されるフェッチサイズ、つまり一度に何行を返すかを指定します。 | `5000` | No |
+| `db.cassandra.consistency_level` | string | クエリの一貫性レベル。[CQL](https://docs.datastax.com/en/cassandra-oss/3.0/cassandra/dml/dmlConfigConsistency.html)の整合性値に基づいています。 | `ALL` | No |
+| `db.cassandra.table` | string | 操作の対象となる主テーブルの名前で、(該当する場合)スキーマ名も含まれます。 [1] | `mytable` | Recommended if available. |
+| `db.cassandra.idempotence` | boolean | クエリがべき等であるかどうか。 |  | No |
+| `db.cassandra.speculative_execution_count` | int | クエリが投機的に実行された回数です。クエリが投機的に実行されなかった場合は、設定されないか、または `0` となります。 | `0`; `2` | No |
+| `db.cassandra.coordinator.id` | string | クエリのコーディネーションノードのIDです。 | `be13faa2-8574-4d71-926d-27f16cf8a7af` | No |
+| `db.cassandra.coordinator.dc` | string | クエリのコーディネーションノードのデータセンターです。 | `us-west-2` | No |
 
 **[1]:** これは、db.sql.table属性を反映していますが、sqlではなくcassandraを参照しています。この属性を取得するためだけにクライアントサイドで `db.statement` の解析を行うことは推奨されませんが、計装対象のライブラリで提供されている場合は設定する必要があります。操作が匿名のテーブルや複数のテーブルに対して行われる場合、この値は設定してはいけません(MUST NOT)。
 <!-- endsemconv -->

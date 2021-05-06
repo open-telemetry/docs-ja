@@ -27,13 +27,13 @@
 <!-- semconv process -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `process.pid` | number | プロセスの識別子(PID) | `1234` | No |
-| `process.executable.name` | string | 実行可能なプロセスの名前。Linuxベースのシステムでは、`proc/[pid]/status` の `Name` を設定できます。Windowsでは、`GetProcessImageFileNameW`のBaseNameを設定できます。| `otelcol` | See below |
-| `process.executable.path` | string | 実行可能なプロセスへのフルパス。Linuxベースのシステムでは、`proc/[pid]/exe` を設定できます。Windowsでは、`GetProcessImageFileNameW`の結果を設定できます。| `/usr/bin/cmd/otelcol` | See below |
-| `process.command` | string | プロセスを起動するために使用されたコマンド (すなわち、コマンド名)。Linuxベースのシステムでは、`proc/[pid]/cmdline`の0番目の文字列を設定できます。Windowsでは、`GetCommandLineW`から抽出した最初のパラメータを設定できます。| `cmd/otelcol` | See below |
-| `process.command_line` | string | プロセスを起動するために使用された完全なコマンドを1つの文字列で表します。Windowsでは、`GetCommandLineW`の結果を設定できます。モニタリングのためだけに構築する必要がある場合は設定しないでください。代わりに `process.command_args` を使ってください。| `C:\cmd\otecol --config="my directory\config.yaml"` | See below |
-| `process.command_args` | string[] | プロセスが受け取ったすべてのコマンド引数(コマンド/実行可能なもの自体を含む)。Linuxベースのシステム(およびprocfsをサポートする他のいくつかのUnix系システム)では、`proc/[pid]/cmdline`から抽出されたNULLで区切られた文字列のリストを設定できます。libcベースの実行ファイルの場合、これは `main` に渡される完全な argv ベクトルになります。| `[cmd/otecol, --config=config.yaml]` | See below |
-| `process.owner` | string | プロセスを所有するユーザーのユーザー名。| `root` | No |
+| `process.pid` | int | プロセスの識別子(PID) | `1234` | No |
+| `process.executable.name` | string | 実行可能なプロセスの名前。Linuxベースのシステムでは、`proc/[pid]/status` の `Name` を設定できます。Windowsでは、`GetProcessImageFileNameW`のBaseNameを設定できます。 | `otelcol` | See below |
+| `process.executable.path` | string | 実行可能なプロセスへのフルパス。Linuxベースのシステムでは、`proc/[pid]/exe` を設定できます。Windowsでは、`GetProcessImageFileNameW`の結果を設定できます。 | `/usr/bin/cmd/otelcol` | See below |
+| `process.command` | string | プロセスを起動するために使用されたコマンド (すなわち、コマンド名)。Linuxベースのシステムでは、`proc/[pid]/cmdline`の0番目の文字列を設定できます。Windowsでは、`GetCommandLineW`から抽出した最初のパラメータを設定できます。 | `cmd/otelcol` | See below |
+| `process.command_line` | string | プロセスを起動するために使用された完全なコマンドを1つの文字列で表します。Windowsでは、`GetCommandLineW`の結果を設定できます。モニタリングのためだけに構築する必要がある場合は設定しないでください。代わりに `process.command_args` を使ってください。 | `C:\cmd\otecol --config="my directory\config.yaml"` | See below |
+| `process.command_args` | string[] | プロセスが受け取ったすべてのコマンド引数(コマンド/実行可能なもの自体を含む)。Linuxベースのシステム(およびprocfsをサポートする他のいくつかのUnix系システム)では、`proc/[pid]/cmdline`から抽出されたNULLで区切られた文字列のリストを設定できます。libcベースの実行ファイルの場合、これは `main` に渡される完全な argv ベクトルになります。 | `[cmd/otecol, --config=config.yaml]` | See below |
+| `process.owner` | string | プロセスを所有するユーザーのユーザー名。 | `root` | No |
 <!-- endsemconv -->
 
 Between `process.command_args` and `process.command_line`, usually `process.command_args` should be preferred.
@@ -55,9 +55,9 @@ At least one of `process.executable.name`, `process.executable.path`, `process.c
 <!-- semconv process.runtime -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `process.runtime.name` | string | このプロセスのランタイムの名前。コンパイルされたネイティブバイナリの場合、これはコンパイラの名前であるべきです[SHOULD]。| `OpenJDK Runtime Environment` | No |
-| `process.runtime.version` | string | ランタイムが修正せずに返した、このプロセスのランタイムのバージョン。| `14.0.2` | No |
-| `process.runtime.description` | string | プロセスのランタイムに関する追加の記述、例えば、ランタイム環境の特定のベンダのカスタマイズなど。| `Eclipse OpenJ9 Eclipse OpenJ9 VM openj9-0.21.0` | No |
+| `process.runtime.name` | string | このプロセスのランタイムの名前。コンパイルされたネイティブバイナリの場合、これはコンパイラの名前であるべきです[SHOULD]。 | `OpenJDK Runtime Environment` | No |
+| `process.runtime.version` | string | ランタイムが修正せずに返した、このプロセスのランタイムのバージョン。 | `14.0.2` | No |
+| `process.runtime.description` | string | プロセスのランタイムに関する追加の記述、例えば、ランタイム環境の特定のベンダのカスタマイズなど。 | `Eclipse OpenJ9 Eclipse OpenJ9 VM openj9-0.21.0` | No |
 <!-- endsemconv -->
 
 How to set these attributes for particular runtime kinds is described in the following subsections.
@@ -66,17 +66,15 @@ In addition to these attributes, [`telemetry.sdk.language`](README.md#telemetry-
 
 ### Erlang Runtimes
 
-TODO(<https://github.com/open-telemetry/opentelemetry-erlang/issues/96>): Confirm the contents here
-
-- `process.runtime.name` - The name of the Erlang runtime being used. Usually will be BEAM.
-- `process.runtime.version` - The ERTS (Erlang Runtime System) version. For BEAM this is found with `application:get_key(erts, vsn)`.
-- `process.runtime.description` - The OTP version `erlang:system_info(otp_release)` and ERTS version combined.
+- `process.runtime.name` - The name of the Erlang VM being used, i.e., `erlang:system_info(machine)`.
+- `process.runtime.version` -  The version of the runtime (ERTS - Erlang Runtime System), i.e., `erlang:system_info(version)`.
+- `process.runtime.description` - string | An additional description about the runtime made by combining the OTP version, i.e., `erlang:system_info(otp_release)`, and ERTS version.
 
 Example:
 
-| Name | `process.runtime.name` | `process.runtime.version` | `process.runtime.description` |
-| --- | --- | --- | --- |
-| beam | BEAM | 11.0.3 | Erlang/OTP 24 erts-11.0.3 |
+| `process.runtime.name` | `process.runtime.version` | `process.runtime.description` |
+| --- | --- | --- |
+| BEAM | 11.1 |  Erlang/OTP 23 erts-11.1 |
 
 ### Go Runtimes
 
