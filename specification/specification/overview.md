@@ -162,6 +162,20 @@ The **Semantic Conventions** define the keys and values which describe commonly 
 * [メトリクス規約](metrics/semantic_conventions/README.md)
 
 <!--
+Both the collector and the client libraries SHOULD autogenerate semantic
+convention keys and enum values into constants (or language idomatic
+equivalent). Generated values shouldn't be distributed in stable packages
+until semantic conventions are stable.
+The [YAML](../semantic_conventions/README.md) files MUST be used as the
+source of truth for generation. Each language implementation SHOULD
+provide language-specific support to the
+[code generator](https://github.com/open-telemetry/build-tools/tree/main/semantic-conventions#code-generator).
+-->
+
+コレクターとクライアントの両方のライブラリは、セマンティック規約のキーとenumの値を定数(または言語的に同等のもの)に自動生成すべきです(SHOULD)。生成された値は、セマンティック規約が安定するまで、安定したパッケージで配布すべきではありません。[YAML](../semantic_conventions/README.md)ファイルは生成のための信頼できる唯一の情報源(source of truth)として使用されなければなりません(MUST)。各言語の実装は、[コードジェネレータ](https://github.com/open-telemetry/build-tools/tree/main/semantic-conventions#code-generator)に言語固有のサポートを提供すべきです(SHOULD)。
+
+
+<!--
 ### Contrib Packages
 -->
 
@@ -550,9 +564,11 @@ supports both - push and pull model of setting the `Metric` value.
 ### メトリクスデータモデルとSDK
 
 <!--
-Metrics data model is defined in SDK and is based on
+Metrics data model is [specified here](metrics/datamodel.md) and is based on
 [metrics.proto](https://github.com/open-telemetry/opentelemetry-proto/blob/master/opentelemetry/proto/metrics/v1/metrics.proto).
-This data model is used by all the OpenTelemetry exporters as an input.
+This data model defines three semantics: An Event model used by the API, an
+in-flight data model used by the SDK and OTLP, and a TimeSeries model which
+denotes how exporters should interpret the in-flight model.
 Different exporters have different capabilities (e.g. which data types are
 supported) and different constraints (e.g. which characters are allowed in label
 keys). Metrics is intended to be a superset of what's possible, not a lowest
@@ -560,7 +576,7 @@ common denominator that's supported everywhere. All exporters consume data from
 Metrics Data Model via a Metric Producer interface defined in OpenTelemetry SDK.
 -->
 
-MetricsのデータモデルはSDKで定義されており、[metrics.proto](https://github.com/open-telemetry/opentelemetry-proto/blob/master/opentelemetry/proto/metrics/v1/metrics.proto)をベースにしています。このデータモデルは、すべての OpenTelemetry エクスポータで入力として使用されます。それぞれのエクスポータは異なる機能(例:どのデータ種類がサポートされているか)と、異なる制約(例: ラベルキーで許可される文字)を持ちます。`Metrics`は、可能なことのスーパーセットであることを意図しており、どこでもサポートされている共通の最低限のものではありません。すべてのエクスポータの機能は、OpenTelemetry SDK で定義された Metric Producer インターフェイスを介して Metricデータモデルからデータを消費します。
+Metricsのデータモデルは[ここで指定](metrics/datamodel.md)されており、[metrics.proto](https://github.com/open-telemetry/opentelemetry-proto/blob/master/opentelemetry/proto/metrics/v1/metrics.proto)に基づいています。このデータモデルは3つのセマンティクスを定義しています。APIで使用されるイベントモデル、SDKとOTLPで使用されるインフライトデータモデル、そしてエクスポーターがインフライトのモデルをどのように解釈すべきかを示すTimeSeriesモデルです。エクスポーターによって、機能(例:どのデータタイプがサポートされているかなど)と、異なる制約(例:どのような文字れがラベルキーに許可されているか)が異なります。`Metrics`は、可能なもののスーパーセットであることを意図しており、サポートされている最小公倍数ではありません。すべてのエクスポータの機能は、OpenTelemetry SDK で定義された Metric Producer インターフェイスを介して Metricデータモデルからデータを消費します。
 
 <!--
 Because of this, Metrics puts minimal constraints on the data (e.g. which
@@ -571,6 +587,13 @@ from the backend.
 -->
 
 このため、Metrics はデータに最小限の制約(キーに許可されている文字など)を課し、Metrics を扱うコードは Metrics データの検証とサニタイズを避けるべきです。その代わりに、バックエンドにデータを渡し、バックエンドに頼って検証を行い、バックエンドからのエラーはすべてパスバックしてください。
+
+<!--
+See [Metrics Data Model Specification](metrics/datamodel.md) for more
+information.
+-->
+
+詳細は、[Metrics データモデル仕様](metrics/datamodel.md)を参照してください。
 
 <!--
 ## Log Signal

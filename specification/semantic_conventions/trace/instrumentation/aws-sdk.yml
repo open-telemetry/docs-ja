@@ -2,35 +2,31 @@ groups:
   - id: aws
     prefix: aws
     brief: >
-      The `aws` conventions apply to operations using the AWS SDK. They map request or response parameters
-      in AWS SDK API calls to attributes on a Span. The conventions have been collected over time based
-      on feedback from AWS users of tracing and will continue to evolve as new interesting conventions
-      are found.
+      `aws` 規約は、AWS SDKを使ったオペレーションに適用されます。AWS SDKのAPIコールに含まれるリクエストやレスポンスのパラメータを、Spanの属性にマッピングします。この規約は、トレースのAWSユーザーからのフィードバックに基づいて、時間をかけて収集されたものであり、新たに興味深い規約が発見されれば、今後も進化していくでしょう。
 
-      Some descriptions are also provided for populating general OpenTelemetry semantic conventions based on
-      these APIs.
+      また、これらのAPIに基づいて、一般的なOpenTelemetryのセマンティック規約を作成するための説明もあります。
     attributes:
       - ref: rpc.system
-        brief: "The value `aws-api`."
+        brief: "`aws-api` の値"
         required: always
         examples:
           - aws-api
       - ref: rpc.service
-        brief: "The name of the service to which a request is made, as returned by the AWS SDK."
+        brief: "AWS SDKから返される、リクエスト先のサービス名"
         examples:
           - DynamoDB
           - S3
       - ref: rpc.method
-        brief: "The name of the operation corresponding to the request, as returned by the AWS SDK"
+        brief: "AWS SDKから返された、リクエストに対応するオペレーションの名前"
         examples:
           - GetItem
           - PutItem
 
   - id: dynamodb.all
-    brief: "Attributes always filled for all DynamoDB request types."
+    brief: "すべてのDynamoDBリクエストタイプで常に返される属性"
     attributes:
       - ref: db.system
-        brief: "The value `dynamodb`."
+        brief: "`dynamodb`の値"
         required: always
         examples:
           - dynamodb
@@ -38,22 +34,22 @@ groups:
   - id: dynamodb.shared
     extends: aws
     prefix: aws.dynamodb
-    brief: "Attributes that exist for multiple DynamoDB request types."
+    brief: "複数のDynamoDBリクエストタイプに存在する属性"
     attributes:
       - ref: db.operation
-        brief: "The same value as `rpc.method`."
+        brief: "`rpc.method`と同じ値"
         examples:
           - GetItem
           - PutItem
       - id: table_names
         type: string[]
-        brief: The keys in the `RequestItems` object field.
+        brief: RequestItems` オブジェクトフィールドのキーです。
         examples:
           - Users
           - Cats
       - id: consumed_capacity
         type: string[]
-        brief: "The JSON-serialized value of each item in the `ConsumedCapacity` response field."
+        brief: "`ConsumedCapacity`レスポンスフィールドの各項目をJSONでシリアライズした値"
         examples:
           - '{
               "CapacityUnits": number,
@@ -82,7 +78,7 @@ groups:
             }'
       - id: item_collection_metrics
         type: string
-        brief: "The JSON-serialized value of the `ItemCollectionMetrics` response field."
+        brief: "`ItemCollectionMetrics` レスポンスフィールドの JSON 形式の値"
         examples:
           - '{
               "string" : [
@@ -111,45 +107,45 @@ groups:
              }'
       - id: provisioned_read_capacity
         type: double
-        brief: "The value of the `ProvisionedThroughput.ReadCapacityUnits` request parameter."
+        brief: "`ProvisionedThroughput.ReadCapacityUnits`リクエストパラメーターの値"
         examples:
           - 1.0
           - 2.0
       - id: provisioned_write_capacity
         type: double
-        brief: "The value of the `ProvisionedThroughput.WriteCapacityUnits` request parameter."
+        brief: "`ProvisionedThroughput.WriteCapacityUnits`リクエストパラメーターの値"
         examples:
           - 1.0
           - 2.0
       - id: consistent_read
         type: boolean
-        brief: "The value of the `ConsistentRead` request parameter."
+        brief: "`ConsistentRead` リクエストパラメーターの値"
       - id: projection
         type: string
-        brief: "The value of the `ProjectionExpression` request parameter."
+        brief: "`ProjectionExpression` リクエストパラメータの値"
         examples:
           - Title
           - Title, Price, Color
           - Title, Description, RelatedItems, ProductReviews
       - id: limit
         type: int
-        brief: "The value of the `Limit` request parameter."
+        brief: "`Limit` リクエストパラメータの値"
         examples:
           - 10
       - id: attributes_to_get
         type: string[]
-        brief: "The value of the `AttributesToGet` request parameter."
+        brief: "`AttributesToGet` リクエストパラメータの値"
         examples:
           - lives
           - id
       - id: index_name
         type: string
-        brief: "The value of the `IndexName` request parameter."
+        brief: "`IndexName` リクエストパラメータの値"
         examples:
           - name_to_group
       - id: select
         type: string
-        brief: "The value of the `Select` request parameter."
+        brief: "`Select` リクエストパラメータの値"
         examples:
           - ALL_ATTRIBUTES
           - COUNT
@@ -178,7 +174,7 @@ groups:
     attributes:
       - id: global_secondary_indexes
         type: string[]
-        brief: "The JSON-serialized value of each item of the `GlobalSecondaryIndexes` request field"
+        brief: "リクエストフィールド `GlobalSecondaryIndexes`の各項目のJSON形式の値"
         examples:
           - '{
               "IndexName": "string",
@@ -199,7 +195,7 @@ groups:
             }'
       - id: local_secondary_indexes
         type: string[]
-        brief: "The JSON-serialized value of each item of the `LocalSecondaryIndexes` request field."
+        brief: "`LocalSecondaryIndexes`リクエストフィールドの各項目のJSON形式の値"
         examples:
           - '{
               "IndexArn": "string",
@@ -218,7 +214,7 @@ groups:
               }
             }'
       - ref: aws.dynamodb.table_names
-        brief: "A single-element array with the value of the TableName request parameter."
+        brief: "TableNameリクエストパラメータの値を持つ1要素の配列"
         examples:
           - Users
       - ref: aws.dynamodb.consumed_capacity
@@ -232,7 +228,7 @@ groups:
     prefix: aws.dynamodb
     attributes:
       - ref: aws.dynamodb.table_names
-        brief: "A single-element array with the value of the TableName request parameter."
+        brief: "TableNameリクエストパラメータの値を持つ1要素の配列"
         examples:
           - Users
       - ref: aws.dynamodb.consumed_capacity
@@ -244,7 +240,7 @@ groups:
     prefix: aws.dynamodb
     attributes:
       - ref: aws.dynamodb.table_names
-        brief: "A single-element array with the value of the TableName request parameter."
+        brief: "TableNameリクエストパラメータの値を持つ1要素の配列"
         examples:
           - Users
 
@@ -254,7 +250,7 @@ groups:
     prefix: aws.dynamodb
     attributes:
       - ref: aws.dynamodb.table_names
-        brief: "A single-element array with the value of the TableName request parameter."
+        brief: "TableNameリクエストパラメータの値を持つ1要素の配列"
         examples:
           - Users
 
@@ -264,7 +260,7 @@ groups:
     prefix: aws.dynamodb
     attributes:
       - ref: aws.dynamodb.table_names
-        brief: "A single-element array with the value of the TableName request parameter."
+        brief: "TableNameリクエストパラメータの値を持つ1要素の配列"
         examples:
           - Users
       - ref: aws.dynamodb.consumed_capacity
@@ -278,13 +274,13 @@ groups:
     attributes:
       - id: exclusive_start_table
         type: string
-        brief: "The value of the `ExclusiveStartTableName` request parameter."
+        brief: "`ExclusiveStartTableName`のリクエストパラメータの値"
         examples:
           - Users
           - CatsTable
       - id: table_count
         type: int
-        brief: "The the number of items in the `TableNames` response parameter."
+        brief: "`TableNames` レスポンスパラメーターのアイテム数"
         examples:
           - 20
       - ref: aws.dynamodb.limit
@@ -305,9 +301,9 @@ groups:
     attributes:
       - id: scan_forward
         type: boolean
-        brief: "The value of the `ScanIndexForward` request parameter."
+        brief: "`ScanIndexForward` リクエストパラメーターの値"
       - ref: aws.dynamodb.table_names
-        brief: "A single-element array with the value of the TableName request parameter."
+        brief: "TableNameリクエストパラメータの値を持つ1要素の配列"
         examples:
           - Users
       - ref: aws.dynamodb.consumed_capacity
@@ -325,26 +321,26 @@ groups:
     attributes:
       - id: segment
         type: int
-        brief: "The value of the `Segment` request parameter."
+        brief: "`Segment` リクエストパラメータの値"
         examples:
           - 10
       - id: total_segments
         type: int
-        brief: "The value of the `TotalSegments` request parameter."
+        brief: "`TotalSegments` リクエストパラメータの値"
         examples:
           - 100
       - id: count
         type: int
-        brief: "The value of the `Count` response parameter."
+        brief: "`Count` レスポンスパラメータの値"
         examples:
           - 10
       - id: scanned_count
         type: int
-        brief: "The value of the `ScannedCount` response parameter."
+        brief: "`ScannedCount` レスポンスパラメータの値"
         examples:
           - 50
       - ref: aws.dynamodb.table_names
-        brief: "A single-element array with the value of the TableName request parameter."
+        brief: "TableNameリクエストパラメータの値を持つ1要素の配列"
         examples:
           - Users
       - ref: aws.dynamodb.consumed_capacity
@@ -361,7 +357,7 @@ groups:
     prefix: aws.dynamodb
     attributes:
       - ref: aws.dynamodb.table_names
-        brief: "A single-element array with the value of the TableName request parameter."
+        brief: "TableNameリクエストパラメータの値を持つ1要素の配列"
         examples:
           - Users
       - ref: aws.dynamodb.consumed_capacity
@@ -374,7 +370,7 @@ groups:
     attributes:
       - id: attribute_definitions
         type: string[]
-        brief: "The JSON-serialized value of each item in the `AttributeDefinitions` request field."
+        brief: "`AttributeDefinitions`のリクエストフィールドの各項目のJSON形式の値"
         examples:
           - '{
               "AttributeName": "string",
@@ -382,7 +378,7 @@ groups:
              }'
       - id: global_secondary_index_updates
         type: string[]
-        brief: "The JSON-serialized value of each item in the the `GlobalSecondaryIndexUpdates` request field."
+        brief: "`GlobalSecondaryIndexUpdates`リクエストフィールドの各項目のJSON形式の値"
         examples:
           - '{
               "Create": {
@@ -403,7 +399,7 @@ groups:
                 }
               }'
       - ref: aws.dynamodb.table_names
-        brief: "A single-element array with the value of the TableName request parameter."
+        brief: "TableNameリクエストパラメータの値を持つ1要素の配列"
         examples:
           - Users
       - ref: aws.dynamodb.consumed_capacity

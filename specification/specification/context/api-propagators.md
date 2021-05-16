@@ -652,11 +652,17 @@ Required arguments:
 <!--
 - A `Context`.
 - The carrier that holds propagation fields.
+
+If the `TextMapPropagator`'s `Extract` implementation accepts the optional `Getter` argument, the following arguments are REQUIRED, otherwise they are OPTIONAL:
+
 - The instance of `Getter` invoked for each propagation key to get.
 -->
 
 - `Context`
 - 伝播フィールドを保持するキャリア
+
+`TextMapPropagator`の`Extract`実装がオプションの`Getter`引数を受け入れる場合、以下の引数は必須(REQUIRED)であり、そうでない場合はオプション(OPTIONAL)です。
+
 - 取得する伝搬キーごとに呼び出される`Getter`のインスタンス
 
 <!--
@@ -674,11 +680,17 @@ Required arguments:
 <!--
 - A `Context`.
 - The carrier that holds propagation fields.
+
+If the `TextMapPropagator`'s `Inject` implementation accepts the optional `Setter` argument, the following arguments are REQUIRED, otherwise they are OPTIONAL:
+
 - The `Setter` to set a propagation key/value pair. Propagators MAY invoke it multiple times in order to set multiple pairs.
 -->
 
 - `Context`
 - 伝播フィールドを保持するキャリア
+
+`TextMapPropagator`の`Inject`実装がオプションの`Setter`引数を受け入れる場合、以下の引数は必須(REQUIRED)であり、そうでない場合はオプション(OPTIONAL)です。
+
 - プロパゲーションのキーと値のペアを設定するための `Setter`。Propagatorは複数のペアを設定するために、複数回起動してもかまいません(MAY)。
 
 <!--
@@ -895,3 +907,41 @@ B3を注入する際、Propagatorは:
 * デフォルトの注入フォーマットをB3マルチヘッダーに変更するための設定を提供しなければなりません(MUST)。
 * OpenTelemetry は同じ ID をリクエストの両側で再利用することをサポートしていないため、`X-B3-ParentSpanId` を伝播してはなりません(MUST NOT)
 
+<!--
+#### Fields
+-->
+
+#### フィールド
+
+<!--
+Fields MUST return the header names that correspond to the configured format,
+i.e., the headers used for the inject operation.
+-->
+
+フィールドは、設定されたフォーマットに対応するヘッダー名、すなわち注入操作に使用されるヘッダーを返さなければなりません(MUST)。
+
+<!--
+#### Configuration
+-->
+
+#### 設定
+
+<!--
+| Option    | Extract Order | Inject Format | Specification     |
+|-----------|---------------|---------------| ------------------|
+| B3 Single | Single, Multi | Single        | [Link][b3-single] |
+| B3 Multi  | Single, Multi | Multi         | [Link][b3-multi]  |
+-->
+
+| Option    | Extract Order | Inject フォーマット | 仕様     |
+|-----------|---------------|---------------| ------------------|
+| B3 Single | Single, Multi | Single        | [Link][b3-single] |
+| B3 Multi  | Single, Multi | Multi         | [Link][b3-multi]  |
+
+<!--
+[b3-single]: https://github.com/openzipkin/b3-propagation#single-header
+[b3-multi]: https://github.com/openzipkin/b3-propagation#multiple-headers
+-->
+
+[b3-single]: https://github.com/openzipkin/b3-propagation#single-header
+[b3-multi]: https://github.com/openzipkin/b3-propagation#multiple-headers
