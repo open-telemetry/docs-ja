@@ -913,7 +913,7 @@ is defined by this API to refer to a non-decreasing sum.
 Non-increasing sums are not considered a feature in the Metric API.
 -->
 
-単モノトニックはInstrumentsは、一般的に、レートとしてモニターされることを意図した和に関する情報を取得するために使用されます。Monotonic プロパティは、この API で定義されており、減少しない和を指します。増加しない和は、Metric APIでは機能とみなされません。
+単モノトニック Instrumentsは、一般的に、レートとしてモニターされることを意図した和に関する情報を取得するために使用されます。Monotonic プロパティは、この API で定義されており、減少しない和を指します。増加しない和は、Metric APIでは機能とみなされません。
 
 <!--
 ### Function names

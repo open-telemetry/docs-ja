@@ -293,7 +293,7 @@ execution units (e.g. threads, coroutines), and afterwards have its
 [iterate over its baggage values](#get-baggage-items).
 -->
 
-これらの要件の必要性を示す例として、OpenTracingの`Span`が2つの異なる実行ユニット(例：スレッドやコルーチン)から[Baggage Itemの設定](#set-baggage-item)操作を呼び出し、その後、[Context](#get-context)を取得して[Baggage values](#get-baggage-items)を反復処理することが挙げられます。
+これらの要件の必要性を示す例として、OpenTracingの`Span`が2つの異なる実行ユニット(例:スレッドやコルーチン)から[Baggage Itemの設定](#set-baggage-item)操作を呼び出し、その後、[Context](#get-context)を取得して[Baggage values](#get-baggage-items)を反復処理することが挙げられます。
 
 <!--
 ```java
