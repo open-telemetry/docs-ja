@@ -130,7 +130,7 @@ Concerns can access their local state in the current execution state
 represented by a `Context`.
 -->
 
-横断的な関心事は、`Context`で表される現在の実行状態に保存さている、自分のローカルな状態にアクセスすることができます。
+横断的な関心事は、`Context`で表される現在の実行状態に保存されている、自分のローカルな状態にアクセスすることができます。
 
 <!--
 The API MUST accept the following parameters:
