@@ -72,7 +72,7 @@
     * [End](#end)
     * [例外の記録](#例外の記録)
   * [Span lifetime](#span-lifetime)
-  * [Wrapping a SpanContext in a Span](#wrapping-a-spancontext-in-a-span)
+  * [SpanContextをSpanでラップする](#SpanContextをSpanでラップする)
 * [SpanKind](#spankind)
 * [並行性](#並行性)
 * [含まれるPropagator](#含まれるPropagator)

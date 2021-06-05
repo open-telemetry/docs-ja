@@ -100,8 +100,8 @@ For example, the value `12000` indicates 12000 milliseconds, i.e., 12 seconds.
 | OTEL_RESOURCE_ATTRIBUTES | リソースの属性として使用されるキーバリューペア |                                   | 詳細は[リソースSDK](./resource/sdk.md#specifying-resource-information-via-an-environment-variable)参照 |
 | OTEL_LOG_LEVEL           | SDKロガーが使用するログレベル                 | "info"                            |                                     |
 | OTEL_PROPAGATORS         | コンマで区切られたリストとして使用されるPropagetor  | "tracecontext,baggage"            | `Propagator`を一度だけ登録するためには、値を重複排除しなければなりません(MUST) |
-| OTEL_TRACES_SAMPLER       | トレースに使用するサンプラー                | "parentbased_always_on"                       | [サンプリング](./trace/sdk.md#sampling)参照 |
-| OTEL_TRACES_SAMPLER_ARG   | サンプラー引数として使用する文字列値   |                                   | 指定された値は、OTEL_TRACES_SAMPLERが設定されている場合にのみ使用されます。サンプラータイプごとに、期待される入力があればそれを定義します。無効または認識できない入力はログに記録されなければならず(MUST)、それ以外は無視されなければなりません(MUST)、つまり、SDKはOTEL_TRACES_SAMPLER_ARGが設定されていないかのように動作しなければなりません(MUST)。|
+| OTEL_TRACES_SAMPLER       | トレースに使用するSampler                | "parentbased_always_on"                       | [サンプリング](./trace/sdk.md#sampling)参照 |
+| OTEL_TRACES_SAMPLER_ARG   | Sampler引数として使用する文字列値   |                                   | 指定された値は、OTEL_TRACES_SAMPLERが設定されている場合にのみ使用されます。Samplerタイプごとに、期待される入力があればそれを定義します。無効または認識できない入力はログに記録されなければならず(MUST)、それ以外は無視されなければなりません(MUST)、つまり、SDKはOTEL_TRACES_SAMPLER_ARGが設定されていないかのように動作しなければなりません(MUST)。|
 
 <!--
 Known values for OTEL_PROPAGATORS are:
@@ -159,7 +159,7 @@ Depending on the value of `OTEL_TRACES_SAMPLER`, `OTEL_TRACES_SAMPLER_ARG` may b
 - For `traceidratio` and `parentbased_traceidratio` samplers: Sampling probability, a number in the [0..1] range, e.g. "0.25". Default is 1.0 if unset.
 -->
 
-- `traceidratio` と `parentbased_traceidratio` のサンプラー用: "0.25"のように、[0..1]の範囲の数値です。設定されていない場合のデフォルトは1.0です。
+- `traceidratio` と `parentbased_traceidratio` のSampler用: "0.25"のように、[0..1]の範囲の数値です。設定されていない場合のデフォルトは1.0です。
 
 <!--
 ## Batch Span Processor
