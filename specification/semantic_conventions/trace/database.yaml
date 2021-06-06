@@ -181,7 +181,7 @@ groups:
           type: string
           required:
             conditional: >
-              該当する場合は必須
+              該当する場合で、Metricsの設定で明示的に無効化されていない場合は必須
           brief: >
             実行されているデータベース文。
           note: この値は、機密情報を除外するためにサニタイズされている場合があります。
@@ -257,28 +257,28 @@ groups:
             クエリの一貫性レベル。[CQL](https://docs.datastax.com/en/cassandra-oss/3.0/cassandra/dml/dmlConfigConsistency.html)の整合性値に基づいています。
           type:
             members:
-              - id: ALL
-                value: 'ALL'
-              - id: EACH_QUORUM
-                value: 'EACH_QUORUM'
-              - id: QUORUM
-                value: 'QUORUM'
-              - id: LOCAL_QUORUM
-                value: 'LOCAL_QUORUM'
-              - id: ONE
-                value: 'ONE'
-              - id: TWO
-                value: 'TWO'
-              - id: THREE
-                value: 'THREE'
-              - id: LOCAL_ONE
-                value: 'LOCAL_ONE'
-              - id: ANY
-                value: 'ANY'
-              - id: SERIAL
-                value: 'SERIAL'
-              - id: LOCAL_SERIAL
-                value: 'LOCAL_SERIAL'
+              - id: all
+                value: 'all'
+              - id: each_quorum
+                value: 'each_quorum'
+              - id: quorum
+                value: 'quorum'
+              - id: local_quorum
+                value: 'local_quorum'
+              - id: one
+                value: 'one'
+              - id: two
+                value: 'two'
+              - id: three
+                value: 'three'
+              - id: local_one
+                value: 'local_one'
+              - id: any
+                value: 'any'
+              - id: serial
+                value: 'serial'
+              - id: local_serial
+                value: 'local_serial'
         - id: table
           type: string
           tag: call-level-tech-specific-cassandra

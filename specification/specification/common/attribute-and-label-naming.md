@@ -151,6 +151,36 @@ Names SHOULD follow these rules:
 - セマンティック規約では、名前を印刷可能な基本ラテン文字(より正確には、[U+0021 .. U+007E](https://en.wikipedia.org/wiki/Basic_Latin_(Unicode_block)#Table_of_characters)のUnicodeコードポイントのサブセット)に制限しなければなりません(MUST)。さらに、名前を以下のUnicodeコードポイントに限定することを推奨します。ラテン・アルファベット、数字、アンダースコア、ドット(名前空間の区切り文字として)。
 
 <!--
+## otel.* Namespace
+-->
+
+## otel.* 名前空間
+
+<!--
+Attribute and label names that start with `otel.` are reserved to be defined by
+OpenTelemetry specification. These are typically used to express OpenTelemetry
+concepts in formats that don't have a corresponding concept.
+-->
+
+`otel.`で始まる属性名やラベル名は、OpenTelemetryの仕様で定義されるために予約されています。これらは通常、対応する概念がないフォーマットでOpenTelemetryの概念を表現するために使われます。
+
+<!--
+For example, the `otel.library.name` attribute is used to record the
+instrumentation library name, which is an OpenTelemetry concept that is natively
+represented in OTLP, but does not have an equivalent in other telemetry formats
+and protocols.
+-->
+
+例えば、`otel.library.name`属性は、計装ライブラリ名を記録するために使用されます。これは、OTLPでネイティブに表現されるOpenTelemetryの概念ですが、他のテレメトリフォーマットやプロトコルでは同等のものがありません。
+
+<!--
+Any additions to the `otel.*` namespace MUST be approved as part of
+OpenTelemetry specification.
+-->
+
+名前空間に`otel.*`を追加する場合は、OpenTelemetryの仕様の一部として承認されなければなりません(MUST)。
+
+<!--
 ## Recommendations for Application Developers
 -->
 
