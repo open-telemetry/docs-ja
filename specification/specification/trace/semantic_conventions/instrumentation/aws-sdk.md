@@ -18,9 +18,9 @@ with the naming guidelines for RPC client spans.
 <!-- semconv aws -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| [`rpc.method`](../rpc.md) | string | The name of the operation corresponding to the request, as returned by the AWS SDK | `GetItem`; `PutItem` | No |
-| [`rpc.service`](../rpc.md) | string | The name of the service to which a request is made, as returned by the AWS SDK. | `DynamoDB`; `S3` | No |
-| [`rpc.system`](../rpc.md) | string | The value `aws-api`. | `aws-api` | Yes |
+| [`rpc.method`](../rpc.md) | string | AWS SDKから返された、リクエストに対応するオペレーションの名前 | `GetItem`; `PutItem` | No |
+| [`rpc.service`](../rpc.md) | string | AWS SDKから返される、リクエスト先のサービス名 | `DynamoDB`; `S3` | No |
+| [`rpc.system`](../rpc.md) | string | `aws-api` の値 | `aws-api` | Yes |
 <!-- endsemconv -->
 
 ## DynamoDB
@@ -32,7 +32,7 @@ These attributes are filled in for all DynamoDB request types.
 <!-- semconv dynamodb.all -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| [`db.system`](../database.md) | string | The value `dynamodb`. | `dynamodb` | Yes |
+| [`db.system`](../database.md) | string | `dynamodb`の値 | `dynamodb` | Yes |
 <!-- endsemconv -->
 
 ### DynamoDB.BatchGetItem
@@ -40,8 +40,8 @@ These attributes are filled in for all DynamoDB request types.
 <!-- semconv dynamodb.batchgetitem -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `aws.dynamodb.consumed_capacity` | string[] | The JSON-serialized value of each item in the `ConsumedCapacity` response field. | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
-| `aws.dynamodb.table_names` | string[] | The keys in the `RequestItems` object field. | `[Users, Cats]` | No |
+| `aws.dynamodb.consumed_capacity` | string[] | `ConsumedCapacity`レスポンスフィールドの各項目をJSONでシリアライズした値 | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
+| `aws.dynamodb.table_names` | string[] | RequestItems` オブジェクトフィールドのキーです。 | `[Users, Cats]` | No |
 <!-- endsemconv -->
 
 ### DynamoDB.BatchWriteItem
@@ -49,9 +49,9 @@ These attributes are filled in for all DynamoDB request types.
 <!-- semconv dynamodb.batchwriteitem -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `aws.dynamodb.consumed_capacity` | string[] | The JSON-serialized value of each item in the `ConsumedCapacity` response field. | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
-| `aws.dynamodb.item_collection_metrics` | string | The JSON-serialized value of the `ItemCollectionMetrics` response field. | `{ "string" : [ { "ItemCollectionKey": { "string" : { "B": blob, "BOOL": boolean, "BS": [ blob ], "L": [ "AttributeValue" ], "M": { "string" : "AttributeValue" }, "N": "string", "NS": [ "string" ], "NULL": boolean, "S": "string", "SS": [ "string" ] } }, "SizeEstimateRangeGB": [ number ] } ] }` | No |
-| `aws.dynamodb.table_names` | string[] | The keys in the `RequestItems` object field. | `[Users, Cats]` | No |
+| `aws.dynamodb.consumed_capacity` | string[] | `ConsumedCapacity`レスポンスフィールドの各項目をJSONでシリアライズした値 | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
+| `aws.dynamodb.item_collection_metrics` | string | `ItemCollectionMetrics` レスポンスフィールドの JSON 形式の値 | `{ "string" : [ { "ItemCollectionKey": { "string" : { "B": blob, "BOOL": boolean, "BS": [ blob ], "L": [ "AttributeValue" ], "M": { "string" : "AttributeValue" }, "N": "string", "NS": [ "string" ], "NULL": boolean, "S": "string", "SS": [ "string" ] } }, "SizeEstimateRangeGB": [ number ] } ] }` | No |
+| `aws.dynamodb.table_names` | string[] | RequestItems` オブジェクトフィールドのキーです。 | `[Users, Cats]` | No |
 <!-- endsemconv -->
 
 ### DynamoDB.CreateTable
@@ -59,13 +59,13 @@ These attributes are filled in for all DynamoDB request types.
 <!-- semconv dynamodb.createtable -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `aws.dynamodb.global_secondary_indexes` | string[] | The JSON-serialized value of each item of the `GlobalSecondaryIndexes` request field | `[{ "IndexName": "string", "KeySchema": [ { "AttributeName": "string", "KeyType": "string" } ], "Projection": { "NonKeyAttributes": [ "string" ], "ProjectionType": "string" }, "ProvisionedThroughput": { "ReadCapacityUnits": number, "WriteCapacityUnits": number } }]` | No |
-| `aws.dynamodb.local_secondary_indexes` | string[] | The JSON-serialized value of each item of the `LocalSecondaryIndexes` request field. | `[{ "IndexArn": "string", "IndexName": "string", "IndexSizeBytes": number, "ItemCount": number, "KeySchema": [ { "AttributeName": "string", "KeyType": "string" } ], "Projection": { "NonKeyAttributes": [ "string" ], "ProjectionType": "string" } }]` | No |
-| `aws.dynamodb.consumed_capacity` | string[] | The JSON-serialized value of each item in the `ConsumedCapacity` response field. | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
-| `aws.dynamodb.item_collection_metrics` | string | The JSON-serialized value of the `ItemCollectionMetrics` response field. | `{ "string" : [ { "ItemCollectionKey": { "string" : { "B": blob, "BOOL": boolean, "BS": [ blob ], "L": [ "AttributeValue" ], "M": { "string" : "AttributeValue" }, "N": "string", "NS": [ "string" ], "NULL": boolean, "S": "string", "SS": [ "string" ] } }, "SizeEstimateRangeGB": [ number ] } ] }` | No |
-| `aws.dynamodb.provisioned_read_capacity` | double | The value of the `ProvisionedThroughput.ReadCapacityUnits` request parameter. | `1.0`; `2.0` | No |
-| `aws.dynamodb.provisioned_write_capacity` | double | The value of the `ProvisionedThroughput.WriteCapacityUnits` request parameter. | `1.0`; `2.0` | No |
-| `aws.dynamodb.table_names` | string[] | A single-element array with the value of the TableName request parameter. | `[Users]` | No |
+| `aws.dynamodb.global_secondary_indexes` | string[] | リクエストフィールド `GlobalSecondaryIndexes`の各項目のJSON形式の値 | `[{ "IndexName": "string", "KeySchema": [ { "AttributeName": "string", "KeyType": "string" } ], "Projection": { "NonKeyAttributes": [ "string" ], "ProjectionType": "string" }, "ProvisionedThroughput": { "ReadCapacityUnits": number, "WriteCapacityUnits": number } }]` | No |
+| `aws.dynamodb.local_secondary_indexes` | string[] | `LocalSecondaryIndexes`リクエストフィールドの各項目のJSON形式の値 | `[{ "IndexArn": "string", "IndexName": "string", "IndexSizeBytes": number, "ItemCount": number, "KeySchema": [ { "AttributeName": "string", "KeyType": "string" } ], "Projection": { "NonKeyAttributes": [ "string" ], "ProjectionType": "string" } }]` | No |
+| `aws.dynamodb.consumed_capacity` | string[] | `ConsumedCapacity`レスポンスフィールドの各項目をJSONでシリアライズした値 | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
+| `aws.dynamodb.item_collection_metrics` | string | `ItemCollectionMetrics` レスポンスフィールドの JSON 形式の値 | `{ "string" : [ { "ItemCollectionKey": { "string" : { "B": blob, "BOOL": boolean, "BS": [ blob ], "L": [ "AttributeValue" ], "M": { "string" : "AttributeValue" }, "N": "string", "NS": [ "string" ], "NULL": boolean, "S": "string", "SS": [ "string" ] } }, "SizeEstimateRangeGB": [ number ] } ] }` | No |
+| `aws.dynamodb.provisioned_read_capacity` | double | `ProvisionedThroughput.ReadCapacityUnits`リクエストパラメーターの値 | `1.0`; `2.0` | No |
+| `aws.dynamodb.provisioned_write_capacity` | double | `ProvisionedThroughput.WriteCapacityUnits`リクエストパラメーターの値 | `1.0`; `2.0` | No |
+| `aws.dynamodb.table_names` | string[] | TableNameリクエストパラメータの値を持つ1要素の配列 | `[Users]` | No |
 <!-- endsemconv -->
 
 ### DynamoDB.DeleteItem
@@ -73,9 +73,9 @@ These attributes are filled in for all DynamoDB request types.
 <!-- semconv dynamodb.deleteitem -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `aws.dynamodb.consumed_capacity` | string[] | The JSON-serialized value of each item in the `ConsumedCapacity` response field. | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
-| `aws.dynamodb.item_collection_metrics` | string | The JSON-serialized value of the `ItemCollectionMetrics` response field. | `{ "string" : [ { "ItemCollectionKey": { "string" : { "B": blob, "BOOL": boolean, "BS": [ blob ], "L": [ "AttributeValue" ], "M": { "string" : "AttributeValue" }, "N": "string", "NS": [ "string" ], "NULL": boolean, "S": "string", "SS": [ "string" ] } }, "SizeEstimateRangeGB": [ number ] } ] }` | No |
-| `aws.dynamodb.table_names` | string[] | A single-element array with the value of the TableName request parameter. | `[Users]` | No |
+| `aws.dynamodb.consumed_capacity` | string[] | `ConsumedCapacity`レスポンスフィールドの各項目をJSONでシリアライズした値 | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
+| `aws.dynamodb.item_collection_metrics` | string | `ItemCollectionMetrics` レスポンスフィールドの JSON 形式の値 | `{ "string" : [ { "ItemCollectionKey": { "string" : { "B": blob, "BOOL": boolean, "BS": [ blob ], "L": [ "AttributeValue" ], "M": { "string" : "AttributeValue" }, "N": "string", "NS": [ "string" ], "NULL": boolean, "S": "string", "SS": [ "string" ] } }, "SizeEstimateRangeGB": [ number ] } ] }` | No |
+| `aws.dynamodb.table_names` | string[] | TableNameリクエストパラメータの値を持つ1要素の配列 | `[Users]` | No |
 <!-- endsemconv -->
 
 ### DynamoDB.DeleteTable
@@ -83,7 +83,7 @@ These attributes are filled in for all DynamoDB request types.
 <!-- semconv dynamodb.deletetable -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `aws.dynamodb.table_names` | string[] | A single-element array with the value of the TableName request parameter. | `[Users]` | No |
+| `aws.dynamodb.table_names` | string[] | TableNameリクエストパラメータの値を持つ1要素の配列 | `[Users]` | No |
 <!-- endsemconv -->
 
 ### DynamoDB.DescribeTable
@@ -91,7 +91,7 @@ These attributes are filled in for all DynamoDB request types.
 <!-- semconv dynamodb.describetable -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `aws.dynamodb.table_names` | string[] | A single-element array with the value of the TableName request parameter. | `[Users]` | No |
+| `aws.dynamodb.table_names` | string[] | TableNameリクエストパラメータの値を持つ1要素の配列 | `[Users]` | No |
 <!-- endsemconv -->
 
 ### DynamoDB.GetItem
@@ -99,10 +99,10 @@ These attributes are filled in for all DynamoDB request types.
 <!-- semconv dynamodb.getitem -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `aws.dynamodb.consistent_read` | boolean | The value of the `ConsistentRead` request parameter. |  | No |
-| `aws.dynamodb.consumed_capacity` | string[] | The JSON-serialized value of each item in the `ConsumedCapacity` response field. | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
-| `aws.dynamodb.projection` | string | The value of the `ProjectionExpression` request parameter. | `Title`; `Title, Price, Color`; `Title, Description, RelatedItems, ProductReviews` | No |
-| `aws.dynamodb.table_names` | string[] | A single-element array with the value of the TableName request parameter. | `[Users]` | No |
+| `aws.dynamodb.consistent_read` | boolean | `ConsistentRead` リクエストパラメーターの値 |  | No |
+| `aws.dynamodb.consumed_capacity` | string[] | `ConsumedCapacity`レスポンスフィールドの各項目をJSONでシリアライズした値 | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
+| `aws.dynamodb.projection` | string | `ProjectionExpression` リクエストパラメータの値 | `Title`; `Title, Price, Color`; `Title, Description, RelatedItems, ProductReviews` | No |
+| `aws.dynamodb.table_names` | string[] | TableNameリクエストパラメータの値を持つ1要素の配列 | `[Users]` | No |
 <!-- endsemconv -->
 
 ### DynamoDB.ListTables
@@ -110,9 +110,9 @@ These attributes are filled in for all DynamoDB request types.
 <!-- semconv dynamodb.listtables -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `aws.dynamodb.exclusive_start_table` | string | The value of the `ExclusiveStartTableName` request parameter. | `Users`; `CatsTable` | No |
-| `aws.dynamodb.table_count` | int | The the number of items in the `TableNames` response parameter. | `20` | No |
-| `aws.dynamodb.limit` | int | The value of the `Limit` request parameter. | `10` | No |
+| `aws.dynamodb.exclusive_start_table` | string | `ExclusiveStartTableName`のリクエストパラメータの値 | `Users`; `CatsTable` | No |
+| `aws.dynamodb.table_count` | int | `TableNames` レスポンスパラメーターのアイテム数 | `20` | No |
+| `aws.dynamodb.limit` | int | `Limit` リクエストパラメータの値 | `10` | No |
 <!-- endsemconv -->
 
 ### DynamoDB.PutItem
@@ -120,9 +120,9 @@ These attributes are filled in for all DynamoDB request types.
 <!-- semconv dynamodb.putitem -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `aws.dynamodb.consumed_capacity` | string[] | The JSON-serialized value of each item in the `ConsumedCapacity` response field. | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
-| `aws.dynamodb.item_collection_metrics` | string | The JSON-serialized value of the `ItemCollectionMetrics` response field. | `{ "string" : [ { "ItemCollectionKey": { "string" : { "B": blob, "BOOL": boolean, "BS": [ blob ], "L": [ "AttributeValue" ], "M": { "string" : "AttributeValue" }, "N": "string", "NS": [ "string" ], "NULL": boolean, "S": "string", "SS": [ "string" ] } }, "SizeEstimateRangeGB": [ number ] } ] }` | No |
-| `aws.dynamodb.table_names` | string[] | The keys in the `RequestItems` object field. | `[Users, Cats]` | No |
+| `aws.dynamodb.consumed_capacity` | string[] | `ConsumedCapacity`レスポンスフィールドの各項目をJSONでシリアライズした値 | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
+| `aws.dynamodb.item_collection_metrics` | string | `ItemCollectionMetrics` レスポンスフィールドの JSON 形式の値 | `{ "string" : [ { "ItemCollectionKey": { "string" : { "B": blob, "BOOL": boolean, "BS": [ blob ], "L": [ "AttributeValue" ], "M": { "string" : "AttributeValue" }, "N": "string", "NS": [ "string" ], "NULL": boolean, "S": "string", "SS": [ "string" ] } }, "SizeEstimateRangeGB": [ number ] } ] }` | No |
+| `aws.dynamodb.table_names` | string[] | RequestItems` オブジェクトフィールドのキーです。 | `[Users, Cats]` | No |
 <!-- endsemconv -->
 
 ### DynamoDB.Query
@@ -130,15 +130,15 @@ These attributes are filled in for all DynamoDB request types.
 <!-- semconv dynamodb.query -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `aws.dynamodb.scan_forward` | boolean | The value of the `ScanIndexForward` request parameter. |  | No |
-| `aws.dynamodb.attributes_to_get` | string[] | The value of the `AttributesToGet` request parameter. | `[lives, id]` | No |
-| `aws.dynamodb.consistent_read` | boolean | The value of the `ConsistentRead` request parameter. |  | No |
-| `aws.dynamodb.consumed_capacity` | string[] | The JSON-serialized value of each item in the `ConsumedCapacity` response field. | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
-| `aws.dynamodb.index_name` | string | The value of the `IndexName` request parameter. | `name_to_group` | No |
-| `aws.dynamodb.limit` | int | The value of the `Limit` request parameter. | `10` | No |
-| `aws.dynamodb.projection` | string | The value of the `ProjectionExpression` request parameter. | `Title`; `Title, Price, Color`; `Title, Description, RelatedItems, ProductReviews` | No |
-| `aws.dynamodb.select` | string | The value of the `Select` request parameter. | `ALL_ATTRIBUTES`; `COUNT` | No |
-| `aws.dynamodb.table_names` | string[] | A single-element array with the value of the TableName request parameter. | `[Users]` | No |
+| `aws.dynamodb.scan_forward` | boolean | `ScanIndexForward` リクエストパラメーターの値 |  | No |
+| `aws.dynamodb.attributes_to_get` | string[] | `AttributesToGet` リクエストパラメータの値 | `[lives, id]` | No |
+| `aws.dynamodb.consistent_read` | boolean | `ConsistentRead` リクエストパラメーターの値 |  | No |
+| `aws.dynamodb.consumed_capacity` | string[] | `ConsumedCapacity`レスポンスフィールドの各項目をJSONでシリアライズした値 | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
+| `aws.dynamodb.index_name` | string | `IndexName` リクエストパラメータの値 | `name_to_group` | No |
+| `aws.dynamodb.limit` | int | `Limit` リクエストパラメータの値 | `10` | No |
+| `aws.dynamodb.projection` | string | `ProjectionExpression` リクエストパラメータの値 | `Title`; `Title, Price, Color`; `Title, Description, RelatedItems, ProductReviews` | No |
+| `aws.dynamodb.select` | string | `Select` リクエストパラメータの値 | `ALL_ATTRIBUTES`; `COUNT` | No |
+| `aws.dynamodb.table_names` | string[] | TableNameリクエストパラメータの値を持つ1要素の配列 | `[Users]` | No |
 <!-- endsemconv -->
 
 ### DynamoDB.Scan
@@ -146,18 +146,18 @@ These attributes are filled in for all DynamoDB request types.
 <!-- semconv dynamodb.scan -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `aws.dynamodb.segment` | int | The value of the `Segment` request parameter. | `10` | No |
-| `aws.dynamodb.total_segments` | int | The value of the `TotalSegments` request parameter. | `100` | No |
-| `aws.dynamodb.count` | int | The value of the `Count` response parameter. | `10` | No |
-| `aws.dynamodb.scanned_count` | int | The value of the `ScannedCount` response parameter. | `50` | No |
-| `aws.dynamodb.attributes_to_get` | string[] | The value of the `AttributesToGet` request parameter. | `[lives, id]` | No |
-| `aws.dynamodb.consistent_read` | boolean | The value of the `ConsistentRead` request parameter. |  | No |
-| `aws.dynamodb.consumed_capacity` | string[] | The JSON-serialized value of each item in the `ConsumedCapacity` response field. | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
-| `aws.dynamodb.index_name` | string | The value of the `IndexName` request parameter. | `name_to_group` | No |
-| `aws.dynamodb.limit` | int | The value of the `Limit` request parameter. | `10` | No |
-| `aws.dynamodb.projection` | string | The value of the `ProjectionExpression` request parameter. | `Title`; `Title, Price, Color`; `Title, Description, RelatedItems, ProductReviews` | No |
-| `aws.dynamodb.select` | string | The value of the `Select` request parameter. | `ALL_ATTRIBUTES`; `COUNT` | No |
-| `aws.dynamodb.table_names` | string[] | A single-element array with the value of the TableName request parameter. | `[Users]` | No |
+| `aws.dynamodb.segment` | int | `Segment` リクエストパラメータの値 | `10` | No |
+| `aws.dynamodb.total_segments` | int | `TotalSegments` リクエストパラメータの値 | `100` | No |
+| `aws.dynamodb.count` | int | `Count` レスポンスパラメータの値 | `10` | No |
+| `aws.dynamodb.scanned_count` | int | `ScannedCount` レスポンスパラメータの値 | `50` | No |
+| `aws.dynamodb.attributes_to_get` | string[] | `AttributesToGet` リクエストパラメータの値 | `[lives, id]` | No |
+| `aws.dynamodb.consistent_read` | boolean | `ConsistentRead` リクエストパラメーターの値 |  | No |
+| `aws.dynamodb.consumed_capacity` | string[] | `ConsumedCapacity`レスポンスフィールドの各項目をJSONでシリアライズした値 | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
+| `aws.dynamodb.index_name` | string | `IndexName` リクエストパラメータの値 | `name_to_group` | No |
+| `aws.dynamodb.limit` | int | `Limit` リクエストパラメータの値 | `10` | No |
+| `aws.dynamodb.projection` | string | `ProjectionExpression` リクエストパラメータの値 | `Title`; `Title, Price, Color`; `Title, Description, RelatedItems, ProductReviews` | No |
+| `aws.dynamodb.select` | string | `Select` リクエストパラメータの値 | `ALL_ATTRIBUTES`; `COUNT` | No |
+| `aws.dynamodb.table_names` | string[] | TableNameリクエストパラメータの値を持つ1要素の配列 | `[Users]` | No |
 <!-- endsemconv -->
 
 ### DynamoDB.UpdateItem
@@ -165,9 +165,9 @@ These attributes are filled in for all DynamoDB request types.
 <!-- semconv dynamodb.updateitem -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `aws.dynamodb.consumed_capacity` | string[] | The JSON-serialized value of each item in the `ConsumedCapacity` response field. | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
-| `aws.dynamodb.item_collection_metrics` | string | The JSON-serialized value of the `ItemCollectionMetrics` response field. | `{ "string" : [ { "ItemCollectionKey": { "string" : { "B": blob, "BOOL": boolean, "BS": [ blob ], "L": [ "AttributeValue" ], "M": { "string" : "AttributeValue" }, "N": "string", "NS": [ "string" ], "NULL": boolean, "S": "string", "SS": [ "string" ] } }, "SizeEstimateRangeGB": [ number ] } ] }` | No |
-| `aws.dynamodb.table_names` | string[] | A single-element array with the value of the TableName request parameter. | `[Users]` | No |
+| `aws.dynamodb.consumed_capacity` | string[] | `ConsumedCapacity`レスポンスフィールドの各項目をJSONでシリアライズした値 | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
+| `aws.dynamodb.item_collection_metrics` | string | `ItemCollectionMetrics` レスポンスフィールドの JSON 形式の値 | `{ "string" : [ { "ItemCollectionKey": { "string" : { "B": blob, "BOOL": boolean, "BS": [ blob ], "L": [ "AttributeValue" ], "M": { "string" : "AttributeValue" }, "N": "string", "NS": [ "string" ], "NULL": boolean, "S": "string", "SS": [ "string" ] } }, "SizeEstimateRangeGB": [ number ] } ] }` | No |
+| `aws.dynamodb.table_names` | string[] | TableNameリクエストパラメータの値を持つ1要素の配列 | `[Users]` | No |
 <!-- endsemconv -->
 
 ### DynamoDB.UpdateTable
@@ -175,10 +175,10 @@ These attributes are filled in for all DynamoDB request types.
 <!-- semconv dynamodb.updatetable -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `aws.dynamodb.attribute_definitions` | string[] | The JSON-serialized value of each item in the `AttributeDefinitions` request field. | `[{ "AttributeName": "string", "AttributeType": "string" }]` | No |
-| `aws.dynamodb.global_secondary_index_updates` | string[] | The JSON-serialized value of each item in the the `GlobalSecondaryIndexUpdates` request field. | `[{ "Create": { "IndexName": "string", "KeySchema": [ { "AttributeName": "string", "KeyType": "string" } ], "Projection": { "NonKeyAttributes": [ "string" ], "ProjectionType": "string" }, "ProvisionedThroughput": { "ReadCapacityUnits": number, "WriteCapacityUnits": number } }]` | No |
-| `aws.dynamodb.consumed_capacity` | string[] | The JSON-serialized value of each item in the `ConsumedCapacity` response field. | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
-| `aws.dynamodb.provisioned_read_capacity` | double | The value of the `ProvisionedThroughput.ReadCapacityUnits` request parameter. | `1.0`; `2.0` | No |
-| `aws.dynamodb.provisioned_write_capacity` | double | The value of the `ProvisionedThroughput.WriteCapacityUnits` request parameter. | `1.0`; `2.0` | No |
-| `aws.dynamodb.table_names` | string[] | A single-element array with the value of the TableName request parameter. | `[Users]` | No |
+| `aws.dynamodb.attribute_definitions` | string[] | `AttributeDefinitions`のリクエストフィールドの各項目のJSON形式の値 | `[{ "AttributeName": "string", "AttributeType": "string" }]` | No |
+| `aws.dynamodb.global_secondary_index_updates` | string[] | `GlobalSecondaryIndexUpdates`リクエストフィールドの各項目のJSON形式の値 | `[{ "Create": { "IndexName": "string", "KeySchema": [ { "AttributeName": "string", "KeyType": "string" } ], "Projection": { "NonKeyAttributes": [ "string" ], "ProjectionType": "string" }, "ProvisionedThroughput": { "ReadCapacityUnits": number, "WriteCapacityUnits": number } }]` | No |
+| `aws.dynamodb.consumed_capacity` | string[] | `ConsumedCapacity`レスポンスフィールドの各項目をJSONでシリアライズした値 | `[{ "CapacityUnits": number, "GlobalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "LocalSecondaryIndexes": { "string" : { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number } }, "ReadCapacityUnits": number, "Table": { "CapacityUnits": number, "ReadCapacityUnits": number, "WriteCapacityUnits": number }, "TableName": "string", "WriteCapacityUnits": number }]` | No |
+| `aws.dynamodb.provisioned_read_capacity` | double | `ProvisionedThroughput.ReadCapacityUnits`リクエストパラメーターの値 | `1.0`; `2.0` | No |
+| `aws.dynamodb.provisioned_write_capacity` | double | `ProvisionedThroughput.WriteCapacityUnits`リクエストパラメーターの値 | `1.0`; `2.0` | No |
+| `aws.dynamodb.table_names` | string[] | TableNameリクエストパラメータの値を持つ1要素の配列 | `[Users]` | No |
 <!-- endsemconv -->

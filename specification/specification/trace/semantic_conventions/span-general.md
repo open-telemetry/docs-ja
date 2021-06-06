@@ -34,7 +34,7 @@ the `net.peer.*` properties of a client are equal to the `net.host.*` properties
 <!-- semconv network -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `net.transport` | string | Transport protocol used. 下記注釈参照。 | `IP.TCP` | No |
+| `net.transport` | string | Transport protocol used. 下記注釈参照。 | `ip_tcp` | No |
 | `net.peer.ip` | string | 相手のリモートアドレス(IPv4ではドット10進数、IPv6では[RFC5952](https://tools.ietf.org/html/rfc5952) | `127.0.0.1` | No |
 | `net.peer.port` | int | リモートのポート番号 | `80`; `8080`; `443` | No |
 | `net.peer.name` | string | リモートのホスト名あるいは類似の文字列。下記注釈参照 | `example.com` | No |
@@ -46,10 +46,10 @@ the `net.peer.*` properties of a client are equal to the `net.host.*` properties
 
 | Value  | Description |
 |---|---|
-| `IP.TCP` | IP.TCP |
-| `IP.UDP` | IP.UDP |
-| `IP` | 他の IP-based プロトコル |
-| `Unix` | Unix Domain socket. 下記参照 |
+| `ip_tcp` | ip_tcp |
+| `ip_udp` | ip_udp |
+| `ip` | 他の IP-based プロトコル |
+| `unix` | Unix Domain socket. 下記参照 |
 | `pipe` | Named あるいは anonymous pipe. 下記注釈参照 |
 | `inproc` | In-process communication. [1] |
 | `other` | その他 (non IP-based). |

@@ -46,7 +46,7 @@ Some database systems may allow a connection to switch to a different `db.user`,
 | [`net.peer.ip`](span-general.md) | string | 相手のリモートアドレス(IPv4ではドット10進数、IPv6では[RFC5952](https://tools.ietf.org/html/rfc5952) | `127.0.0.1` | 下記参照 |
 | [`net.peer.name`](span-general.md) | string | リモートのホスト名あるいは類似の文字列。下記注釈参照 | `example.com` | 下記参照 |
 | [`net.peer.port`](span-general.md) | int | リモートのポート番号 | `80`; `8080`; `443` | このDBMSのデフォルトポート以外のポートを使用している場合は必須。 |
-| [`net.transport`](span-general.md) | string | Transport protocol used. 下記注釈参照。 | `IP.TCP` | 一般的に推奨、プロセス中のデータベース(`"inproc"`)には必須。 |
+| [`net.transport`](span-general.md) | string | Transport protocol used. 下記注釈参照。 | `ip_tcp` | 一般的に推奨、プロセス中のデータベース(`"inproc"`)には必須。 |
 
 **Additional attribute requirements:** At least one of the following sets of attributes is required:
 
@@ -142,7 +142,7 @@ Usually only one `db.name` will be used per connection though.
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
 | `db.name` | string | もし[その技術特有の属性](#call-level-attributes-for-specific-technologies)が定義されていない場合、この属性はアクセスされているデータベースの名前を報告するために使用されます。データベースを切り替えるコマンドのために、これは(コマンドが失敗した場合でも)ターゲットデータベースに設定しなければなりません。 [1] | `customers`; `main` | 該当し、他に適切な属性が定義されていない場合は必須 |
-| `db.statement` | string | 実行されているデータベース文。 [2] | `SELECT * FROM wuser_table`; `SET mykey "WuValue"` | 該当する場合は必須 |
+| `db.statement` | string | 実行されているデータベース文。 [2] | `SELECT * FROM wuser_table`; `SET mykey "WuValue"` | 該当する場合で、Metricsの設定で明示的に無効化されていない場合は必須 |
 | `db.operation` | string | 実行する操作の名前。例えば、`findAndModify` のような [MongoDB コマンド名](https://docs.mongodb.com/manual/reference/command/#database-operations) や SQL キーワード。 [3] | `findAndModify`; `HMSET`; `SELECT` | Required, if `db.statement` is not applicable. |
 
 **[1]:** 一部のSQLデータベースでは、使用するデータベース名を「スキーマ名」と呼びます。
@@ -184,7 +184,7 @@ Separated for clarity.
 |---|---|---|---|---|
 | `db.cassandra.keyspace` | string | アクセスするキースペースの名前です。一般的な `db.name` 属性の代わりに使用されます。 | `mykeyspace` | Yes |
 | `db.cassandra.page_size` | int | ページングに使用されるフェッチサイズ、つまり一度に何行を返すかを指定します。 | `5000` | No |
-| `db.cassandra.consistency_level` | string | クエリの一貫性レベル。[CQL](https://docs.datastax.com/en/cassandra-oss/3.0/cassandra/dml/dmlConfigConsistency.html)の整合性値に基づいています。 | `ALL` | No |
+| `db.cassandra.consistency_level` | string | クエリの一貫性レベル。[CQL](https://docs.datastax.com/en/cassandra-oss/3.0/cassandra/dml/dmlConfigConsistency.html)の整合性値に基づいています。 | `all` | No |
 | `db.cassandra.table` | string | 操作の対象となる主テーブルの名前で、(該当する場合)スキーマ名も含まれます。 [1] | `mytable` | Recommended if available. |
 | `db.cassandra.idempotence` | boolean | クエリがべき等であるかどうか。 |  | No |
 | `db.cassandra.speculative_execution_count` | int | クエリが投機的に実行された回数です。クエリが投機的に実行されなかった場合は、設定されないか、または `0` となります。 | `0`; `2` | No |

@@ -83,14 +83,14 @@ as specified in the [Resource SDK specification](../sdk.md#sdk-provided-resource
 <!-- semconv service -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `service.name` | string | サービスの論理名。[1] | `shoppingcart` | Yes |
-| `service.namespace` | string | `service.name`の名前空間。[2] | `Shop` | No |
-| `service.instance.id` | string | サービスインスタンスを表すID文字列。[3] | `627cc493-f310-47de-96bd-71410b7dec09` | No |
-| `service.version` | string | サービスAPIまたは実装のバージョン文字列。| `2.0.0` | No |
+| `service.name` | string | サービスの論理名。 [1] | `shoppingcart` | Yes |
+| `service.namespace` | string | `service.name`の名前空間。 [2] | `Shop` | No |
+| `service.instance.id` | string | サービスインスタンスを表すID文字列。 [3] | `627cc493-f310-47de-96bd-71410b7dec09` | No |
+| `service.version` | string | サービスAPIまたは実装のバージョン文字列。 | `2.0.0` | No |
 
 **[1]:** 水平方向にスケールされたサービスのすべてのインスタンスに対して同じ値を指定しなければなりません(MUST)。値が指定されていない場合、SDKは `unknown_service:` を [`process.executeable.name`](process.md#process) で連結したもの、例えば `unknown_service:bash` などにフォールバックしなければなりません(MUST)。もし `process.executeable.name` が利用できない場合は、`unknown_service` を設定しなければなりません(MUST)。
 
-**[2]:** サービスのグループを区別するのに役立つ意味を持つ文字列値。例えば、サービスのグループを所有するチーム名などです。`service.name` は同じ名前空間内で一意であることが期待されます。`service.namespace` がResourceに指定されていない場合、`service.name` は明示的な名前空間が定義されていないすべてのサービスに対して一意であることが期待されます (つまり、空の/未指定の名前空間は単に有効な名前空間の1つに過ぎません)。長さ0の名前空間文字列は、未指定の名前空間と同じとみなされます。
+**[2]:** サービスのグループを区別するのに役立つ意味を持つ文字列値。例えば、サービスのグループを所有するチーム名などです。 `service.name` は同じ名前空間内で一意であることが期待されます。`service.namespace` がResourceに指定されていない場合、`service.name` は明示的な名前空間が定義されていないすべてのサービスに対して一意であることが期待されます (つまり、空の/未指定の名前空間は単に有効な名前空間の1つに過ぎません)。長さ0の名前空間文字列は、未指定の名前空間と同じとみなされます。
 
 **[3]:** 同じ `service.namespace,service.name` のペアの各インスタンスに対して一意でなければなりません(言い換えれば、`service.namespace,service.name,service.instance.id` の一組はグローバルに一意でなければなりません(MUST)。IDは、同時に存在する同じサービスのインスタンスを区別するのに役立ちます(例えば、水平方向にスケーリングされたサービスのインスタンス)。ID は永続的で、サービスインスタンスの寿命の間は同じであることが望ましいですが、サービスの重要な寿命イベント(サービスの再起動など)の間に ID が変化しても構いません。サービスがこの属性の値として使用できる固有のユニークなIDを持たない場合、ランダムなバージョン1またはバージョン4のRFC 4122 UUIDを生成することが推奨されます(再現可能なUUIDを目指すサービスはバージョン5を使用することもできます。より多くの推奨事項についてはRFC 4122を参照してください)。
 <!-- endsemconv -->
@@ -127,10 +127,10 @@ The identifier SHOULD be stable across different versions of an implementation.
 <!-- semconv telemetry -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `telemetry.sdk.name` | string | 上記で定義したテレメトリSDKの名前。| `opentelemetry` | No |
-| `telemetry.sdk.language` | string | テレメトリSDKの言語。| `cpp` | No |
-| `telemetry.sdk.version` | string | テレメトリSDKのバージョン文字列。| `1.2.3` | No |
-| `telemetry.auto.version` | string | 使用されている場合は、自動インストルメンテーションエージェントのバージョン文字列。| `1.2.3` | No |
+| `telemetry.sdk.name` | string | 上記で定義したテレメトリSDKの名前。 | `opentelemetry` | No |
+| `telemetry.sdk.language` | string | テレメトリSDKの言語。 | `cpp` | No |
+| `telemetry.sdk.version` | string | テレメトリSDKのバージョン文字列。 | `1.2.3` | No |
+| `telemetry.auto.version` | string | 使用されている場合は、自動インストルメンテーションエージェントのバージョン文字列。 | `1.2.3` | No |
 
 `telemetry.sdk.language` MUST be one of the following or, if none of the listed values apply, a custom value:
 
