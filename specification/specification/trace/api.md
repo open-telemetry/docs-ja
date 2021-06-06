@@ -241,7 +241,7 @@ This API MUST accept the following parameters:
   or application.
   In case an invalid name (null or empty string) is specified, a working
   Tracer implementation MUST be returned as a fallback rather than returning
-  null or throwing an exception, its `name` property SHOULD keep the original invalid value,
+  null or throwing an exception, its `name` property SHOULD be set to an **empty** string,
   and a message reporting that the specified value is invalid SHOULD be logged.
   A library, implementing the OpenTelemetry API *may* also ignore this name and
   return a default instance for all calls, if it does not support "named"
@@ -253,7 +253,7 @@ This API MUST accept the following parameters:
 
 * `name` (必須)。この名前は、[計装ライブラリ](../overview.md#instrumentation-libraries)を特定する必要があります(例: `io.opentelemetry.contrib.mongodb`)。アプリケーションやライブラリにOpenTelemetryの計装機能が組み込まれている場合、[計装されるライブラリ](../glossary.md#instrumented-library)と[計装するライブラリ](../glossary.md#instrumentation-library)の両方が同じライブラリを参照してい
 ることがあります。その場合、`name`は、そのライブラリやアプリケーション内のモジュール名やコンポーネント名を表します。無効な名前(NULLまたは空の文字列)が指定された場合、NULLを返したり例外をスロー
-するのではなく、フォールバックとして動作するMeterの実装が返されなければならず(MUST)、その`name`プロパティは元の無効な値を維持すべきで、指定された値が無効であることを報告するメッセージがログに記
+するのではなく、フォールバックとして動作するMeterの実装が返されなければならず(MUST)、その`name`プロパティは**空**文字列にすべき(SHOULD)で、指定された値が無効であることを報告するメッセージがログに記
 録されるべきです(SHOULD)。OpenTelemetry APIを実装しているライブラリは、「名前付き」機能をサポートしていない場合(例:観測性に関係のない実装など)、この名前を無視して、すべての呼び出しに対してデフ
 ォルトのインスタンスを返すことも*できます*。アプリケーションの所有者が、このライブラリで生成されるテレメトリを抑制するようにSDKを構成している場合、MeterProviderはここでno-op Meter(何もしないMeter)を返すこともできます。
 * `バージョン`(任意)。計装ライブラリのバージョンを指定します(例:`1.0.0`)

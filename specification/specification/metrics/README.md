@@ -39,7 +39,7 @@ Table of Contents
 * [Specifications](#specifications)
   * [Metrics API](./api.md)
   * Metrics SDK (not available yet)
-  * Metrics Data Model and Protocol (not available yet)
+  * [Metrics Data Model and Protocol](datamodel.md)
   * [Semantic Conventions](./semantic_conventions/README.md)
 -->
 
@@ -51,7 +51,7 @@ Table of Contents
 * [仕様](#仕様)
   * [Metrics API](./api.md)
   * Metrics SDK (未定義)
-  * Metrics データモデルとプロトコル (未定義)
+  * [Metrics データモデルとプロトコル](datamodel.md)
   * [セマンティック規約](./semantic_conventions/README.md)
 
 </details>
@@ -210,13 +210,13 @@ OpenTelemetryでは、実行時に異なるSDKを設定できるように、[SDK
 <!--
 * [Metrics API](./api.md)
 * Metrics SDK (not available yet)
-* Metrics Data Model and Protocol (not available yet)
+* [Metrics Data Model and Protocol](datamodel.md)
 * [Semantic Conventions](./semantic_conventions/README.md)
 -->
 
 * [Metrics API](./api.md)
 * Metrics SDK (未定義)
-* Metrics データモデルとプロトコル (未定義)
+* [Metrics データモデルとプロトコル](datamodel.md)
 * [セマンティック規約](./semantic_conventions/README.md)
 
 <!--

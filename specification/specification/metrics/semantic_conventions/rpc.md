@@ -66,7 +66,7 @@ or not they should be on the server, client or both.
 | [`net.peer.ip`](../../trace/semantic_conventions/span-general.md) | string | 相手のリモートアドレス(IPv4ではドット10進数、IPv6では[RFC5952](https://tools.ietf.org/html/rfc5952) | `127.0.0.1` | See below |
 | [`net.peer.name`](../../trace/semantic_conventions/span-general.md) | string | リモートのホスト名あるいは類似の文字列。下記注釈参照 | `example.com` | See below |
 | [`net.peer.port`](../../trace/semantic_conventions/span-general.md) | int | リモートのポート番号 | `80`; `8080`; `443` | See below |
-| [`net.transport`](../../trace/semantic_conventions/span-general.md) | string | Transport protocol used. 下記注釈参照。 | `IP.TCP` | See below |
+| [`net.transport`](../../trace/semantic_conventions/span-general.md) | string | Transport protocol used. 下記注釈参照。 | `ip_tcp` | See below |
 
 **Additional attribute requirements:** At least one of the following sets of attributes is required:
 

@@ -245,13 +245,25 @@ See [OpenTelemetry Protocol Exporter Configuration Options](./protocol/exporter.
 
 **Status**: [Stable](document-status.md)
 
-| Name                            | Description                                       | Default                                                                                          |
-| ------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| OTEL_EXPORTER_JAEGER_AGENT_HOST | Jaeger agentが使うホスト名                     | "localhost"                                                                                      |
-| OTEL_EXPORTER_JAEGER_AGENT_PORT | Jaeger agentが使うポート                         | 6832                                                                                             |
-| OTEL_EXPORTER_JAEGER_ENDPOINT   | Jaeger tracesが使うHTTP エンドポイント                   | <!-- markdown-link-check-disable --> "http://localhost:14250"<!-- markdown-link-check-enable --> |
-| OTEL_EXPORTER_JAEGER_USER       | HTTP BASIC認証で使うユーザー名 | -                                                                                                |
-| OTEL_EXPORTER_JAEGER_PASSWORD   | HTTP BASIC認証で使うパスワード | -                                                                                                |
+<!--
+| Name                            | Description                                                      | Default                                                                                          |
+|---------------------------------|------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| OTEL_EXPORTER_JAEGER_AGENT_HOST | Hostname for the Jaeger agent                                    | "localhost"                                                                                      |
+| OTEL_EXPORTER_JAEGER_AGENT_PORT | Port for the Jaeger agent                                        | 6832                                                                                             |
+| OTEL_EXPORTER_JAEGER_ENDPOINT   | HTTP endpoint for Jaeger traces                                  | <!-- markdown-link-check-disable --> "http://localhost:14250"<!-- markdown-link-check-enable --> |
+| OTEL_EXPORTER_JAEGER_TIMEOUT    | Maximum time the Jaeger exporter will wait for each batch export | 10s                                                                                              |
+| OTEL_EXPORTER_JAEGER_USER       | Username to be used for HTTP basic authentication                | -                                                                                                |
+| OTEL_EXPORTER_JAEGER_PASSWORD   | Password to be used for HTTP basic authentication                | -                                                                                                |
+-->
+
+| Name                            | Description                                                      | Default                                                                                          |
+|---------------------------------|------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| OTEL_EXPORTER_JAEGER_AGENT_HOST | Jaeger agentが使うホスト名                                        | "localhost"                                                                                      |
+| OTEL_EXPORTER_JAEGER_AGENT_PORT | Jaeger agentが使うポート                                          | 6832                                                                                             |
+| OTEL_EXPORTER_JAEGER_ENDPOINT   | Jaeger tracesが使うHTTP エンドポイント                            | <!-- markdown-link-check-disable --> "http://localhost:14250"<!-- markdown-link-check-enable --> |
+| OTEL_EXPORTER_JAEGER_TIMEOUT    | Jaegerエクスポーターが各バッチのエクスポートを待つ最大時間         | 10s                                                                                              |
+| OTEL_EXPORTER_JAEGER_USER       | HTTP BASIC認証で使うユーザー名                                   | -                                                                                                |
+| OTEL_EXPORTER_JAEGER_PASSWORD   | HTTP BASIC認証で使うパスワード                                   | -                                                                                                |
 
 
 <!--

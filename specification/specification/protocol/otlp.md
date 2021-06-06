@@ -676,6 +676,15 @@ Protobuf messages, e.g. the `Span`, `Link`, `LogRecord`, etc. messages.
 JSONエンコードされたProtobufペイロードは、ProtobufとJSONの間のマッピングにproto3標準で定義された[JSONマッピング](https://developers.google.com/protocol-buffers/docs/proto3#json)を使用していますが、そのマッピングから1つだけ逸脱している点があります。`trace_id`と`span_id`のバイト配列は、[大文字小文字を区別しない16進エンコード文字列](https://tools.ietf.org/html/rfc4648#section-8)として表され、標準の[JSONマッピング](https://developers.google.com/protocol-buffers/docs/proto3#json)で定義されているようなbase64エンコードはされません。16進エンコーディングは、すべてのOTLP Protobufメッセージ(`Span`, `Link`, `LogRecord` など)の`trace_id`と`span_id`フィールドに使用されます。
 
 <!--
+Note that according to [Protobuf specs](
+https://developers.google.com/protocol-buffers/docs/proto3#json) 64-bit integer
+numbers in JSON-encoded payloads are encoded as decimal strings, and either
+numbers or strings are accepted when decoding.
+-->
+
+[Protobuf specs](https://developers.google.com/protocol-buffers/docs/proto3#json)によると、JSONエンコードされたペイロード内の64ビット整数値は10進数の文字列としてエンコードされ、デコード時には数字か文字列のどちらかが受け入れられることに気をつけてください。
+
+<!--
 #### OTLP/HTTP Response
 -->
 

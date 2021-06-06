@@ -31,7 +31,7 @@ OTLP Exporterを構成するために、以下の構成オプションが利用�
 | Certificate File     | Path to certificate file for TLS credentials of gRPC client. Should only be used for a secure connection. | n/a               | `OTEL_EXPORTER_OTLP_CERTIFICATE` `OTEL_EXPORTER_OTLP_TRACES_CERTIFICATE` `OTEL_EXPORTER_OTLP_METRICS_CERTIFICATE` |
 | Headers              | Key-value pairs to be used as headers associated with gRPC or HTTP requests. See [Specifying headers](./exporter.md#specifying-headers-via-environment-variables) for more details.                   | n/a               | `OTEL_EXPORTER_OTLP_HEADERS` `OTEL_EXPORTER_OTLP_TRACES_HEADERS` `OTEL_EXPORTER_OTLP_METRICS_HEADERS` |
 | Compression          | Compression key for supported compression types. Supported compression: `gzip`| No value              | `OTEL_EXPORTER_OTLP_COMPRESSION` `OTEL_EXPORTER_OTLP_TRACES_COMPRESSION` `OTEL_EXPORTER_OTLP_METRICS_COMPRESSION` |
-| Timeout              | Max waiting time for the backend to process each spans or metrics batch. | 10s               | `OTEL_EXPORTER_OTLP_TIMEOUT` `OTEL_EXPORTER_OTLP_TRACES_TIMEOUT` `OTEL_EXPORTER_OTLP_METRICS_TIMEOUT` |
+| Timeout              | Maximum time the OTLP exporter will wait for each batch export | 10s               | `OTEL_EXPORTER_OTLP_TIMEOUT` `OTEL_EXPORTER_OTLP_TRACES_TIMEOUT` `OTEL_EXPORTER_OTLP_METRICS_TIMEOUT` |
 -->
 
 | Configuration Option | 説明                                                  | Default           | 環境変数名                                                 |
@@ -40,7 +40,7 @@ OTLP Exporterを構成するために、以下の構成オプションが利用�
 | Certificate File     | gRPCクライアントのTLS認証用証明書ファイルへのパス。安全な接続のためにのみ使用してください。| n/a               | `OTEL_EXPORTER_OTLP_CERTIFICATE` `OTEL_EXPORTER_OTLP_TRACES_CERTIFICATE` `OTEL_EXPORTER_OTLP_METRICS_CERTIFICATE` |
 | Headers              | gRPCやHTTPリクエストに関連するヘッダーとして使用されるキーと値のペアです。詳しくは、[Specifying headers](./exporter.md#specifying-headers-via-environment-variables)をご覧ください。        | n/a               | `OTEL_EXPORTER_OTLP_HEADERS` `OTEL_EXPORTER_OTLP_TRACES_HEADERS` `OTEL_EXPORTER_OTLP_METRICS_HEADERS` |
 | Compression          | サポートされている圧縮タイプの圧縮キーです。サポートされている圧縮形式:`gzip`。| No value              | `OTEL_EXPORTER_OTLP_COMPRESSION` `OTEL_EXPORTER_OTLP_TRACES_COMPRESSION` `OTEL_EXPORTER_OTLP_METRICS_COMPRESSION` |
-| Timeout              | バックエンドが各SpanやMetricsのバッチを処理するまでの最大待ち時間。| 10s               | `OTEL_EXPORTER_OTLP_TIMEOUT` `OTEL_EXPORTER_OTLP_TRACES_TIMEOUT` `OTEL_EXPORTER_OTLP_METRICS_TIMEOUT` |
+| Timeout              | OTLPエクスポーターが各バッチのエクスポートで待機する最大時間 | 10s               | `OTEL_EXPORTER_OTLP_TIMEOUT` `OTEL_EXPORTER_OTLP_TRACES_TIMEOUT` `OTEL_EXPORTER_OTLP_METRICS_TIMEOUT` |
 
 <!--
 Supported values for `OTEL_EXPORTER_OTLP_*COMPRESSION` options:
@@ -147,66 +147,16 @@ The `OTEL_EXPORTER_OTLP_HEADERS`, `OTEL_EXPORTER_OTLP_TRACES_HEADERS`, `OTEL_EXP
 ## リトライ
 
 <!--
-[Transient errors](#transient-errors) MUST be handled with a retry strategy. This retry strategy MUST implement an exponential back-off with jitter to avoid overwhelming the destination until the network is restored or the destination has recovered.
+Transient errors MUST be handled with a retry strategy. This retry strategy MUST implement an exponential back-off with jitter to avoid overwhelming the destination until the network is restored or the destination has recovered.
 -->
 
-[一時的なエラー](#一時的なエラー)は、リトライ戦略で処理しなければなりません(MUST)。このリトライ戦略は、ネットワークが復旧するか、送信先が回復するまで、送信先に負担をかけないように、ジッターを含む指数関数的なバックオフを実装しなければなりません(MUST)。
+一時的なエラーは、リトライ戦略で処理しなければなりません(MUST)。このリトライ戦略は、ネットワークが復旧するまで、あるいは送信先が回復するまで、送信先に負担をかけないように、ジッターを含む指数関数的なバックオフを実装しなければなりません(MUST)。
 
 <!--
-## Transient Errors
+For OTLP/HTTP, the errors `408 (Request Timeout)` and `5xx (Server Errors)` are defined as transient, detailed information about erros can be found in the [HTTP failures section](otlp.md#failures). For the OTLP/gRPC, the full list of the gRPC retryable status codes can be found in the [gRPC response section](otlp.md#otlpgrpc-response).
 -->
 
-## 一時的なエラー
-
-<!--
-Transient errors are errors which expect the backend to recover. The following status codes are defined as transient errors:
--->
-
-一時的なエラーとは、バックエンドが回復することが期待されるエラーです。以下のステータスコードが一時的なエラーとして定義されています。
-
-<!--
-| HTTP Status Code | Description |
-| ---------------- | ----------- |
-| 408 | Request Timeout |
-| 5xx | Server Errors |
--->
-
-| HTTP Status Code | 説明 |
-| ---------------- | ----------- |
-| 408 | Request Timeout |
-| 5xx | Server Errors |
-
-<!--
-| gRPC Status Code | Description |
-| ---------------- | ----------- |
-| 1  | Cancelled |
-| 4  | Deadline Exceeded |
-| 7  | Permission Denied |
-| 8  | Resource Exhausted |
-| 10 | Aborted |
-| 10 | Out of Range |
-| 14 | Unavailable |
-| 15 | Data Loss |
-| 16 | Unauthenticated |
--->
-
-| gRPC Status Code | 説明 |
-| ---------------- | ----------- |
-| 1  | Cancelled |
-| 4  | Deadline Exceeded |
-| 7  | Permission Denied |
-| 8  | Resource Exhausted |
-| 10 | Aborted |
-| 10 | Out of Range |
-| 14 | Unavailable |
-| 15 | Data Loss |
-| 16 | Unauthenticated |
-
-<!--
-Additional details on transient errors can be found in [otep-35](https://github.com/open-telemetry/oteps/blob/main/text/0035-opentelemetry-protocol.md#export-response) for gRPC and [otep-99](https://github.com/open-telemetry/oteps/blob/main/text/0099-otlp-http.md#failures) for HTTP
--->
-
-一時的なエラーに関する詳細は、gRPCの[otep-35](https://github.com/open-telemetry/oteps/blob/main/text/0035-opentelemetry-protocol.md#export-response)およびHTTPの[otep-99](https://github.com/open-telemetry/oteps/blob/main/text/0099-otlp-http.md#failures)に記載されています。
+OTLP/HTTPでは，エラー`408 (Request Timeout)`と`5xx (Server Errors)`が一時的なエラーとして定義されています。エラーに関する詳細な情報は，[HTTP failures section](otlp.md#failures)に記載されています。OTLP/gRPCでは，gRPCのリトライ可能なステータスコードの一覧は，[gRPC response section](otlp.md#otlpgrpc-response)に記載されています。
 
 <!--
 [otlphttp-req]: otlp.md#otlphttp-request
