@@ -156,7 +156,7 @@ Transient errors MUST be handled with a retry strategy. This retry strategy MUST
 For OTLP/HTTP, the errors `408 (Request Timeout)` and `5xx (Server Errors)` are defined as transient, detailed information about erros can be found in the [HTTP failures section](otlp.md#failures). For the OTLP/gRPC, the full list of the gRPC retryable status codes can be found in the [gRPC response section](otlp.md#otlpgrpc-response).
 -->
 
-OTLP/HTTPでは，エラー`408 (Request Timeout)`と`5xx (Server Errors)`が一時的なエラーとして定義されています。エラーに関する詳細な情報は，[HTTP failures section](otlp.md#failures)に記載されています。OTLP/gRPCでは，gRPCのリトライ可能なステータスコードの一覧は，[gRPC response section](otlp.md#otlpgrpc-response)に記載されています。
+OTLP/HTTPでは、エラー`408 (Request Timeout)`と`5xx (Server Errors)`が一時的なエラーとして定義されています。エラーに関する詳細な情報は、[HTTP failures section](otlp.md#failures)に記載されています。OTLP/gRPCでは、gRPCのリトライ可能なステータスコードの一覧は、[gRPC response section](otlp.md#otlpgrpc-response)に記載されています。
 
 <!--
 [otlphttp-req]: otlp.md#otlphttp-request

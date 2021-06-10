@@ -12,10 +12,14 @@
 
 <!--
 This document defines the transformation between OpenTelemetry and Jaeger Spans.
-Jaeger accepts spans in two formats:
+The generic transformation [rules specified here](non-otlp.md) also apply. If a
+particular generic transformation rule and the rule in this document contradict
+then the rule in this document MUST be used.
 -->
 
 このドキュメントでは、OpenTelemetryとJaeger Spansの間の変換を定義しています。Jaegerは2つの形式のSpanを受け入れます。
+
+このドキュメントでは、OpenTelemetryとJaeger Spanの間の変換を定義しています。一般的な[ここで指定された変換ルール](non-otlp.md)も適用されます。特定の汎用変換ルールと本文書のルールが矛盾する場合は、本ドキュメントのルールを使用しなければなりません(MUST)。
 
 <!--
 * Thrift `Batch`, defined in [jaeger-idl/.../jaeger.thrift](https://github.com/jaegertracing/jaeger-idl/blob/master/thrift/jaeger.thrift), accepted via UDP or HTTP
@@ -58,11 +62,13 @@ and Jaeger.
 | Span.TraceId             | Span.traceIdLow/High | Span.trace_id | See [IDs](#ids)     |
 | Span.ParentId            | Span.parentSpanId | as SpanReference | See [Parent ID](#parent-id)     |
 | Span.SpanId              | Span.spanId       | Span.span_id     |      |
+| Span.TraceState          | TBD               | TBD              |      |
 | Span.Name                | Span.operationName | Span.operation_name |  |
 | Span.Kind                | Span.tags["span.kind"] | same | See [SpanKind](#spankind) for values mapping |
 | Span.StartTime           | Span.startTime | Span.start_time | See [Unit of time](#unit-of-time) |
 | Span.EndTime             | Span.duration | same | Calculated as EndTime - StartTime. See also [Unit of time](#unit-of-time) |
 | Span.Attributes          | Span.tags | same | See [Attributes](#attributes) for data types for the mapping.            |
+| Span.DroppedAttributesCount| Add to Span.tags | same | See [Dropped Attributes Count](non-otlp.md#dropped-attributes-count) for tag name to use. |
 | Span.Events              | Span.logs | same | See [Events](#events) for the mapping format. |
 | Span.Links               | Span.references | same | See [Links](#links) |
 | Span.Status              | Add to Span.tags | same | See [Status](#status) for tag names to use. |
@@ -73,12 +79,15 @@ and Jaeger.
 | Span.TraceId             | Span.traceIdLow/High | Span.trace_id | [ID](#id) 参照    |
 | Span.ParentId            | Span.parentSpanId | as SpanReference | [Parent ID](#parent-id) 参照    |
 | Span.SpanId              | Span.spanId       | Span.span_id     |      |
+| Span.TraceState          | TBD               | TBD              |      |
 | Span.Name                | Span.operationName | Span.operation_name |  |
 | Span.Kind                | Span.tags["span.kind"] | same | 値の参照については [SpanKind](#spankind) 参照 |
 | Span.StartTime           | Span.startTime | Span.start_time | [時間の単位](#時間の単位) 参照|
 | Span.EndTime             | Span.duration | same | EndTime - StartTimeで計算されます。[時間の単位](#時間の単位) 参照 |
 | Span.Attributes          | Span.tags | same | データ型のマッピングについては [属性(Attribute)](#属性-attribute) 参照            |
+| Span.DroppedAttributesCount| Span.tags に追加 | same | 使用するタグ名は[Dropped Attributes Count](nonotlp.md#dropped-attributes-count)を参照してください |
 | Span.Events              | Span.logs | same | マッピングの形式については [イベント](#イベント) 参照|
+| Span.DroppedEventsCount | Span.tags に追加 | same | 使用するタグ名は[Dropped Events Count](nonotlp.md#dropped-events-count)を参照してください |
 | Span.Links               | Span.references | same | [Links](#links) 参照 |
 | Span.Status              | Add to Span.tags | same | タグ名の使い方は [Status](#status) 参照 |
 
@@ -118,30 +127,6 @@ If no `service.name` is contained in a Span's Resource, that field MUST be popul
 
 重要なことは、Jaegerのバックエンドは、Spanを生成したサービスを識別するために、`Span.Process.ServiceName`に依存しているということです。このフィールドは、[`service` resource](../../resource/semantic_conventions/README.md#service)の `service.name` 属性から生成されなければなりません(MUST)。Spanのリソースに `service.name` が含まれていない場合、そのフィールドは [default](../../resource/sdk.md#sdk-provided-resource-attributes) `Resource` から入力されなければなりません(MUST)。
 
-
-<!--
-### InstrumentationLibrary
--->
-
-### InstrumentationLibrary フィールド
-
-<!--
-OpenTelemetry Span's `InstrumentationLibrary` MUST be reported as span `tags` to Jaeger using the following mapping.
--->
-
-OpenTelemetry Spanの`InstrumentationLibrary`は、以下のマッピングを用いてJaegerにspanの`tags`として報告されなければなりません(MUST)。
-
-<!--
-| OpenTelemetry | Jaeger |
-| ------------- | ------ |
-| `InstrumentationLibrary.name`|`otel.library.name`|
-| `InstrumentationLibrary.version`|`otel.library.version`|
--->
-
-| OpenTelemetry | Jaeger |
-| ------------- | ------ |
-| `InstrumentationLibrary.name`|`otel.library.name`|
-| `InstrumentationLibrary.version`|`otel.library.version`|
 
 <!--
 ### IDs
@@ -286,35 +271,17 @@ Jaeger Protoフォーマットでは、タイムスタンプと期間(duration)�
 ### Status
 
 <!--
-Span `Status` MUST be reported as a key-value pair in `tags` to Jaeger, unless it is `UNSET`.
-In the latter case it MUST NOT be reported.
+The Status is recorded as Span tags. See [Status](non-otlp.md#span-status) for
+tag names to use.
 -->
 
-Span `Status` は、`UNSET` でない限り、`tags` のキーと値のペアとして Jaeger に報告しなければなりません (MUST)。後者の場合は、報告してはいけません(MUST NOT)。
+StatusはSpanタグとして記録されます。使用するタグ名は[Status](nonotlp.md#span-status)を参照してください。
 
 <!--
-The following table defines the OpenTelemetry `Status` to Jaeger `tags` mapping.
+#### Error flag
 -->
 
-次の表は、OpenTelemetryの`Status`からJaegerの`tags`へのマッピングを定義しています。
-
-<!--
-| Status|Tag Key| Tag Value |
-|--|--|--|
-|Code | `otel.status_code` | Name of the code, either `OK` or `ERROR`. MUST NOT be set if the code is `UNSET`. |
-|Description | `otel.status_description` | Description of the `Status` if it has a value otherwise not set. |
--->
-
-| Status|Tag Key| Tag Value |
-|--|--|--|
-|Code | `otel.status_code` | コードの名前で、`OK`または`ERROR`です。コードが `UNSET` の場合、設定してはいけません (MUST NOT)。|
-|Description | `otel.status_description` | `Status`に値がある場合はその説明、ない場合は設定されていません。|
-
-<!--
-### Error flag
--->
-
-### Error フラグ
+#### Error フラグ
 
 <!--
 When Span `Status` is set to `ERROR`, an `error` span tag MUST be added with the
@@ -390,28 +357,24 @@ generated from [Parent ID](#parent-id), if any.
 ### イベント
 
 <!--
-Events MUST be converted to Jaeger Logs. OpenTelemetry Event's `time_unix_nano` and `attributes` fields map directly to Jaeger Log's `timestamp` and `fields` fields. Jaeger Log has no direct equivalent for OpenTelemetry Event's `name` and `dropped_attributes_count` fields but OpenTracing semantic conventions specify some special attribute names [here](https://github.com/opentracing/specification/blob/master/semantic_conventions.md#log-fields-table). OpenTelemetry Event's `name` and `dropped_attributes_count` fields should be added to Jaeger Log's `fields` map as follows:
+Events MUST be converted to Jaeger Logs. OpenTelemetry Event's `time_unix_nano` and `attributes` fields map directly to Jaeger Log's `timestamp` and `fields` fields. Jaeger Log has no direct equivalent for OpenTelemetry Event's `name` field but OpenTracing semantic conventions specify some special attribute names [here](https://github.com/opentracing/specification/blob/master/semantic_conventions.md#log-fields-table). OpenTelemetry Event's `name` field should be added to Jaeger Log's `fields` map as follows:
 -->
 
-イベントはJaeger Logに変換しなければなりません(MUST)。OpenTelemetry Eventの`time_unix_nano`と`attributes`フィールドはJaeger Logの`timestamp`と`fields`フィールドに直接マッピングされます。Jaeger Logには、OpenTelemetry Eventの`name`と`dropped_attributes_count`フィールドに直接対応するものはありませんが、OpenTracingのセマンティック規約では、[ここ](https://github.com/opentracing/specification/blob/master/semantic_conventions.md#log-fields-table)で示すようにいくつかの特別な属性名を指定しています 。OpenTelemetry Eventの`name`と`dropped_attributes_count`フィールドは、Jaeger Logの`fields`マップに以下のように追加する必要があります。
+イベントはJaeger Logに変換しなければなりません(MUST)。OpenTelemetry Eventの`time_unix_nano`と`attributes`フィールドは、Jaeger Logの`timestamp`と`fields`フィールドに直接マッピングされます。Jaeger Logには、OpenTelemetry Eventの`name`フィールドに直接対応するものはありませんが、OpenTracingのセマンティック規約では、いくつかの特別な属性名を指定しています [ここ](https://github.com/opentracing/specification/blob/master/semantic_conventions.md#log-fields-table)で示すようにいくつかの特別な属性名を指定しています。OpenTelemetry Eventの`name`フィールドは、以下のようにJaeger Logの`fields`マップに以下のように追加する必要があります。
 
 <!--
 | OpenTelemetry Event Field | Jaeger Attribute |
 | -------------------------- | ----------------- |
 | `name`|`event`|
-| `dropped_attributes_count`|`otel.event.dropped_attributes_count`|
 -->
 
 | OpenTelemetry Event Field | Jaeger Attribute |
 | -------------------------- | ----------------- |
 | `name`|`event`|
-| `dropped_attributes_count`|`otel.event.dropped_attributes_count`|
 
 <!--
-* `dropped_attributes_count` should only be recorded when it contains a non-zero value.
 * If OpenTelemetry Event contains an attributes with the key `event`, it should take precedence over Event's `name` field.
 -->
 
-* `dropped_attributes_count` はゼロ以外の値を含む場合にのみ記録されます。
 * OpenTelemetry Event が `event` というキーを持つ属性を含んでいる場合、それは Event の `name` フィールドよりも優先されます。
 
