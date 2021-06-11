@@ -198,6 +198,70 @@ The Data Model aims to successfully represent 3 sorts of logs and events:
 - ファーストパーティ・アプリケーション。これらは、私たちが開発したアプリケーションで、ログやイベントの生成方法やログに含める情報をある程度コントロールすることができます。また、必要に応じてアプリケーションのソースコードを変更することも可能です。
 
 <!--
+### Definitions Used in this Document
+-->
+
+### このドキュメントで使われている定義
+
+
+<!--
+In this document we refer to types `any` and `map<string, any>`, defined as
+follows.
+-->
+
+このドキュメントでは、以下のように定義された型 `any` と `map<string, any>` を参照しています。
+
+
+<!--
+#### Type `any`
+-->
+
+#### `any` 型
+
+<!--
+Value of type `any` can be one of the following:
+-->
+
+`any` 型の値は、以下のいずれかになります。
+
+<!--
+- A scalar value: number, string or boolean,
+
+- An array (a list) of `any` values,
+
+- A `map<string, any>`.
+-->
+
+- 数値、文字列、真偽値などのスカラ値
+
+- `any`の値の配列(リスト)
+
+- `map<文字列, any>`
+
+
+<!--
+#### Type `map<string, any>`
+-->
+
+#### `map<string, any>` 型
+
+<!--
+Value of type `map<string, any>` is a map of string keys to `any` values. The
+keys in the map are unique (duplicate keys are not allowed). The representation
+of the map is language-dependent.
+-->
+
+`map<string, any>` 型の値は、文字列のキーから `any` 個の値へのマップです。マップのキーは一意です(重複したキーは許されません)。マップの表現方法は言語に依存します。
+
+<!--
+Arbitrary deep nesting of values for arrays and maps is allowed (essentially
+allows to represent an equivalent of a JSON object).
+-->
+
+配列やマップでは、値の任意の深い入れ子が可能です(基本的には、JSONオブジェクトと同等のものを表現できます)。
+
+
+<!--
 ### Field Kinds
 -->
 
@@ -218,15 +282,15 @@ fields:
 - 特定の型と意味を持つ、名前付きのトップレベルフィールド
 
 <!--
-- Fields stored in the key/value pair lists, which can contain arbitrary values
-  of different types. The keys and values for well-known fields follow semantic
+- Fields stored as `map<string, any>`, which can contain arbitrary values of
+  different types. The keys and values for well-known fields follow semantic
   conventions for key names and possible values that allow all parties that work
   with the field to have the same interpretation of the data. See references to
   semantic conventions for `Resource` and `Attributes` fields and examples in
   [Appendix A](#appendix-a-example-mappings).
 -->
 
-- キーと値のペアのリストに格納されているフィールドで、異なるタイプの任意の値を含むことができます。よく知られているフィールドのキーと値は、そのフィールドを扱うすべての関係者がデータを同じように解釈できるように、キー名と取りうる値はセマンティック規約に従っています。[付録A](#付録A-マッピング例)の `Resource` と `Attributes` フィールドのセマンティック規約と例について参照してください。
+- `map<string, any>`に格納されているフィールドで、異なるタイプの任意の値を含むことができます。よく知られているフィールドのキーと値は、そのフィールドを扱うすべての関係者がデータを同じように解釈できるように、キー名と取りうる値はセマンティック規約に従っています。[付録A](#付録A-マッピング例)の `Resource` と `Attributes` フィールドのセマンティック規約と例について参照してください。
 
 <!--
 The reasons for having these 2 kinds of fields are:
@@ -248,12 +312,12 @@ The reasons for having these 2 kinds of fields are:
 - 名前付きフィールドの型を強制する機能。これは型チェックを行うコンパイル済み言語では非常に便利です。
 
 <!--
-- Flexibility to represent less frequent data via key/value pair lists. This
+- Flexibility to represent less frequent data as `map<string, any>`. This
   includes well-known data that has standardized semantics as well as arbitrary
   custom data that the application may want to include in the logs.
 -->
 
-- 頻繁ではないデータを、キー/バリューペアのリストで柔軟に表現することができます。これには、標準化されたセマンティクスを持つよく知られたデータや、アプリケーションがログに含めたい任意のカスタムデータが含まれます。
+- 頻繁ではないデータを、`map<string, any>`で柔軟に表現することができます。これには、標準化されたセマンティクスを持つよく知られたデータや、アプリケーションがログに含めたい任意のカスタムデータが含まれます。
 
 <!--
 When designing this data model we followed the following reasoning to make a
@@ -289,15 +353,6 @@ top-level structure of the record.
 -->
 
 ## ログとイベントレコードの定義
-
-<!--
-Note: below we use type `any`, which can be a scalar value (number, string or
-boolean), or an array or map of values. Arbitrary deep nesting of values for
-arrays and maps is allowed (essentially allow to represent an equivalent of a
-JSON object).
--->
-
-注:以下では、スカラー値(数値、文字列、ブーリアン)や、値の配列やマップを表す `any` 型を使用しています。配列やマップでは、値の任意の深い入れ子が可能です(基本的には、JSONオブジェクトと同等のものを表すことができます)。
 
 <!--
 [Appendix A](#appendix-a-example-mappings) contains many examples that show how
@@ -800,27 +855,25 @@ occurrence of the event coming from the same source. This field is optional.
 ### フィールド: `Resource`
 
 <!--
-型: key/value pair list.
+Type: `map<string, any>`.
 -->
 
-型: key/value pair list.
+型: `map<string, any>`.
 
 <!--
 Description: Describes the source of the log, aka
-[resource](../overview.md#resources).
-"key" of each pair is a `string` and "value" is of `any` type. Multiple
-occurrences of events coming from the same event source can happen across time
-and they all have the same value of `Resource`. Can contain for example
-information about the application that emits the record or about the
-infrastructure where the application runs. Data formats that represent this data
-model may be designed in a manner that allows the `Resource` field to be
-recorded only once per batch of log records that come from the same source.
-SHOULD follow OpenTelemetry
+[resource](../overview.md#resources). Multiple occurrences of events coming from
+the same event source can happen across time and they all have the same value of
+`Resource`. Can contain for example information about the application that emits
+the record or about the infrastructure where the application runs. Data formats
+that represent this data model may be designed in a manner that allows the
+`Resource` field to be recorded only once per batch of log records that come
+from the same source. SHOULD follow OpenTelemetry
 [semantic conventions for Resources](../resource/semantic_conventions/README.md).
 This field is optional.
 -->
 
-説明: ログのソースを記述します。[resource](../overview.md#resources)といいます。各ペアの "key"は `文字列` で、"value"は `any` の型です。同じイベントソースからの複数のイベントが時間を超えて発生することがありますが、それらはすべて `Resource` の同じ値を持ちます。例えば、レコードを発行するアプリケーションに関する情報や、アプリケーションが動作するインフラに関する情報などを含むことができます。このデータモデルを表すデータフォーマットは、`Resource`フィールドが、同じソースから来るログレコードのバッチごとに一度だけ記録されるように設計されているかもしれません。OpenTelemetry [semantic conventions for Resources](../resource/semantic_conventions/README.md)に従うべきです(SHOULD)。このフィールドは任意です。
+説明: ログのソースを記述するもので、[Resource](../overview.md#resources)となります。同じイベントソースからの複数のイベントが時間を超えて発生することがありますが、それらはすべて同じ `Resource` の値を持ちます。例えば、レコードを発行するアプリケーションに関する情報や、アプリケーションが動作するインフラに関する情報などを含むことができます。このデータモデルを表すデータフォーマットは、`Resource`フィールドが、同じソースから来るログレコードのバッチごとに一度だけ記録されるように設計されているかもしれません。OpenTelemetry [semantic conventions for Resources](../resource/semantic_conventions/README.md)に従うべきです(SHOULD)。このフィールドは任意です。
 
 <!--
 ### Field: `Attributes`
@@ -1300,13 +1353,13 @@ SDID origin.ip は attribute[net.host.ip"]にマップされます
   </tr>
   <tr>
   <td>Dimensions</td>
-  <td>map of string to string</td>
+  <td>map&lt;string, string></td>
   <td>Helps to define the identity of the event source together with EventType and Category. Multiple occurrences of events coming from the same event source can happen across time and they all have the value of Dimensions. </td>
   <td>Resource</td>
   </tr>
   <tr>
   <td>Properties</td>
-  <td>map of string to any</td>
+  <td>map&lt;string, any></td>
   <td>Additional information about the specific event occurrence. Unlike Dimensions which are fixed for a particular event source, Properties can have different values for each occurrence of the event coming from the same event source.</td>
   <td>Attributes</td>
   </tr>
@@ -1339,13 +1392,13 @@ SDID origin.ip は attribute[net.host.ip"]にマップされます
   </tr>
   <tr>
   <td>Dimensions</td>
-  <td>文字列-文字列のMap</td>
+  <td>map&lt;string, string></td>
   <td>EventTypeやCategoryとともに、イベントソースの識別子を定義するのに役立ちます。同じイベントソースから来るイベントの複数の発生は、時間を超えて起こる可能性があり、それらはすべてその同じDimensionsの値を持っています</td>
   <td>Resource</td>
   </tr>
   <tr>
   <td>Properties</td>
-  <td>文字列-文字列のMap</td>
+  <td>map&lt;string, any></td>
   <td>特定のイベント発生に関する追加情報。特定のイベントソースに対して固定されているDimensionsとは異なり、Propertiesは同じイベントソースから来るイベントの各発生に対して異なる値を持つことができます</td>
   <td>Attributes</td>
   </tr>
@@ -1396,7 +1449,7 @@ SDID origin.ip は attribute[net.host.ip"]にマップされます
   </tr>
   <tr>
   <td>fields</td>
-  <td>Map of any</td>
+  <td>map&lt;string, any></td>
   <td>Specifies a JSON object that contains explicit custom fields.</td>
   <td>Attributes</td>
   </tr>
@@ -1448,7 +1501,7 @@ SDID origin.ip は attribute[net.host.ip"]にマップされます
   </tr>
   <tr>
   <td>fields</td>
-  <td>Map of any</td>
+  <td>map&lt;string, any></td>
   <td>明示的なカスタムフィールドを含むJSONオブジェクトを指定します</td>
   <td>Attributes</td>
   </tr>
@@ -1909,19 +1962,19 @@ All other fields |        |                   | Attributes["google.*"]
     <td>@timestamp</td>
     <td>datetime</td>
     <td>イベントが記録された時間</td>
-    <td>timestamp</td>
+    <td>Timestamp</td>
   </tr>
   <tr>
     <td>message</td>
     <td>文字列</td>
     <td>任意の種類のメッセージ</td>
-    <td>body</td>
+    <td>Body</td>
   </tr>
   <tr>
     <td>labels</td>
     <td>key/value</td>
     <td>イベントに関連した恣意的なラベル</td>
-    <td>attributes[*]</td>
+    <td>Attributes[*]</td>
   </tr>
   <tr>
     <td>tags</td>
@@ -1945,157 +1998,157 @@ All other fields |        |                   | Attributes["google.*"]
     <td>agent.ephemeral_id</td>
     <td>文字列</td>
     <td>Agentによって作成されたEphemeral ID</td>
-    <td>**resource</td>
+    <td>**Resource</td>
   </tr>
   <tr>
     <td>agent.id</td>
     <td>文字列</td>
     <td>Agentによって作成された一意な識別子</td>
-    <td>**resource</td>
+    <td>**Resource</td>
   </tr>
   <tr>
     <td>agent.name</td>
     <td>文字列</td>
     <td>Agentに与えられた名前</td>
-    <td>resource["telemetry.sdk.name"]</td>
+    <td>Resource["telemetry.sdk.name"]</td>
   </tr>
   <tr>
     <td>agent.type</td>
     <td>文字列</td>
     <td>Agentの種類</td>
-    <td>resource["telemetry.sdk.language"]</td>
+    <td>Resource["telemetry.sdk.language"]</td>
   </tr>
   <tr>
     <td>agent.version</td>
     <td>文字列</td>
     <td>Agentのバージョン</td>
-    <td>resource["telemetry.sdk.version"]</td>
+    <td>Resource["telemetry.sdk.version"]</td>
   </tr>
   <tr>
     <td>source.ip, client.ip</td>
     <td>文字列</td>
     <td>リクエストが行われたIPアドレス</td>
-    <td>attributes["net.peer.ip"] あるいは attributes["net.host.ip"]</td>
+    <td>Attributes["net.peer.ip"] あるいは Attributes["net.host.ip"]</td>
   </tr>
   <tr>
     <td>cloud.account.id</td>
     <td>文字列</td>
     <td>指定されたクラウドのアカウントのID</td>
-    <td>resource["cloud.account.id"]</td>
+    <td>Resource["cloud.account.id"]</td>
   </tr>
   <tr>
     <td>cloud.availability_zone</td>
     <td>文字列</td>
     <td>このホストが稼働しているアベイラビリティー・ゾーン</td>
-    <td>resource["cloud.zone"]</td>
+    <td>Resource["cloud.zone"]</td>
   </tr>
   <tr>
     <td>cloud.instance.id</td>
     <td>文字列</td>
     <td>ホストマシンのInstance ID</td>
-    <td>**resource</td>
+    <td>**Resource</td>
   </tr>
   <tr>
     <td>cloud.instance.name</td>
     <td>文字列</td>
     <td>ホストマシンのインスタンス名</td>
-    <td>**resource</td>
+    <td>**Resource</td>
   </tr>
   <tr>
     <td>cloud.machine.type</td>
     <td>文字列</td>
     <td>ホストマシンのマシンタイプ</td>
-    <td>**resource</td>
+    <td>**Resource</td>
   </tr>
   <tr>
     <td>cloud.provider</td>
     <td>文字列</td>
     <td>クラウドプロバイダーの名前。aws、azure、gcp、digitaloceanなどが例示されています</td>
-    <td>resource["cloud.provider"]</td>
+    <td>Resource["cloud.provider"]</td>
   </tr>
   <tr>
     <td>cloud.region</td>
     <td>文字列</td>
     <td>このホストが動作しているリージョン</td>
-    <td>resource["cloud.region"]</td>
+    <td>Resource["cloud.region"]</td>
   </tr>
   <tr>
     <td>cloud.image.id*</td>
     <td>文字列</td>
     <td></td>
-    <td>resource["host.image.name"]</td>
+    <td>Resource["host.image.name"]</td>
   </tr>
   <tr>
     <td>container.id</td>
     <td>文字列</td>
     <td>一意なコンテナのID</td>
-    <td>resource["container.id"]</td>
+    <td>Resource["container.id"]</td>
   </tr>
   <tr>
     <td>container.image.name</td>
     <td>文字列</td>
     <td>コンテナが構築されたイメージの名前</td>
-    <td>resource["container.image.name"]</td>
+    <td>Resource["container.image.name"]</td>
   </tr>
   <tr>
     <td>container.image.tag</td>
     <td>文字列の配列</td>
     <td>コンテナイメージタグ</td>
-    <td>**resource</td>
+    <td>**Resource</td>
   </tr>
   <tr>
     <td>container.labels</td>
     <td>key/value</td>
     <td>コンテナイメージラベル</td>
-    <td>attributes[*]</td>
+    <td>Attributes[*]</td>
   </tr>
   <tr>
     <td>container.name</td>
     <td>文字列</td>
     <td>コンテナ名</td>
-    <td>resource["container.name"]</td>
+    <td>Resource["container.name"]</td>
   </tr>
   <tr>
     <td>container.runtime</td>
     <td>文字列</td>
     <td>このコンテナを管理するランタイム。例: "docker"</td>
-    <td>**resource</td>
+    <td>**Resource</td>
   </tr>
   <tr>
     <td>destination.address</td>
     <td>文字列</td>
     <td>イベントの宛先アドレス</td>
-    <td>attributes["destination.address"]</td>
+    <td>Attributes["destination.address"]</td>
   </tr>
   <tr>
     <td>error.code</td>
     <td>文字列</td>
     <td>エラーの内容を表すエラーコード</td>
-    <td>attributes["error.code"]</td>
+    <td>Attributes["error.code"]</td>
   </tr>
   <tr>
     <td>error.id</td>
     <td>文字列</td>
     <td>エラーの一意な識別子</td>
-    <td>attributes["error.id"]</td>
+    <td>Attributes["error.id"]</td>
   </tr>
   <tr>
     <td>error.message</td>
     <td>文字列</td>
     <td>エラーメッセージ</td>
-    <td>attributes["error.message"]</td>
+    <td>Attributes["error.message"]</td>
   </tr>
   <tr>
     <td>error.stack_trace</td>
     <td>文字列</td>
     <td>このエラーのスタックトレースをプレーンテキストで表示したもの</td>
-    <td>attributes["error.stack_trace]</td>
+    <td>Attributes["error.stack_trace]</td>
   </tr>
   <tr>
     <td>host.architecture</td>
     <td>文字列</td>
     <td>OSのアーキテクチャ</td>
-    <td>**resource</td>
+    <td>**Resource</td>
   </tr>
   <tr>
     <td>host.domain</td>
@@ -2104,7 +2157,7 @@ All other fields |        |                   | Attributes["google.*"]
 
 例えば、Windowsの場合、これはホストのActive DirectoryドメインまたはNetBIOSドメイン名になります。Linuxの場合は、ホストのLDAPプロバイダーのドメインになります。</td>
 
-<td>**resource</td>
+<td>**Resource</td>
   </tr>
   <tr>
     <td>host.hostname</td>
@@ -2113,26 +2166,26 @@ All other fields |        |                   | Attributes["google.*"]
 
 通常は、ホストマシン上でhostnameコマンドが返す内容を含んでいます</td>
 
-<td>resource["host.hostname"]</td>
+<td>Resource["host.hostname"]</td>
 
   </tr>
   <tr>
     <td>host.id</td>
     <td>文字列</td>
     <td>固有のホストID</td>
-    <td>resource["host.id"]</td>
+    <td>Resource["host.id"]</td>
   </tr>
   <tr>
     <td>host.ip</td>
     <td>文字列の配列</td>
     <td>ホストIP</td>
-    <td>resource["host.ip"]</td>
+    <td>Resource["host.ip"]</td>
   </tr>
   <tr>
     <td>host.mac</td>
     <td>文字列の配列</td>
     <td>ホストのMACアドレス</td>
-    <td>resource["host.mac"]</td>
+    <td>Resource["host.mac"]</td>
   </tr>
   <tr>
     <td>host.name</td>
@@ -2141,14 +2194,14 @@ All other fields |        |                   | Attributes["google.*"]
 
 これには、Unixシステムで返されるホスト名、完全修飾されたもの、またはユーザーが指定した名前が含まれます</td>
 
-<td>resource["host.name"]</td>
+<td>Resource["host.name"]</td>
 
   </tr>
   <tr>
     <td>host.type</td>
     <td>文字列</td>
     <td>ホストタイプ</td>
-    <td>resource["host.type"]</td>
+    <td>Resource["host.type"]</td>
   </tr>
   <tr>
     <td>host.uptime</td>
@@ -2162,43 +2215,43 @@ All other fields |        |                   | Attributes["google.*"]
 </td>
     <td>文字列</td>
     <td>このサービスの一過性の識別子</td>
-    <td>**resource</td>
+    <td>**Resource</td>
   </tr>
   <tr>
     <td>service.id</td>
     <td>文字列</td>
     <td>実行中のサービスの一意の識別子。サービスが多くのノードで構成されている場合、service.idはすべてのノードで同じでなければなりません</td>
-    <td>**resource</td>
+    <td>**Resource</td>
   </tr>
   <tr>
     <td>service.name</td>
     <td>文字列</td>
     <td>データが収集されるサービスの名称</td>
-    <td>resource["service.name"]</td>
+    <td>Resource["service.name"]</td>
   </tr>
   <tr>
     <td>service.node.name</td>
     <td>文字列</td>
     <td>そのサービスを提供する特定のノードの名前</td>
-    <td>resource["service.instance.id"]</td>
+    <td>Resource["service.instance.id"]</td>
   </tr>
   <tr>
     <td>service.state</td>
     <td>文字列</td>
     <td>サービスの現在ステータス</td>
-    <td>attributes["service.state"]</td>
+    <td>Attributes["service.state"]</td>
   </tr>
   <tr>
     <td>service.type</td>
     <td>文字列</td>
     <td>データが収集されるサービスの種類</td>
-    <td>**resource</td>
+    <td>**Resource</td>
   </tr>
   <tr>
     <td>service.version</td>
     <td>文字列</td>
     <td>データが収集されたサービスのバージョン</td>
-    <td>resource["service.version"]</td>
+    <td>Resource["service.version"]</td>
   </tr>
   <tr>
     <td></td>
