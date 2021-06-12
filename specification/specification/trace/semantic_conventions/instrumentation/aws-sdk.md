@@ -1,19 +1,41 @@
+<!--
 # Semantic conventions for AWS SDK
+-->
+
+# AWS SDKのセマンティック規約
+
 
 **Status**: [Experimental](../../../document-status.md)
 
+<!--
 This document defines semantic conventions to apply when instrumenting the AWS SDK. They map request or response
 parameters in AWS SDK API calls to attributes on a Span. The conventions have been collected over time based
 on feedback from AWS users of tracing and will continue to increase as new interesting conventions
 are found.
+-->
 
+このドキュメントでは、AWS SDKを計装する際に適用するセマンティック規約を定義しています。これらは、AWS SDKのAPIコールにおけるリクエストやレスポンスのパラメータを、Spanの属性にマッピングします。この規約は、AWSのトレースユーザーからのフィードバックに基づいて時間をかけて収集されたものであり、新たに興味深い規約が発見された場合には、今後も増加していく予定です。
+
+<!--
 Some descriptions are also provided for populating general OpenTelemetry semantic conventions based on these APIs.
+-->
 
+また、これらのAPIに基づいてOpenTelemetryの一般的なセマンティック規約を作成するための説明もあります。
+
+<!--
 ## Common Attributes
+-->
 
+## 共通の属性
+
+<!--
 The span name MUST be of the format `Service.Operation` as per the AWS HTTP API, e.g., `DynamoDB.GetItem`,
 `S3.ListBuckets`. This is equivalent to concatenating `rpc.service` and `rpc.method` with `.` and consistent
 with the naming guidelines for RPC client spans.
+-->
+
+Spanの名前は、AWS HTTP APIのように、`Service.Operation`というフォーマットでなければなりません(MUST)(例:`DynamoDB.GetItem`、`S3.ListBuckets`など)。これは `rpc.service` と `rpc.method` を `.` で連結したものと同じで、RPC クライアントSpanのネーミングガイドラインと一致しています。
+
 
 <!-- semconv aws -->
 | Attribute  | Type | Description  | Examples  | Required |
@@ -25,9 +47,14 @@ with the naming guidelines for RPC client spans.
 
 ## DynamoDB
 
-### Common Attributes
+### 共通の属性
 
+<!--
 These attributes are filled in for all DynamoDB request types.
+-->
+
+これらの属性は、すべてのDynamoDBリクエストタイプに記入されます。
+
 
 <!-- semconv dynamodb.all -->
 | Attribute  | Type | Description  | Examples  | Required |
