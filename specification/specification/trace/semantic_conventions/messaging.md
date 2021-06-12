@@ -127,30 +127,28 @@ The following operations related to messages are defined for these semantic conv
 <!-- semconv messaging -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `messaging.system` | string | A string identifying the messaging system. | `kafka`; `rabbitmq`; `activemq`; `AmazonSQS` | Yes |
-| `messaging.destination` | string | The message destination name. This might be equal to the span name but is required nevertheless. | `MyQueue`; `MyTopic` | Yes |
-| `messaging.destination_kind` | string | The kind of message destination | `queue` | Conditional [1] |
-| `messaging.temp_destination` | boolean | A boolean that is true if the message destination is temporary. |  | If missing, it is assumed to be false. |
-| `messaging.protocol` | string | The name of the transport protocol. | `AMQP`; `MQTT` | No |
-| `messaging.protocol_version` | string | The version of the transport protocol. | `0.9.1` | No |
-| `messaging.url` | string | Connection string. | `tibjmsnaming://localhost:7222`; `https://queue.amazonaws.com/80398EXAMPLE/MyQueue` | No |
-| `messaging.message_id` | string | A value used by the messaging system as an identifier for the message, represented as a string. | `452a7c7c7c7048c2f887f61572b18fc2` | No |
-| `messaging.conversation_id` | string | The [conversation ID](#conversations) identifying the conversation to which the message belongs, represented as a string. Sometimes called "Correlation ID". | `MyConversationId` | No |
-| `messaging.message_payload_size_bytes` | int | The (uncompressed) size of the message payload in bytes. Also use this attribute if it is unknown whether the compressed or uncompressed payload size is reported. | `2738` | No |
-| `messaging.message_payload_compressed_size_bytes` | int | The compressed size of the message payload in bytes. | `2048` | No |
-| [`net.peer.ip`](span-general.md) | string | 相手のリモートアドレス(IPv4ではドット10進数、IPv6では[RFC5952](https://tools.ietf.org/html/rfc5952) | `127.0.0.1` | If available. |
-| [`net.peer.name`](span-general.md) | string | リモートのホスト名あるいは類似の文字列。下記注釈参照 [2] | `example.com` | If available. |
+| `messaging.system` | string | メッセージングシステムを識別するための文字列 | `kafka`; `rabbitmq`; `activemq`; `AmazonSQS` | Yes |
+| `messaging.destination` | string | メッセージの宛先名です。これは、Span名と同じかもしれませんが、それでも必要です。 | `MyQueue`; `MyTopic` | Yes |
+| `messaging.destination_kind` | string | メッセージの宛先の種類 | `queue` | メッセージの宛先が `queue` または `topic` の場合にのみ必要です。 |
+| `messaging.temp_destination` | boolean | メッセージの送信先が一時的なものである場合に真となる真偽値 |  | 欠落している場合は、偽であると見なされます |
+| `messaging.protocol` | string | トランスポートプロトコルの名前 | `AMQP`; `MQTT` | No |
+| `messaging.protocol_version` | string | トランスポートプロトコルのバージョン | `0.9.1` | No |
+| `messaging.url` | string | 接続文字列 | `tibjmsnaming://localhost:7222`; `https://queue.amazonaws.com/80398EXAMPLE/MyQueue` | No |
+| `messaging.message_id` | string | メッセージングシステムがメッセージの識別子として使用する値で、文字列で表されます。 | `452a7c7c7c7048c2f887f61572b18fc2` | No |
+| `messaging.conversation_id` | string | メッセージが属する会話を識別する[会話ID](#conversations)を文字列で表したもの。"Correlation ID"と呼ばれることもあります。 | `MyConversationId` | No |
+| `messaging.message_payload_size_bytes` | int | メッセージのペイロードの(圧縮されていない)サイズをバイト単位で示したものです。また、圧縮されたペイロード・サイズと非圧縮のペイロード・サイズのどちらが報告されるかが不明な場合にも、この属性を使用します。 | `2738` | No |
+| `messaging.message_payload_compressed_size_bytes` | int | メッセージのペイロードの圧縮サイズ(バイト)です。 | `2048` | No |
+| [`net.peer.ip`](span-general.md) | string | 相手のリモートアドレス(IPv4ではドット10進数、IPv6では[RFC5952](https://tools.ietf.org/html/rfc5952) | `127.0.0.1` | 利用可能な場合 |
+| [`net.peer.name`](span-general.md) | string | リモートのホスト名あるいは類似の文字列。下記注釈参照 [1] | `example.com` | 利用可能な場合 |
 
-**[1]:** Required only if the message destination is either a `queue` or `topic`.
-
-**[2]:** This should be the IP/hostname of the broker (or other network-level peer) this specific message is sent to/received from.
+**[1]:** これは、この特定のメッセージを送受信するブローカー(または他のネットワークレベルのピア)のIP/ホスト名でなければなりません。
 
 `messaging.destination_kind` MUST be one of the following:
 
 | Value  | Description |
 |---|---|
-| `queue` | A message sent to a queue |
-| `topic` | A message sent to a topic |
+| `queue` | メッセージはQueueに送られる |
+| `topic` | メッセージはTopicに送られる |
 <!-- endsemconv -->
 
 Additionally `net.peer.port` from the [network attributes][] is recommended.
@@ -166,7 +164,7 @@ For message consumers, the following additional attributes may be set:
 <!-- semconv messaging.consumer -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `messaging.operation` | string | A string identifying the kind of message consumption as defined in the [Operation names](#operation-names) section above. If the operation is "send", this attribute MUST NOT be set, since the operation can be inferred from the span kind in that case. | `receive` | No |
+| `messaging.operation` | string | 上記の[操作名](#operation-names)セクションで定義されているメッセージ消費の種類を識別する文字列です。操作が "send"の場合、この属性は設定してはいけません(MUST NOT)。なぜなら、この場合、操作はspan kindから推測できるからです。 | `receive` | No |
 
 `messaging.operation` MUST be one of the following:
 
@@ -193,7 +191,7 @@ In RabbitMQ, the destination is defined by an _exchange_ and a _routing key_.
 <!-- semconv messaging.rabbitmq -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `messaging.rabbitmq.routing_key` | string | RabbitMQ message routing key. | `myKey` | Unless it is empty. |
+| `messaging.rabbitmq.routing_key` | string | RabbitMQのメッセージルーティングキー。 | `myKey` | Unless it is empty. |
 <!-- endsemconv -->
 
 #### Apache Kafka
@@ -203,13 +201,13 @@ For Apache Kafka, the following additional attributes are defined:
 <!-- semconv messaging.kafka -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `messaging.kafka.message_key` | string | Message keys in Kafka are used for grouping alike messages to ensure they're processed on the same partition. They differ from `messaging.message_id` in that they're not unique. If the key is `null`, the attribute MUST NOT be set. [1] | `myKey` | No |
-| `messaging.kafka.consumer_group` | string | Name of the Kafka Consumer Group that is handling the message. Only applies to consumers, not producers. | `my-group` | No |
-| `messaging.kafka.client_id` | string | Client Id for the Consumer or Producer that is handling the message. | `client-5` | No |
-| `messaging.kafka.partition` | int | Partition the message is sent to. | `2` | No |
-| `messaging.kafka.tombstone` | boolean | A boolean that is true if the message is a tombstone. |  | If missing, it is assumed to be false. |
+| `messaging.kafka.message_key` | string | Kafkaのメッセージキーは、同じメッセージが同じパーティションで処理されるようにグループ化するために使用されます。メッセージキーは、`messaging.message_id` とは異なり、一意ではありません。キーが `null` の場合、この属性は設定してはいけません (MUST NOT)。 [1] | `myKey` | No |
+| `messaging.kafka.consumer_group` | string | メッセージを処理しているKafka Consumerグループの名前。Producerではなく、Consumerにのみ適用されます。 | `my-group` | No |
+| `messaging.kafka.client_id` | string | メッセージを処理しているConsumerまたはProducerのClient Id。 | `client-5` | No |
+| `messaging.kafka.partition` | int | メッセージの送信先となるパーティション。 | `2` | No |
+| `messaging.kafka.tombstone` | boolean | メッセージがTombstoneである場合に真となる真偽値 |  | 欠落している場合は、偽であると見なされます |
 
-**[1]:** If the key type is not string, it's string representation has to be supplied for the attribute. If the key has no unambiguous, canonical string form, don't include its value.
+**[1]:** キータイプが文字列でない場合は、その文字列表現を属性に与える必要があります。キーが曖昧でない正規の文字列形式を持たない場合、その値を含めてはいけません。
 <!-- endsemconv -->
 
 For Apache Kafka producers, [`peer.service`](./span-general.md#general-remote-service-attributes) SHOULD be set to the name of the broker or service the message will be sent to.

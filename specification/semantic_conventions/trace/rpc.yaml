@@ -1,33 +1,33 @@
 groups:
     - id: rpc
       prefix: rpc
-      brief: 'This document defines semantic conventions for remote procedure calls.'
+      brief: 'この文書では、リモートプロシージャコールのセマンティック規約を定義しています'
       attributes:
         - id: system
           type: string
           required: always
-          brief: 'A string identifying the remoting system.'
+          brief: 'リモーションシステムを識別する文字列'
           examples: ["grpc", "java_rmi", "wcf"]
         - id: service
           type: string
           required:
-            conditional: "No, but recommended"
-          brief: 'The full name of the service being called, including its package name, if applicable.'
+            conditional: "いいえ、しかし推奨です"
+          brief: '呼び出されるサービスのフルネーム(該当する場合は、パッケージ名も含む)'
           examples: "myservice.EchoService"
         - id: method
           type: string
           required:
-            conditional: "No, but recommended"
-          brief: 'The name of the method being called, must be equal to the $method part in the span name.'
+            conditional: "いいえ、しかし推奨です"
+          brief: '呼び出されるメソッドの名前は、Span名の$method部分と等しくなければなりません。'
           examples: "exampleMethod"
         - ref: net.peer.ip
         - ref: net.peer.name
         - ref: net.peer.port
           required:
-            conditional: "See below"
+            conditional: "下記参照"
         - ref: net.transport
           required:
-            conditional: "See below"
+            conditional: "下記参照"
       constraints:
         - any_of:
           - net.peer.ip
@@ -36,7 +36,7 @@ groups:
     - id: rpc.grpc
       prefix: rpc.grpc
       extends: rpc
-      brief: 'Tech-specific attributes for gRPC.'
+      brief: 'gRPCの技術固有の属性'
       attributes:
         - id: status_code
           type:
@@ -76,5 +76,5 @@ groups:
               - id: UNAUTHENTICATED
                 value: 16
           required: always
-          brief: "The [numeric status code](https://github.com/grpc/grpc/blob/v1.33.2/doc/statuscodes.md) of the gRPC request."
+          brief: "gRPCリクエストの[numeric status code](https://github.com/grpc/grpc/blob/v1.33.2/doc/statuscodes.md)です"
           examples: [0, 1, 16]

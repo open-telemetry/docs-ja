@@ -60,13 +60,13 @@ or not they should be on the server, client or both.
 <!-- semconv rpc -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| [`rpc.system`](../../trace/semantic_conventions/rpc.md) | string | A string identifying the remoting system. | `grpc`; `java_rmi`; `wcf` | Yes |
-| [`rpc.service`](../../trace/semantic_conventions/rpc.md) | string | The full name of the service being called, including its package name, if applicable. | `myservice.EchoService` | No, but recommended |
-| [`rpc.method`](../../trace/semantic_conventions/rpc.md) | string | The name of the method being called, must be equal to the $method part in the span name. | `exampleMethod` | No, but recommended |
+| [`rpc.system`](../../trace/semantic_conventions/rpc.md) | string | リモーションシステムを識別する文字列 | `grpc`; `java_rmi`; `wcf` | Yes |
+| [`rpc.service`](../../trace/semantic_conventions/rpc.md) | string | 呼び出されるサービスのフルネーム(該当する場合は、パッケージ名も含む) | `myservice.EchoService` | いいえ、しかし推奨です |
+| [`rpc.method`](../../trace/semantic_conventions/rpc.md) | string | 呼び出されるメソッドの名前は、Span名の$method部分と等しくなければなりません。 | `exampleMethod` | いいえ、しかし推奨です |
 | [`net.peer.ip`](../../trace/semantic_conventions/span-general.md) | string | 相手のリモートアドレス(IPv4ではドット10進数、IPv6では[RFC5952](https://tools.ietf.org/html/rfc5952) | `127.0.0.1` | See below |
 | [`net.peer.name`](../../trace/semantic_conventions/span-general.md) | string | リモートのホスト名あるいは類似の文字列。下記注釈参照 | `example.com` | See below |
-| [`net.peer.port`](../../trace/semantic_conventions/span-general.md) | int | リモートのポート番号 | `80`; `8080`; `443` | See below |
-| [`net.transport`](../../trace/semantic_conventions/span-general.md) | string | Transport protocol used. 下記注釈参照。 | `ip_tcp` | See below |
+| [`net.peer.port`](../../trace/semantic_conventions/span-general.md) | int | リモートのポート番号 | `80`; `8080`; `443` | 下記参照 |
+| [`net.transport`](../../trace/semantic_conventions/span-general.md) | string | Transport protocol used. 下記注釈参照。 | `ip_tcp` | 下記参照 |
 
 **Additional attribute requirements:** At least one of the following sets of attributes is required:
 

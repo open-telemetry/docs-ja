@@ -54,13 +54,13 @@ Examples of span names:
 <!-- semconv rpc -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `rpc.system` | string | A string identifying the remoting system. | `grpc`; `java_rmi`; `wcf` | Yes |
-| `rpc.service` | string | The full name of the service being called, including its package name, if applicable. | `myservice.EchoService` | No, but recommended |
-| `rpc.method` | string | The name of the method being called, must be equal to the $method part in the span name. | `exampleMethod` | No, but recommended |
+| `rpc.system` | string | リモーションシステムを識別する文字列 | `grpc`; `java_rmi`; `wcf` | Yes |
+| `rpc.service` | string | 呼び出されるサービスのフルネーム(該当する場合は、パッケージ名も含む) | `myservice.EchoService` | いいえ、しかし推奨です |
+| `rpc.method` | string | 呼び出されるメソッドの名前は、Span名の$method部分と等しくなければなりません。 | `exampleMethod` | いいえ、しかし推奨です |
 | [`net.peer.ip`](span-general.md) | string | 相手のリモートアドレス(IPv4ではドット10進数、IPv6では[RFC5952](https://tools.ietf.org/html/rfc5952) | `127.0.0.1` | See below |
 | [`net.peer.name`](span-general.md) | string | リモートのホスト名あるいは類似の文字列。下記注釈参照 | `example.com` | See below |
-| [`net.peer.port`](span-general.md) | int | リモートのポート番号 | `80`; `8080`; `443` | See below |
-| [`net.transport`](span-general.md) | string | Transport protocol used. 下記注釈参照。 | `ip_tcp` | See below |
+| [`net.peer.port`](span-general.md) | int | リモートのポート番号 | `80`; `8080`; `443` | 下記参照 |
+| [`net.transport`](span-general.md) | string | Transport protocol used. 下記注釈参照。 | `ip_tcp` | 下記参照 |
 
 **Additional attribute requirements:** At least one of the following sets of attributes is required:
 
@@ -105,7 +105,7 @@ For remote procedure calls via [gRPC][], additional conventions are described in
 <!-- semconv rpc.grpc -->
 | Attribute  | Type | Description  | Examples  | Required |
 |---|---|---|---|---|
-| `rpc.grpc.status_code` | int | The [numeric status code](https://github.com/grpc/grpc/blob/v1.33.2/doc/statuscodes.md) of the gRPC request. | `0`; `1`; `16` | Yes |
+| `rpc.grpc.status_code` | int | gRPCリクエストの[numeric status code](https://github.com/grpc/grpc/blob/v1.33.2/doc/statuscodes.md)です | `0`; `1`; `16` | Yes |
 
 `rpc.grpc.status_code` MUST be one of the following:
 
