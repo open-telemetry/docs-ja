@@ -41,9 +41,21 @@ the implementation unless explicitly communicated via
   * [Counter](#counter)
     * [Counter creation](#counter-creation)
     * [Counter operations](#counter-operations)
-  * [CounterFunc](#counterfunc)
-    * [CounterFunc creation](#counterfunc-creation)
-    * [CounterFunc operations](#counterfunc-operations)
+  * [Asynchronous Counter](#asynchronous-counter)
+    * [Asynchronous Counter creation](#asynchronous-counter-creation)
+    * [Asynchronous Counter operations](#asynchronous-counter-operations)
+  * [Asynchronous Gauge](#asynchronous-gauge)
+    * [Asynchronous Gauge creation](#asynchronous-gauge-creation)
+    * [Asynchronous Gauge operations](#asynchronous-gauge-operations)
+  * [Histogram](#histogram)
+    * [Histogram creation](#histogram-creation)
+    * [Histogram operations](#histogram-operations)
+  * [UpDownCounter](#updowncounter)
+    * [UpDownCounter creation](#updowncounter-creation)
+    * [UpDownCounter operations](#updowncounter-operations)
+  * [Asynchronous UpDownCounter](#asynchronous-updowncounter)
+    * [Asynchronous UpDownCounter creation](#asynchronous-updowncounter-creation)
+    * [Asynchronous UpDownCounter operations](#asynchronous-updowncounter-operations)
 * [Measurement](#measurement)
 -->
 
@@ -56,9 +68,21 @@ the implementation unless explicitly communicated via
   * [Counter](#counter)
     * [Counterの作成](#counterの作成)
     * [Counterの操作](#counterの操作)
-  * [CounterFunc](#counterfunc)
-    * [CounterFuncの作成](#counterfuncの作成)
-    * [CounterFuncの操作](#counterfuncの操作)
+  * [非同期Counter](#非同期counter)
+    * [非同期Counterの作成](#非同期counterの作成)
+    * [非同期Counterの操作](#a非同期counterの操作)
+  * [非同期Gauge](#非同期gauge)
+    * [非同期Gaugeの作成](#非同期gaugeの作成)
+    * [非同期Gaugeの操作](#非同期gaugeの操作)
+  * [Histogram](#histogram)
+    * [Histogramの作成](#histogramの作成)
+    * [Histogramの操作](#histogramの操作)
+  * [UpDownCounter](#updowncounter)
+    * [UpDownCounterの作成](#updowncounterの作成)
+    * [UpDownCounterの操作](#updowncounterの操作)
+  * [非同期UpDownCounter](#asynchronous-updowncounter)
+    * [非同期UpDownCounterの作成](#非同期updowncounterの作成)
+    * [非同期UpDownCounterの操作](#非同期updowncounterの操作)
 * [Measurement](#measurement)
 
 
@@ -101,11 +125,15 @@ the metrics API:
     |
     +-- Meter(name='io.opentelemetry.runtime', version='1.0.0')
     |   |
+    |   +-- Instrument<Asynchronous Gauge, int>(name='cpython.gc', attributes=['generation'], unit='kB')
+    |   |
     |   +-- instruments...
     |
     +-- Meter(name='io.opentelemetry.contrib.mongodb.client', version='2.3.0')
         |
         +-- Instrument<Counter, int>(name='client.exception', attributes=['type'], unit='1')
+        |
+        +-- Instrument<Histogram, double>(name='client.duration', attributes=['net.peer.host', 'net.peer.port'], unit='ms')
         |
         +-- instruments...
 
@@ -122,11 +150,15 @@ the metrics API:
     |
     +-- Meter(name='io.opentelemetry.runtime', version='1.0.0')
     |   |
+    |   +-- Instrument<Asynchronous Gauge, int>(name='cpython.gc', attributes=['generation'], unit='kB')
+    |   |
     |   +-- instruments...
     |
     +-- Meter(name='io.opentelemetry.contrib.mongodb.client', version='2.3.0')
         |
         +-- Instrument<Counter, int>(name='client.exception', attributes=['type'], unit='1')
+        |
+        +-- Instrument<Histogram, double>(name='client.duration', attributes=['net.peer.host', 'net.peer.port'], unit='ms')
         |
         +-- instruments...
 
@@ -603,24 +635,24 @@ counterPowerUsed.Add(200, new PowerConsumption { customer = "Jerry" }, ("is_gree
 ```
 
 <!--
-### CounterFunc
+### Asynchronous Counter
 -->
 
-### CounterFunc
+### Asynchronous Counter
 
 <!--
-`CounterFunc` is an asynchronous Instrument which reports
+Asynchronous Counter is an asynchronous Instrument which reports
 [monotonically](https://wikipedia.org/wiki/Monotonic_function) increasing
 value(s) when the instrument is being observed.
 -->
 
-CounterFunc` は非同期のInstrumentで、Instrumentが観察されているときに[単調に(モノトニック)](https://wikipedia.org/wiki/Monotonic_function)増加する値を報告します．
+非同期Counter は非同期のInstrumentで、Instrumentが観察されているときに[単調に(モノトニック)](https://wikipedia.org/wiki/Monotonic_function)増加する値を報告します．
 
 <!--
-Example uses for `CounterFunc`:
+Example uses for Asynchronous Counter:
 -->
 
-`CounterFunc`の使用例です。
+Asynchronous Counterの使用例です。
 
 <!--
 * [CPU time](https://wikipedia.org/wiki/CPU_time), which could be reported for
@@ -634,26 +666,39 @@ Example uses for `CounterFunc`:
 * 各プロセスの[ページフォルト](https://wikipedia.org/wiki/Page_fault)の数
 
 <!--
-#### CounterFunc creation
+#### Asynchronous Counter creation
 -->
 
-#### CounterFuncの作成
+#### 非同期Counterの作成
 
 <!--
-There MUST NOT be any API for creating a `CounterFunc` other than with a
-[`Meter`](#meter). This MAY be called `CreateCounterFunc`. If strong type is
-desired, the client can decide the language idomatic name(s), for example
-`CreateUInt64CounterFunc`, `CreateDoubleCounterFunc`,
-`CreateCounterFunc<UInt64>`, `CreateCounterFunc<double>`.
+There MUST NOT be any API for creating an Asynchronous Counter other than with a
+[`Meter`](#meter). This MAY be called `CreateObservableCounter`. If strong type
+is desired, the client can decide the language idomatic name(s), for example
+`CreateUInt64ObservableCounter`, `CreateDoubleObservableCounter`,
+`CreateObservableCounter<UInt64>`, `CreateObservableCounter<double>`.
 -->
 
-`CounterFunc`を作成するためのAPIは、[`Meter`](#meter)以外にあってはなりません(MUST NOT)。これを `CreateCounterFunc` と呼んでも構いません(MAY)。強い型が必要な場合には、クライアントは、例えば、`CreateUInt64CounterFunc`, `CreateDoubleCounterFunc`, `CreateCounterFunc<UInt64>`, `CreateCounterFunc<double>` のように、言語の慣用的な名前をつけることができます。
+非同期Counterを作成するためのAPIは、[`Meter`](#meter)以外にあってはなりません(MUST NOT)。これは、`CreateObservableCounter`と呼んでも構いません(MAY)。強い型が必要な場合は、クライアントがその言語で慣用的な名前を決めることができます。例えば、`CreateUInt64ObservableCounter`, `CreateDoubleObservableCounter`, `CreateObservableCounter<UInt64>`, `CreateObservableCounter<double>`などです。
+
+<!--
+It is highly recommended that implementations use the name `ObservableCounter`
+(or any language idiomatic variation, e.g. `observable_counter`) unless there is
+a strong reason not to do so. Please note that the name has nothing to do with
+[asynchronous
+pattern](https://en.wikipedia.org/wiki/Asynchronous_method_invocation) and
+[observer pattern](https://en.wikipedia.org/wiki/Observer_pattern).
+-->
+
+特に理由がない限り、`ObservableCounter`(または、`observable_counter`のような言語の慣用的なバリエーション)という名前を使用することを強く推奨します。この名前は[非同期パターン](https://en.wikipedia.org/wiki/Asynchronous_method_invocation)や[observerパターン](https://en.wikipedia.org/wiki/Observer_pattern)とは何の関係もないことに注意してください。
+
+
 
 <!--
 The API MUST accept the following parameters:
 -->
 
-The API MUST accept the following parameters:
+APIは、以下のパラメータを受け入れなければなりません(MUST)。
 
 <!--
 * The `name` of the Instrument, following the [instrument naming
@@ -752,8 +797,7 @@ def pf_callback():
         (37741921, ("pid", 4),   ("bitness", 64)),
         (10465,    ("pid", 880), ("bitness", 32)),
     )
-
-page_faults_counter_func = meter.create_counter_func(name="PF", description="process page faults", pf_callback)
+meter.create_observable_counter(name="PF", description="process page faults", pf_callback)
 ```
 
 ```python
@@ -765,7 +809,7 @@ def pf_callback(result):
     result.Observe(37741921, ("pid", 4),   ("bitness", 64))
     result.Observe(10465,    ("pid", 880), ("bitness", 32))
 
-page_faults_counter_func = meter.create_counter_func(name="PF", description="process page faults", pf_callback)
+meter.create_observable_counter(name="PF", description="process page faults", pf_callback)
 ```
 
 ```csharp
@@ -780,22 +824,532 @@ interface IAtomicClock
 
 IAtomicClock clock = AtomicClock.Connect();
 
-var obCaesiumOscillates = meter.CreateCounterFunc<UInt64>("caesium_oscillates", () => clock.GetCaesiumOscillates());
+meter.CreateObservableCounter<UInt64>("caesium_oscillates", () => clock.GetCaesiumOscillates());
 ```
 
 <!--
-#### CounterFunc operations
+#### Asynchronous Counter operations
 -->
 
-#### CounterFuncの操作
+#### 非同期Counterの操作
 
 <!--
-`CounterFunc` is only intended for asynchronous scenario. The only operation is
-provided by the `callback`, which is registered during the [CounterFunc
-creation](#counterfunc-creation).
+Asynchronous Counter is only intended for an asynchronous scenario. The only
+operation is provided by the `callback`, which is registered during the
+[Asynchronous Counter creation](#asynchronous-counter-creation).
 -->
 
-`CounterFunc`は非同期のシナリオのみを想定しています。唯一の操作は、[CounterFuncの作成](#CounterFuncの作成)の際に登録される`callback`によって提供されます。
+非同期Counterは、非同期的なシナリオのみを想定しています。唯一の操作は、[非同期Counterの作成](#非同期Counterの作成)の際に登録される`callback`によって提供されます。
+
+<!--
+### Histogram
+-->
+
+### Histogram
+
+<!--
+`Histogram` is a synchronous Instrument which can be used to report arbitrary
+values that are likely to be statistically meaningful. It is intended for
+statistics such as histograms, summaries, and percentile.
+-->
+
+`Histogram`は、統計的に意味があると思われる任意の値を報告するのに使える同期型のInstrumentです．これはヒストグラム、サマリー、パーセンタイルなどの統計を目的としています．
+
+<!--
+Example uses for `Histogram`:
+-->
+
+`Histogram`の使用例:
+
+<!--
+* the request duration
+* the size of the response payload
+-->
+
+* リクエスト期間
+* レスポンスペイロードのサイズ
+
+<!--
+#### Histogram creation
+-->
+
+#### Histogramの作成
+
+<!--
+There MUST NOT be any API for creating a `Histogram` other than with a
+[`Meter`](#meter). This MAY be called `CreateHistogram`. If strong type is
+desired, the client can decide the language idomatic name(s), for example
+`CreateUInt64Histogram`, `CreateDoubleHistogram`, `CreateHistogram<UInt64>`,
+`CreateHistogram<double>`.
+-->
+
+`Histogram`を作成するためのAPIは、[`Meter`](#meter)以外にあってはなりません(MUST NOT)。これは`CreateHistogram`と呼んでも構いません(MAY)。強力な型が必要な場合は、クライアントがその言語で慣用的な名前を決めることができます。例えば、`CreateUInt64Histogram`、`CreateDoubleHistogram`、`CreateHistogram<UInt64>`、`CreateHistogram<double>`などです。
+
+<!--
+The API MUST accept the following parameters:
+-->
+
+APIは、以下のパラメータを受け入れなければなりません(MUST)。
+
+<!--
+* The `name` of the Instrument, following the [instrument naming
+  rule](#instrument-naming-rule).
+* An optional `unit of measure`, following the [instrument unit
+  rule](#instrument-unit).
+* An optional `description`, following the [instrument description
+  rule](#instrument-description).
+-->
+
+* [Instrumentの命名のルール](#instrument-naming-rule)に従った、Instrumentsの `name`
+* [Instrumentの単位のルール](#instrument-unit)に従った、任意の `unit of measure`
+* [Instrumentの説明のルール](#instrument-description)に従った任意の`description`
+
+<!--
+Here are some examples that individual language client might consider:
+-->
+
+ここでは、個々の言語のクライアントが考慮すべきいくつかの例を紹介します。
+
+```python
+# Python
+
+http_server_duration = meter.create_histogram(
+    name="http.server.duration",
+    description="measures the duration of the inbound HTTP request",
+    unit="milliseconds",
+    value_type=float)
+```
+
+```csharp
+// C#
+
+var httpServerDuration = meter.CreateHistogram<double>(
+    "http.server.duration",
+    description: "measures the duration of the inbound HTTP request",
+    unit: "milliseconds"
+    );
+```
+
+<!--
+#### Histogram operations
+-->
+
+#### Histogramの操作
+
+<!--
+##### Record
+-->
+
+##### Record
+
+<!--
+Updates the statistics with the specified amount.
+-->
+
+指定した量の統計情報を更新します。
+
+<!--
+This API SHOULD NOT return a value (it MAY return a dummy value if required by
+certain programming languages or systems, for example `null`, `undefined`).
+-->
+
+このAPIは、値を返すべきではありません(SHOULD NOT)(特定のプログラミング言語やシステムで必要とされる場合は、`null`や`undefined`などのダミーの値を返しても構いません(MAY))。
+
+<!--
+Parameters:
+-->
+
+引数:
+
+<!--
+* The amount of the `Measurement`.
+* Optional [attributes](../common/common.md#attributes).
+-->
+
+* `Measurement` の量
+* 任意の [属性](../common/common.md#attributes)
+
+<!--
+The client MAY decide to allow flexible
+[attributes](../common/common.md#attributes) to be passed in as individual
+arguments. The client MAY allow attribute values to be passed in using a more
+efficient way (e.g. strong typed struct allocated on the callstack, tuple). Here
+are some examples that individual language client might consider:
+-->
+
+クライアントはフレキシブルな[属性](../common/common.md#attributes)を個々の引数として渡すことを許可してもかまいません(MAY)。クライアントは属性値をより効率的な方法で渡すことを許可してもかまいません(例:コールスタックに割り当てられた強力な型付き構造体やタプルなど)。以下は、個々の言語のクライアントが考慮すべきいくつかの例です。
+
+```python
+# Python
+
+http_server_duration.Record(50, {"http.method": "POST", "http.scheme": "https"})
+http_server_duration.Record(100, http_method="GET", http_scheme="http"})
+```
+
+```csharp
+// C#
+
+httpServerDuration.Record(50, ("http.method", "POST"), ("http.scheme", "https"));
+httpServerDuration.Record(100, new HttpRequestAttributes { method = "GET", scheme = "http" });
+```
+
+<!--
+### Asynchronous Gauge
+-->
+
+### 非同期Gauge
+
+<!--
+Asynchronous Gauge is an asynchronous Instrument which reports non-additive
+value(s) (_e.g. the room temperature - it makes no sense to report the
+temperature value from multiple rooms and sum them up_) when the instrument is
+being observed.
+-->
+
+非同期Gaugeは非加算値(_例:部屋の温度 - 複数の部屋の温度値を報告して合計するのは意味がない_)を、このInstrumentが観測されているときに報告する非同期型のInstrumentです。
+
+<!--
+Note: if the values are additive (_e.g. the process heap size - it makes sense
+to report the heap size from multiple processes and sum them up, so we get the
+total heap usage_), use [Asynchronous Counter](#asynchronous-counter) or
+[Asynchronous UpDownCounter](#asynchronous-updowncounter).
+-->
+
+注意:値が加算される場合(_例:プロセスのヒープサイズ-複数のプロセスのヒープサイズを報告し、それらを合計することでヒープ使用量の合計を得ることに意味があります_)、[非同期Counter](#非同期counter)または[非同期UpDownCounter](#非同期updowncounter)を使用してください。
+
+<!--
+Example uses for Asynchronous Gauge:
+-->
+
+非同期型Gaugeの使用例
+
+<!--
+* the current room temperature
+* the CPU fan speed
+-->
+
+* 現在の部屋の温度
+* CPUファンの回転数
+
+<!--
+#### Asynchronous Gauge creation
+-->
+
+#### 非同期Gaugeの作成
+
+<!--
+TODO
+-->
+
+TODO
+
+<!--
+#### Asynchronous Gauge operations
+-->
+
+#### 非同期Gaugeの操作
+
+<!--
+Asynchronous Gauge is only intended for an asynchronous scenario. The only
+operation is provided by the `callback`, which is registered during the
+[Asynchronous Gauge creation](#asynchronous-gauge-creation).
+-->
+
+非同期Gaugeは、非同期的なシナリオのみを想定しています。唯一の操作は、[非同期Gaugeの作成](#非同期Gaugeの作成)の際に登録される`callback`によって行われます。
+
+<!--
+### UpDownCounter
+-->
+
+### UpDownCounter
+
+<!--
+`UpDownCounter` is a synchronous Instrument which supports increments and
+decrements.
+-->
+
+`UpDownCounter`は加算と減算をサポートする同期型のInstrumentです。
+
+<!--
+Note: if the value grows
+[monotonically](https://wikipedia.org/wiki/Monotonic_function), use
+[Counter](#counter) instead.
+-->
+
+注意:値が[モノトニックに](https://wikipedia.org/wiki/Monotonic_function)成長する場合は、代わりに[Counter](#counter)を使用してください。
+
+<!--
+Example uses for `UpDownCounter`:
+-->
+
+`UpDownCounter`の使用例です。
+
+<!--
+* the number of active requests
+* the number of items in a queue
+-->
+
+* アクティブなリクエストの数
+* キュー内のアイテム数
+
+<!--
+An `UpDownCounter` is intended for scenarios where the absolute values are not
+pre-calculated, or fetching the "current value" requires extra effort. If the
+pre-calculated value is already available or fetching the snapshot of the
+"current value" is straightforward, use [Asynchronous
+UpDownCounter](#asynchronous-updowncounter) instead.
+-->
+
+`UpDownCounter`は、絶対値が事前に計算されていない場合や、「現在の値」を取得するのに余分な手間がかかる場合を想定しています。事前に計算された値が既に利用可能であったり、"現在の値"のスナップショットを取得するのが簡単な場合は、代わりに[非同期UpDownCounter](#非同期updowncounter)を使用してください。
+
+<!--
+Taking the **the size of a collection** as an example, almost all the language
+runtimes would provide APIs for retrieving the size of a collection, whether the
+size is internally maintained or calculated on the fly. If the intention is to
+report the size that can be retrieved from these APIs, use [Asynchronous
+UpDownCounter](#asynchronous-updowncounter).
+-->
+
+**コレクションのサイズ**を取得する場合を例にとると、ほとんどすべての言語ランタイムは、コレクションのサイズを取得するためのAPIを提供していますが、そのサイズが内部的に維持されているか、その場で計算されているかは問いません。これらのAPIから取得できるサイズを報告したい場合は、[非同期UpDownCounter](#非同期updowncounter)を使用してください。
+
+
+```python
+# Python
+items = []
+
+meter.create_observable_up_down_counter(
+    name="store.inventory",
+    description="the number of the items available",
+    callback=lambda result: result.Observe(len(items)))
+```
+
+<!--
+There are cases when the runtime APIs won't provide sufficient information, e.g.
+reporting the number of items in a concurrent bag by the "color" and "material"
+properties.
+-->
+
+ランタイムAPIでは十分な情報が得られない場合があります。例えば、「色」と「素材」のプロパティによって、同時使用のバッグのアイテム数を報告することができます。
+
+<!--
+| Color    | Material     | Count |
+| -------- | -----------  | ----- |
+| Red      | Aluminum     | 1     |
+| Red      | Steel        | 2     |
+| Blue     | Aluminum     | 0     |
+| Blue     | Steel        | 5     |
+| Yellow   | Aluminum     | 0     |
+| Yellow   | Steel        | 3     |
+-->
+
+| 色       | 素材         | 数     |
+| -------- | -----------  | ----- |
+| 赤       | アルミニウム  | 1     |
+| 赤       | 鉄            | 2     |
+| 青       | アルミニウム  | 0     |
+| 青       | 鉄            | 5     |
+| 黄色     | アルミニウム | 0     |
+| 黄色     | 鉄            | 3     |
+
+```python
+# Python
+items_counter = meter.create_up_down_counter(
+    name="store.inventory",
+    description="the number of the items available")
+
+def restock_item(color, material):
+    inventory.add_item(color=color, material=material)
+    items_counter.add(1, {"color": color, "material": material})
+    return true
+
+def sell_item(color, material):
+    succeeded = inventory.take_item(color=color, material=material)
+    if succeeded:
+        items_counter.add(-1, {"color": color, "material": material})
+    return succeeded
+```
+
+<!--
+#### UpDownCounter creation
+-->
+
+#### UpDownCounterの作成
+
+<!--
+There MUST NOT be any API for creating an `UpDownCounter` other than with a
+[`Meter`](#meter). This MAY be called `CreateUpDownCounter`. If strong type is
+desired, the client can decide the language idomatic name(s), for example
+`CreateInt64UpDownCounter`, `CreateDoubleUpDownCounter`,
+`CreateUpDownCounter<Int64>`, `CreateUpDownCounter<double>`.
+-->
+
+`UpDownCounter`を作成するためのAPIは、[`Meter`](#meter)以外にあってはなりません(MUST NOT)。これを `CreateUpDownCounter` と呼んでも構いません(MAY)。強い型が必要な場合は、クライアントはその言語で慣用的な名前を決めることができます。例えば、`CreateInt64UpDownCounter`、`CreateDoubleUpDownCounter`、`CreateUpDownCounter<Int64>`、`CreateUpDownCounter<double>`などです。
+
+<!--
+The API MUST accept the following parameters:
+-->
+
+APIは、以下の引数を受け入れなければなりません(MUST)。
+
+<!--
+* The `name` of the Instrument, following the [instrument naming
+  rule](#instrument-naming-rule).
+* An optional `unit of measure`, following the [instrument unit
+  rule](#instrument-unit).
+* An optional `description`, following the [instrument description
+  rule](#instrument-description).
+-->
+
+* [Instrumentの命名のルール](#instrument-naming-rule)に従った、Instrumentsの `name`
+* [Instrumentの単位のルール](#instrument-unit)に従った、任意の `unit of measure`
+* [Instrumentの説明のルール](#instrument-description)に従った任意の`description`
+
+<!--
+Here are some examples that individual language client might consider:
+-->
+
+ここでは、個々の言語のクライアントが考慮すべきいくつかの例を紹介します。
+
+```python
+# Python
+customers_in_store = meter.create_up_down_counter(
+    name="grocery.customers",
+    description="measures the current customers in the grocery store",
+    value_type=int)
+```
+
+```csharp
+// C#
+var customersInStore = meter.CreateUpDownCounter<int>(
+    "grocery.customers",
+    description: "measures the current customers in the grocery store",
+    );
+```
+
+<!--
+#### UpDownCounter operations
+-->
+
+#### UpDownCounterの操作
+
+<!--
+##### Add
+-->
+
+##### Add
+
+<!--
+Increment or decrement the UpDownCounter by a fixed amount.
+-->
+
+UpDownCounterを一定量だけ加算または減算します。
+
+<!--
+This API SHOULD NOT return a value (it MAY return a dummy value if required by
+certain programming languages or systems, for example `null`, `undefined`).
+-->
+
+このAPIは、値を返すべきではありません(SHOULD NOT)(特定のプログラミング言語やシステムで必要とされる場合は、`null`や`undefined`などのダミーの値を返しても構いません(MAY))。
+
+<!--
+Parameters:
+-->
+
+引数:
+
+<!--
+* The amount to be added, can be positive, negative or zero.
+* Optional [attributes](../common/common.md#attributes).
+-->
+
+* 加算される量: プラス、マイナス、ゼロのいずれかです。
+* 任意で[属性](../common/common.md#attributes)
+
+<!--
+The client MAY decide to allow flexible
+[attributes](../common/common.md#attributes) to be passed in as individual
+arguments. The client MAY allow attribute values to be passed in using a more
+efficient way (e.g. strong typed struct allocated on the callstack, tuple). Here
+are some examples that individual language client might consider:
+-->
+
+クライアントはフレキシブルな[属性](../common/common.md#attributes)を個々の引数として渡すことを許可してもかまいません(MAY)。クライアントは属性値をより効率的な方法で渡すことを許可してもかまいません(例:コールスタックに割り当てられた強力な型付き構造体、タプル)。以下は、個々の言語のクライアントが考慮すべきいくつかの例です。
+
+```python
+# Python
+customers_in_store.Add(1, {"account.type": "commercial"})
+customers_in_store.Add(-1, account_type="residential")
+```
+
+```csharp
+// C#
+customersInStore.Add(1, ("account.type", "commercial"));
+customersInStore.Add(-1, new Account { Type = "residential" });
+```
+
+<!--
+### Asynchronous UpDownCounter
+-->
+
+### 非同期UpDownCounter
+
+<!--
+Asynchronous UpDownCounter is an asynchronous Instrument which reports additive
+value(s) (_e.g. the process heap size - it makes sense to report the heap size
+from multiple processes and sum them up, so we get the total heap usage_) when
+the instrument is being observed.
+-->
+
+非同期UpDownCounterは非同期のInstrumentで、Instrumentが観測されているときに加算値(_例:プロセスのヒープ・サイズ-複数のプロセスのヒープ・サイズを報告し、それらを合計することでヒープの使用量の合計を得ることは理にかなっています_)を報告します。
+
+<!--
+Note: if the value grows
+[monotonically](https://wikipedia.org/wiki/Monotonic_function), use
+[Asynchronous Counter](#asynchronous-counter) instead; if the value is
+non-additive, use [Asynchronous Gauge](#asynchronous-gauge) instead.
+-->
+
+注意:値が[モノトニックに](https://wikipedia.org/wiki/Monotonic_function)成長する場合は、代わりに[非同期Counter](#非同期Counter)を、値が非加算である場合は、代わりに[非同期Gauge](#非同期Gauge)を使用してください。
+
+<!--
+Example uses for Asynchronous UpDownCounter:
+-->
+
+非同期UpDownCounterの使用例:
+
+<!--
+* the process heap size
+* the approximate number of items in a lock-free circular buffer
+-->
+
+* プロセスのヒープ・サイズ
+* ロックフリーなリングバッファのおおよそのアイテム数
+
+<!--
+#### Asynchronous UpDownCounter creation
+-->
+
+#### 非同期UpDownCounterの作成
+
+<!--
+TODO
+-->
+
+TODO
+
+<!--
+#### Asynchronous UpDownCounter operations
+-->
+
+#### 非同期UpDownCounterの操作
+
+<!--
+Asynchronous UpDownCounter is only intended for an asynchronous scenario. The
+only operation is provided by the `callback`, which is registered during the
+[Asynchronous UpDownCounter creation](#asynchronous-updowncounter-creation).
+-->
+
+非同期UpDownCounterは非同期的なシナリオのみを想定しています。唯一の操作は、[非同期UpDownCounterの作成](#非同期UpDownCounterの作成)の際に登録される`callback`によって提供されます。
 
 <!--
 ## Measurement
@@ -809,7 +1363,7 @@ Please refer to the [Metrics Programming Model](./README.md#programming-model)
 for the interaction between the API and SDK.
 -->
 
-`Measurement`とは、メトリクスAPIを介してSDKに報告されるデータポイントを表します。APIとSDKの間のやり取りについては、[Metricsプログラミングモデル](./README.md#programming-model)を参照してください。
+`Measurement`とは、Metrics APIを介してSDKに報告されるデータポイントを表します。APIとSDKの間のやり取りについては、[Metricsプログラミングモデル](./README.md#programming-model)を参照してください。
 
 <!--
 `Measurement`s encapsulate:
