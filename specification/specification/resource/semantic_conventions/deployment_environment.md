@@ -4,7 +4,11 @@
 
 **type:** `deployment`
 
+<!--
 **Description:** The software deployment.
+-->
+
+**Description:** ソフトウェアのデプロイです。
 
 <!-- semconv deployment -->
 | Attribute  | Type | Description  | Examples  | Required |

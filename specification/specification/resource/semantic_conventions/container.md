@@ -4,7 +4,11 @@
 
 **type:** `container`
 
+<!--
 **Description:** A container instance.
+-->
+
+**Description:** コンテナインスタンスです。
 
 <!-- semconv container -->
 | Attribute  | Type | Description  | Examples  | Required |

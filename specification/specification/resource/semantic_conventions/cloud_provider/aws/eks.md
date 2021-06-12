@@ -4,7 +4,7 @@
 
 **type:** `aws.eks`
 
-**Description:** Resources used by AWS Elastic Kubernetes Service (EKS).
+**Description:** AWS Elastic Kubernetes Service(EKS)が使用するリソースです。
 
 <!-- semconv aws.eks -->
 | Attribute  | Type | Description  | Examples  | Required |

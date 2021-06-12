@@ -4,7 +4,11 @@
 
 **type:** `faas`
 
+<!--
 **Description:** A serverless instance.
+-->
+
+**Description:** サーバーレスのインスタンスです。
 
 <!-- semconv faas_resource -->
 | Attribute  | Type | Description  | Examples  | Required |
@@ -20,4 +24,4 @@
 **[2]:** メモリが少なすぎるとJavaのAWS Lambda関数が正常に動作しなくなることがあるので、この属性を設定しておくことをお勧めします。AWS Lambda上では、環境変数 `AWS_LAMBDA_FUNCTION_MEMORY_SIZE` がこの情報を提供します。
 <!-- endsemconv -->
 
-Note: The resource attribute `faas.instance` differs from the span attribute `faas.execution`. For more information see the [Semantic conventions for FaaS spans](../../trace/semantic_conventions/faas.md#difference-between-execution-and-instance).
+注:Resource属性の`faas.instance`は、Span属性の`faas.execution`とは異なります。詳細は[FaaS spanのセマンティック規約](../../trace/semantic_conventions/faas.md#difference-between-execution-and-instance)を参照してください。
