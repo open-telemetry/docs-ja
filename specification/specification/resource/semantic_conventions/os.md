@@ -4,9 +4,17 @@
 
 **type:** `os`
 
+<!--
 **Description**: The operating system (OS) on which the process represented by this resource is running.
+-->
 
+**Description**: このリソースで表されるプロセスが実行されているオペレーティング・システム(OS)。
+
+<!--
 In case of virtualized environments, this is the operating system as it is observed by the process, i.e., the virtualized guest rather than the underlying host.
+-->
+
+仮想化環境の場合、これはプロセスによって観察されるオペレーティングシステムであり、基礎となるホストではなく仮想化されたゲストです。
 
 <!-- semconv os -->
 | Attribute  | Type | Description  | Examples  | Required |
