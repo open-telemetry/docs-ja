@@ -1105,7 +1105,7 @@ are adding, but where we may have an interest in the distribution of
 values and not only the sum:
 -->
 
-`ValueRecorder`の_加算(adding)_用途の例では、加算される測定値をキャプチャしますが、合計だけでなく値の分布にも興味があるかもしれません。
+`ValueRecorder`の _加算(adding)_ 用途の例では、加算される測定値をキャプチャしますが、合計だけでなく値の分布にも興味があるかもしれません。
 
 <!--
 - capture a request size
