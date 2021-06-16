@@ -1,4 +1,7 @@
+<!--
 # Process and process runtime resources
+-->
+# プロセスとプロセスのランタイムリソース
 
 **Status**: [Experimental](../../document-status.md)
 
@@ -6,8 +9,19 @@
 
 <!-- toc -->
 
-- [Process](#process)
+<!-- - [Process](#process)
 - [Process runtimes](#process-runtimes)
+  * [Erlang Runtimes](#erlang-runtimes)
+  * [Go Runtimes](#go-runtimes)
+  * [Java runtimes](#java-runtimes)
+  * [JavaScript runtimes](#javascript-runtimes)
+  * [.NET Runtimes](#net-runtimes)
+  * [Python Runtimes](#python-runtimes)
+  * [Ruby Runtimes](#ruby-runtimes)
+-->
+
+- [プロセス](#プロセス)
+- [プロセスランタイム](#プロセスランタイム)
   * [Erlang Runtimes](#erlang-runtimes)
   * [Go Runtimes](#go-runtimes)
   * [Java runtimes](#java-runtimes)
@@ -18,11 +32,18 @@
 
 <!-- tocstop -->
 
+<!--
 ## Process
+-->
+## プロセス
 
 **type:** `process`
 
+<!--
 **Description:** An operating system process.
+-->
+
+**Description:** OSのプロセス。
 
 <!-- semconv process -->
 | Attribute  | Type | Description  | Examples  | Required |
@@ -36,21 +57,40 @@
 | `process.owner` | string | プロセスを所有するユーザーのユーザー名。 | `root` | No |
 <!-- endsemconv -->
 
+<!--
 Between `process.command_args` and `process.command_line`, usually `process.command_args` should be preferred.
 On Windows and other systems where the native format of process commands is a single string,
 `process.command_line` can additionally (or instead) be used.
+-->
 
+`process.command_args` と `process.command_line` では、通常は `process.command_args` が優先されます。Windowsや、プロセスコマンドのネイティブフォーマットが単一の文字列である他のシステムでは、`process.command_line` を追加で (または代わりに) 使用することができます。
+
+<!--
 For backwards compatibility with older versions of this semantic convention,
 it is possible but deprecated to use an array as type for `process.command_line`.
 In that case it MUST be interpreted as if it was `process.command_args`.
+-->
 
+このセマンティック規約の古いバージョンとの後方互換性のために、`process.command_line` の型として配列を使用することは可能ですが、非推奨です。その場合、それは `process.command_args` であるかのように解釈されなければなりません (MUST)。
+
+<!--
 At least one of `process.executable.name`, `process.executable.path`, `process.command`, `process.command_line` or `process.command_args` is required to allow back ends to identify the executable.
+-->
 
+バックエンドが実行ファイルを識別するためには、`process.executable.name`、`process.executable.path`、`process.command`、`process.command_line`、`process.command_args` のうち少なくともひとつが必要です。
+
+<!--
 ## Process runtimes
+-->
+## プロセスランタイム
 
 **type:** `process.runtime`
 
+<!--
 **Description:** The single (language) runtime instance which is monitored.
+-->
+
+**Description:** モニター対象となる単一の（言語）ランタイムインスタンスです。
 
 <!-- semconv process.runtime -->
 | Attribute  | Type | Description  | Examples  | Required |
@@ -60,41 +100,83 @@ At least one of `process.executable.name`, `process.executable.path`, `process.c
 | `process.runtime.description` | string | プロセスのランタイムに関する追加の記述、例えば、ランタイム環境の特定のベンダのカスタマイズなど。 | `Eclipse OpenJ9 Eclipse OpenJ9 VM openj9-0.21.0` | No |
 <!-- endsemconv -->
 
+<!--
 How to set these attributes for particular runtime kinds is described in the following subsections.
+-->
 
+これらの属性を特定のランタイムタイプに設定する方法については、以下の項目で説明します。
+
+<!--
 In addition to these attributes, [`telemetry.sdk.language`](README.md#telemetry-sdk) can be used to determine the general kind of runtime used.
+-->
 
+これらの属性に加えて、[`telemetry.sdk.language`](README.md#telemetry-sdk)を使用して、使用するランタイムの一般的な種類を決定することができます。
+
+<!--
 ### Erlang Runtimes
+-->
 
+### Erlangランタイム
+
+<!--
 - `process.runtime.name` - The name of the Erlang VM being used, i.e., `erlang:system_info(machine)`.
 - `process.runtime.version` -  The version of the runtime (ERTS - Erlang Runtime System), i.e., `erlang:system_info(version)`.
 - `process.runtime.description` - string | An additional description about the runtime made by combining the OTP version, i.e., `erlang:system_info(otp_release)`, and ERTS version.
+-->
 
-Example:
+- `process.runtime.name` - 使用されているErlang VMの名前、つまり `erlang:system_info(machine)` です。
+- `process.runtime.version` - ランタイムのバージョン (ERTS - Erlang Runtime System)、つまり `erlang:system_info(version)` です。
+- `process.runtime.description` - string | OTPバージョン、つまり `erlang:system_info(otp_release)` と ERTSバージョンを組み合わせて作られるランタイムに関する追加の説明です。
+
+
+例:
 
 | `process.runtime.name` | `process.runtime.version` | `process.runtime.description` |
 | --- | --- | --- |
 | BEAM | 11.1 |  Erlang/OTP 23 erts-11.1 |
 
+<!--
 ### Go Runtimes
+-->
 
+### Goランタイム
+
+<!--
 TODO(<https://github.com/open-telemetry/opentelemetry-go/issues/1181>): Confirm the contents here
+-->
+
+TODO(<https://github.com/open-telemetry/opentelemetry-go/issues/1181>)。ここの内容を確認
+
 
 | Value | Description |
 | --- | --- |
 | `gc` | Go compiler |
 | `gccgo` | GCC Go frontend |
 
-### Java runtimes
+### Javaランタイム
 
+<!--
 Java instrumentation should fill in the values by copying from system properties.
+-->
 
+Javaの計装は、システムのプロパティからコピーして値を埋める必要があります。
+
+<!--
 - `process.runtime.name` - Fill in the value of `java.runtime.name` as is
 - `process.runtime.version` - Fill in the value of `java.runtime.version` as is
 - `process.runtime.description` - Fill in the values of `java.vm.vendor`, `java.vm.name`, `java.vm.version`
   in that order, separated by spaces.
+-->
 
+- `process.runtime.name` - `java.runtime.name` の値をそのまま入力してください。
+- `process.runtime.version` - `java.runtime.version` の値をそのまま入力してください。
+- `process.runtime.description` - `java.vm.vender`, `java.vm.name`, `java.vm.version` の順に、スペースで区切って入力してください。
+
+<!--
 Examples for some Java runtimes
+-->
+
+いくつかのJavaランタイムの例
 
 | Name | `process.runtime.name` | `process.runtime.version` | `process.runtime.description` |
 | --- | --- | --- | --- |
@@ -107,9 +189,14 @@ Examples for some Java runtimes
 | IBM J9 8 | Java(TM) SE Runtime Environment | 8.0.5.25 - pwa6480sr5fp25-20181030_01(SR5 FP25) | IBM Corporation IBM J9 VM 2.9 |
 | Android 11 | Android Runtime | 0.9 | The Android Project Dalvik 2.1.0 |
 
-### JavaScript runtimes
+### JavaScriptランタイム
 
+<!--
 TODO(<https://github.com/open-telemetry/opentelemetry-js/issues/1544>): Confirm the contents here
+-->
+
+TODO(<https://github.com/open-telemetry/opentelemetry-js/issues/1544>): この内容を確認
+
 
 | Value | Description |
 | --- | --- |
@@ -118,11 +205,20 @@ TODO(<https://github.com/open-telemetry/opentelemetry-js/issues/1544>): Confirm 
 | `iojs` | io.js |
 | `graalvm` | GraalVM |
 
+<!--
 When the value is `browser`, `process.runtime.version` SHOULD be set to the User-Agent header.
+-->
 
-### .NET Runtimes
+値が `browser` の場合、`process.runtime.version` は User-Agent ヘッダに設定されるべきです（SHOULD）。
 
+### .NETランタイム
+
+<!--
 TODO(<https://github.com/open-telemetry/opentelemetry-dotnet/issues/1281>): Confirm the contents here
+-->
+
+TODO(<https://github.com/open-telemetry/opentelemetry-dotnet/issues/1281>): この内容を確認
+
 
 | Value | Description |
 | --- | --- |
@@ -130,10 +226,15 @@ TODO(<https://github.com/open-telemetry/opentelemetry-dotnet/issues/1281>): Conf
 | `dotnet-framework` | .NET Framework |
 | `mono` | Mono |
 
-### Python Runtimes
+### Pythonランタイム
 
+<!--
 Python instrumentation should fill in the values as follows:
+-->
 
+Pythonの計装では、以下のように値を埋める必要があります。
+
+<!--
 - `process.runtime.name` -
   Fill in the value of [`sys.implementation.name`][py_impl]
 - `process.runtime.version` -
@@ -155,10 +256,32 @@ Python instrumentation should fill in the values as follows:
   ```
 
 - `process.runtime.description` - Fill in the value of [`sys.version`](https://docs.python.org/3/library/sys.html#sys.version) as-is.
+-->
+
+- `process.runtime.name` - [`sys.implementation.name`][py_impl]の値を記入します。
+- `process.runtime.version` - ドットで区切られた[`sys.implementation.version`][py_impl]の値を入力します。リリースレベルが `final` で、シリアルが 0 の場合は、リリースレベルとシリアルを省きます (両方を省くか、何も省かない)。
+
+  これは、以下のPythonスニペットで実装できます。
+
+  ```python
+  vinfo = sys.implementation.version
+  result =  ".".join(map(
+      str,
+      vinfo[:3]
+      if vinfo.releaselevel == "final" and not vinfo.serial
+      else vinfo
+  ))
+  ```
+
+- `process.runtime.description` - [`sys.version`](https://docs.python.org/3/library/sys.html#sys.version)の値をそのまま記入します。
 
 [py_impl]: https://docs.python.org/3/library/sys.html#sys.implementation
 
+<!--
 Examples for some Python runtimes:
+-->
+
+いくつかのPythonランタイムの例:
 
 | Name | `process.runtime.name` | `process.runtime.version` | `process.runtime.description` |
 | --- | --- | --- | --- |
@@ -166,20 +289,42 @@ Examples for some Python runtimes:
 | CPython 3.8.6 on Linux | cpython | 3.8.6 | 3.8.6 (default, Sep 30 2020, 04:00:38) <br>[GCC 10.2.0] |
 | PyPy 3 7.3.2 on Linux | pypy | 3.7.4 | 3.7.4 (?, Sep 27 2020, 15:12:26)<br>[PyPy 7.3.2-alpha0 with GCC 10.2.0] |
 
+<!--
 Note that on Linux, there is an actual newline in the `sys.version` string,
 and the CPython string had a trailing space in the first line.
+-->
 
+Linuxでは、`sys.version`の文字列に実際の改行があり、CPythonの文字列では1行目に末尾のスペースがあったことに注意してください。
+
+<!--
 Pypy provided a CPython-compatible version in `sys.implementation.version` instead of the actual implementation version which is available in `sys.version`.
+-->
 
-### Ruby Runtimes
+Pypyでは、`sys.version`にある実際の実装バージョンではなく、`sys.implementation.version`にCPythonとの互換性のあるバージョンを提供していました。
 
+### Rubyランタイム
+
+<!--
 Ruby instrumentation should fill in the values by copying from built-in runtime constants.
+-->
 
+Rubyの計装では、組み込みのランタイム定数からコピーして値を埋める必要があります。
+
+<!--
 - `process.runtime.name` - Fill in the value of `RUBY_ENGINE` as is
 - `process.runtime.version` - Fill in the value of `RUBY_VERSION` as is
 - `process.runtime.description` - Fill in the value of `RUBY_DESCRIPTION` as is
+-->
 
+- `process.runtime.name` - `RUBY_ENGINE` の値をそのまま入力してください。
+- `process.runtime.version` - `RUBY_VERSION` の値をそのまま入力してください。
+- `process.runtime.description` - `RUBY_DESCRIPTION` の値を入力してください。
+
+<!--
 Examples for some Ruby runtimes
+-->
+
+いくつかのRubyランタイムの例
 
 | Name | `process.runtime.name` | `process.runtime.version` | `process.runtime.description` |
 | --- | --- | --- | --- |

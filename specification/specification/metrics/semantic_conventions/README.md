@@ -19,12 +19,12 @@
   * [Instrument Units](#instrument-units)
 -->
 
-- [General Guidelines](#general-guidelines)
-  * [Units](#units)
-  * [Pluralization](#pluralization)
-- [General Metric Semantic Conventions](#general-metric-semantic-conventions)
-  * [Instrument Naming](#instrument-naming)
-  * [Instrument Units](#instrument-units)
+- [一般的なガイドライン](#一般的なガイドライン)
+  * [単位](#単位)
+  * [Pluralization(複数名化)](#Pluralization-複数名化)
+- [一般的なメトリックのセマンティック規約](#一般的なメトリックのセマンティック規約)
+  * [Instrumentの名前付け](#Instrumentの名前付け)
+  * [Instrumentの単位](#Instrumentの単位)
 
 
 <!-- tocstop -->
