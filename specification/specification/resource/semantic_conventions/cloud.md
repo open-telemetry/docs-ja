@@ -1,10 +1,19 @@
+<!--
 # Cloud
+-->
+
+# クラウド
 
 **Status**: [Experimental](../../document-status.md)
 
 **type:** `cloud`
 
+<!--
 **Description:** A cloud infrastructure (e.g. GCP, Azure, AWS).
+-->
+
+**Description:** クラウドインフラストラクチャ (e.g. GCP, Azure, AWS).
+
 
 <!-- semconv cloud -->
 | Attribute  | Type | Description  | Examples  | Required |

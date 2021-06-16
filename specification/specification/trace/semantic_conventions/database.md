@@ -1,4 +1,8 @@
+<!-- 
 # Semantic conventions for database client calls
+-->
+
+# データベース・クライアントの呼び出しに関するセマンティック規約
 
 **Status**: [Experimental](../../document-status.md)
 
@@ -6,6 +10,7 @@
 
 <!-- toc -->
 
+<!-- 
 - [Semantic conventions for database client calls](#semantic-conventions-for-database-client-calls)
   - [Connection-level attributes](#connection-level-attributes)
     - [Notes and well-known identifiers for `db.system`](#notes-and-well-known-identifiers-for-dbsystem)
@@ -17,11 +22,29 @@
     - [MySQL](#mysql)
     - [Redis](#redis)
     - [MongoDB](#mongodb)
+-->
+
+- [Semantic conventions for database client calls](#semantic-conventions-for-database-client-calls)
+  - [コネクションレベルの属性](#コネクションレベルの属性)
+    - [`db.system`の注意とよく知られた識別子](#db.systemの注意とよく知られた識別子)
+    - [特定の技術に対するコネクションレベルの属性](#特定の技術に対するコネクションレベルの属性)
+  - [呼び出しレベルの属性](#呼び出しレベルの属性)
+    - [特定の技術に対する呼び出しレベルの属性](#特定の技術に対する呼び出しレベルの属性)
+      - [Cassandra](#cassandra)
+  - [例](#例)
+    - [MySQL](#mysql)
+    - [Redis](#redis)
+    - [MongoDB](#mongodb)
 
 <!-- tocstop -->
 
-**Span kind:** MUST always be `CLIENT`.
+<!--
+**Span kind:** MUST always be `CLIENT`. 
+-->
 
+**Span kind:** 常に `CLIENT` でなければなりません(MUST)
+
+<!-- 
 The **span name** SHOULD be set to a low cardinality value representing the statement executed on the database.
 It MAY be a stored procedure name (without arguments), DB statement without variable arguments, operation name, etc.
 Since SQL statements may have very high cardinality even without arguments, SQL spans SHOULD be named the
@@ -31,11 +54,22 @@ If `db.sql.table` is not available due to its semantics, the span SHOULD be name
 It is not recommended to attempt any client-side parsing of `db.statement` just to get these properties,
 they should only be used if the library being instrumented already provides them.
 When it's otherwise impossible to get any meaningful span name, `db.name` or the tech-specific database name MAY be used.
+-->
 
+**span name**には、データベース上で実行されたステートメントを表すカーディナリティの低い値を設定すべきです(SHOULD)。これは、ストアドプロシージャ名(引数なし)、変数引数なしのDB文、操作名などであってもかまいません(MAY)。SQL文は引数がなくても非常に高いカーディナリティを持つ可能性があるので、SQLSpanは、文が低いカーディナリティであることが分かっている場合を除き、次のように命名されるべきです: `<db.operation> <db.name>.<db.sql.table>`(ただし、`db.operation`と`db.sql.table`が利用可能な場合)。もし `db.sql.table` がそのセマンティクスのために利用できない場合は、`<db.operation> <db.name>` という名前にすべきです(SHOULD)。これらのプロパティを取得するために、クライアントサイドで `db.statement` の解析を試みることは推奨されません。これらのプロパティは、計装対象のライブラリが既に提供している場合にのみ使用する必要があります。意味のあるSpan名を得ることができない場合には、`db.name` または技術固有のデータベース名を使用しても構いません(MAY)。
+
+<!--
 ## Connection-level attributes
+-->
 
+## コネクションレベルの属性
+
+<!--
 These attributes will usually be the same for all operations performed over the same database connection.
 Some database systems may allow a connection to switch to a different `db.user`, for example, and other database systems may not even have the concept of a connection at all.
+-->
+
+これらの属性は通常、同じデータベース接続で実行されるすべての操作で同じになります。データベースシステムによっては、例えば、接続を別の`db.user`に切り替えることができる場合もありますし、接続という概念が全くないデータベースシステムもあります。
 
 <!-- semconv db(tag=connection-level) -->
 | Attribute  | Type | Description  | Examples  | Required |
@@ -104,25 +138,56 @@ Some database systems may allow a connection to switch to a different `db.user`,
 | `elasticsearch` | Elasticsearch |
 <!-- endsemconv -->
 
+<!--
 ### Notes and well-known identifiers for `db.system`
+-->
 
-The list above is a non-exhaustive list of well-known identifiers to be specified for `db.system`.
+### `db.system`の注意とよく知られた識別子
 
+<!-- The list above is a non-exhaustive list of well-known identifiers to be specified for `db.system`.
+-->
+
+上記のリストは、`db.system`に指定すべき有名な識別子の非網羅的なリストです。
+
+<!--
 If a value defined in this list applies to the DBMS to which the request is sent, this value MUST be used.
 If no value defined in this list is suitable, a custom value MUST be provided.
 This custom value MUST be the name of the DBMS in lowercase and without a version number to stay consistent with existing identifiers.
+-->
 
+このリストに定義されている値が、リクエストが送信されたDBMSに適用される場合、この値を使用しなければなりません(MUST)。このリストで定義された値が適切でない場合は、カスタム値を提供しなければなりません(MUST)。このカスタム値は、既存の識別子との整合性を保つために、小文字でバージョン番号を含まないDBMSの名前でなければなりません(MUST)。
+
+<!--
 It is encouraged to open a PR towards this specification to add missing values to the list, especially when instrumentations for those missing databases are written.
 This allows multiple instrumentations for the same database to be aligned and eases analyzing for backends.
+-->
 
+足りてない値をリストに追加するために、この仕様に向けてPRを行うことが推奨されます。特に、これらの足りていない値を持つデータベースのための計装が作成された場合には、そのようにしてください。これにより、同じデータベースに対する複数の計装を揃えることができ、バックエンドの分析が容易になります。
+
+<!--
 The value `other_sql` is intended as a fallback and MUST only be used if the DBMS is known to be SQL-compliant but the concrete product is not known to the instrumentation.
 If the concrete DBMS is known to the instrumentation, its specific identifier MUST be used.
+-->
 
+値 `other_sql` はフォールバックを目的としており、DBMS が SQL に準拠していることはわかっているが、具体的な製品が計装に知られていない場合にのみ使用しなければなりません(MUST)。具体的なDBMSが計装に知られている場合は、その具体的な識別子を使用しなければなりません(MUST)。
+
+<!--
 Back ends could, for example, use the provided identifier to determine the appropriate SQL dialect for parsing the `db.statement`.
+-->
 
+バックエンドは、例えば、提供された識別子を使って、`db.statement`を解析するための適切なSQL方言(SQL dialect)を決定することができます。
+
+<!--
 When additional attributes are added that only apply to a specific DBMS, its identifier SHOULD be used as a namespace in the attribute key as for the attributes in the sections below.
+-->
 
+特定のDBMSにのみ適用される属性が追加された場合、その識別子は、以下のセクションの属性と同様に、属性キーの名前空間として使用されるべきです(SHOULD)。
+
+<!--
 ### Connection-level attributes for specific technologies
+-->
+
+### 特定の技術に対するコネクションレベルの属性
 
 <!-- semconv db.mssql(tag=connection-level-tech-specific,remove_constraints) -->
 | Attribute  | Type | Description  | Examples  | Required |
@@ -133,10 +198,13 @@ When additional attributes are added that only apply to a specific DBMS, its ide
 **[1]:** `db.mssql.instance_name`を設定する場合、`net.peer.port`は必須ではなくなりました(ただし、非標準の場合は推奨)
 <!-- endsemconv -->
 
-## Call-level attributes
+## 呼び出しレベルの属性
 
-These attributes may be different for each operation performed, even if the same connection is used for multiple operations.
+<!-- These attributes may be different for each operation performed, even if the same connection is used for multiple operations.
 Usually only one `db.name` will be used per connection though.
+-->
+
+These attributes may be different for each operation performed, even if the same connection is used for multiple operations. Usually only one `db.name` will be used per connection though.
 
 <!-- semconv db(tag=call-level,remove_constraints) -->
 | Attribute  | Type | Description  | Examples  | Required |
@@ -152,17 +220,35 @@ Usually only one `db.name` will be used per connection though.
 **[3]:** これをSQLキーワードに設定する場合、このプロパティを取得するためだけに `db.statement` のクライアント側の解析を試みることは推奨されません。しかし、測定対象のライブラリから操作名が提供されている場合は設定する必要があります。SQL文に曖昧な操作があったり、複数の操作を実行したりする場合は、この値を省略しても構いません。
 <!-- endsemconv -->
 
-For **Redis**, the value provided for `db.statement` SHOULD correspond to the syntax of the Redis CLI.
+<!-- For **Redis**, the value provided for `db.statement` SHOULD correspond to the syntax of the Redis CLI.
 If, for example, the [`HMSET` command][] is invoked, `"HMSET myhash field1 'Hello' field2 'World'"` would be a suitable value for `db.statement`.
+-->
 
-[`HMSET` command]: https://redis.io/commands/hmset
+**Redis**の場合、`db.statement`に指定される値は、Redis CLIの構文に対応するべきです(SHOULD)。例えば、[`HMSET`コマンド][]が起動された場合、`"HMSET myhash field1 'Hello' field2 'World'"`が`db.statement`の適切な値となります。
 
-In **CouchDB**, `db.operation` should be set to the HTTP method + the target REST route according to the API reference documentation.
+<!-- [`HMSET` command]: https://redis.io/commands/hmset
+-->
+
+[`HMSET`コマンド]: https://redis.io/commands/hmset
+
+<!-- In **CouchDB**, `db.operation` should be set to the HTTP method + the target REST route according to the API reference documentation.
 For example, when retrieving a document, `db.operation` would be set to (literally, i.e., without replacing the placeholders with concrete values): [`GET /{db}/{docid}`][CouchDB get doc].
+-->
+
+**CouchDB**では、`db.operation`に、APIリファレンスドキュメントに記載されているHTTPメソッド+対象となるRESTルートを設定する必要があります。例えば、ドキュメントを取得する場合、`db.operation`は以下のように設定されます(文字通り、つまりプレースホルダーを具体的な値に置き換えずに、です)。[`GET /{db}/{docid}`][CouchDB get doc].
+
+<!--
+[CouchDB get doc]: http://docs.couchdb.org/en/stable/api/document/common.html#get--db-docid
+-->
 
 [CouchDB get doc]: http://docs.couchdb.org/en/stable/api/document/common.html#get--db-docid
 
+
+<!--
 ### Call-level attributes for specific technologies
+-->
+
+### 特定の技術に対する呼び出しレベルの属性
 
 <!-- semconv db.tech(tag=call-level-tech-specific) -->
 | Attribute  | Type | Description  | Examples  | Required |
@@ -177,7 +263,11 @@ For example, when retrieving a document, `db.operation` would be set to (literal
 
 #### Cassandra
 
+<!--
 Separated for clarity.
+-->
+
+明確にするために分離しました。
 
 <!-- semconv db.tech(tag=call-level-tech-specific-cassandra) -->
 | Attribute  | Type | Description  | Examples  | Required |
@@ -194,7 +284,7 @@ Separated for clarity.
 **[1]:** これは、db.sql.table属性を反映していますが、sqlではなくcassandraを参照しています。この属性を取得するためだけにクライアントサイドで `db.statement` の解析を行うことは推奨されませんが、計装対象のライブラリで提供されている場合は設定する必要があります。操作が匿名のテーブルや複数のテーブルに対して行われる場合、この値は設定してはいけません(MUST NOT)。
 <!-- endsemconv -->
 
-## Examples
+## 例
 
 ### MySQL
 
@@ -215,8 +305,11 @@ Separated for clarity.
 
 ### Redis
 
-In this example, Redis is connected using a unix domain socket and therefore the connection string and `net.peer.ip` are left out.
+<!-- In this example, Redis is connected using a unix domain socket and therefore the connection string and `net.peer.ip` are left out.
 Furthermore, `db.name` is not specified as there is no database name in Redis and `db.redis.database_index` is set instead.
+-->
+
+この例では、Redisはunixドメインソケットを使って接続しているので、接続文字列と`net.peer.ip`は省略しています。また、Redisにはデータベース名が存在しないため、`db.name`を指定せず、代わりに`db.redis.database_index`を設定しています。
 
 | Key | Value |
 | :------------------------ | :-------------------------------------------- |

@@ -1,10 +1,18 @@
+<!--
 # Host
+-->
+
+# ホスト
 
 **Status**: [Experimental](../../document-status.md)
 
 **type:** `host`
 
+<!--
 **Description:** A host is defined as a general computing instance.
+-->
+
+**Description:** ホストとは、一般的なコンピューティングインスタンスと定義されます。
 
 <!-- semconv host -->
 | Attribute  | Type | Description  | Examples  | Required |

@@ -1,28 +1,54 @@
+<!--
 # Semantic Conventions for Exceptions
+-->
+
+# 例外のセマンティック規約
 
 **Status**: [Experimental](../../document-status.md)
 
+<!--
 This document defines semantic conventions for recording application
 exceptions.
+-->
+
+このドキュメントでは、アプリケーションの例外を記録するためのセマンティック規約を定義しています。
 
 <!-- toc -->
 
+<!--
 - [Recording an Exception](#recording-an-exception)
 - [Attributes](#attributes)
   - [Stacktrace Representation](#stacktrace-representation)
+-->
+
+- [例外の記録](#例外の記録)
+- [属性](#属性)
+  - [スタックトレースの表現](#スタックトレースの表現)
 
 <!-- tocstop -->
 
+<!--
 ## Recording an Exception
+-->
 
+## 例外の記録
+
+<!--
 An exception SHOULD be recorded as an `Event` on the span during which it occurred.
 The name of the event MUST be `"exception"`.
+-->
+
+例外は、それが発生したSpan上の `イベント` として記録されるべきです (SHOULD)。イベントの名前は `"exception"` でなければなりません。
 
 <a name="exception-end-example"></a>
 
+<!--
 A typical template for an auto-instrumentation implementing this semantic convention
 using an [API-provided `recordException` method](../api.md#record-exception)
 could look like this (pseudo-Java):
+-->
+
+APIで提供される[`recordException`メソッド](../api.md#record-exception)を使って、このセマンティック規約を実装した自動計装実装の典型的なテンプレートは、以下のようになります(擬似Java)。
 
 ```java
 Span span = myTracer.startSpan(/*...*/);
@@ -36,10 +62,19 @@ try {
 }
 ```
 
+<!--
 ## Attributes
+-->
 
+## 属性
+
+<!--
 The table below indicates which attributes should be added to the `Event` and
 their types.
+-->
+
+以下の表は、`Event`に追加すべき属性とそのタイプを示しています。
+
 
 <!-- semconv exception -->
 | Attribute  | Type | Description  | Examples  | Required |
@@ -59,13 +94,22 @@ their types.
 * `exception.message`
 <!-- endsemconv -->
 
+<!--
 ### Stacktrace Representation
+-->
 
+### スタックトレースの表現
+
+<!--
 The table below, adapted from [Google Cloud][gcp-error-reporting], includes
 possible representations of stacktraces in various languages. The table is not
 meant to be a recommendation for any particular language, although SIGs are free
 to adopt them if they see fit.
+-->
 
+以下の表は、[Google Cloud][gcp-error-reporting]からの引用で、様々な言語でのスタックトレースの表現を含んでいます。この表は、特定の言語を推奨するものではありませんが、SIGが適切と判断した場合には自由に採用することができます．
+
+<!--
 | Language   | Format                                                              |
 | ---------- | ------------------------------------------------------------------- |
 | C#         | the return value of [Exception.ToString()][csharp-stacktrace]       |
@@ -74,11 +118,36 @@ to adopt them if they see fit.
 | Javascript | the return value of [error.stack][js-stacktrace] as returned by V8  |
 | Python     | the return value of [traceback.format_exc()][python-stacktrace]     |
 | Ruby       | the return value of [Exception.full_message][ruby-full-message]     |
+-->
 
+| 言語   | Format                                                              |
+| ---------- | ------------------------------------------------------------------- |
+| C#         | [Exception.ToString()][csharp-stacktrace]の戻り値      |
+| Go         | [runtime.Stack][go-stacktrace]の戻り値                  |
+| Java       | [Throwable.printStackTrace()][java-stacktrace]の内容      |
+| Javascript | V8で返される[error.stack][js-stacktrace]の戻り値  |
+| Python     | [traceback.format_exc()][python-stacktrace]の戻り値     |
+| Ruby       | [Exception.full_message][ruby-full-message]の戻り値     |
+
+<!--
 Backends can use the language specified methodology for generating a stacktrace
 combined with platform information from the
 [telemetry sdk resource][telemetry-sdk-resource] in order to extract more fine
 grained information from a stacktrace, if necessary.
+-->
+
+バックエンドは、必要に応じてStacktraceからより詳細な情報を抽出するために、[telemetry sdk resource][telemetry-sdk-resource]からのプラットフォーム情報と組み合わせて、スタックトレースを生成するために言語で指定された方法を使用することができます。
+
+<!--
+[gcp-error-reporting]: https://cloud.google.com/error-reporting/reference/rest/v1beta1/projects.events/report
+[java-stacktrace]: https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html#printStackTrace%28%29
+[python-stacktrace]: https://docs.python.org/3/library/traceback.html#traceback.format_exc
+[js-stacktrace]: https://v8.dev/docs/stack-trace-api
+[ruby-full-message]: https://ruby-doc.org/core-2.7.1/Exception.html#method-i-full_message
+[csharp-stacktrace]: https://docs.microsoft.com/en-us/dotnet/api/system.exception.tostring
+[go-stacktrace]: https://golang.org/pkg/runtime/debug/#Stack
+[telemetry-sdk-resource]:../../resource/semantic_conventions/README.md#telemetry-sdk
+-->
 
 [gcp-error-reporting]: https://cloud.google.com/error-reporting/reference/rest/v1beta1/projects.events/report
 [java-stacktrace]: https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html#printStackTrace%28%29
