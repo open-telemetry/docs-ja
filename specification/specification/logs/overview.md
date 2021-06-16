@@ -58,7 +58,7 @@ specifies a new API and provides full implementations of this API in multiple
 languages.
 -->
 
-メトリクスとトレースについては、OpenTelemetryはクリーンシートデザインのアプローチをとり、新しいAPIを指定し、このAPIの完全な実装を複数の言語で提供しています。
+メトリックとトレースについては、OpenTelemetryはクリーンシートデザインのアプローチをとり、新しいAPIを指定し、このAPIの完全な実装を複数の言語で提供しています。
 
 <!--
 Our approach with logs is somewhat different. For OpenTelemetry to be
@@ -96,7 +96,7 @@ the application runs) that is uniform with traces and metrics and allows all
 telemetry data to be fully correlated in a precise and robust manner.
 -->
 
-残念ながら、既存のロギングソリューションは、残りの観測可能なシグナルとの統合が弱いのが現状です。一般的にログは、利用可能でしばしば不完全な相関情報(時間や起源の属性など)を使用するリンクの形で、トレースおよび監視ツールを限定的にサポートしています。属性はログ、トレース、メトリクスごとに異なる手段(異なる収集エージェントを使用するなど)で追加されることが多いため、この相関関係は脆弱な場合があります。トレースやメトリクスと統一され、すべてのテレメトリデータを正確かつ堅牢な方法で完全に相関させることができる、ログの起源およびソース(アプリケーションおよびアプリケーションが実行されている場所/インフラなど)に関する情報を含めるための標準的な方法はありません。
+残念ながら、既存のロギングソリューションは、残りの観測可能なシグナルとの統合が弱いのが現状です。一般的にログは、利用可能でしばしば不完全な相関情報(時間や起源の属性など)を使用するリンクの形で、トレースおよび監視ツールを限定的にサポートしています。属性はログ、トレース、メトリックごとに異なる手段(異なる収集エージェントを使用するなど)で追加されることが多いため、この相関関係は脆弱な場合があります。トレースやメトリックと統一され、すべてのテレメトリデータを正確かつ堅牢な方法で完全に相関させることができる、ログの起源およびソース(アプリケーションおよびアプリケーションが実行されている場所/インフラなど)に関する情報を含めるための標準的な方法はありません。
 
 
 <!--
@@ -160,7 +160,7 @@ observability information for legacy and modern systems. This is the vision of
 OpenTelemetry's collection of logs, traces and metrics:
 -->
 
-これは、オブザーバビリティツールの有望な進化の方向性の一つです。トレースやメトリクスとログの相関関係を標準化し、ログの分散型コンテキスト伝搬のサポートを追加し、ログ、トレース、メトリクスのソース属性を統一することで、レガシーシステムとモダンシステムのオブザーバビリティ情報の個々の価値と総合的な価値を高めることができます。これがOpenTelemetryのログ、トレース、メトリクスのコレクションのビジョンです。
+これは、オブザーバビリティツールの有望な進化の方向性の一つです。トレースやメトリックとログの相関関係を標準化し、ログの分散型コンテキスト伝搬のサポートを追加し、ログ、トレース、メトリックのソース属性を統一することで、レガシーシステムとモダンシステムのオブザーバビリティ情報の個々の価値と総合的な価値を高めることができます。これがOpenTelemetryのログ、トレース、メトリックのコレクションのビジョンです。
 
 <!--
 ![Unified Collection Diagram](img/unified-collection.png)
@@ -182,14 +182,14 @@ and values describing the Kubernetes Pod that they come from. This enables exact
 and unambiguous correlation of the signals by the Pod in the backend.
 -->
 
-OpenTelemetryのデータモデルに準拠した方法でログ、トレース、メトリクスを出力し、OpenTelemetry Collectorを介してデータを送り、そこで統一的な方法で情報を豊かにしたり処理を行うことができます。例えば、CollectorはKubernetes Podから送られてくるすべてのテレメトリデータに、Podを説明するいくつかの属性を追加することができます。これはアプリケーションが特別なことをしなくても、[k8sprocessor](https://pkg.go.dev/github.com/open-telemetry/opentelemetry-collector-contrib/processor/k8sprocessor?tab=doc)を使って自動的に行うことができます。最も重要なことは、このような情報の強化は、3つのシグナルすべてにおいて完全に統一されているということです。Collectorは、ログ、トレース、メトリクスが、それらの元となるKubernetes Podを記述する正確に同じ属性名と値を持つことを保証します。これにより、バックエンドのポッドによるシグナルの正確で曖昧さのない相関が可能になります。
+OpenTelemetryのデータモデルに準拠した方法でログ、トレース、メトリックを出力し、OpenTelemetry Collectorを介してデータを送り、そこで統一的な方法で情報を豊かにしたり処理を行うことができます。例えば、CollectorはKubernetes Podから送られてくるすべてのテレメトリデータに、Podを説明するいくつかの属性を追加することができます。これはアプリケーションが特別なことをしなくても、[k8sprocessor](https://pkg.go.dev/github.com/open-telemetry/opentelemetry-collector-contrib/processor/k8sprocessor?tab=doc)を使って自動的に行うことができます。最も重要なことは、このような情報の強化は、3つのシグナルすべてにおいて完全に統一されているということです。Collectorは、ログ、トレース、メトリックが、それらの元となるKubernetes Podを記述する正確に同じ属性名と値を持つことを保証します。これにより、バックエンドのポッドによるシグナルの正確で曖昧さのない相関が可能になります。
 
 <!--
 For traces and metrics OpenTelemetry defines a new API that application
 developers must use to emit traces and metrics.
 -->
 
-トレースやメトリクスについて OpenTelemetryは、アプリケーション開発者がトレースやメトリクスを発行するために使用しなければならない新しいAPIを定義しています。
+トレースやメトリックについて OpenTelemetryは、アプリケーション開発者がトレースやメトリックを発行するために使用しなければならない新しいAPIを定義しています。
 
 <!--
 For logs we did not take the same path. We realized that there is a much bigger
@@ -270,7 +270,7 @@ implementations for various languages (like we currently do for traces and
 metrics), but it is not an immediate priority.
 -->
 
-将来的には、OpenTelemetryは(現在、トレースやメトリクスのために行っているように)新しいロギングAPIを定義し、様々な言語のための実装を提供するかもしれませんが、それはすぐには優先されません。
+将来的には、OpenTelemetryは(現在、トレースやメトリックのために行っているように)新しいロギングAPIを定義し、様々な言語のための実装を提供するかもしれませんが、それはすぐには優先されません。
 
 <!--
 Later in this document we will discuss in more details
@@ -299,7 +299,7 @@ Logs can be correlated with the rest of observability data in a few dimensions:
   form of correlation.
 -->
 
-- **実行された時間**によって。ログ、トレース、メトリクスは、実行が行われた瞬間や時間の範囲を記録することができます。これは相関関係の最も基本的な形です。
+- **実行された時間**によって。ログ、トレース、メトリックは、実行が行われた瞬間や時間の範囲を記録することができます。これは相関関係の最も基本的な形です。
 
 <!--
 - By the **execution context**, also known as the request context. It is a
@@ -321,7 +321,7 @@ Logs can be correlated with the rest of observability data in a few dimensions:
   [Resource](data-model.md#field-resource) in log records.
 -->
 
-- リソース・コンテキストとしても知られる、テレメトリの**オリジン**によって。OpenTelemetryのトレースとメトリクスは、それらの元となるResourceに関する情報を含んでいます。私たちは、ログレコードに[Resource](data-model.md#field-resource)を含めることで、この慣習をログにも適用しています。
+- リソース・コンテキストとしても知られる、テレメトリの**オリジン**によって。OpenTelemetryのトレースとメトリックは、それらの元となるResourceに関する情報を含んでいます。私たちは、ログレコードに[Resource](data-model.md#field-resource)を含めることで、この慣習をログにも適用しています。
 
 <!--
 These 3 correlations can be the foundation of powerful navigational, filtering,

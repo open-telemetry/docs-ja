@@ -112,7 +112,7 @@ And make a reasonable trade off of the SDK performance and fullness of type chec
 All OpenTelemetry libraries -- the API, SDK, exporters, instrumentations, etc. -- are encouraged to expose self-troubleshooting metrics, spans, and other telemetry that can be easily enabled and filtered out by default.
 -->
 
-すべての OpenTelemetry ライブラリ(API、SDK、エクスポート、計装など)は、自己診断メトリクス、Span、およびその他のテレメトリを公開することが推奨されています。
+すべての OpenTelemetry ライブラリ(API、SDK、エクスポート、計装など)は、自己診断メトリック、Span、およびその他のテレメトリを公開することが推奨されています。
 
 <!--
 One good example of such telemetry is a `Span` exporter that indicates how much time exporters spend uploading telemetry.

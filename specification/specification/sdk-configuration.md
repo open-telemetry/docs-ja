@@ -32,7 +32,7 @@ which the SDK can be configured. It does
 not attempt to specify the details of what can be configured.
 -->
 
-デフォルトのOpen Telemetry SDK(以下、SDK)は高度な設定が可能です。本仕様書では、SDKを設定するためのメカニズムの概要を説明しています。設定できる内容の詳細を規定するものではありません。
+デフォルトのOpen Telemetry SDK(以下、SDK)は高度な設定が可能です。本ドキュメントでは、SDKを設定するためのメカニズムの概要を説明しています。設定できる内容の詳細を規定するものではありません。
 
 <!--
 ## Configuration Interface

@@ -35,7 +35,7 @@ Translation from the Prometheus and Statsd exposition formats is explicitly
 specified.
 -->
 
-既存の一般的なメトリクスデータ形式は、セマンティクスや正確さを損なうことなく、OpenTelemetryのMetricsデータモデルに明確に変換することができます。PrometheusやStatsdの出力フォーマットからの変換は、明示的に指定されています。
+既存の一般的なメトリックデータ形式は、セマンティクスや正確さを損なうことなく、OpenTelemetryのMetricsデータモデルに明確に変換することができます。PrometheusやStatsdの出力フォーマットからの変換は、明示的に指定されています。
 
 <!--
 The data model specifies a number of semantics-preserving data transformations
@@ -56,7 +56,7 @@ well-defined translations of the data, including the ability to automatically
 remove attributes and lower histogram resolution.
 -->
 
-OpenTelemetryコレクターは、様々なフォーマットのメトリクスデータを受け入れ、OpenTelemetryデータモデルを使用してデータを転送し、既存のシステムにエクスポートするように設計されています。このデータモデルは、自動的に属性を削除したり、ヒストグラムの解像度を下げたりする機能を含む、データの明確な変換によって、機能やセマンティクスを失うことなく、Prometheus Remote Writeプロトコルに明確に変換することができます。
+OpenTelemetryコレクターは、様々なフォーマットのメトリックデータを受け入れ、OpenTelemetryデータモデルを使用してデータを転送し、既存のシステムにエクスポートするように設計されています。このデータモデルは、自動的に属性を削除したり、ヒストグラムの解像度を下げたりする機能を含む、データの明確な変換によって、機能やセマンティクスを失うことなく、Prometheus Remote Writeプロトコルに明確に変換することができます。
 
 <!--
 ## Events → Data Stream → Timeseries
@@ -99,7 +99,7 @@ SDK as the data originates, or as a reprocessing stage inside the OpenTelemetry
 collector. These transformations are:
 -->
 
-OpenTelemetryでは、コスト、信頼性、リソース配分を管理する方法としてメトリクス収集システムを構築する際に有用な、3種類のセマンティクスを保持したメトリクスデータ変換を定義しています。OpenTelemetry Metricsデータモデルは、データが発生したときにSDK内部で、あるいはOpenTelemetryコレクター内部の再処理段階で、これらの変換をサポートするように設計されています。これらの変換は以下の通りです。
+OpenTelemetryでは、コスト、信頼性、リソース配分を管理する方法としてメトリック収集システムを構築する際に有用な、3種類のセマンティクスを保持したメトリックデータ変換を定義しています。OpenTelemetry Metricsデータモデルは、データが発生したときにSDK内部で、あるいはOpenTelemetryコレクター内部の再処理段階で、これらの変換をサポートするように設計されています。これらの変換は以下の通りです。
 
 <!--
 1. Temporal reaggregation: Metrics that are collected at a high-frequency can be
@@ -113,11 +113,11 @@ OpenTelemetryでは、コスト、信頼性、リソース配分を管理する�
    timeseries, or to forego the cost and calculate rates directly.
 -->
 
-1. 時間的な再集計: 高頻度で収集されたメトリクスをより長い間隔で再集計することで、低解像度の時系列データを事前に計算したり、元のメトリクスデータの代わりに使用したりすることができます。
+1. 時間的な再集計: 高頻度で収集されたメトリックをより長い間隔で再集計することで、低解像度の時系列データを事前に計算したり、元のメトリックデータの代わりに使用したりすることができます。
 
-2. 空間的な再集計: 不必要な次元で作成されたメトリクスを、より少ない次元のメトリクスに再集約することができます。
+2. 空間的な再集計: 不必要な次元で作成されたメトリックを、より少ない次元のメトリックに再集約することができます。
 
-3. デルタから累積値へ: デルタの時間性で入出力されるメトリクスは、クライアントが高いカーディナリティの状態を維持する負担を軽減します。デルタを使用することで、下流のサービスが累積時系列への変換コストを負担したり、コストを省いて直接レートを計算したりすることができます。
+3. デルタから累積値へ: デルタの時間性で入出力されるメトリックは、クライアントが高いカーディナリティの状態を維持する負担を軽減します。デルタを使用することで、下流のサービスが累積時系列への変換コストを負担したり、コストを省いて直接レートを計算したりすることができます。
 
 <!--
 OpenTelemetry Metrics data streams are designed so that these transformations
@@ -141,7 +141,7 @@ configuring different Views, and the required Views processing may be applied
 inside the SDK or by an external collector.
 -->
 
-OpenCensus Metricsと同様に、メトリクスデータは、集計間隔と必要な次元を選択するだけで、1つまたは複数のViewに変換することができます。1つのOTLPデータは、異なるViewを設定することで、複数のTimeseriesデータに変換することができ、必要なViewの処理はSDK内でも、外部のコレクターでも行うことができます。
+OpenCensus Metricsと同様に、メトリックデータは、集計間隔と必要な次元を選択するだけで、1つまたは複数のViewに変換することができます。1つのOTLPデータは、異なるViewを設定することで、複数のTimeseriesデータに変換することができ、必要なViewの処理はSDK内でも、外部のコレクターでも行うことができます。
 
 <!--
 ### Example Use-cases
@@ -228,7 +228,7 @@ Here are a set of use cases that, while won't be outright unsupported, are not
 in scope for key design decisions:
 -->
 
-Metricsデータモデルは、メトリクスの完璧なロゼッタ・ストーンになるようには設計されていません。ここでは、完全にサポートされていないわけではありませんが、重要な設計上の決定事項には含まれていないユースケースのセットを紹介します。
+Metricsデータモデルは、メトリックの完璧なロゼッタ・ストーンになるようには設計されていません。ここでは、完全にサポートされていないわけではありませんが、重要な設計上の決定事項には含まれていないユースケースのセットを紹介します。
 
 <!--
 - Using OTLP as an intermediary format between two non-compatible formats
@@ -287,7 +287,7 @@ other system.  OpenTelemetry metrics are designed such that the same instrument
 and events can be used in different ways to generate metric streams.
 -->
 
-イベントモデルは、データの記録を行う場所です。イベントモデルの基盤は、イベントを介してデータ観測を記録するために使用される[Instruments](api.md)でできています。これらの生のイベントは、他のシステムに送られる前に何らかの方法で変換されます。OpenTelemetryのMetricsは、同じInstrumentとイベントを異なる方法で使用してメトリクスストリームを生成できるように設計されています。
+イベントモデルは、データの記録を行う場所です。イベントモデルの基盤は、イベントを介してデータ観測を記録するために使用される[Instruments](api.md)でできています。これらの生のイベントは、他のシステムに送られる前に何らかの方法で変換されます。OpenTelemetryのMetricsは、同じInstrumentとイベントを異なる方法で使用してメトリックストリームを生成できるように設計されています。
 
 <!--
 ![Events → Streams](img/model-event-layer.png)
@@ -344,7 +344,7 @@ In this low-level metrics data model, a Timeseries is defined by an entity
 consisting of several metadata properties:
 -->
 
-この低レベルのメトリクスデータモデルでは、Timeseriesはいくつかのメタデータプロパティで構成されるエンティティで定義されます。
+この低レベルのメトリックデータモデルでは、Timeseriesはいくつかのメタデータプロパティで構成されるエンティティで定義されます。
 
 <!--
 - Metric name
@@ -531,7 +531,7 @@ OTLPの[Sum](https://github.com/open-telemetry/opentelemetry-proto/blob/main/ope
 -->
 
 - delta または cumulative の *Aggregation Temporality*
-- Sumが[monotonic](https://en.wikipedia.org/wiki/Monotonic_function)であるかどうかを示すフラグ。このメトリクスの場合、これは和が名目上増加していることを意味し、一般性を損なわない範囲でこれを仮定します。
+- Sumが[monotonic](https://en.wikipedia.org/wiki/Monotonic_function)であるかどうかを示すフラグ。このメトリックの場合、これは和が名目上増加していることを意味し、一般性を損なわない範囲でこれを仮定します。
    - デルタ単調和の場合、読み込み側は非負の値を期待することになります。
    - 累積単調和の場合は、前の値を下回らない値を期待することになります。
 - データポイントのセット。それぞれが以下の情報を含みます。
@@ -668,7 +668,7 @@ intervals.  For metrics like cumulative sums, this could cause issues where
 pairs of points appear to reset the cumulative sum leading to unusable metrics.
 -->
 
-システムでは、複数のライターが同じメトリック・ストリームに対してデータを送信する可能性があります(duplication)。 例えば、SDKの実装で、コンポーネントを一意に識別するResource属性を見つけられなかった場合、そのコンポーネントのすべてのインスタンスが、あたかも同じリソースからのものであるかのようにメトリクスを報告してしまう可能性があります。 この場合、メトリクスは矛盾した時間間隔で報告されます。 累積和のようなメトリクスでは、ポイントのペアが累積和をリセットしているように見える問題が発生し、使用できないメトリクスになる可能性があります。
+システムでは、複数のライターが同じメトリック・ストリームに対してデータを送信する可能性があります(duplication)。 例えば、SDKの実装で、コンポーネントを一意に識別するResource属性を見つけられなかった場合、そのコンポーネントのすべてのインスタンスが、あたかも同じリソースからのものであるかのようにメトリックを報告してしまう可能性があります。 この場合、メトリックは矛盾した時間間隔で報告されます。 累積和のようなメトリックでは、ポイントのペアが累積和をリセットしているように見える問題が発生し、使用できないメトリックになる可能性があります。
 
 <!--
 Multiple writers for a metric stream is considered an error state, or
@@ -683,7 +683,7 @@ Note: Identity is an important concept in most metrics systems.  For example,
 [Prometheus directly calls out uniqueness](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs):
 -->
 
-注:同一性は、ほとんどのメトリクスシステムにおいて重要な概念である。 例えば、[Prometheusは一意性を直接呼びます](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs)。
+注:同一性は、ほとんどのメトリックシステムにおいて重要な概念である。 例えば、[Prometheusは一意性を直接呼びます](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs)。
 
 <!--
 > Care must be taken with `labeldrop` and `labelkeep` to ensure that metrics
@@ -977,8 +977,8 @@ where we expect it, one of several things could have occurred:
 - There was a lost data point, or dropped information.
 -->
 
-- メトリクスを報告するプロセスが再起動されたため、メトリクスの報告間隔が新しくなった
-- 複数のプロセスが同じメトリクス・ストリームを報告している場合に、単一書き込み者の原則に違反している。
+- メトリックを報告するプロセスが再起動されたため、メトリックの報告間隔が新しくなった
+- 複数のプロセスが同じメトリック・ストリームを報告している場合に、単一書き込み者の原則に違反している。
 - データポイントが失われたり、情報が取りこぼされたりした。
 
 <!--
@@ -1018,7 +1018,7 @@ formats, e.g.
 [StatsD counts](https://github.com/statsd/statsd/blob/master/docs/metric_types.md#counting).
 -->
 
-デルタから累積への変換アルゴリズムの退化したケースとして、メトリック・データポイントからタイムスタンプが失われている場合があります。OpenTelemetryが生成したメトリクスを使用する際にはこのようなケースはないはずですが、[StatsD counts](https://github.com/statsd/statsd/blob/master/docs/metric_types.md#counting)などの他のメトリクス形式を適応する際には発生する可能性があります。
+デルタから累積への変換アルゴリズムの退化したケースとして、メトリック・データポイントからタイムスタンプが失われている場合があります。OpenTelemetryが生成したメトリックを使用する際にはこのようなケースはないはずですが、[StatsD counts](https://github.com/statsd/statsd/blob/master/docs/metric_types.md#counting)などの他のメトリック形式を適応する際には発生する可能性があります。
 
 <!--
 In this scenario, the algorithm listed above would reset the cumulative sum on

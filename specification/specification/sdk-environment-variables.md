@@ -400,7 +400,7 @@ OTEL_METRICS_EXPORTERの既知の値は以下のとおりです。
 To ensure consistent naming across projects, this specification recommends that language specific environment variables are formed using the following convention:
 -->
 
-本仕様書では、プロジェクト間で一貫した名称を使用するために、言語固有の環境変数を次のような規則で形成することを推奨しています。
+本ドキュメントでは、プロジェクト間で一貫した名称を使用するために、言語固有の環境変数を次のような規則で形成することを推奨しています。
 
 <!--
 ```

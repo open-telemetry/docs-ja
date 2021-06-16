@@ -141,7 +141,7 @@ This specification defines how OTLP is implemented over
 that is used for the payloads.
 -->
 
-本仕様書は、OTLPが[gRPC](https://grpc.io/)とHTTP 1.1のトランスポート上でどのように実装されるかを定義し、ペイロードに使用される[Protocol Buffersのスキーマ](https://developers.google.com/protocol-buffers/docs/overview)を規定しています。
+本ドキュメントは、OTLPが[gRPC](https://grpc.io/)とHTTP 1.1のトランスポート上でどのように実装されるかを定義し、ペイロードに使用される[Protocol Buffersのスキーマ](https://developers.google.com/protocol-buffers/docs/overview)を規定しています。
 
 <!--
 OTLP is a request/response style protocols: the clients send requests, the
@@ -173,7 +173,7 @@ a sequence of requests to the server and expects to receive a response to each
 request:
 -->
 
-基礎となるgRPCトランスポートを確立した後、クライアントは[Export*ServiceRequest](https://github.com/open-telemetry/opentelemetry-proto)メッセージを使ったunaryリクエストでテレメトリデータの送信を開始します(トレースは`ExportTraceServiceRequest`、メトリクスは`ExportMetricsServiceRequest`、ログは`ExportLogsServiceRequest`)。クライアントは連続したリクエストをサーバーに送信し、各リクエストに対するレスポンスを受け取ることを期待します。
+基礎となるgRPCトランスポートを確立した後、クライアントは[Export*ServiceRequest](https://github.com/open-telemetry/opentelemetry-proto)メッセージを使ったunaryリクエストでテレメトリデータの送信を開始します(トレースは`ExportTraceServiceRequest`、メトリックは`ExportMetricsServiceRequest`、ログは`ExportLogsServiceRequest`)。クライアントは連続したリクエストをサーバーに送信し、各リクエストに対するレスポンスを受け取ることを期待します。
 
 <!--
 ![Request-Response](img/otlp-request-response.png)

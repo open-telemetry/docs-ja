@@ -54,7 +54,7 @@ RPC操作の記述には、以下のInstrumentsを使用しなければなりま
 *Note: RPC server and client metrics are split to allow correlation across client/server boundaries, e.g. Lining up an RPC method latency to determine if the server is responsible for latency the client is seeing.*
 -->
 
-*注:RPCサーバとクライアントのメトリクスが分割され、クライアント/サーバの境界を越えた相関が可能になります。例えば、RPCメソッドのレイテンシーを並べて、クライアントが見ているレイテンシーの原因がサーバーにあるかどうかを判断できます。*
+*注:RPCサーバとクライアントのメトリックが分割され、クライアント/サーバの境界を越えた相関が可能になります。例えば、RPCメソッドのレイテンシーを並べて、クライアントが見ているレイテンシーの原因がサーバーにあるかどうかを判断できます。*
 
 <!--
 ### RPC Server
@@ -161,7 +161,7 @@ For server-side spans `net.peer.port` is optional (it describes the port the cli
 Furthermore, setting [net.transport][] is required for non-IP connection like named pipe bindings.
 -->
 
-クライアントサイドメトリクスでは、接続がIPベースでポートが利用可能な場合、`net.peer.port`が必須となります(クライアントが接続しているサーバーのポートが記述されます)。サーバー側のSpanでは、`net.peer.port`はオプションです(クライアントが接続しているポートが記述されています)。さらに、名前付きパイプバインディングのような非IP接続の場合は、[net.transport][]の設定が必要です。
+クライアントサイドメトリックでは、接続がIPベースでポートが利用可能な場合、`net.peer.port`が必須となります(クライアントが接続しているサーバーのポートが記述されます)。サーバー側のSpanでは、`net.peer.port`はオプションです(クライアントが接続しているポートが記述されています)。さらに、名前付きパイプバインディングのような非IP接続の場合は、[net.transport][]の設定が必要です。
 
 <!--
 ### Service name

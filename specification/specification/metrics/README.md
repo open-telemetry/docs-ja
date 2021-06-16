@@ -73,7 +73,7 @@ Given there are many well-established metrics solutions that exist today, it is
 important to understand the goals of OpenTelemetry’s metrics effort:
 -->
 
-現在、多くの確立されたメトリクス・ソリューションが存在することを考えると、OpenTelemetryのメトリクスの取り組みの目標を理解することは重要です。
+現在、多くの確立されたメトリック・ソリューションが存在することを考えると、OpenTelemetryのメトリックの取り組みの目標を理解することは重要です。
 
 <!--
 * **Being able to connect metrics to other signals**. For example, metrics and
@@ -84,7 +84,7 @@ important to understand the goals of OpenTelemetry’s metrics effort:
   in a consistent way.
 -->
 
-* **メトリクスを他のシグナルに結びつけることができること**。例えば、メトリクスとトレースはExamplarを介して相関させることができ、メトリクスのディメンションは[Baggage](../baggage/api.md)や[Context](../context/context.md)を介して情報を追加させることができます。さらに、[Resource](../resource/sdk.md)は、[logs](../overview.md#log-signal)/[metrics](../overview.md#metric-signal)/[traces](../overview.md#tracing-signal)に一貫した方法で適用することができます。
+* **メトリックを他のシグナルに結びつけることができること**。例えば、メトリックとトレースはExamplarを介して相関させることができ、メトリックのディメンションは[Baggage](../baggage/api.md)や[Context](../context/context.md)を介して情報を追加させることができます。さらに、[Resource](../resource/sdk.md)は、[logs](../overview.md#log-signal)/[metrics](../overview.md#metric-signal)/[traces](../overview.md#tracing-signal)に一貫した方法で適用することができます。
 
 <!--
 * **Providing a path for [OpenCensus](https://opencensus.io/) customers to
@@ -105,7 +105,7 @@ important to understand the goals of OpenTelemetry’s metrics effort:
   native clients.
 -->
 
-* **既存のメトリクス計測プロトコルや標準規格との連携**。最低限の目標は、[Prometheus](https://prometheus.io/)と[StatsD](https://github.com/statsd/statsd)を完全にサポートすることです。ユーザーは、OpenTelemetryクライアントと[Collector](../overview.md#collector)を使ってメトリクスを収集し、エクスポートすることができ、ネイティブクライアントと同じ機能を実現することができます。
+* **既存のメトリック計測プロトコルや標準規格との連携**。最低限の目標は、[Prometheus](https://prometheus.io/)と[StatsD](https://github.com/statsd/statsd)を完全にサポートすることです。ユーザーは、OpenTelemetryクライアントと[Collector](../overview.md#collector)を使ってメトリックを収集し、エクスポートすることができ、ネイティブクライアントと同じ機能を実現することができます。
 
 <!--
 ### Concepts
@@ -229,5 +229,5 @@ OpenTelemetryでは、実行時に異なるSDKを設定できるように、[SDK
 * Scenarios for Metrics API/SDK Prototyping ([OTEP 146](https://github.com/open-telemetry/oteps/blob/main/text/metrics/0146-metrics-prototype-scenarios.md))
 -->
 
-* メトリクスAPI/SDKプロトタイピングのためのシナリオ ([OTEP 146](https://github.com/open-telemetry/oteps/blob/main/text/metrics/0146-metrics-prototype-scenarios.md))
+* メトリックAPI/SDKプロトタイピングのためのシナリオ ([OTEP 146](https://github.com/open-telemetry/oteps/blob/main/text/metrics/0146-metrics-prototype-scenarios.md))
 

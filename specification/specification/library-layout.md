@@ -86,7 +86,7 @@ This directory describes the API that provides in-process context propagation.
 This directory describes the Metrics API that can be used to record application metrics.
 -->
 
-このディレクトリでは、アプリケーション・メトリクスを記録するために使用できるMetrics APIについて説明しています。
+このディレクトリでは、アプリケーション・メトリックを記録するために使用できるMetrics APIについて説明しています。
 
 <!--
 ### [/baggage](baggage/api.md)
@@ -233,7 +233,7 @@ by a Kubernetes container can be linked to a resource that specifies the cluster
 and container name.
 -->
 
-リソースディレクトリでは主に、統計やTraceが記録されるエンティティに関する情報をキャプチャする[リソース](overview.md#resources)というタイプが定義されています。例えば、Kubernetesコンテナが公開するメトリクスは、クラスタ、名前空間、ポッド、コンテナ名を指定するリソースにリンクできます。
+リソースディレクトリでは主に、統計やTraceが記録されるエンティティに関する情報をキャプチャする[リソース](overview.md#resources)というタイプが定義されています。例えば、Kubernetesコンテナが公開するメトリックは、クラスタ、名前空間、ポッド、コンテナ名を指定するリソースにリンクできます。
 
 <!--
 ### `/sdk/baggage`

@@ -34,8 +34,8 @@ OpenTelemetryは、2つの方法でOpenMetricsまたはPrometheusエクスポー
   OpenMetrics exposition format.
 -->
 
-* OpenTelemetryは、OpenMetrics形式で表現されたメトリクスを受け入れて伝播させ、下流のシステム(OpenTelemetry Collector、zPages、ベンダーのバックエンドなど)にエクスポートする必要があるかもしれません。
-* OpenTelemetryでは、OpenTelemetryで生成したメトリクスをOpenMetricsの公開フォーマットで公開する必要があるかもしれません。
+* OpenTelemetryは、OpenMetrics形式で表現されたメトリックを受け入れて伝播させ、下流のシステム(OpenTelemetry Collector、zPages、ベンダーのバックエンドなど)にエクスポートする必要があるかもしれません。
+* OpenTelemetryでは、OpenTelemetryで生成したメトリックをOpenMetricsの公開フォーマットで公開する必要があるかもしれません。
 
 <!--
 ### OpenMetrics to OpenTelemetry
@@ -49,7 +49,7 @@ metrics in the OpenMetrics exposition format. For more information, refer to the
 [Prometheus Receiver Design Document](https://github.com/open-telemetry/opentelemetry-collector/blob/master/receiver/prometheusreceiver/DESIGN.md).
 -->
 
-OpenTelemetryコレクターは、Prometheusレシーバーを実装しており、OpenMetricsエクスポートフォーマットのメトリクスを読み取ります。詳細については、[Prometheus Receiver Design Document](https://github.com/open-telemetry/opentelemetry-collector/blob/master/receiver/prometheusreceiver/DESIGN.md)を参照してください。
+OpenTelemetryコレクターは、Prometheusレシーバーを実装しており、OpenMetricsエクスポートフォーマットのメトリックを読み取ります。詳細については、[Prometheus Receiver Design Document](https://github.com/open-telemetry/opentelemetry-collector/blob/master/receiver/prometheusreceiver/DESIGN.md)を参照してください。
 
 <!--
 ### OpenTelemetry to OpenMetrics
@@ -69,7 +69,7 @@ problematic for metric and label naming; the OpenMetrics exposition format
 expressly forbids some characters that are allowed in OpenTelemetry.
 -->
 
-OpenTelemetryのメトリクスをOpenMetricsフォーマットで公開することは、主にメトリクスとラベルの命名に関して問題があります。OpenMetricsの公開フォーマットでは、OpenTelemetryで許可されているいくつかの文字が明示的に禁止されています。
+OpenTelemetryのメトリックをOpenMetricsフォーマットで公開することは、主にメトリックとラベルの命名に関して問題があります。OpenMetricsの公開フォーマットでは、OpenTelemetryで許可されているいくつかの文字が明示的に禁止されています。
 
 <!--
 When converting OpenTelemetry metric events to the OpenMetrics exposition

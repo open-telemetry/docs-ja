@@ -8,7 +8,7 @@
 This document defines some terms that are used across this specification.
 -->
 
-このドキュメントでは、本仕様書で使用されているいくつかの用語を定義します。(訳注: 元ドキュメントを理解しやすくするため、このドキュメントでは用語はなるべく英語のままとしています)
+このドキュメントでは、本ドキュメントで使用されているいくつかの用語を定義します。(訳注: 元ドキュメントを理解しやすくするため、このドキュメントでは用語はなるべく英語のままとしています)
 
 <!--
 Some other fundamental terms are documented in the [overview document](overview.md).
@@ -171,7 +171,7 @@ This concept may map to a different term in some languages, such as "module."
 Note that in some languages, the term "package" refers to a different concept.
 -->
 
-本仕様書では、**パッケージ**という用語は、他のパッケージとは独立してプログラムにインポートすることができる、単一の依存関係を表すコードのセットを表しています。この概念は、言語によっては、"モジュール"のような別の用語に対応している場合があります。なお、言語によっては、「パッケージ」という言葉が別の概念を指すことがあります。
+本ドキュメントでは、**パッケージ**という用語は、他のパッケージとは独立してプログラムにインポートすることができる、単一の依存関係を表すコードのセットを表しています。この概念は、言語によっては、"モジュール"のような別の用語に対応している場合があります。なお、言語によっては、「パッケージ」という言葉が別の概念を指すことがあります。
 
 <!--
 ### ABI Compatibility

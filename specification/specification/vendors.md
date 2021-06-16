@@ -108,5 +108,5 @@ one that implements a custom SDK only for tracing will be listed as "Implements
 OpenTelemetry Tracing".
 -->
 
-ベンダーは、サポートしているテレメトリの種類でOpenTelemetryのサポートという資格を得ることができます。例えば、OpenTelemetryプロトコルのエクスポートをメトリクスのみで受け入れているベンダーは「Supports OpenTelemetry Metrics」と表示され、トレーシングのためだけにカスタムSDKを実装しているベンダーは「Implements OpenTelemetry Tracing」と表示されます。
+ベンダーは、サポートしているテレメトリの種類でOpenTelemetryのサポートという資格を得ることができます。例えば、OpenTelemetryプロトコルのエクスポートをメトリックのみで受け入れているベンダーは「Supports OpenTelemetry Metrics」と表示され、トレーシングのためだけにカスタムSDKを実装しているベンダーは「Implements OpenTelemetry Tracing」と表示されます。
 

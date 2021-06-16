@@ -727,7 +727,7 @@ for any of them independently. For instance, a span exporter may be left
 unconfigured, although the trace context propagation was configured to enrich logs or metrics.
 -->
 
-OpenTelemetry API は、他に明示的に設定されていない限り、no-op プロパゲータを使用しなければなりません(MUST)。Contextの伝搬は、Trace、Metrics、Loggingなど、様々なテレメトリシグナルに使用できます。したがって、Contextの伝搬はそれらのどれかに対して独立して有効にしても構いません(MAY)。例えば、ログやメトリクスを豊かにするためにトレースのコンテキスト伝播が設定されているにもかかわらず、Span Exporterが未設定のままになっている場合があります。(XXX)
+OpenTelemetry API は、他に明示的に設定されていない限り、no-op プロパゲータを使用しなければなりません(MUST)。Contextの伝搬は、Trace、Metrics、Loggingなど、様々なテレメトリシグナルに使用できます。したがって、Contextの伝搬はそれらのどれかに対して独立して有効にしても構いません(MAY)。例えば、ログやメトリックを豊かにするためにトレースのコンテキスト伝播が設定されているにもかかわらず、Span Exporterが未設定のままになっている場合があります。(XXX)
 
 <!--
 Platforms such as ASP.NET may pre-configure out-of-the-box

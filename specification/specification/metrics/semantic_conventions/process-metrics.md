@@ -1,4 +1,4 @@
-# OSプロセスメトリクスのセマンティック規約
+# OSプロセスメトリックのセマンティック規約
 
 **Status**: [Experimental](../../document-status.md)
 
@@ -13,7 +13,7 @@ measurements from the operating system. For runtime environment metrics see
 metrics](runtime-environment-metrics.md).
 -->
 
-この文書では、OpenTelemetryの一般的なOSプロセス・レベル・メトリクスのInstrumentsとラベルについて説明しています。また、このドキュメントで明示的に定義されていないInstrumentsを作成する際には、[一般的なmetricセマンティック規約](README.md#general-metric-semantic-conventions)を考慮してください。OSプロセス・メトリクスは、プログラムの実行時環境とは関係なく、OSから測定値を取得する必要があります。ランタイム環境メトリクスについては、[ランタイム環境メトリクスのセマンティック規約](runtime-environment-metrics.md)を参照してください。
+この文書では、OpenTelemetryの一般的なOSプロセス・レベル・メトリックのInstrumentsとラベルについて説明しています。また、このドキュメントで明示的に定義されていないInstrumentsを作成する際には、[一般的なmetricセマンティック規約](README.md#general-metric-semantic-conventions)を考慮してください。OSプロセス・メトリックは、プログラムの実行時環境とは関係なく、OSから測定値を取得する必要があります。ランタイム環境メトリックについては、[ランタイム環境メトリックのセマンティック規約](runtime-environment-metrics.md)を参照してください。
 
 
 <!-- Re-generate TOC with `markdown-toc --no-first-h1 -i` -->

@@ -550,7 +550,7 @@ describe a batch of exported data, since the loss of precision is
 insignificant when aggregating data across minutes or hours of data.
 -->
 
-これは、メトリクスデータの収集を比較的小さな期間(1秒など)で設定し、エクスポートされたデータのバッチを記述するために単一のタイムスタンプを使用するという、メトリクスレポートにおける一般的な最適化に由来するものです。これは、数分または数時間のデータを集約する際の精度の低下が重要ではないためです。
+これは、メトリックデータの収集を比較的小さな期間(1秒など)で設定し、エクスポートされたデータのバッチを記述するために単一のタイムスタンプを使用するという、メトリックレポートにおける一般的な最適化に由来するものです。これは、数分または数時間のデータを集約する際の精度の低下が重要ではないためです。
 
 <!--
 Aggregations are commonly computed over a series of events that fall
@@ -685,7 +685,7 @@ to be used as part of the instrument name, as that would prevent
 instrumentation libraries from capturing metrics by the same name.
 -->
 
-固有の名前を持つ`Meter`は、Metric Instrumentsのための個別の名前空間を確立し、複数の計装ライブラリが、他のライブラリが使用する同じInstruments名でメトリックを報告することを可能にします。計器ライブラリが同じ名前のメトリクスを捕捉できなくなるため、`Meter`の名前はInstruments名の一部として使用することは明示的に意図されていません。
+固有の名前を持つ`Meter`は、Metric Instrumentsのための個別の名前空間を確立し、複数の計装ライブラリが、他のライブラリが使用する同じInstruments名でメトリックを報告することを可能にします。計器ライブラリが同じ名前のメトリックを捕捉できなくなるため、`Meter`の名前はInstruments名の一部として使用することは明示的に意図されていません。
 
 <!--
 ### Global Meter provider
@@ -804,7 +804,7 @@ semantic meaning of the latency measurement.  Multiple instrumentation
 libraries may be written to generate this metric.
 -->
 
-  Metric instrumentの名前は、元のMeterの名前とは別に、意味のあるものにすべきです(SHOULD)。たとえば、httpサーバーライブラリを計装する場合、「latency」は一般的すぎるため、適切なInstruments名ではありません。代わりに、例として「http\_request\_latency」のような名前を使用すると、視聴者にレイテンシー測定の意味を伝えることができます。このメトリクスを生成するために、複数の計装ライブラリを記述することができます。
+  Metric instrumentの名前は、元のMeterの名前とは別に、意味のあるものにすべきです(SHOULD)。たとえば、httpサーバーライブラリを計装する場合、「latency」は一般的すぎるため、適切なInstruments名ではありません。代わりに、例として「http\_request\_latency」のような名前を使用すると、視聴者にレイテンシー測定の意味を伝えることができます。このメトリックを生成するために、複数の計装ライブラリを記述することができます。
 
 <!--
 ### Synchronous and asynchronous instruments compared

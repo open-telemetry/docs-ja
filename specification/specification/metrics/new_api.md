@@ -117,7 +117,7 @@ Here is an example of the object hierarchy inside a process instrumented with
 the metrics API:
 -->
 
-ここでは、メトリクスAPIで計測されたプロセス内のオブジェクト階層の例を示します。
+ここでは、メトリックAPIで計測されたプロセス内のオブジェクト階層の例を示します。
 
 <!--
 ```text
@@ -1390,14 +1390,14 @@ All the metrics components SHOULD allow new APIs to be added to existing
 components without introducing breaking changes.
 -->
 
-すべてのメトリクス・コンポーネントは、既存のコンポーネントに新しいAPIを追加しても、壊れるような変更を加えずに済むようにすべきです(SHOULD)。
+すべてのメトリック・コンポーネントは、既存のコンポーネントに新しいAPIを追加しても、壊れるような変更を加えずに済むようにすべきです(SHOULD)。
 
 <!--
 All the metrics APIs SHOULD allow optional parameter(s) to be added to existing
 APIs without introducing breaking changes.
 -->
 
-すべてのメトリクスAPIは、既存のAPIに壊れるような変更を加えることなく、オプションのパラメータを追加できるようにすべきです(SHOULD)。
+すべてのメトリックAPIは、既存のAPIに壊れるような変更を加えることなく、オプションのパラメータを追加できるようにすべきです(SHOULD)。
 
 <!--
 ## Concurrency

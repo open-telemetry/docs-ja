@@ -2,7 +2,7 @@
 # Semantic Conventions for Runtime Environment Metrics
 -->
 
-# 実行環境メトリクスのセマンティック規約
+# 実行環境メトリックのセマンティック規約
 
 **Status**: [Experimental](../../document-status.md)
 
@@ -14,7 +14,7 @@ metrics](system-metrics.md) and [OS Process metrics](process-metrics.md)
 semantic conventions when instrumenting runtime environments.
 -->
 
-このドキュメントには、OpenTelemetryにおけるランタイム環境レベルのメトリクスのセマンティック規約が含まれています。また、ランタイム環境を計装する際には、[一般的なメトリック](README.md#general-metric-semantic-conventions)、[システム・メトリック](system-metric.md)、[OSプロセス・メトリック](process-metric.md)のセマンティック規約も考慮してください。
+このドキュメントには、OpenTelemetryにおけるランタイム環境レベルのメトリックのセマンティック規約が含まれています。また、ランタイム環境を計装する際には、[一般的なメトリック](README.md#general-metric-semantic-conventions)、[システム・メトリック](system-metric.md)、[OSプロセス・メトリック](process-metric.md)のセマンティック規約も考慮してください。
 
 <!-- Re-generate TOC with `markdown-toc --no-first-h1 -i` -->
 
@@ -63,7 +63,7 @@ runtime instrumentations are responsible for the choice of `{environment}` to
 avoid ambiguity when interpreting a metric's name or values.
 -->
 
-特定のランタイム環境に特化したメトリクスは、プレフィックスとして `runtime.{environment}.` を付け、[一般的なMetricセマンティック規約](README.md#general-metric-semantic-conventions)に概説されているセマンティック規約に従います。ランタイム計装の作者は、メトリックの名前や値を解釈する際の曖昧さを避けるために、`{environment}`の選択に責任を負います。
+特定のランタイム環境に特化したメトリックは、プレフィックスとして `runtime.{environment}.` を付け、[一般的なMetricセマンティック規約](README.md#general-metric-semantic-conventions)に概説されているセマンティック規約に従います。ランタイム計装の作者は、メトリックの名前や値を解釈する際の曖昧さを避けるために、`{environment}`の選択に責任を負います。
 
 <!--
 For example, some programming languages have multiple runtime environments

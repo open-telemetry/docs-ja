@@ -159,7 +159,7 @@ The **Semantic Conventions** define the keys and values which describe commonly 
 
 * [リソース規約](resource/semantic_conventions/README.md)
 * [Span規約](trace/semantic_conventions/README.md)
-* [メトリクス規約](metrics/semantic_conventions/README.md)
+* [メトリック規約](metrics/semantic_conventions/README.md)
 
 <!--
 Both the collector and the client libraries SHOULD autogenerate semantic
@@ -449,7 +449,7 @@ OpenTelemetry allows to record raw measurements or metrics with predefined
 aggregation and set of labels.
 -->
 
-OpenTelemetryでは、事前に定義された集約とラベルのセットで、生の測定値やメトリクスを記録することができます。
+OpenTelemetryでは、事前に定義された集約とラベルのセットで、生の測定値やメトリックを記録することができます。
 
 <!--
 Recording raw measurements using OpenTelemetry API allows to defer to end-user
@@ -468,7 +468,7 @@ not less important. It allows to collect values like cpu and memory usage, or
 simple metrics like "queue length".
 -->
 
-OpenTelemetry APIを使って、あらかじめ定義されたアグリゲーションを使ってメトリクスを記録することも重要です。これにより、CPUやメモリ使用量のような値や、"キューの長さ"のような単純なメトリクスを収集することができます。
+OpenTelemetry APIを使って、あらかじめ定義されたアグリゲーションを使ってメトリックを記録することも重要です。これにより、CPUやメモリ使用量のような値や、"キューの長さ"のような単純なメトリックを収集することができます。
 <!--
 ### Recording raw measurements
 -->
@@ -483,7 +483,7 @@ recorded using OpenTelemetry API. So user may define to aggregate those
 dimensions of the resulting metric.
 -->
 
-生の測定値を記録するために使われる主なクラスは `Measure` と `Measurement` です。OpenTelemetry APIを使用して、追加のコンテキストとともに `Measurement` のリストを記録することができます。そのため、ユーザはこれらの `Measurement` を集約し、結果として得られるメトリクスの追加次元を定義するために渡されたコンテキストを使用するように定義することができます。
+生の測定値を記録するために使われる主なクラスは `Measure` と `Measurement` です。OpenTelemetry APIを使用して、追加のコンテキストとともに `Measurement` のリストを記録することができます。そのため、ユーザはこれらの `Measurement` を集約し、結果として得られるメトリックの追加次元を定義するために渡されたコンテキストを使用するように定義することができます。
 
 <!--
 #### Measure
@@ -518,7 +518,7 @@ SDK.
 ### Recording metrics with predefined aggregation
 -->
 
-### あらかじめ定義された集計でメトリクスを記録する
+### あらかじめ定義された集計でメトリックを記録する
 
 <!--
 The base class for all types of pre-aggregated metrics is called `Metric`. It
@@ -528,7 +528,7 @@ measurements or Points. API defines the following types of pre-aggregated
 metrics:
 -->
 
-すべてのタイプの事前集計済みメトリクスの基底クラスは `Metric` と呼ばれます。このクラスは、名前やラベルなどの基本的なメトリクスプロパティを定義します。`Metric`を継承するクラスは、個々の測定値やPointの構造だけでなく、集約型も定義します。APIでは、以下のようなタイプの集計済みメトリクスを定義しています。
+すべてのタイプの事前集計済みメトリックの基底クラスは `Metric` と呼ばれます。このクラスは、名前やラベルなどの基本的なメトリックプロパティを定義します。`Metric`を継承するクラスは、個々の測定値やPointの構造だけでなく、集約型も定義します。APIでは、以下のようなタイプの集計済みメトリックを定義しています。
 
 <!--
 - Counter metric to report instantaneous measurement. Counter values can go
@@ -539,8 +539,8 @@ metrics:
   gauge metric values - `double` and `long`.
 -->
 
-- 瞬間的な測定値を報告するためのカウンターメトリクス。カウンターの値は上昇したり、同じままであったりすることができますが、決して下がることはできません。カウンターの値は負にすることはできません。カウンターのメトリクス値には、`double`と`long`の2種類があります。
-- ゲージメトリクスは、数値の瞬間的な測定値を報告するためのものです。ゲージは上にも下にも行くことができます。ゲージの値がマイナスになることもあります。ゲージのメトリクス値には、`double`と`long`の2種類があります。
+- 瞬間的な測定値を報告するためのカウンターメトリック。カウンターの値は上昇したり、同じままであったりすることができますが、決して下がることはできません。カウンターの値は負にすることはできません。カウンターのメトリック値には、`double`と`long`の2種類があります。
+- ゲージメトリックは、数値の瞬間的な測定値を報告するためのものです。ゲージは上にも下にも行くことができます。ゲージの値がマイナスになることもあります。ゲージのメトリック値には、`double`と`long`の2種類があります。
 
 
 <!--
@@ -561,7 +561,7 @@ supports both - push and pull model of setting the `Metric` value.
 ### Metrics data model and SDK
 -->
 
-### メトリクスデータモデルとSDK
+### メトリックデータモデルとSDK
 
 <!--
 Metrics data model is [specified here](metrics/datamodel.md) and is based on
@@ -641,7 +641,7 @@ These values can be consumed from `Baggage` and used as additional dimensions fo
 or additional context for logs and traces. Some examples:
 -->
 
-これらの値は `Baggage` から消費され、メトリクスの追加ディメンジョンとして、あるいはログやトレースの追加コンテキストとして使用することができます。いくつかの例を示します。
+これらの値は `Baggage` から消費され、メトリックの追加ディメンジョンとして、あるいはログやトレースの追加コンテキストとして使用することができます。いくつかの例を示します。
 
 <!--
 - a web service can benefit from including context around what service has sent the request
@@ -675,7 +675,7 @@ recorded. For example, metrics exposed by a Kubernetes container can be linked
 to a resource that specifies the cluster, namespace, pod, and container name.
 -->
 
-`リソース`は、テレメトリが記録されるエンティティに関する情報をキャプチャします。例えば、Kubernetesコンテナが公開するメトリクスは、クラスタ、ネームスペース、ポッド、コンテナ名を指定するリソースにリンクできます。
+`リソース`は、テレメトリが記録されるエンティティに関する情報をキャプチャします。例えば、Kubernetesコンテナが公開するメトリックは、クラスタ、ネームスペース、ポッド、コンテナ名を指定するリソースにリンクできます。
 
 <!--
 `Resource` may capture an entire hierarchy of entity identification. It may

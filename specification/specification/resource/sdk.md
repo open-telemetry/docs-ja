@@ -50,7 +50,7 @@ all metrics produced by any `Meter` from the provider will be
 associated with this `Resource`.
 -->
 
-分散トレーシングと同様に、Metricsを使用する場合、リソースは `MeterProvider` と関連付けることができます。[`MeterProvider`](../metrics/api.md#meter-interface)に関連付けられると、そのプロバイダからの任意の`Meter`によって生成されたすべてのメトリクスは、この`リソース`に関連付けられます。
+分散トレーシングと同様に、Metricsを使用する場合、リソースは `MeterProvider` と関連付けることができます。[`MeterProvider`](../metrics/api.md#meter-interface)に関連付けられると、そのプロバイダからの任意の`Meter`によって生成されたすべてのメトリックは、この`リソース`に関連付けられます。
 
 <!--
 ## SDK-provided resource attributes
