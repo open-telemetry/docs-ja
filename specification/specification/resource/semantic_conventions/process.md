@@ -90,7 +90,7 @@ At least one of `process.executable.name`, `process.executable.path`, `process.c
 **Description:** The single (language) runtime instance which is monitored.
 -->
 
-**Description:** モニター対象となる単一の（言語）ランタイムインスタンスです。
+**Description:** モニター対象となる単一の(言語)ランタイムインスタンスです。
 
 <!-- semconv process.runtime -->
 | Attribute  | Type | Description  | Examples  | Required |
@@ -209,7 +209,7 @@ TODO(<https://github.com/open-telemetry/opentelemetry-js/issues/1544>): この�
 When the value is `browser`, `process.runtime.version` SHOULD be set to the User-Agent header.
 -->
 
-値が `browser` の場合、`process.runtime.version` は User-Agent ヘッダに設定されるべきです（SHOULD）。
+値が `browser` の場合、`process.runtime.version` は User-Agent ヘッダに設定されるべきです(SHOULD)。
 
 ### .NETランタイム
 
