@@ -63,22 +63,41 @@ This document defines standard attributes for resources. These attributes are ty
 
 ## ドキュメント規約
 
-Attributes are grouped logically by the type of the concept that they described. Attributes in the same group have a common prefix that ends with a dot. For example all attributes that describe Kubernetes properties start with "k8s."
+<!-- Attributes are grouped logically by the type of the concept that they described. Attributes in the same group have a common prefix that ends with a dot. For example all attributes that describe Kubernetes properties start with "k8s."
+ -->
 
-Certain attribute groups in this document have a **Required** column. For these groups if any attribute from the particular group is present in the Resource then all attributes that are marked as Required MUST be also present in the Resource. However it is also valid if the entire attribute group is omitted (i.e. none of the attributes from the particular group are present even though some of them are marked as Required in this document).
+属性は、記述されたコンセプトの種類によって論理的にグループ化されています。同じグループの属性には、ドットで終わる共通のプレフィックスがあります。例えば、Kubernetesのプロパティを記述するすべての属性は、"k8s."で始まります。
 
-## Semantic Attributes with SDK-provided Default Value
+<!-- Certain attribute groups in this document have a **Required** column. For these groups if any attribute from the particular group is present in the Resource then all attributes that are marked as Required MUST be also present in the Resource. However it is also valid if the entire attribute group is omitted (i.e. none of the attributes from the particular group are present even though some of them are marked as Required in this document).
+-->
 
-These are the the attributes which MUST be provided by the SDK
+このドキュメントの特定の属性グループには、**Required**列があります。これらのグループでは、特定のグループの属性がリソースに存在する場合、Requiredとしてマークされたすべての属性がリソースにも存在しなければなりません(MUST)。ただし、属性グループ全体が省略されている場合も有効であす(つまり、このドキュメントでRequiredとマークされている属性があっても、特定のグループの属性が一つも存在していない場合)。
+
+
+<!-- ## Semantic Attributes with SDK-provided Default Value
+-->
+
+## SDKが提供するデフォルト値を持つセマンティック属性
+
+<!-- These are the the attributes which MUST be provided by the SDK
 as specified in the [Resource SDK specification](../sdk.md#sdk-provided-resource-attributes):
+-->
+
+これらは、[Resource SDK specification](../sdk.md#sdk-provided-resource-attributes)で規定されている、SDKが提供しなければならない属性です。
 
 - [`service.name`](#service)
+
+<!-- ## Service
+-->
 
 ## Service
 
 **type:** `service`
 
-**Description:** A service instance.
+<!-- **Description:** A service instance.
+-->
+
+**説明:** サービスのインスタンス
 
 <!-- semconv service -->
 | Attribute  | Type | Description  | Examples  | Required |
@@ -95,34 +114,50 @@ as specified in the [Resource SDK specification](../sdk.md#sdk-provided-resource
 **[3]:** 同じ `service.namespace,service.name` のペアの各インスタンスに対して一意でなければなりません(言い換えれば、`service.namespace,service.name,service.instance.id` の一組はグローバルに一意でなければなりません(MUST)。IDは、同時に存在する同じサービスのインスタンスを区別するのに役立ちます(例えば、水平方向にスケーリングされたサービスのインスタンス)。ID は永続的で、サービスインスタンスの寿命の間は同じであることが望ましいですが、サービスの重要な寿命イベント(サービスの再起動など)の間に ID が変化しても構いません。サービスがこの属性の値として使用できる固有のユニークなIDを持たない場合、ランダムなバージョン1またはバージョン4のRFC 4122 UUIDを生成することが推奨されます(再現可能なUUIDを目指すサービスはバージョン5を使用することもできます。より多くの推奨事項についてはRFC 4122を参照してください)。
 <!-- endsemconv -->
 
-Note: `service.namespace` and `service.name` are not intended to be concatenated for the purpose of forming a single globally unique name for the service. For example the following 2 sets of attributes actually describe 2 different services (despite the fact that the concatenation would result in the same string):
+<!-- Note: `service.namespace` and `service.name` are not intended to be concatenated for the purpose of forming a single globally unique name for the service. For example the following 2 sets of attributes actually describe 2 different services (despite the fact that the concatenation would result in the same string):
+-->
+
+注意: `service.namespace` と `service.name` は、サービスのグローバルに一意な名前を形成する目的で連結することを意図していません。例えば、以下の2つの属性セットは、実際には2つの異なるサービスを表しています(連結すると同じ文字列になるにもかかわらず)。
+
 
 ```
-# Resource attributes that describes a service.
+# あるサービスを説明するリソース属性
 namespace = Company.Shop
 service.name = shoppingcart
 ```
 
 ```
-# Another set of resource attributes that describe a different service.
+# 別のサービスを記述するリソース属性の別のセット
 namespace = Company
 service.name = Shop.shoppingcart
 ```
+
+<!-- ## Telemetry SDK
+-->
 
 ## Telemetry SDK
 
 **type:** `telemetry.sdk`
 
-**Description:** The telemetry SDK used to capture data recorded by the instrumentation libraries.
+<!-- **Description:** The telemetry SDK used to capture data recorded by the instrumentation libraries.
+-->
 
-The default OpenTelemetry SDK provided by the OpenTelemetry project MUST set `telemetry.sdk.name`
+**説明:** 計装ライブラリで記録されたデータをキャプチャするために使用されるTelemetry SDKです。
+
+<!-- The default OpenTelemetry SDK provided by the OpenTelemetry project MUST set `telemetry.sdk.name`
 to the value `opentelemetry`.
+-->
 
-If another SDK, like a fork or a vendor-provided implementation, is used, this SDK MUST set the attribute
+OpenTelemetryプロジェクトが提供するデフォルトのOpenTelemetry SDKは、`telemetry.sdk.name`に`opentelemetry`という値を設定しなければなりません(MUST)。
+
+<!-- If another SDK, like a fork or a vendor-provided implementation, is used, this SDK MUST set the attribute
 `telemetry.sdk.name` to the fully-qualified class or module name of this SDK's main entry point
 or another suitable identifier depending on the language.
 The identifier `opentelemetry` is reserved and MUST NOT be used in this case.
 The identifier SHOULD be stable across different versions of an implementation.
+-->
+
+フォークやベンダーが提供する実装など、別のSDKを使用する場合、このSDKは、属性 `telemetry.sdk.name` に、このSDKのメインエントリーポイントの完全修飾クラスまたはモジュール名、あるいは言語に応じた別の適切な識別子を設定しなければなりません(MUST)。識別子 `opentelemetry` は予約済みで、この場合は使用してはいけません(MUST NOT)。識別子は、実装の異なるバージョン間で安定しているべきです(SHOULD)。
 
 <!-- semconv telemetry -->
 | Attribute  | Type | Description  | Examples  | Required |
@@ -148,18 +183,37 @@ The identifier SHOULD be stable across different versions of an implementation.
 | `webjs` | webjs |
 <!-- endsemconv -->
 
-## Compute Unit
+<!-- ## Compute Unit
+-->
 
-Attributes defining a compute unit (e.g. Container, Process, Function as a Service):
+## 計算機ユニット
+
+<!-- Attributes defining a compute unit (e.g. Container, Process, Function as a Service):
+-->
+
+計算機ユニットを定義する属性(例:コンテナ、プロセス、Function as a Service)。
+
+<!-- - [Container](./container.md)
+- [Function as a Service](./faas.md)
+- [Process](./process.md)
+- [Web engine](./webengine.md)
+-->
 
 - [Container](./container.md)
 - [Function as a Service](./faas.md)
 - [Process](./process.md)
 - [Web engine](./webengine.md)
 
-## Compute Instance
+<!-- ## Compute Instance
+-->
 
+## 計算機インスタンス
+
+<!--
 Attributes defining a computing instance (e.g. host):
+-->
+
+計算機インスタンスを定義する属性(例:ホスト)。
 
 - [Host](./host.md)
 
@@ -186,9 +240,8 @@ Attributes defining a running environment (e.g. Operating System, Cloud, Data Ce
 - [オペレーティングシステム](./os.md)
 - [クラウド](./cloud.md)
 - デプロイ:
-  - [デプロイ環境] (./deployment_environment.md)
+  - [デプロイ環境](./deployment_environment.md)
   - [Kubernetes](./k8s.md)
-
 
 <!--
 ## Version attributes
@@ -196,10 +249,12 @@ Attributes defining a running environment (e.g. Operating System, Cloud, Data Ce
 
 ## バージョン属性
 
-Version attributes, such as `service.version`, are values of type `string`. They are
+<!-- Version attributes, such as `service.version`, are values of type `string`. They are
 the exact version used to identify an artifact. This may be a semantic version, e.g., `1.2.3`, git hash, e.g.,
 `8ae73a`, or an arbitrary version string, e.g., `0.1.2.20210101`, whatever was used when building the artifact.
+-->
 
+`service.version`のようなバージョン属性で、`string`型の値です。これは、アーティファクトの識別に使用される正確なバージョンです。これは、セマンティックバージョン(例:`1.2.3`)、gitハッシュ(例:`8ae73a`)、または任意のバージョン文字列(例:`0.1.2.20210101`)など、アーティファクトの構築時に使用されたものであれば何でも構いません。
 
 <!--
 ## Cloud-Provider-Specific Attributes
@@ -207,10 +262,13 @@ the exact version used to identify an artifact. This may be a semantic version, 
 
 ## クラウドプロバイダ固有の属性
 
-Attributes that are only applicable to resources from a specific cloud provider. Currently, these
+<!-- Attributes that are only applicable to resources from a specific cloud provider. Currently, these
 resources can only be defined for providers listed as a valid `cloud.provider` in
 [Cloud](./cloud.md) and below. Provider-specific attributes all reside in the `cloud_provider` directory.
 Valid cloud providers are:
+-->
+
+特定のクラウドプロバイダーからのリソースにのみ適用される属性です。現在、これらのリソースは、[Cloud](./cloud.md)以下で有効な `cloud.provider` としてリストアップされているプロバイダに対してのみ定義できます。プロバイダー固有の属性はすべて、`cloud_provider` ディレクトリにあります。有効なクラウドプロバイダーは以下の通りです。
 
 - [Amazon Web Services](https://aws.amazon.com/) ([`aws`](cloud_provider/aws/README.md))
 - [Google Cloud Platform](https://cloud.google.com/) (`gcp`)
