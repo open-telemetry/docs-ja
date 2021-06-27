@@ -367,7 +367,7 @@ MUST be propagated to child Spans and across process boundaries. A
 propagated from parent to child **Spans**.
 -->
 
-**Trace**内の**Span**を識別するすべての情報を表し、子Spanおよびプロセスの境界を越えて伝播されなければなりません。**SpanContext**は、Traceの識別子と、親から子の**Span**に伝搬されるオプションが含まれています。
+**Trace**内の**Span**を識別するすべての情報を表し、子Spanおよびプロセスの境界を越えて伝播されなければなりません(MUST)。**SpanContext**は、Traceの識別子と、親から子の**Span**に伝搬されるオプションが含まれています。
 
 
 <!--
