@@ -141,8 +141,6 @@ value can be either an immutable collection or an iterator on the immutable
 collection of name/value pairs in the `Baggage`.
 -->
 
-Returns the name/value pairs in the `Baggage`. The order of name/value pairs MUST NOT be significant. Based on the language specifics, the returned value can be either an immutable collection or an iterator on the immutable collection of name/value pairs in the `Baggage`.
-
 その `Baggage`に含まれる名前と値のペアを返します。名前と値のペアの順序に意味があってはいけません(MUST NOT)。言語の仕様により、戻り値は不変のコレクションか、`Baggage`内の名前/値のペアの不変のコレクションのイテレータになります。
 
 <!--
