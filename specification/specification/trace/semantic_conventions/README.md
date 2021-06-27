@@ -53,7 +53,7 @@ Spanのセマンティック規約は以下のように定義されています�
 The following library-specific semantic conventions are defined:
 -->
 
-以下のライブラリ固有のセマンティック・コンベンションが定義されています。
+以下のライブラリ固有のセマンティック規約が定義されています。
 
 <!--
 * [AWS Lambda](instrumentation/aws-lambda.md): AWS Lambda
