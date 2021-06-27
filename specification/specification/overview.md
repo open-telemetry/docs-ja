@@ -332,7 +332,7 @@ A span represents an operation within a transaction. Each **Span** encapsulates
 the following state:
 -->
 
-Soabは、トランザクション内の操作を表します。各**Spab**は、以下の状態をカプセル化しています。
+Spanは、トランザクション内の操作を表します。各**Span**は、以下の状態をカプセル化しています。
 
 <!--
 - An operation name
