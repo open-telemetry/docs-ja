@@ -683,7 +683,7 @@ Note: Identity is an important concept in most metrics systems.  For example,
 [Prometheus directly calls out uniqueness](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs):
 -->
 
-注:同一性は、ほとんどのメトリックシステムにおいて重要な概念である。 例えば、[Prometheusは一意性を直接呼びます](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs)。
+注:同一性は、ほとんどのメトリックシステムにおいて重要な概念です。 例えば、[Prometheusは一意性を直接呼びます](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs)。
 
 <!--
 > Care must be taken with `labeldrop` and `labelkeep` to ensure that metrics
@@ -699,7 +699,7 @@ well-behaved systems can perform metric stream manipulation without undesired
 degradation or loss of visibility.
 -->
 
-OTLPでは、単一書き込み者の原則により、エラーシナリオを推論し、修正措置を取ることができます。 さらに、お行儀の良いシステムが、望ましくない劣化や視認性の低下を招くことなく、メトリック…ストリームの操作を行えることを保証します。
+OTLPでは、単一書き込み者の原則により、エラーシナリオを推論し、修正措置を取ることができます。 さらに、お行儀の良いシステムが、望ましくない劣化や視認性の低下を招くことなく、メトリック・ストリームの操作を行えることを保証します。
 
 <!--
 ## Temporality
@@ -808,7 +808,7 @@ are overlapping points, receivers SHOULD eliminate points so that there are no
 overlaps. Which data to select in overlapping cases is not specified.
 -->
 
-複数のプロセスが同じメトリックデータストリームを書き込むと、OTLPのデータポイントが重なって見えることがあります。この状態は一般的に設定ミスに起因しますが、同一のプロセスを実行した場合にも発生する可能性があります([process attributes]の欠落(../resource/semantic_conventions/process.md)など、OSやSDKのバグを示しています)。重複するポイントがある場合、受信側は重複がないようにポイントを排除すべきです(SHOULD)。重複する場合にどのデータを選択するかは規定しません。
+複数のプロセスが同じメトリックデータストリームを書き込むと、OTLPのデータポイントが重なって見えることがあります。この状態は一般的に設定ミスに起因しますが、同一のプロセスを実行した場合にも発生する可能性があります([プロセス属性](../resource/semantic_conventions/process.md)の欠落など、OSやSDKのバグを示しています)。重複するポイントがある場合、受信側は重複がないようにポイントを排除すべきです(SHOULD)。重複する場合にどのデータを選択するかは規定しません。
 
 <!--
 ### Overlap observability
@@ -949,7 +949,7 @@ The algorithm is scheduled out as follows:
   - 最初のポイントの開始時刻に合わせた開始時刻
   - 最初のポイントの時間と一致する「最後に見た(last seen)」時間
 - 将来のデルタポイントを受け取る際には、以下の動作を行います。
-  - 次のポイントが、予想される次の時間のウィンドウと一致した場合([deltaの再起動の検出](#sums-アライメント問題の検出)を参照)。
+  - 次のポイントが、予想される次の時間のウィンドウと一致した場合([deltaの再起動の検出](#sums-アラインメント問題の検出)を参照)。
     - 「最後に見た時間」を現在のポイントの時間に合わせて更新する
     - 累積カウンターに現在の値を追加する 
     - 元の開始時刻と現在の最後に見た時刻とカウントを持つ新しい累積ポイントを出力する
@@ -960,7 +960,7 @@ The algorithm is scheduled out as follows:
 #### Sums: detecting alignment issues
 -->
 
-#### Sums: アライメント問題の検出
+#### Sums: アラインメント問題の検出
 
 <!--
 When the next delta sum reported for a given metric stream does not align with
@@ -992,7 +992,7 @@ that some data was lost, and reset the counter.
 We detect alignment via two mechanisms:
 -->
 
-アライメントの検出には2つの方法があります。
+アラインメントの検出には2つの方法があります。
 
 <!--
 - If the incoming delta time interval has significant overlap with the previous
@@ -1028,7 +1028,7 @@ For comparison, see the simple logic used in
 where all points are added, and lost points are ignored.
 -->
 
-このシナリオでは、上記のアルゴリズムでは、アライメントやポイントのオーバーラップを判別できないため、すべてのデータポイントの累積和をリセットしてしまいます。比較のために、[statsd sums](https://github.com/statsd/statsd/blob/master/stats.js#L281)で使用されている、すべてのポイントが加算され、失われたポイントが無視されるシンプルなロジックを参照してください。
+このシナリオでは、上記のアルゴリズムでは、アラインメントやポイントのオーバーラップを判別できないため、すべてのデータポイントの累積和をリセットしてしまいます。比較のために、[statsd sums](https://github.com/statsd/statsd/blob/master/stats.js#L281)で使用されている、すべてのポイントが加算され、失われたポイントが無視されるシンプルなロジックを参照してください。
 
 
 <!--
