@@ -1,8 +1,6 @@
-# [私家版]  OpenTelemetry ドキュメント日本語化プロジェクト
+# OpenTelemetry ドキュメント日本語化プロジェクト
 
 OpenTelemetry documents Japanese translation poject
-
-!!このレポジトリの内容は私家版であり、OpenTelemtryプロジェクトとは無関係です!!
 
 ## 翻訳対象ドキュメント (Target repositories)
 
