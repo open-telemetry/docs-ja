@@ -184,7 +184,7 @@ performance counter: `uptime * (100 - "Disk\% Idle Time") / 100`
 -->
 
 - Linux: [procfs-diskstats](https://www.kernel.org/doc/Documentation/ABI/testing/procfs-diskstats)の13番目のフィールド
-- Windows: ["Disk\% Idle Time"](https://docs.microsoft.com/en-us/archive/blogs/askcore/windows-performance-monitor-disk-counters-explained#windows-performance-monitor-disk-counters-explained:~:text=%25%20Idle%20Time,Idle)%20to%200%20(mean%20always%20busy))のパフォーマンスカウンタを補完します。uptime * (100 - "Disk\% Idle Time") / 100`.
+- Windows: ["Disk\% Idle Time"](https://docs.microsoft.com/en-us/archive/blogs/askcore/windows-performance-monitor-disk-counters-explained#windows-performance-monitor-disk-counters-explained:~:text=%25%20Idle%20Time,Idle)%20to%200%20(mean%20always%20busy))のパフォーマンスカウンタを補完します。: `uptime * (100 - "Disk\% Idle Time") / 100`.
 
 <!--
 <sup><a name="operation_time">2</a></sup> Because it is the sum of time each

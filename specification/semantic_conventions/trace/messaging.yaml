@@ -121,7 +121,7 @@ groups:
         - id: routing_key
           type: string
           required:
-            conditional: Unless it is empty.
+            conditional: 空でなければ
           brief: >
             RabbitMQのメッセージルーティングキー。
           examples: 'myKey'

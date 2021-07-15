@@ -36,7 +36,7 @@ The support guarantees and allowed changes are governed by the lifecycle of the 
 
 |ステータス              |説明|
 |-----------------------|-----------|
-|明示的な"ステータス"なし|実験的と同じ|
+|明示的な"ステータス"なし|Experimentalと同じ|
 |Experimental           |破壊的な変更が許可されている|
 |Stable                 |破壊的な変更はできない。詳細は [安定保証](versioning-and-stability.md#stable) を参照してください|
 |Deprecated             |編集上の変更を除き、変更はできない|

@@ -233,7 +233,7 @@ Parameters:
 - A carrier.
 -->
 
-- Format`の記述子
+- `Format`の記述子
 - キャリア
 
 <!--

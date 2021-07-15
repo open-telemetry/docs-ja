@@ -10,7 +10,7 @@ be used by the various OpenTelemetry language implementations to aid in automati
 generation of semantics-related code.
 -->
 
-このディレクトリに含まれるセマンティック規約のYAML記述は、セマンティック関連のコードの自動生成を支援するために、様々なOpenTelemetry言語の実装によって使用されることを意図しています。
+このディレクトリに含まれるセマンティック規約のYAML記述は、セマンティック関連のコードの自動生成を支援するために、様々なOpenTelemetryの各言語向け実装によって使用されることを意図しています。
 
 
 <!--

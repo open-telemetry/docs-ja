@@ -105,7 +105,7 @@ Names SHOULD follow these rules:
   SHOULD be followed for the attribute name.
 -->
 
-- 属性が単一のエンティティを表す場合、属性名は単数形であるべきです(SHOULD)。例 host.name`, `db.user`, `container.id`。
+- 属性が単一のエンティティを表す場合、属性名は単数形であるべきです(SHOULD)。例 `host.name`, `db.user`, `container.id`。
 - 属性が複数のエンティティを表すことができる場合、属性名は複数化されるべき(SHOULD)で、値の型は配列であるべきです(SHOULD)。例えば、`process.command_args` は実行ファイル名とコマンド引数という複数の値を含むかもしれません。
 - 属性がMeasurementを表す場合、属性名は[Metric名の複数化ガイドライン](../metrics/semantic_conventions/README.md#pluralization)に従うべきです(SHOULD)。
 

@@ -276,7 +276,7 @@ and are defined as separate objects from the carrier to avoid runtime allocation
 by removing the need for additional interface-implementing-objects wrapping the carrier in order
 to access its contents.
 -->
-`Getter`と`Setter`は、それぞれ抽出と注入に使用される任意のヘルパーコンポーネントで、ランタイムの割り当てを避けるために、キャリアとは別のオブジェクトとして定義されています。これは、キャリアのコンテンツにアクセスするために、キャリアをラップする追加のインターフェース実装オブジェクトの必要性を排除するためです。(XXX: 一文が長すぎて自信なし)
+`Getter`と`Setter`は、それぞれ抽出と注入に使用される任意のヘルパーコンポーネントで、ランタイムの割り当てを避けるために、キャリアとは別のオブジェクトとして定義されています。これは、キャリアのコンテンツにアクセスするために、キャリアをラップする追加のインターフェース実装オブジェクトの必要性を排除するためです。(XXX: 一文が長すぎて訳に自信なし)
 
 <!--
 `Getter` and `Setter` MUST be stateless and allowed to be saved as constants, in order to effectively
@@ -727,7 +727,7 @@ for any of them independently. For instance, a span exporter may be left
 unconfigured, although the trace context propagation was configured to enrich logs or metrics.
 -->
 
-OpenTelemetry API は、他に明示的に設定されていない限り、no-op プロパゲータを使用しなければなりません(MUST)。Contextの伝搬は、Trace、Metrics、Loggingなど、様々なテレメトリシグナルに使用できます。したがって、Contextの伝搬はそれらのどれかに対して独立して有効にしても構いません(MAY)。例えば、ログやメトリックを豊かにするためにトレースのコンテキスト伝播が設定されているにもかかわらず、Span Exporterが未設定のままになっている場合があります。(XXX)
+OpenTelemetry API は、他に明示的に設定されていない限り、no-op プロパゲータを使用しなければなりません(MUST)。Contextの伝搬は、Trace、Metrics、Loggingなど、様々なテレメトリシグナルに使用できます。したがって、Contextの伝搬はそれらのどれかに対して独立して有効にしても構いません(MAY)。例えば、ログやメトリックを豊かにするためにトレースのコンテキスト伝播が設定されているにもかかわらず、Span Exporterが未設定のままになっている場合があります。
 
 <!--
 Platforms such as ASP.NET may pre-configure out-of-the-box
@@ -800,7 +800,7 @@ organization and MUST be distributed as OpenTelemetry extension packages:
 
 The official list of propagators that MUST be maintained by the OpenTelemetry organization and MUST be distributed as OpenTelemetry extension packages:
 
-Propagatorの公式リストはOpenTelemetry組織によって維持されなければなりません(MUST)し、、OpenTelemetry拡張パッケージとして配布されなければなりません(MUST)。
+Propagatorの公式リストはOpenTelemetry組織によって維持されなければなりません(MUST)し、OpenTelemetry拡張パッケージとして配布されなければなりません(MUST)。
 
 
 <!--

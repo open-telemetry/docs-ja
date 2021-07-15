@@ -384,7 +384,7 @@ In RabbitMQ, the destination is defined by an _exchange_ and a _routing key_.
 `messaging.destination` MUST be set to the name of the exchange. This will be an empty string if the default exchange is used.
 -->
 
-RabbitMQでは、宛先は_exchange_と_routing key_で定義されます。messaging.destination`には、Exchangeの名前を設定しなければなりません(MUST)。デフォルトの取引所を使用する場合は、空の文字列になります。
+RabbitMQでは、宛先は_exchange_と_routing key_で定義されます。`messaging.destination`には、Exchangeの名前を設定しなければなりません(MUST)。デフォルトの取引所を使用する場合は、空の文字列になります。
 
 
 <!-- semconv messaging.rabbitmq -->

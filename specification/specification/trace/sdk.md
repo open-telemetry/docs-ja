@@ -538,7 +538,7 @@ TODO: `TraceIdRatioBased` が `TraceID` の関数としてどのように実装�
 ##### Requirements for `TraceIdRatioBased` sampler algorithm
 -->
 
-##### TraceIdRatioBased` Sampler アルゴリズムの要件
+##### `TraceIdRatioBased` Sampler アルゴリズムの要件
 
 <!--
 * The sampling algorithm MUST be deterministic. A trace identified by a given
@@ -1037,7 +1037,7 @@ via a callback or an event. OpenTelemetry client authors can decide if they want
 make the flush timeout configurable.
 -->
 
-`ForceFlush`はあるタイムアウト内に完了または中止すべきです(SHOULD)。ForceFlush`はブロッキングAPIとして実装することも、コールバックやイベントで呼び出し元に通知する非同期APIとして実装することもできます。OpenTelemetryクライアントの作者は、フラッシュのタイムアウトを設定可能にするかどうかを決めることができます。
+`ForceFlush`はあるタイムアウト内に完了または中止すべきです(SHOULD)。`ForceFlush`はブロッキングAPIとして実装することも、コールバックやイベントで呼び出し元に通知する非同期APIとして実装することもできます。OpenTelemetryクライアントの作者は、フラッシュのタイムアウトを設定可能にするかどうかを決めることができます。
 
 <!--
 ### Built-in span processors

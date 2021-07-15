@@ -86,7 +86,7 @@ propagation. If a Baggage propagator is installed into the API, it will work
 with or without an installed SDK.
 -->
 
-Baggage APIは、インストールされたSDKがなくても完全に機能しなければなりません(MUST)。これは、透過的なプロセス間のBaggage伝播を可能にするために必要です。もしバゲージプロパゲータがAPIにインストールされていれば、インストールされたSDKがあってもなくても動作します。
+Baggage APIは、インストールされたSDKがなくても完全に機能しなければなりません(MUST)。これは、透過的なプロセス間のBaggage伝播を可能にするために必要です。もしBaggageプロパゲータがAPIにインストールされていれば、インストールされたSDKがあってもなくても動作します。
 
 <!--
 The `Baggage` container MUST be immutable, so that the containing `Context`

@@ -88,7 +88,7 @@ accomplished in the OpenTelemetry Metrics data model through support for data
 transformation on the collection path.
 -->
 
-このプロトコルは、OpenCensus Metricsシステムの要件、特にMetrics Viewのコンセプトを満たすように設計されています。ビューは、OpenTelemetry Metricsデータモデルにおいて、収集パス(XXX?)上のデータ変換をサポートすることで実現されます。
+このプロトコルは、OpenCensus Metricsシステムの要件、特にMetrics Viewのコンセプトを満たすように設計されています。ビューは、OpenTelemetry Metricsデータモデルにおいて、収集経路上でのデータ変換をサポートすることで実現されます。
 
 <!--
 OpenTelemetry has identified three kinds of semantics-preserving Metric data
@@ -491,7 +491,7 @@ OTLPで使用されているコアポイントの種類に加えて、既存の�
 - [Summary](#summary-legacy)
 -->
 
-- [まとめ](#summary-legacy)
+- [Summary](#summary-legacy)
 
 <!--
 ## Metric points
@@ -619,7 +619,7 @@ Pending
 ### Summary (Legacy)
 -->
 
-### まとめ (Legacy)
+### Summary (Legacy)
 
 <!--
 [Summary](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/metrics/v1/metrics.proto#L244)

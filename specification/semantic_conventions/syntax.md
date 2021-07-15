@@ -83,10 +83,10 @@ include ::= id
 ```
 
 <!--
-## セマンティック
+## Semantics
 -->
 
-## Semantics
+## セマンティック
 
 <!--
 ### Groups

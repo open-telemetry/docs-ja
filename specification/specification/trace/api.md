@@ -759,7 +759,7 @@ The API MUST accept the following parameters:
 - [`属性`](../common/common.md#属性). さらに、これらの属性は [sampling description](sdk.md#sampling) に記載されているように、サンプリングの決定に使用されることがあります。指定がない場合は、空のコレクションが想定されます。
 
   可能な限り、ユーザーは、後で `SetAttribute` を呼び出すのではなく、Spanの作成時に既に判明している属性を設定すべきです。
-- `Link`` - 順番に並んだリンクの列。APIの定義[こちら](#specifying-links)を参照。
+- `Link` - 順番に並んだリンクの列。APIの定義[こちら](#specifying-links)を参照。
 - `開始時間`, デフォルトは現在時刻。この引数は、Spanの作成時間が既に経過している場合にのみ設定されるべきです(SHOULD)。Spanの論理的な開始時点でAPIが呼び出された場合、APIユーザーはこの引数を明示的に設定してはなりません(MUST NOT)。
 
 <!--
@@ -880,7 +880,7 @@ With the exception of the function to retrieve the `Span`'s `SpanContext` and
 recording status, none of the below may be called after the `Span` is finished.
 -->
 
-Span`の`SpanContext`と記録状態を取得する関数を除いて、`Span`が終了した後に以下の関数を呼び出すことはできません。
+`Span`の`SpanContext`と記録状態を取得する関数を除いて、`Span`が終了した後に以下の関数を呼び出すことはできません。
 
 <!--
 #### Get Context
@@ -923,7 +923,7 @@ Note: Streaming implementations, where it is not known if a span is ended,
 are one expected case where `IsRecording` cannot change after ending a Span.
 -->
 
-Span`が終了すると、通常は記録されない状態になるため、終了したSpanに対しては、`IsRecording`は結果的にfalseを返すべきです(SHOULD)。注意: Spanが終了したかどうかが分からないストリーミングの実装は、Spanの終了後に `IsRecording` が変更できない想定されるケースの一つです。
+`Span`が終了すると、通常は記録されない状態になるため、終了したSpanに対しては、`IsRecording`は結果的にfalseを返すべきです(SHOULD)。注意: Spanが終了したかどうかが分からないストリーミングの実装は、Spanの終了後に `IsRecording` が変更できない想定されるケースの一つです。
 
 <!--
 `IsRecording` SHOULD NOT take any parameters.
