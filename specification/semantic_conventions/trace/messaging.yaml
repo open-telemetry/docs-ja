@@ -1,0 +1,161 @@
+groups:
+    - id: messaging
+      prefix: messaging
+      brief: >
+          このドキュメントでは、メッセージングシステムで使用される属性を定義しています。
+      attributes:
+        - id: system
+          type: string
+          required: always
+          brief: 'メッセージングシステムを識別するための文字列'
+          examples: ['kafka', 'rabbitmq', 'activemq', 'AmazonSQS']
+        - id: destination
+          type: string
+          required: always
+          brief: >
+            メッセージの宛先名です。これは、Span名と同じかもしれませんが、それでも必要です。
+          examples: ['MyQueue', 'MyTopic']
+        - id: destination_kind
+          type:
+            allow_custom_values: false
+            members:
+              - id: queue
+                value: "queue"
+                brief: "メッセージはQueueに送られる"
+              - id: topic
+                value: "topic"
+                brief: "メッセージはTopicに送られる"
+          required:
+            conditional: 'メッセージの宛先が `queue` または `topic` の場合にのみ必要です。'
+          brief: 'メッセージの宛先の種類'
+        - id: temp_destination
+          type: boolean
+          required:
+            conditional: '欠落している場合は、偽であると見なされます'
+          brief: 'メッセージの送信先が一時的なものである場合に真となる真偽値'
+        - id: protocol
+          type: string
+          brief: 'トランスポートプロトコルの名前'
+          examples: ['AMQP', 'MQTT']
+        - id: protocol_version
+          type: string
+          brief: 'トランスポートプロトコルのバージョン'
+          examples: '0.9.1'
+        - id: url
+          type: string
+          brief: '接続文字列'
+          examples: ['tibjmsnaming://localhost:7222', 'https://queue.amazonaws.com/80398EXAMPLE/MyQueue']
+        - id: message_id
+          type: string
+          brief: 'メッセージングシステムがメッセージの識別子として使用する値で、文字列で表されます。'
+          examples: '452a7c7c7c7048c2f887f61572b18fc2'
+        - id: conversation_id
+          type: string
+          brief: >
+            メッセージが属する会話を識別する[会話ID](#conversations)を文字列で表したもの。"Correlation ID"と呼ばれることもあります。
+          examples: 'MyConversationId'
+        - id: message_payload_size_bytes
+          type: int
+          brief: >
+            メッセージのペイロードの(圧縮されていない)サイズをバイト単位で示したものです。また、圧縮されたペイロード・サイズと非圧縮のペイロード・サイズのどちらが報告されるかが不明な場合にも、この属性を使用します。
+          examples: 2738
+        - id: message_payload_compressed_size_bytes
+          type: int
+          brief: 'メッセージのペイロードの圧縮サイズ(バイト)です。'
+          examples: 2048
+        - ref: net.peer.name
+          note: >
+            これは、この特定のメッセージを送受信するブローカー(または他のネットワークレベルのピア)のIP/ホスト名でなければなりません。
+          required:
+            conditional: 利用可能な場合
+        - ref: net.peer.ip
+          tag: connection-level
+          required:
+            conditional: 利用可能な場合
+      constraints:
+        - include: network
+
+    - id: messaging.producer
+      prefix: messaging
+      extends: messaging
+      span_kind: producer
+      brief: 'メッセージングシステムに送信されるメッセージのプロデューサーのためのセマンティック規約'
+
+    - id: messaging.producer.synchronous
+      prefix: messaging
+      extends: messaging
+      span_kind: client
+      brief: >
+        メッセージを生成し、同期的に応答を待つメッセージングシステムのクライアントのためのセマンティック規約。
+
+    - id: messaging.consumer
+      prefix: messaging
+      extends: messaging
+      span_kind: consumer
+      brief: 'メッセージングシステムから受信したメッセージの消費者のためのセマンティック規約'
+      attributes:
+        - id: operation
+          type:
+            allow_custom_values: false
+            members:
+              - id: receive
+                value: "receive"
+              - id: process
+                value: "process"
+          brief: >
+            上記の[操作名](#operation-names)セクションで定義されているメッセージ消費の種類を識別する文字列です。操作が "send"の場合、この属性は設定してはいけません(MUST NOT)。なぜなら、この場合、操作はspan kindから推測できるからです。
+
+    - id: messaging.consumer.synchronous
+      prefix: messaging
+      extends: messaging.consumer
+      span_kind: server
+      brief: >
+        メッセージングシステムから受信したメッセージを消費し、常にそのメッセージのProducerに向けた返信を返すサーバーのためのセマンティックな規約
+
+    - id: messaging.rabbitmq
+      prefix: messaging.rabbitmq
+      extends: messaging
+      brief: >
+        RabbitMQのための属性
+      attributes:
+        - id: routing_key
+          type: string
+          required:
+            conditional: 空でなければ
+          brief: >
+            RabbitMQのメッセージルーティングキー。
+          examples: 'myKey'
+
+    - id: messaging.kafka
+      prefix: messaging.kafka
+      extends: messaging
+      brief: >
+        Apache Kafkaのための属性
+      attributes:
+        - id: message_key
+          type: string
+          brief: >
+            Kafkaのメッセージキーは、同じメッセージが同じパーティションで処理されるようにグループ化するために使用されます。メッセージキーは、`messaging.message_id` とは異なり、一意ではありません。キーが `null` の場合、この属性は設定してはいけません (MUST NOT)。
+          note: >
+            キータイプが文字列でない場合は、その文字列表現を属性に与える必要があります。キーが曖昧でない正規の文字列形式を持たない場合、その値を含めてはいけません。
+          examples: 'myKey'
+        - id: consumer_group
+          type: string
+          brief: >
+            メッセージを処理しているKafka Consumerグループの名前。Producerではなく、Consumerにのみ適用されます。
+          examples: 'my-group'
+        - id: client_id
+          type: string
+          brief: >
+            メッセージを処理しているConsumerまたはProducerのClient Id。
+          examples: 'client-5'
+        - id: partition
+          type: int
+          brief: >
+            メッセージの送信先となるパーティション。
+          examples: 2
+        - id: tombstone
+          type: boolean
+          required:
+            conditional: '欠落している場合は、偽であると見なされます'
+          brief: 'メッセージがTombstoneである場合に真となる真偽値'

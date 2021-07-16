@@ -1,0 +1,381 @@
+groups:
+    - id: db
+      prefix: db
+      brief: >
+        このドキュメントでは、データベースクライアントコールを実行するために使用される属性を定義しています。
+      span_kind: client
+      attributes:
+        - id: system
+          tag: connection-level
+          brief: 使用しているデータベース管理システム(DBMS)製品の識別子。よく知られた識別子のリストは以下を参照してください。
+          required: always
+          type:
+            allow_custom_values: true
+            members:
+              - id: other_sql
+                value: 'other_sql'
+                brief: '他のSQLデータベース。フォールバックのみ。注意事項を参照してください。'
+              - id: mssql
+                value: 'mssql'
+                brief: 'Microsoft SQL Server'
+              - id: mysql
+                value: 'mysql'
+                brief: 'MySQL'
+              - id: oracle
+                value: 'oracle'
+                brief: 'Oracle Database'
+              - id: db2
+                value: 'db2'
+                brief: 'IBM Db2'
+              - id: postgresql
+                value: 'postgresql'
+                brief: 'PostgreSQL'
+              - id: redshift
+                value: 'redshift'
+                brief: 'Amazon Redshift'
+              - id: hive
+                value: 'hive'
+                brief: 'Apache Hive'
+              - id: cloudscape
+                value: 'cloudscape'
+                brief: 'Cloudscape'
+              - id: hsqldb
+                value: 'hsqldb'
+                brief: 'HyperSQL DataBase'
+              - id: progress
+                value: 'progress'
+                brief: 'Progress Database'
+              - id: maxdb
+                value: 'maxdb'
+                brief: 'SAP MaxDB'
+              - id: hanadb
+                value: 'hanadb'
+                brief: 'SAP HANA'
+              - id: ingres
+                value: 'ingres'
+                brief: 'Ingres'
+              - id: firstsql
+                value: 'firstsql'
+                brief: 'FirstSQL'
+              - id: edb
+                value: 'edb'
+                brief: 'EnterpriseDB'
+              - id: cache
+                value: 'cache'
+                brief: 'InterSystems Caché'
+              - id: adabas
+                value: 'adabas'
+                brief: 'Adabas (Adaptable Database System)'
+              - id: firebird
+                value: 'firebird'
+                brief: 'Firebird'
+              - id: derby
+                value: 'derby'
+                brief: 'Apache Derby'
+              - id: filemaker
+                value: 'filemaker'
+                brief: 'FileMaker'
+              - id: informix
+                value: 'informix'
+                brief: 'Informix'
+              - id: instantdb
+                value: 'instantdb'
+                brief: 'InstantDB'
+              - id: interbase
+                value: 'interbase'
+                brief: 'InterBase'
+              - id: mariadb
+                value: 'mariadb'
+                brief: 'MariaDB'
+              - id: netezza
+                value: 'netezza'
+                brief: 'Netezza'
+              - id: pervasive
+                value: 'pervasive'
+                brief: 'Pervasive PSQL'
+              - id: pointbase
+                value: 'pointbase'
+                brief: 'PointBase'
+              - id: sqlite
+                value: 'sqlite'
+                brief: 'SQLite'
+              - id: sybase
+                value: 'sybase'
+                brief: 'Sybase'
+              - id: teradata
+                value: 'teradata'
+                brief: 'Teradata'
+              - id: vertica
+                value: 'vertica'
+                brief: 'Vertica'
+              - id: h2
+                value: 'h2'
+                brief: 'H2'
+              - id: coldfusion
+                value: 'coldfusion'
+                brief: 'ColdFusion IMQ'
+              - id: cassandra
+                value: 'cassandra'
+                brief: 'Apache Cassandra'
+              - id: hbase
+                value: 'hbase'
+                brief: 'Apache HBase'
+              - id: mongodb
+                value: 'mongodb'
+                brief: 'MongoDB'
+              - id: redis
+                value: 'redis'
+                brief: 'Redis'
+              - id: couchbase
+                value: 'couchbase'
+                brief: 'Couchbase'
+              - id: couchdb
+                value: 'couchdb'
+                brief: 'CouchDB'
+              - id: cosmosdb
+                value: 'cosmosdb'
+                brief: 'Microsoft Azure Cosmos DB'
+              - id: dynamodb
+                value: 'dynamodb'
+                brief: 'Amazon DynamoDB'
+              - id: neo4j
+                value: 'neo4j'
+                brief: 'Neo4j'
+              - id: geode
+                value: 'geode'
+                brief: 'Apache Geode'
+              - id: elasticsearch
+                value: 'elasticsearch'
+                brief: 'Elasticsearch'
+        - id: connection_string
+          tag: connection-level
+          type: string
+          brief: >
+            データベースへの接続に使用される接続文字列です。埋め込まれた資格情報を削除することを推奨します。
+          examples: 'Server=(localdb)\v11.0;Integrated Security=true;'
+        - id: user
+          tag: connection-level
+          type: string
+          brief: >
+            データベースにアクセスするためのユーザー名。
+          examples: ['readonly_user', 'reporting_user']
+        - id: jdbc.driver_classname
+          tag: connection-level-tech-specific
+          type: string
+          brief: >
+            接続に使用する[Java Database Connectivity (JDBC)](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/)ドライバの完全修飾クラス名。
+          examples: ['org.postgresql.Driver', 'com.microsoft.sqlserver.jdbc.SQLServerDriver']
+        - id: name
+          tag: call-level
+          type: string
+          required:
+            conditional: >
+              該当し、他に適切な属性が定義されていない場合は必須
+          brief: >
+            もし[その技術特有の属性](#call-level-attributes-for-specific-technologies)が定義されていない場合、この属性はアクセスされているデータベースの名前を報告するために使用されます。データベースを切り替えるコマンドのために、これは(コマンドが失敗した場合でも)ターゲットデータベースに設定しなければなりません。
+          note: >
+            一部のSQLデータベースでは、使用するデータベース名を「スキーマ名」と呼びます。
+          examples: [ 'customers', 'main' ]
+        - id: statement
+          tag: call-level
+          type: string
+          required:
+            conditional: >
+              該当する場合で、Metricsの設定で明示的に無効化されていない場合は必須
+          brief: >
+            実行されているデータベース文。
+          note: この値は、機密情報を除外するためにサニタイズされている場合があります。
+          examples: ['SELECT * FROM wuser_table', 'SET mykey "WuValue"']
+        - id: operation
+          tag: call-level
+          type: string
+          required:
+            conditional: Required, if `db.statement` is not applicable.
+          brief: >
+            実行する操作の名前。例えば、`findAndModify` のような [MongoDB コマンド名](https://docs.mongodb.com/manual/reference/command/#database-operations) や SQL キーワード。
+          note: >
+            これをSQLキーワードに設定する場合、このプロパティを取得するためだけに `db.statement` のクライアント側の解析を試みることは推奨されません。しかし、測定対象のライブラリから操作名が提供されている場合は設定する必要があります。SQL文に曖昧な操作があったり、複数の操作を実行したりする場合は、この値を省略しても構いません。
+          examples: ['findAndModify', 'HMSET', 'SELECT']
+        - ref: net.peer.name
+          tag: connection-level
+          required:
+            conditional: 下記参照
+        - ref: net.peer.ip
+          tag: connection-level
+          required:
+            conditional: 下記参照
+        - ref: net.peer.port
+          tag: connection-level
+          required:
+            conditional: このDBMSのデフォルトポート以外のポートを使用している場合は必須。
+        - ref: net.transport
+          tag: connection-level
+          required:
+            conditional: 一般的に推奨、プロセス中のデータベース(`"inproc"`)には必須。
+      constraints:
+        - any_of:
+          - 'net.peer.name'
+          - 'net.peer.ip'
+
+    - id: db.mssql
+      prefix: db.mssql
+      extends: db
+      brief: >
+        Microsoft SQL Serverの接続レベル属性
+      attributes:
+        - id: instance_name
+          tag: connection-level-tech-specific
+          type: string
+          note: >
+            `db.mssql.instance_name`を設定する場合、`net.peer.port`は必須ではなくなりました(ただし、非標準の場合は推奨)
+          brief: >
+            接続しているMicrosoft SQL Serverの[インスタンス名](https://docs.microsoft.com/en-us/sql/connect/jdbc/building-the-connection-url?view=sql-server-ver15)です。この名前は、名前付きインスタンスのポートを決定するために使用されます。
+          examples: 'MSSQLSERVER'
+
+    - id: db.cassandra
+      prefix: db.cassandra
+      extends: db
+      brief: >
+        Cassandraのコールレベル属性
+      attributes:
+        - id: keyspace
+          type: string
+          required: always
+          tag: call-level-tech-specific-cassandra
+          brief: >
+            アクセスするキースペースの名前です。一般的な `db.name` 属性の代わりに使用されます。
+          examples: 'mykeyspace'
+        - id: page_size
+          type: int
+          tag: call-level-tech-specific-cassandra
+          brief: >
+            ページングに使用されるフェッチサイズ、つまり一度に何行を返すかを指定します。
+          examples: [5000]
+        - id: consistency_level
+          tag: call-level-tech-specific-cassandra
+          brief: >
+            クエリの一貫性レベル。[CQL](https://docs.datastax.com/en/cassandra-oss/3.0/cassandra/dml/dmlConfigConsistency.html)の整合性値に基づいています。
+          type:
+            members:
+              - id: all
+                value: 'all'
+              - id: each_quorum
+                value: 'each_quorum'
+              - id: quorum
+                value: 'quorum'
+              - id: local_quorum
+                value: 'local_quorum'
+              - id: one
+                value: 'one'
+              - id: two
+                value: 'two'
+              - id: three
+                value: 'three'
+              - id: local_one
+                value: 'local_one'
+              - id: any
+                value: 'any'
+              - id: serial
+                value: 'serial'
+              - id: local_serial
+                value: 'local_serial'
+        - id: table
+          type: string
+          tag: call-level-tech-specific-cassandra
+          required:
+            conditional: Recommended if available.
+          brief: 操作の対象となる主テーブルの名前で、(該当する場合)スキーマ名も含まれます。
+          note: >
+            これは、db.sql.table属性を反映していますが、sqlではなくcassandraを参照しています。この属性を取得するためだけにクライアントサイドで `db.statement` の解析を行うことは推奨されませんが、計装対象のライブラリで提供されている場合は設定する必要があります。操作が匿名のテーブルや複数のテーブルに対して行われる場合、この値は設定してはいけません(MUST NOT)。
+          examples: 'mytable'
+        - id: idempotence
+          type: boolean
+          tag: call-level-tech-specific-cassandra
+          brief: >
+            クエリがべき等であるかどうか。
+        - id: speculative_execution_count
+          type: int
+          tag: call-level-tech-specific-cassandra
+          brief: >
+            クエリが投機的に実行された回数です。クエリが投機的に実行されなかった場合は、設定されないか、または `0` となります。
+          examples: [0, 2]
+        - id: coordinator.id
+          type: string
+          tag: call-level-tech-specific-cassandra
+          brief: >
+            クエリのコーディネーションノードのIDです。
+          examples: 'be13faa2-8574-4d71-926d-27f16cf8a7af'
+        - id: coordinator.dc
+          type: string
+          tag: call-level-tech-specific-cassandra
+          brief: >
+            クエリのコーディネーションノードのデータセンターです。
+          examples: 'us-west-2'
+
+    - id: db.hbase
+      prefix: db.hbase
+      extends: db
+      brief: >
+        Apache HBaseのコールレベル属性
+      attributes:
+        - id: namespace
+          type: string
+          required: always
+          tag: call-level-tech-specific
+          brief: >
+            アクセスされている[HBase 名前空間](https://hbase.apache.org/book.html#_namespace)です。一般的な `db.name` 属性の代わりに使用します。
+          examples: 'default'
+
+    - id: db.redis
+      prefix: db.redis
+      extends: db
+      brief: >
+        Redisのコールレベル属性
+      attributes:
+        - id: database_index
+          type: int
+          required:
+            conditional: デフォルトのデータベース(`0`)以外の場合は必須です。
+          tag: call-level-tech-specific
+          brief: >
+            [`SELECT`コマンド](https://redis.io/commands/select)で使われる、アクセスするデータベースのインデックスを整数で指定します。一般的な `db.name` 属性の代わりに使用されます。
+          examples: [0, 1, 15]
+
+    - id: db.mongodb
+      prefix: db.mongodb
+      extends: db
+      brief: >
+        MongoDBのコールレベル属性
+      attributes:
+        - id: collection
+          type: string
+          required: always
+          tag: call-level-tech-specific
+          brief: >
+            `db.name`で指定されたデータベース内でアクセスされるコレクションです。
+          examples: [ 'customers', 'products' ]
+
+    - id: db.sql
+      prefix: 'db.sql'
+      extends: 'db'
+      brief: >
+        SQL databases のコールレベル属性
+      attributes:
+        - id: table
+          tag: call-level-tech-specific
+          type: string
+          required:
+            conditional: 使用可能であれば推奨されます。
+          brief: 操作の対象となる主テーブルの名前で、該当する場合スキーマ名も含まれます。
+          note: >
+            このプロパティを取得するために、クライアントサイドで `db.statement` の解析を行うことはお勧めできませんが、計装対象のライブラリで提供されている場合には設定する必要があります。匿名のテーブルや複数のテーブルを操作する場合には、この値を設定してはいけません(MUST NOT)。
+          examples: ['public.users', 'customers']
+
+    - id: db.tech
+      brief: "特定技術のためのセマンティック規約のグループ"
+      constraints:
+        - include: 'db.cassandra'
+        - include: 'db.hbase'
+        - include: 'db.redis'
+        - include: 'db.mongodb'
+        - include: 'db.sql'

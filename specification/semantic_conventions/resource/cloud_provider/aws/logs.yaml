@@ -1,0 +1,32 @@
+groups:
+  - id: aws.log
+    prefix: aws.log
+    brief: >
+      Amazon Web Servicesに特化したリソース。
+    attributes:
+      - id: group.names
+        type: string[]
+        brief: >
+          アプリケーションが書き込んでいるAWS log groupの名前。
+        examples: ['/aws/lambda/my-function', 'opentelemetry-service']
+        note: >
+          マルチコンテナアプリケーションのように1つのアプリケーションにサイドカーコンテナがあり、それぞれがそれぞれのロググループに書き込むような場合があるため、複数のロググループをサポートする必要があります。
+      - id: group.arns
+        type: string[]
+        brief: >
+          AWSロググループのAmazon Resource Name(ARN)。
+        examples: ['arn:aws:logs:us-west-1:123456789012:log-group:/aws/my/group:*']
+        note: >
+          [ロググループ ARN 形式のドキュメント](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/iam-access-control-overview-cwl.html#CWL_ARN_Format) を参照してください。
+      - id: stream.names
+        type: string[]
+        brief: >
+          アプリケーションが書き込んでいるAWSログストリームの名前。
+        examples: ['logs/main/10838bed-421f-43ef-870a-f43feacbbb5b']
+      - id: stream.arns
+        type: string[]
+        brief: >
+          AWSログストリームのARN。
+        examples: ['arn:aws:logs:us-west-1:123456789012:log-group:/aws/my/group:log-stream:logs/main/10838bed-421f-43ef-870a-f43feacbbb5b']
+        note: >
+           [ログストリーム ARN 形式のドキュメント](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/iam-access-control-overview-cwl.html#CWL_ARN_Format)を参照してください。1つのロググループには複数のログストリームを含むことができるので、これらのARNは必然的にロググループとログストリームの両方を識別する必要があります。

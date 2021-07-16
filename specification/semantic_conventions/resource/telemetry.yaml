@@ -1,0 +1,47 @@
+groups:
+  - id: telemetry
+    prefix: telemetry
+    brief: >
+      計装ライブラリで記録されたデータをキャプチャするために使用されるテレメトリSDKです。
+    attributes:
+      - id: sdk.name
+        type: string
+        brief: >
+          上記で定義したテレメトリSDKの名前。
+        examples: ["opentelemetry"]
+      - id: sdk.language
+        type:
+          allow_custom_values: true
+          members:
+            - id: cpp
+              value: "cpp"
+            - id: dotnet
+              value: "dotnet"
+            - id: erlang
+              value: "erlang"
+            - id: go
+              value: "go"
+            - id: java
+              value: "java"
+            - id: nodejs
+              value: "nodejs"
+            - id: php
+              value: "php"
+            - id: python
+              value: "python"
+            - id: ruby
+              value: "ruby"
+            - id: webjs
+              value: "webjs"
+        brief: >
+          テレメトリSDKの言語。
+      - id: sdk.version
+        type: string
+        brief: >
+          テレメトリSDKのバージョン文字列。
+        examples: ["1.2.3"]
+      - id: auto.version
+        type: string
+        brief: >
+          使用されている場合は、自動インストルメンテーションエージェントのバージョン文字列。
+        examples: ["1.2.3"]

@@ -5,7 +5,9 @@ OpenTelemetry documents Japanese translation poject
 ## 翻訳対象ドキュメント (Target repositories)
 
 * [community](https://github.com/open-telemetry/community)
+  * 67d8f20a8b0cb49e3fd9033545c3f9e5865de7cf (2021-02-11バージョン)
 * [specification](https://github.com/open-telemetry/opentelemetry-specification)
+  * v1.3.0
 
 ## 翻訳に取り掛かる前に
 
@@ -32,7 +34,7 @@ OpenTelemetry documents Japanese translation poject
 ## コントリビューションワークフロー
 
 1. Issueより対象のドキュメントに対し作業に取り掛かる旨コメントしてください。
-2. 作業ドキュメントは原文の英語ドキュメントをコピーし、翻訳を進めるにあたりそれをコメントアウトする形で勧めてください。（[参考](https://raw.githubusercontent.com/open-telemetry/docs-ja/master/specification/library-guidelines.md)）
+2. 作業ドキュメントは原文の英語ドキュメントをコピーし、翻訳を進めるにあたりそれをコメントアウトする形で勧めてください。([参考](https://raw.githubusercontent.com/open-telemetry/docs-ja/master/specification/library-guidelines.md))
 4. 作業中は `WIP` をつけたブランチを作成しPRを早めに出してください。
 5. Reviewerがレビューを行ってapproveされるまで修正をお願いします。
 6. ApproveされたものはCODEOWNERSの誰かがsquash mergeします。

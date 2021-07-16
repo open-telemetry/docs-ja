@@ -1,0 +1,127 @@
+groups:
+  - id: network
+    prefix: net
+    brief: >
+        これらの属性は、ネットワーク関連のあらゆる操作に使用できます。
+    attributes:
+      - id: transport
+        type:
+          allow_custom_values: false
+          members:
+            - id: ip_tcp
+              value: "ip_tcp"
+            - id: ip_udp
+              value: "ip_udp"
+            - id: ip
+              value: "ip"
+              brief: '他の IP-based プロトコル'
+            - id: unix
+              value: "unix"
+              brief: 'Unix Domain socket. 下記参照'
+            - id: pipe
+              value: "pipe"
+              brief: 'Named あるいは anonymous pipe. 下記注釈参照'
+            - id: inproc
+              value: "inproc"
+              brief: 'In-process communication.'
+              note: >
+                通常、ネットワークの属性が期待される場合に、「実際の」ネットワークプロトコルを使用しないin-processの通信のみが存在することを示します。通常、この場合、他のネットワーク属性はすべて省くことができます。
+            - id: other
+              value: "other"
+              brief: 'その他 (non IP-based).'
+        brief: >
+          Transport protocol used. 下記注釈参照。
+        examples: 'ip_tcp'
+      - id: peer.ip
+        type: string
+        brief: >
+          相手のリモートアドレス(IPv4ではドット10進数、IPv6では[RFC5952](https://tools.ietf.org/html/rfc5952)
+        examples: '127.0.0.1'
+      - id: peer.port
+        type: int
+        brief: 'リモートのポート番号'
+        examples: [80, 8080, 443]
+      - id: peer.name
+        type: string
+        brief: 'リモートのホスト名あるいは類似の文字列。下記注釈参照'
+        examples: 'example.com'
+      - id: host.ip
+        type: string
+        brief: '`net.peer.ip`と同じですが、ホストのIPを指定します。マルチIPのホストの場合に便利です。'
+        examples: '192.168.0.1'
+      - id: host.port
+        type: int
+        brief: '`net.peer.port`と同じですが、ホストのポートを指定します。'
+        examples: 35555
+      - id: host.name
+        type: string
+        brief: 'ローカルのホスト名あるいは類似の文字列 下記注釈参照'
+        examples: 'localhost'
+  - id: peer
+    prefix: peer
+    brief: "あるリモートサービスにアクセスする操作"
+    attributes:
+      - id: service
+        type: string
+        brief: >
+          リモートサービスの[`service.name`](../../resource/semantic_conventions/README.md#service)を指定します。リモートサービスの実際の `service.name` リソース属性があれば、それと等しくすべきです(SHOULD)。
+        examples: "AuthTokenCache"
+  - id: identity
+    prefix: enduser
+    brief: >
+        これらの属性は、認証および/または認可されたエンドユーザーとのあらゆる操作に使用できます。
+    attributes:
+      - id: id
+        type: string
+        brief: >
+          システム外からのインバウンドリクエストのアクセストークンまたは[Authorization](https://tools.ietf.org/html/rfc7235#section-4.2)ヘッダーから抽出したユーザー名またはclient_id。
+        examples: 'username'
+      - id: role
+        type: string
+        brief: 'トークンやアプリケーションのセキュリティコンテキストから抽出された、クライアントがリクエストを行う際の実際の役割/想定される役割。'
+        examples: 'admin'
+      - id: scope
+        type: string
+        brief: >
+          トークンやアプリケーションのセキュリティコンテキストから抽出された、クライアントが現在所有しているスコープや付与された権限。この値は、[OAuth 2.0 Access Token](https://tools.ietf.org/html/rfc6749#section-3.3)に関連付けられたスコープ、または[SAML 2.0 Assertion](http://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html)の属性値に由来するものです。
+        examples: 'read:message, write:files'
+  - id: thread
+    prefix: thread
+    brief: >
+      これらの属性は、Spanを開始したスレッドに関する情報を保存するためのあらゆる操作に使用できます。
+    attributes:
+      - id: id
+        type: int
+        brief: >
+          現在の「管理された」スレッドID(OSのスレッドIDとは異なります)。
+        examples: 42
+      - id: name
+        type: string
+        brief: >
+          現在のスレッド名
+        examples: main
+  - id: code
+    prefix: code
+    brief: >
+      これらの属性により、コードユニットを報告することができます。その結果、Spanに関するより多くの情報を提供することができます。
+    attributes:
+      - id: function
+        type: string
+        brief: >
+          メソッド名、関数名、またはそれに相当するもの(通常はコードユニット名の最右端)。
+        examples: serveRequest
+      - id: namespace
+        type: string
+        brief: >
+          `code.function`が定義されている「名前空間」です。通常は、修飾されたクラスやモジュールの名前で、 `code.namespace` + 何かの区切り文字 + `code.function` がコードユニットの一意な識別子になります。
+        examples: com.example.MyHttpService
+      - id: filepath
+        type: string
+        brief: >
+          コードユニットを可能な限り一意に識別するためのソースコードファイル名(絶対ファイルパスが望ましい)。
+        examples: /usr/local/MyApplication/content_root/app/index.php
+      - id: lineno
+        type: int
+        brief: >
+          `code.filepath` の中で、操作を表すのに最適な行番号です。これは `code.function` で指定されたコードユニット内を指すべきです。
+        examples: 42

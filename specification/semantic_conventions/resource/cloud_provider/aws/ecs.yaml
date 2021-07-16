@@ -1,0 +1,42 @@
+groups:
+  - id: aws.ecs
+    prefix: aws.ecs
+    brief: >
+      AWS Elastic Container Service(ECS)が利用するResource。
+    attributes:
+      - id: container.arn
+        type: string
+        brief: >
+          [ECSコンテナインスタンス](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_instances.html)のAmazon Resource Name(ARN)。
+        examples: ['arn:aws:ecs:us-west-1:123456789123:container/32624152-9086-4f0e-acae-1a75b14fe4d9']
+      - id: cluster.arn
+        type: string
+        brief: >
+          [ECSクラスタ](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/clusters.html)のARN。
+        examples: ['arn:aws:ecs:us-west-2:123456789123:cluster/my-cluster']
+      - id: launchtype
+        type:
+          allow_custom_values: false
+          members:
+            - id: ec2
+              value: "ec2"
+            - id: fargate
+              value: "fargate"
+        brief: >
+          ECSタスクの[起動タイプ](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)。
+        examples: ['ec2', 'fargate']
+      - id: task.arn
+        type: string
+        brief: >
+          [ECSタスク定義](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html)のARN。
+        examples: ['arn:aws:ecs:us-west-1:123456789123:task/10838bed-421f-43ef-870a-f43feacbbb5b']
+      - id: task.family
+        type: string
+        brief: >
+          このタスク定義が属するタスク定義ファミリ。
+        examples: ['opentelemetry-family']
+      - id: task.revision
+        type: string
+        brief: >
+          このタスク定義のリビジョン
+        examples: ["8", "26"]
