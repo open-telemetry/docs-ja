@@ -76,7 +76,7 @@ Remote procedure calls can only be represented with these semantic conventions, 
 The _span name_ MUST be the full RPC method name formatted as:
 -->
 
-_span name_は、以下のようにフォーマットされた完全なRPCメソッド名でなければなりません(MUST)。
+_span name_ は、以下のようにフォーマットされた完全なRPCメソッド名でなければなりません(MUST)。
 
 ```
 $package.$service/$method

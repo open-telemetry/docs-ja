@@ -157,7 +157,7 @@ Examples of `peer.service` that users may specify:
 ## General identity attributes
 -->
 
-## 一般的なアイデンティ属性
+## 一般的なアイデンティティ属性
 
 <!--
 These attributes may be used for any operation with an authenticated and/or authorized enduser.
