@@ -758,7 +758,7 @@ an interface like the java example below (name of the interface MAY be
 extension points for two methods, one to generate a `SpanId` and one for `TraceId`.
 -->
 
-SDKは、以下のJavaの例のようなインターフェースのカスタム実装を可能にすることで、この機能を提供してもかまいません(インターフェースの名前は`IdGenerator`でもよく(MAY)、メソッドの名前は[SpanContext](./api.md#retrieving-the-traceid-and-spanid)と一致しなければなりません(MUST))。
+SDKは、以下のJavaの例のようなインターフェースのカスタム実装を可能にすることで、この機能を提供しても構いません(インターフェースの名前は`IdGenerator`でも構いませんが(MAY)、メソッドの名前は[SpanContext](./api.md#retrieving-the-traceid-and-spanid)と一致しなければなりません(MUST))。
 
 <!--
 ```java
@@ -833,21 +833,6 @@ in the SDK:
 -->
 
 以下の図は、`SpanProcessor`とSDKの他のコンポーネントとの関係を示しています。
-
-<!--
-  +-----+--------------+   +-------------------------+   +-------------------+
-  |     |              |   |                         |   |                   |
-  |     |              |   | Batching Span Processor |   |    SpanExporter   |
-  |     |              +---> Simple Span Processor   +--->  (JaegerExporter) |
-  |     |              |   |                         |   |                   |
-  | SDK | Span.start() |   +-------------------------+   +-------------------+
-  |     | Span.end()   |
-  |     |              |
-  |     |              |
-  |     |              |
-  |     |              |
-  +-----+--------------+
--->
 
 ```
   +-----+--------------+   +-------------------------+   +-------------------+

@@ -325,7 +325,7 @@ Furthermore, it is strongly recommended to add the [`net.transport`][] attribute
 These attributes should be set to the broker to which the message is sent/from which it is received.
 -->
 
-さらに、[ネットワーク属性][]の`net.peer.port`を推奨します。さらに、[net.transport`][]属性を追加し、特にプロセス中のキューイングシステム([Hangfire][]など)の場合は、そのガイドラインに従うことを強く推奨します。これらの属性には、メッセージの送信先/受信先のブローカーを設定する必要があります。
+さらに、[ネットワーク属性][]の`net.peer.port`を推奨します。さらに、[`net.transport`][]属性を追加し、特にプロセス中のキューイングシステム([Hangfire][]など)の場合は、そのガイドラインに従うことを強く推奨します。これらの属性には、メッセージの送信先/受信先のブローカーを設定する必要があります。
 
 <!--
 [network attributes]: span-general.md#general-network-connection-attributes
@@ -365,7 +365,7 @@ Even though in that case one might think that the processing span's kind should 
 Instead span kind should be set to either `CONSUMER` or `SERVER` according to the rules defined above.
 -->
 
-_receive_Spanはメッセージの受信にかかった時間を追跡し、_process_Spanはメッセージの処理にかかった時間を追跡するのに使います。なお、`messaging.operation` = `process` である1つまたは複数のSpanは、`messaging.operation` = `receive` のSpanの子であることが多いです。メッセージの受信と処理の区別は、必ずしも特別な関心事ではなく、フレームワークの中に隠されていることもあるので(上記の[メッセージ消費](#メッセージ消費)のセクションを参照)、この属性は省くことができます。特にバッチ受信やバッチ処理(後述の[バッチ受信](#バッチ受信)や[バッチ処理](#バッチ処理)の例を参照)では、この属性は設定されるべきです(SHOULD)。この場合、処理Spanのkindを`INTERNAL`にすべきだと考えるかもしれませんが、そのkindは使用してはいけません(MUST NOT)。代わりに、Spanのkindは、上記で定義されたルールに従って、`CONSUMER`または`SERVER`のいずれかに設定する必要があります。
+_receive_ Spanはメッセージの受信にかかった時間を追跡し、_process_ Spanはメッセージの処理にかかった時間を追跡するのに使います。なお、`messaging.operation` = `process` である1つまたは複数のSpanは、`messaging.operation` = `receive` のSpanの子であることが多いです。メッセージの受信と処理の区別は、必ずしも特別な関心事ではなく、フレームワークの中に隠されていることもあるので(上記の[メッセージ消費](#メッセージ消費)のセクションを参照)、この属性は省くことができます。特にバッチ受信やバッチ処理(後述の[バッチ受信](#バッチ受信)や[バッチ処理](#バッチ処理)の例を参照)では、この属性は設定されるべきです(SHOULD)。この場合、処理Spanのkindを`INTERNAL`にすべきだと考えるかもしれませんが、そのkindは使用してはいけません(MUST NOT)。代わりに、Spanのkindは、上記で定義されたルールに従って、`CONSUMER`または`SERVER`のいずれかに設定する必要があります。
 
 <!--
 ### Attributes specific to certain messaging systems
@@ -384,7 +384,7 @@ In RabbitMQ, the destination is defined by an _exchange_ and a _routing key_.
 `messaging.destination` MUST be set to the name of the exchange. This will be an empty string if the default exchange is used.
 -->
 
-RabbitMQでは、宛先は_exchange_と_routing key_で定義されます。`messaging.destination`には、Exchangeの名前を設定しなければなりません(MUST)。デフォルトの取引所を使用する場合は、空の文字列になります。
+RabbitMQでは、宛先は _exchange_ と _routing key_ で定義されます。`messaging.destination`には、Exchangeの名前を設定しなければなりません(MUST)。デフォルトの取引所を使用する場合は、空の文字列になります。
 
 
 <!-- semconv messaging.rabbitmq -->
