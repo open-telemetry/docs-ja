@@ -17,7 +17,7 @@ OpenTelemetry documents Japanese translation poject
 
 * 訳語一覧: [wikiのDictionary](https://github.com/open-telemetry/docs-ja/wiki/Dictionary) で英語と日本語の対訳の一覧を作成しているので、翻訳時にこちらに揃えてください。
 * 助動詞について: 原文はBCP 14に準ずると[明記しているので](https://github.com/open-telemetry/opentelemetry-specification#notation-conventions-and-compliance)、日本語訳もそれに従います。
-  * 参照: https://www.ipa.go.jp/security/rfc/RFC2119JA.html
+  * 参照: https://www.nic.ad.jp/ja/tech/ipa/RFC2119JA.html
 
 **TODO: textlintなどの方法である程度自動化する**
 
@@ -34,7 +34,7 @@ OpenTelemetry documents Japanese translation poject
 ## コントリビューションワークフロー
 
 1. Issueより対象のドキュメントに対し作業に取り掛かる旨コメントしてください。
-2. 作業ドキュメントは原文の英語ドキュメントをコピーし、翻訳を進めるにあたりそれをコメントアウトする形で勧めてください。([参考](https://raw.githubusercontent.com/open-telemetry/docs-ja/master/specification/library-guidelines.md))
+2. 作業ドキュメントは原文の英語ドキュメントをコピーし、翻訳を進めるにあたりそれをコメントアウトする形で勧めてください。([参考](https://raw.githubusercontent.com/open-telemetry/docs-ja/main/specification/specification/library-guidelines.md))
 4. 作業中は `WIP` をつけたブランチを作成しPRを早めに出してください。
 5. Reviewerがレビューを行ってapproveされるまで修正をお願いします。
 6. ApproveされたものはCODEOWNERSの誰かがsquash mergeします。
