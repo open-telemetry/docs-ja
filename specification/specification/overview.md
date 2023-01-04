@@ -347,8 +347,8 @@ Spanは、トランザクション内の操作を表します。各**Span**は�
 
 - 操作名
 - 開始と終了のタイムスタンプ
-- [**Attribute**] (./common/common.md#attributes): キーバリューペアのリスト
-- 0個以上の**Event**のセット。それぞれはそれ自体がタプル(timestamp, name, [**Attributes**](./common/common/common.md#attributes))です。名前は文字列でなければなりません
+- [**属性**](./common/common.md#属性): キーバリューペアのリスト
+- 0個以上の**Event**のセット。それぞれはそれ自体がタプル(timestamp, name, [**属性**](./common/common.md#属性))です。名前は文字列でなければなりません
 - 親の **Span** 識別子
 - 因果関係のある0以上の**Span**への[**Links**](#links-between-span) (関連する **Spans** の **SpanContext** を介して)
 - Spanを参照するために必要な **SpanContext** 情報。以下を参照してください
